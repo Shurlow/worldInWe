@@ -2,7 +2,9 @@
 console.log(__dirname)
 
 var React = require('react');
-var StoryBoard = React.createFactory(require('./components/StoryBoard'));
+var babel = require('babel')
+var code = babel.transform(require('./components/StoryBoard.jsx'))
+var StoryBoard = React.createFactory(code);
 
 var mount = document.getElementById('react-app-mount');
 

@@ -32,7 +32,11 @@ var StoryBoard = React.createClass({
 
   render: function() {
     return (
+    	<div>
     		<h1>Story Board!</h1>
+    		<p>{{this.state.}}</p>
+    	</div>
+
 			  // {this.state.stories.map(makeStoryItem)}
     )
   }

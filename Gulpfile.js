@@ -6,7 +6,7 @@ gulp.task('scripts', function () {
     gulp.src(['client/main.js'])
         .pipe(browserify({
             debug: true,
-            transform: [ 'reactify' ]
+            transform: [ 'reactify', 'babelify' ]
         }))
         .pipe(gulp.dest('./public'));
 

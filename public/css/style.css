@@ -1,8 +1,30 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 10px
 }
 
 a {
   color: #00B7FF;
+}
+
+.board {
+	/*background: red;*/
+	display: -webkit-flex;
+	display: flex;
+	flex-wrap: wrap;
+	/*flex-flow: row wrap;*/
+}
+
+.storybox {
+	color: orangered;
+	border: 5px solid grey;
+	/*padding: 2em;*/
+	width: 200px;
+	/*margin: 1em;*/
+	margin: auto;
+}
+
+.text {
+	padding: 1em;
 }

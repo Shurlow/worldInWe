@@ -60,7 +60,6 @@ function withConnection(cb){
     r.connect( {host: 'localhost', port: 28015, db: 'WorldInMe'}, function(err, conn) {
       if (err) {
         console.log(err)
-        throw(err)
       }
       else {
         console.log('  -- done. --')

@@ -22,6 +22,13 @@ exports.getStories = function(cb) {
   })
 }
 
+exports.getStory = function(id, cb) {
+  withConnection(function(conn) {
+    r.table('story').get(id)
+      .run(conn, cb)
+  })
+}
+
 exports.createUser = function(userObj, cb) {
   withConnection(function(conn) {
     r.table('user')

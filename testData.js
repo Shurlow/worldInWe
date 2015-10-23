@@ -22,10 +22,13 @@ function makeUser() {
 
 function makeStory(user) {
 	var story = {}
-	story.author = user.name
-	story.title = faker.name.title()
+	story.id = guid()
+	story.author_id = user.id
+	story.author_name = user.name
+	story.title = faker.lorem.sentence()
 	story.text = faker.lorem.paragraph()
 	story.time = Math.round( 1444000000 + Math.random() * (1000000 - 300000) + 300000 )
+	story.img = 'http://lorempixel.com/350/200/abstract/'
 	return story
 }
 

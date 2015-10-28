@@ -16,10 +16,9 @@ var StoryBoard = React.createClass({
 	},
 
 	componentDidMount: function() {
-		console.log('mounted')
 		var self = this
 		request
-			.get('http://localhost:3000/stories')
+			.get('http://localhost:3000/api')
 			.set('Content-Type', 'application/json')
 			.end(function(err, res) {
 				self.setState({
@@ -30,28 +29,12 @@ var StoryBoard = React.createClass({
 
 	makeStoryItem: function(item) {
 		return StoryBoardItem(item)
-		// return (
-		// 	<div onClick={this.handleClick(this)}>
-		// 		{StoryBoardItem(item)}
-		// 	</div>
-		// )
-		// return StoryBoardItem({img: item.img, title: item.title, author: item.author_name})
 	},
 
   render: function() {
     return (
-    	<div>
-    		<div className={headClass}>
-    			<img id='logo' src={'img/smallLogo.png'}></img>
-    			<a href="/stories">stories</a>
-					<a href="/about">about</a>
-    			<a href="/write">write</a>
-    		</div>
-    		<p className={medTextClass}>Sed dicit reprimique voluptatibus id, et usu soluta epicuri democritum. Putant quaeque habemus pri te. Vim te probo sadipscing eloquentiam, primis mollis ius ad. An sale congue mandamus nec. Scaevola probatus eam in, mei noluisse mandamus eu.</p>
-    		<div className={barClass}></div>
-	    	<div className={boardClass}>
-				  	{this.state.stories.map(this.makeStoryItem)}
-	    	</div>
+    	<div className={boardClass}>
+				{this.state.stories.map(this.makeStoryItem)}
 	    </div>
     )
   }

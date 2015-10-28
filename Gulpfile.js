@@ -1,32 +1,57 @@
+var source = require('vinyl-source-stream');
 var gulp = require('gulp');
+var gutil = require('gulp-util');
 var browserify = require('browserify');
+var reactify = require('reactify');
 var watchify = require('watchify');
-var reactify = require('reactify'); 
-var source = require('vinyl-source-stream'); 
-// var concat = require('gulp-concat');
- 
-function build() {
-  var bundler = browserify({
-    entries: './client/main.js',
-    transform: [reactify],
-    cache: {}, packageCache: {}, fullPaths: true // req for watchify
-  })
+var babelify = require("babelify");
+var notify = require("gulp-notify");
 
-  var watcher = watchify(bundler)
-  watcher
-    .on('update', function () {
-      console.log('Updating bundle...');
-      watcher.bundle()
-        .pipe(source('main.js'))
-        .pipe(gulp.dest('./public/js'));
-        console.log('done.');
-    })
-    .bundle() // Create the initial bundle when starting the task
-    .pipe(source('main.js'))
-    .pipe(gulp.dest('./public/js'));
-    console.log('* watching for changes *')
+var scriptsDir = './client';
+var buildDir = './public/js';
 
-  return watcher;
-};
 
-gulp.task('default', build);
+function handleErrors() {
+  var args = Array.prototype.slice.call(arguments);
+  notify.onError({
+    title: "Compile Error",
+    message: "<%= error.message %>"
+  }).apply(this, args);
+  this.emit('end'); // Keep gulp from hanging on this task
+}
+
+
+// Based on: http://blog.avisi.nl/2014/04/25/how-to-keep-a-fast-build-with-browserify-and-reactjs/
+function buildScript(file, watch) {
+  var props = {
+    entries: [scriptsDir + '/' + file],
+    debug: true,
+    cache: {}, packageCache: {}, fullPaths: true, // req for watchify
+    transform: [babelify, reactify]
+  };
+  var bundler = watch ? watchify(browserify(props)) : browserify(props);
+  // bundler.transform([ reactify, babelify ]);
+  function rebundle() {
+    var stream = bundler.bundle();
+    return stream.on('error', handleErrors)
+    .pipe(source(file))
+    .pipe(gulp.dest(buildDir + '/'));
+  }
+  bundler.on('update', function() {
+    rebundle();
+    gutil.log('Rebundle...');
+  });
+  return rebundle();
+}
+
+
+gulp.task('build', function() {
+  return buildScript('main.js', false);
+});
+
+
+gulp.task('default', ['build'], function() {
+  return buildScript('main.js', true);
+});
+
+// https://gist.github.com/Sigmus/9253068

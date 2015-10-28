@@ -28,7 +28,7 @@ function makeStory(user) {
 	story.title = faker.lorem.sentence()
 	story.text = faker.lorem.paragraph()
 	story.time = Math.round( 1444000000 + Math.random() * (1000000 - 300000) + 300000 )
-	story.img = 'http://lorempixel.com/350/200/abstract/'
+	story.img = 'http://lorempixel.com/300/200/abstract/'
 	return story
 }
 

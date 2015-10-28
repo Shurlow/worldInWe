@@ -11,4 +11,8 @@ router.get('/', function(req, res, next) {
 	res.render('index', { reactOutput: 'Hi' });	
 });
 
+router.get('/w/*', function(req, res, next) {
+	res.render('index', { reactOutput: 'Hi W' });	
+});
+
 module.exports = router;

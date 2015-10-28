@@ -115,7 +115,7 @@ hr {
 	border: 3px solid #2d2d2d;
 	border-radius: 3px;
 	/*margin: 10px;*/
-	margin: 6px auto;
+	margin: 8px auto;
 	padding: 8px;
 	width: 300px;
 	cursor: pointer;
@@ -125,6 +125,50 @@ hr {
 	border: 3px solid #B2B2B2;
 	border-radius: 3px;
 	box-shadow: 2px 2px;
+}
+
+.flex-center {
+	display: flex;
+	/*justify-content: center;*/
+	/*align-items: flex-start;*/
+	flex-direction: column;
+}
+
+
+/*Post page*/
+
+.post {
+	margin-top: 20px;
+	padding-left: 8em;
+	padding-right: 8em;
+}
+
+textarea {
+	font-family: 'Droid Serif', serif;
+	font-size: 17px;
+	min-width: 60%;
+	margin-top: 20px;
+	height: 250px;
+	border: solid 3px black;
+}
+
+textarea:focus {
+	outline: none;
+}
+
+.post h1 {
+	/*align-self: flex-start;*/
+}
+
+.button {
+	/*align-self: flex-end;*/
+	font-family: Porter;
+	margin-top: 20px;
+	max-width: 10%;
+	text-align: center;
+	font-size: 25px;
+	padding: 8px;
+	border: solid 3px black;
 }
 
 /*.bar {

@@ -9,8 +9,7 @@ var bodyParser = require('body-parser');
 // require("node-jsx").install();
 require('babel/register')
 
-var routes = require('./routes/index');
-var stories = require('./routes/stories');
+
 
 var app = express();
 
@@ -26,8 +25,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/api', stories);
+app.use('/', require('./routes/index'));
+app.use('/api', require('./routes/api.js'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

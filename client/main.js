@@ -4,7 +4,7 @@ import { Router, Route, Link, Redirect } from 'react-router'
 import { createHistory, useBasename } from 'history'
 
 const history = useBasename(createHistory)({
-  basename: '/worldInMe'
+  basename: '/w'
 })
 
 class App extends React.Component {
@@ -26,7 +26,7 @@ class Nav extends React.Component {
       	<div className="navlinks">
 		      <Link to='/about'>about</Link>
 		      <Link to='/stories'>stories</Link>
-		      <Link to='/about'>write</Link>
+		      <Link to='/post'>post</Link>
 		    </div>
         {this.props.children}
       </div>
@@ -46,13 +46,15 @@ class About extends React.Component {
 
 var StoryBoard = React.createFactory(require('./components/StoryBoard.jsx'))
 var Story = React.createFactory(require('./components/Story.jsx'))
+var Post = React.createFactory(require('./components/Post.jsx'))
 
 render((
   <Router history={history}>
     <Route path="/" component={App}>
       <Route path="about" component={About}/>
       <Route path="stories" component={StoryBoard}/>
-      <Route path="/stories/:id" component={Story}/>
+      	<Route path="/stories/:id" component={Story}/>
+      <Route path="post" component={Post}/>
     </Route>
   </Router>
 ), document.getElementById('react-app-mount'))

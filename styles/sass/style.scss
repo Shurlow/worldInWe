@@ -1,0 +1,98 @@
+// Screen
+// ======
+
+@import "compass/css3";
+@import "susy";
+
+$susy: (
+	columns: 12,
+	gutters: 1 / 4,
+	global-box-sizing: border-box
+);
+
+* {
+	font-family: Helvetica;
+}
+
+html {
+	overflow-y: scroll;
+}
+
+body {
+	background-color: #EEEEEE;
+	overflow: auto;
+}
+
+h1 {
+	@include span(4);
+	margin-bottom: 0;
+	font-size: 30px;
+	color: #378BFF;
+}
+
+ul {
+	li {
+		list-style: none;
+	}
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+nav {
+	@include container(90%);
+	border-bottom: solid 4px black;
+  margin-bottom: gutter();
+  margin-top: gutter();
+
+  ul {
+  	margin-bottom: 0;
+  	padding: 3px;
+  	@include span(3 last);
+  }
+
+  li {
+  	font-size: 22px;
+  	display: inline-block;
+  	margin-left: 2rem;
+
+  	&:hover {
+  		color: orangered;
+  	}
+
+  }
+
+}
+
+.content {
+	@include container(80%);
+}
+
+.storyboard {
+	margin-top: gutter();
+	@include container(80%);
+	padding-right: 40px;
+
+	li {
+		@include gallery(4);
+		@include container();
+		border: 3px solid white;
+		@include border-radius(4px, 4px);
+		@include box-shadow(#222222 1px 1px 4px);
+		margin-bottom: gutter();
+
+
+		&:hover {
+			@include box-shadow(#000000 2px 2px 8px);
+			margin-top: -1px;
+		}
+
+		img {
+			@include span(1 of 1)
+		}
+
+	}
+
+}

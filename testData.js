@@ -3,10 +3,10 @@ var faker = require('faker')
 
 console.log('Creating fake stories')
 
-for (var i = 0; i <= 1; i++) {
+for (var i = 0; i < 3; i++) {
 	var user = makeUser()
 	console.log(user)
-	for (var i = 0; i <= 2; i++) {
+	for (var i = 0; i < 2; i++) {
 		var story = makeStory(user)
 		db.postStory(story, db.handleError)
 		db.createUser(user, db.handleError)

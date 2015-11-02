@@ -4,3 +4,5 @@ etc/
 node_modules/
 rethinkdb_data
 npm-debug.log
+savedStyles/
+.sass-cache/

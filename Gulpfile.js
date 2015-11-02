@@ -1,5 +1,6 @@
 var source = require('vinyl-source-stream');
 var gulp = require('gulp');
+var compass = require('gulp-compass');
 var gutil = require('gulp-util');
 var browserify = require('browserify');
 var reactify = require('reactify');
@@ -44,13 +45,32 @@ function buildScript(file, watch) {
   return rebundle();
 }
 
+function styles() {
+  var opt = {
+    config_file: './styles/config.rb',
+    css: './public/css',
+    sass: 'styles/sass'
+  }
+  var preprocess = function() {
+    gutil.log('Compiling Sass');
+    return gulp.src('styles/*.scss')
+      .pipe(compass(opt).on('error', handleErrors))
+      .pipe(gulp.dest('public/css/'))
+  }
+  return preprocess()
+}
+
 
 gulp.task('build', function() {
   return buildScript('main.js', false);
 });
 
+gulp.task('styles', function() {
+  styles()
+  return gulp.watch('styles/sass/*.scss', styles);
+});
 
-gulp.task('default', ['build'], function() {
+gulp.task('default', ['build', 'styles'], function() {
   return buildScript('main.js', true);
 });
 

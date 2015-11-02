@@ -33,9 +33,9 @@ var StoryBoard = React.createClass({
 
   render: function() {
     return (
-    	<div className={boardClass}>
+    	<ul className="storyboard">
 				{this.state.stories.map(this.makeStoryItem)}
-	    </div>
+	    </ul>
     )
   }
 

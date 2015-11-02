@@ -8,16 +8,13 @@ var StoryBoardItem = React.createClass({
 
   render: function() {
     return (
-    	<Link to={'/stories/'+this.props.id}>
-    	<div className={storybox}>
+      <li>
+        <Link to={'/stories/'+this.props.id}>
 		  		<img src={this.props.img}></img>
-		    	<p className={textClass}>{this.props.title}</p>
-		    	<p className={textClass}> - {this.props.author_name}</p>
-      </div>
-      </Link>
+        </Link>
+      </li>
     )
   }
-
 })
 
 module.exports = StoryBoardItem

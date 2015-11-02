@@ -31,7 +31,7 @@ var Post = React.createClass({
   render: function() {
     console.log(this.state)
     return (
-    	<div className="post flex-center">
+    	<div className="content flex-center">
     		<h1>Posy your story.</h1>
           <textarea type="text" value={this.state.text} onChange={this.handleChange} onfocus=""></textarea>
           <div className="button" onClick={this.handleClick}>Post</div>

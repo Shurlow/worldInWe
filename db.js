@@ -22,6 +22,19 @@ exports.getStories = function(cb) {
   })
 }
 
+exports.getFeatured = function(cb) {
+  withConnection(function(conn) {
+    r.table('story')
+      .run(conn).then(function(cursor) {
+        return cursor.toArray()
+      }).then(function(array) {
+        cb(array)
+      }).error(function(err) {
+        console.log('Error getting stories:', err)
+      })
+  })
+}
+
 exports.getStory = function(id, cb) {
   withConnection(function(conn) {
     r.table('story').get(id)

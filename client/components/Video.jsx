@@ -1,13 +1,12 @@
 var React = require('react')
-var request = require('superagent')
 
-var Post = React.createClass({
-
+var Video = React.createClass({
+  
   loadVideo: function() {
     
     function onPlayerReady(event) {
       console.log('rdy')
-      event.target.playVideo();
+      // event.target.playVideo();
     }
 
     var done = false;
@@ -24,7 +23,7 @@ var Post = React.createClass({
     var player = new YT.Player('player', {
       height: '390',
       width: '640',
-      videoId: 'M7lc1UVf-VE',
+      videoId: 'bkhLzHuUYmo',
       events: {
         'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange
@@ -37,15 +36,14 @@ var Post = React.createClass({
   },
 
   render: function() {
-    console.log(this.state)
     return (
-    	<div className="content flex-center">
-    		<h1>Here, a video for you</h1>
-          <div id="player"></div>
-      </div>
+      <li>
+        <h2>{this.props.title}</h2>
+        <div id="player"></div>
+      </li>
     )
   }
 
 })
 
-module.exports = Post
+module.exports = Video

@@ -6,7 +6,12 @@ var storyMain = classnames({'story': true})
 var Story = React.createClass({
 
   getInitialState: function() {
-    return { text: "yoyo" }
+    return {
+      text: "",
+      author: "",
+      title: "",
+      img: ""
+    }
   },
 
   componentDidMount: function() {
@@ -17,7 +22,10 @@ var Story = React.createClass({
       .end(function(err, res) {
         console.log(err)
         self.setState({
-          text: res.body.text
+          text: res.body.text,
+          author: res.body.author_name,
+          title: res.body.title,
+          img: res.body.img,
         })
       })
   },
@@ -26,8 +34,12 @@ var Story = React.createClass({
     console.log(this.state)
     return (
     	<div className="story">
-    		<h1>Hi</h1>
-        <p>{this.state.text}</p>
+        <img src={this.state.img}></img>
+        <div className="text">
+      		<h2>{this.state.title}</h2>
+          <h3> - {this.state.author}</h3>
+          <p>{this.state.text}</p>
+        </div>
       </div>
     )
   }

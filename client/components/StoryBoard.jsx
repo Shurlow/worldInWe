@@ -33,9 +33,15 @@ var StoryBoard = React.createClass({
 
   render: function() {
     return (
-    	<ul className="storyboard">
-				{this.state.stories.map(this.makeStoryItem)}
-	    </ul>
+    	<div>
+    		<div className="biglead blue">
+          <h2>Stories</h2>
+        </div>
+    		<hr/>
+	    	<ul className="storyboard">
+					{this.state.stories.map(this.makeStoryItem)}
+		    </ul>
+		  </div>
     )
   }
 

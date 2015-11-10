@@ -1,8 +1,4 @@
 var React = require('react')
-var page = require('page')
-var classnames = require('classnames')
-var storybox = classnames({'storybox': true})
-var textClass = classnames({'text': true})
 
 var StoryBoardItem = React.createClass({
 
@@ -15,8 +11,14 @@ var StoryBoardItem = React.createClass({
   render: function() {
 		// return React.createElement("div", null, React.createElement("h1", null, "Story Board!"), this.state.stories.map(this.makeStoryItem))
     return (
-    	<div className={storybox} onClick={this.handleClick.bind(null, this.props.id)}>
-        <p>About Page</p>
+      <div>
+        <div className="biglead yellow">
+          <h2>Who are we?</h2>
+        </div>
+      	<div className="content">
+          <h2>About Us</h2>
+          <p>Eos ex esse oporteat, ad mel alii patrioque. Sit sonet albucius pertinacia ne, veri mazim periculis mea an. Vim ipsum timeam philosophia ea, cu tale paulo mel. Senserit temporibus complectitur te sed, ad mea altera mnesarchum comprehensam, cu nec impetus perpetua. Mei tota pericula necessitatibus cu, ea harum mucius malorum sea, ea usu novum corpora deterruisset.</p>
+        </div>
       </div>
     )
   }

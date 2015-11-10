@@ -10,6 +10,17 @@ $susy: (
 	global-box-sizing: border-box
 );
 
+$white: #f5f5f5;
+$lightgrey: #d8d8d8;
+$darkgrey: #424242;
+$blue: #378BFF;
+
+@mixin light-border {
+	border: 2px solid;
+	border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+	@include border-radius(3px);
+}
+
 * {
 	font-family: Helvetica;
 }
@@ -19,15 +30,24 @@ html {
 }
 
 body {
-	background-color: #EEEEEE;
+	background-color: #fff;
+	color: black;
+	margin: 0;
 	overflow: auto;
 }
 
 h1 {
-	@include span(4);
-	margin-bottom: 0;
 	font-size: 30px;
 	color: #378BFF;
+}
+
+h2 {
+	margin: 0;
+	font-size: 24px;
+}
+
+p {
+	font-size: 20px;
 }
 
 ul {
@@ -41,58 +61,194 @@ a {
 	text-decoration: none;
 }
 
+hr {
+	margin-top: gutter() * 4;
+	border: 0;
+	height: 2px;
+	width: 80%;
+	background: #333;
+  background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+
+//Nav Style
 nav {
-	@include container(90%);
-	border-bottom: solid 4px black;
-  margin-bottom: gutter();
-  margin-top: gutter();
+	@include container(full);
+	border-bottom: solid 1px #DDDDDD;
+
+  h1 {
+  	@include span(4);
+  	margin: 0;
+  	margin-left: 1em;
+		padding: 8px;
+  }
 
   ul {
-  	margin-bottom: 0;
-  	padding: 3px;
+  	
   	@include span(3 last);
-  }
+  	margin: 0;
 
-  li {
-  	font-size: 22px;
-  	display: inline-block;
-  	margin-left: 2rem;
+	  a {
+	  	color: rgba(0, 0, 0, 0.6);
+	  	margin: 0;
+	  	padding-top: 18px;
+	  	padding-bottom: 12px;
+	  	display: inline-block;  	
+	  	font-size: 20px;
+	  	margin-left: 2rem;
 
-  	&:hover {
-  		color: orangered;
-  	}
+	  	&:hover {
+	  		color: #424242;
+	  	}
+	  }
+	}
+}
 
-  }
-
+.link-active {
+	border-bottom: 1px solid #FF4751;
+	color: rgba(0, 0, 0, 0.8);
 }
 
 .content {
 	@include container(80%);
+	margin-top: gutter() * 2;
 }
 
+
+// Storyboard Style
 .storyboard {
-	margin-top: gutter();
-	@include container(80%);
+	@extend .content;
 	padding-right: 40px;
 
 	li {
 		@include gallery(4);
 		@include container();
-		border: 3px solid white;
-		@include border-radius(4px, 4px);
-		@include box-shadow(#222222 1px 1px 4px);
+		@include light-border;
 		margin-bottom: gutter();
-
+		position: relative;
 
 		&:hover {
-			@include box-shadow(#000000 2px 2px 8px);
+			@include box-shadow(#A0A0A0 1px 1px 2px);
 			margin-top: -1px;
 		}
 
 		img {
-			@include span(1 of 1)
+			@include span(1 of 1);
+		}
+
+		.textover {
+			width: 100%;
+			color: white;
+			position: absolute;
+			bottom: gutter();
+			background-color: rgba(0,0,0, 0.7);
+			// left: gutter();
+
+			h3 {
+				padding: 10px;
+				
+			}
+
 		}
 
 	}
 
 }
+
+// Single-story style
+.story {
+	@include container(80%);
+
+	img {
+		@include span(full);
+		margin-bottom: gutter(4);
+	}
+}
+
+.text {
+	clear: both;
+	width: span(8);
+	margin: 0 auto;
+
+}
+
+// Post story style
+.biglead {
+	width: 100%;
+	height: 400px;
+	color: white;
+	position: relative;
+
+	h2 {
+		position: absolute;
+		font-size: 48px;
+		bottom: 0;
+		left: 0;
+		padding: gutter();
+	}
+}
+
+.blue {
+	background-color: #00aedb;
+}
+
+.red {
+	background-color: #d11141;
+}
+
+.orange {
+	background-color: #f37735;
+}
+
+.yellow {
+	background-color: #ffc425;
+}
+
+.post {
+	@include container(80%);
+
+	textarea {
+		font-size: 20px;
+		width: 80%;
+		margin-top: 2em;
+	}
+
+	div {
+		@include span(1 of 4 first);
+		@include light-border;
+		padding: gutter();
+		height: 20rem;
+		margin: gutter();
+
+		p {
+			font-size: 16px;
+		}
+
+	}
+
+	.button {
+		height: 40px;
+		line-height: 40px;
+		text-align: center;
+		margin-top: gutter();
+
+		&:hover {
+			margin-top: gutter() - 0.2;
+			@include box-shadow(#bbb 1px 1px 3px);
+			cursor: pointer;
+		}
+
+	}
+	.name .title {
+		height: 0.5em;
+	}
+
+	.body {
+		height: 6em;
+	}
+
+}
+
+
+
+
+

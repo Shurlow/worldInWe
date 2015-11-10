@@ -8,6 +8,12 @@ router.get('/', function(req, res, next) {
 	})
 });
 
+router.get('/featured', function(req, res, next) {
+	db.getFeatured(function(data) {
+		res.json(data);
+	})
+});
+
 router.get('/:story_id', function(req, res, next) {
 	var id = req.params.story_id
 	db.getStory(id, function(err, data) {

@@ -15,20 +15,21 @@ var Home = React.createClass({
       .set('Content-Type', 'application/json')
       .end(function(err, res) {
         self.setState({
-          stories: res.body
+          featured: res.body
         })
       })
   },
 
   makeFeaturedStory: function(item) {
-    return Video({
-      title: item.title,
-      video: item.video,
-    })
+    return (
+      <li>
+        <h2>Video Title</h2>
+        {Video({title: item.title, video: item.video})}
+      </li>
+      )
   },
 
   render: function() {
-    console.log(this.state)
     return (
     	<div>
         <div className="biglead red">

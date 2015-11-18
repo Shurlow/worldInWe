@@ -10,10 +10,10 @@ var StoryBoardItem = React.createClass({
     return (
       <li>
         <Link to={'/stories/'+this.props.id}>
-		  		<img src={this.props.img}></img>
           <div className="textover">
             <h3>{this.props.title}<br/> - {this.props.author_name}</h3>
           </div>
+		  		<img src={this.props.img}></img>
         </Link>
       </li>
     )

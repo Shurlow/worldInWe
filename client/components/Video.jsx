@@ -23,7 +23,7 @@ var Video = React.createClass({
     var player = new YT.Player('player', {
       height: '390',
       width: '640',
-      videoId: 'bkhLzHuUYmo',
+      videoId: this.props.video,
       events: {
         'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange
@@ -36,12 +36,7 @@ var Video = React.createClass({
   },
 
   render: function() {
-    return (
-      <li>
-        <h2>{this.props.title}</h2>
-        <div id="player"></div>
-      </li>
-    )
+    return <div id="player"></div>
   }
 
 })

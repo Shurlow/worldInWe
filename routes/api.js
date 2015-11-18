@@ -14,7 +14,7 @@ router.get('/featured', function(req, res, next) {
 	})
 });
 
-router.get('/:story_id', function(req, res, next) {
+router.get('/:story_id', function(req, res) {
 	var id = req.params.story_id
 	db.getStory(id, function(err, data) {
 
@@ -35,6 +35,20 @@ router.get('/:story_id', function(req, res, next) {
 		}
 	})
 });
+
+//Update indevidual story
+router.post('/:story_id', function(req, res) {
+	console.log('updating')
+	var id = req.params.story_id
+	db.updateStory(id, req.body, function(err, data) {
+		if (err) {
+			res.status(500).send('Error updating story object')
+		} else {
+			res.send('All good')
+		}
+	})
+});
+
 
 router.post('/story', function(req, res) {
 	var data = req.body

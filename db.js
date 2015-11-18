@@ -25,6 +25,7 @@ exports.getStories = function(cb) {
 exports.getFeatured = function(cb) {
   withConnection(function(conn) {
     r.table('story')
+      .hasFields('video')
       .run(conn).then(function(cursor) {
         return cursor.toArray()
       }).then(function(array) {
@@ -38,6 +39,15 @@ exports.getFeatured = function(cb) {
 exports.getStory = function(id, cb) {
   withConnection(function(conn) {
     r.table('story').get(id)
+      .run(conn, cb)
+  })
+}
+
+exports.updateStory = function(id, obj, cb) {
+  withConnection(function(conn) {
+    r.table('story')
+      .get(id)
+      .update(obj)
       .run(conn, cb)
   })
 }

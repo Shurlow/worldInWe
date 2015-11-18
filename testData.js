@@ -5,13 +5,24 @@ console.log('Creating fake stories')
 
 for (var i = 0; i < 3; i++) {
 	var user = makeUser()
+	db.createUser(user, handleError())
 	console.log(user)
 	for (var i = 0; i < 2; i++) {
 		var story = makeStory(user)
-		db.postStory(story, db.handleError)
-		db.createUser(user, db.handleError)
+		db.postStory(story, handleError())
 	};
-}
+};
+
+for (var i = 0; i < 2; i++) {
+	console.log('* making featured story')
+	var user = makeUser()
+	db.createUser(user, handleError())
+
+	var story = makeStory(user)
+	story.video = 'bkhLzHuUYmo'
+	db.postStory(story, handleError())
+	
+};
 
 function makeUser() {
 	var user = {}
@@ -28,10 +39,18 @@ function makeStory(user) {
 	story.title = faker.lorem.sentence()
 	story.text = faker.lorem.paragraphs() + "\n" + " \n" + faker.lorem.paragraphs() + '\n\n' + faker.lorem.paragraphs()
 	story.time = Math.round( 1444000000 + Math.random() * (1000000 - 300000) + 300000 )
-	story.img = 'http://lorempixel.com/800/450/people/' +  Math.round( Math.random() * (10 - 1) + 1 )
+	story.img = 'http://lorempixel.com/800/500/people/' +  Math.round( Math.random() * (10 - 1) + 1 )
 	return story
 }
 
+//Handles generic db response
+function handleError(error, cursor) {
+  if (error) {
+    console.log('DB ERROR:', error)
+  } else {
+    console.log('story posted successfully.')
+  }
+}
 
 function guid() {
   function s4() {

@@ -10,6 +10,7 @@ const history = useBasename(createHistory)({
 
 var StoryBoard = React.createFactory(require('./components/StoryBoard.jsx'))
 var Story = React.createFactory(require('./components/Story.jsx'))
+var Editable = React.createFactory(require('./components/Editable.jsx'))
 var Post = React.createFactory(require('./components/Post.jsx'))
 var Nav = React.createFactory(require('./components/Nav.jsx'))
 var Home = React.createFactory(require('./components/Home.jsx'))
@@ -33,6 +34,7 @@ render((
       <Route path="about" component={About}/>
       <Route path="stories" component={StoryBoard}/>
       	<Route path="/stories/:id" component={Story}/>
+      		<Route path="/stories/:id/editing" component={Editable}/>
       <Route path="post" component={Post}/>
     </Route>
   </Router>

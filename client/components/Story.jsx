@@ -1,16 +1,19 @@
 var React = require('react')
 var request = require('superagent')
 var classnames = require('classnames')
-var storyMain = classnames({'story': true})
+var clicked = classnames({'clicked': true})
+
+var B = React.createFactory(require('./Button.jsx'))
 
 var Story = React.createClass({
 
   getInitialState: function() {
     return {
       text: "",
-      author: "",
+      author_name: "",
       title: "",
-      img: ""
+      img: "",
+      editMode: false
     }
   },
 
@@ -20,25 +23,72 @@ var Story = React.createClass({
       .get('http://localhost:3000/api/' + this.props.params.id)
       .set('Content-Type', 'application/json')
       .end(function(err, res) {
-        console.log(err)
         self.setState({
           text: res.body.text,
-          author: res.body.author_name,
+          author_name: res.body.author_name,
           title: res.body.title,
           img: res.body.img,
         })
       })
   },
 
+  handleNameChange: function(e) {
+    this.setState({
+      author_name: e.target.textContent
+    })
+  },
+  handleTitleChange: function(e) {
+    this.setState({
+      title: e.target.textContent
+    })
+  },
+  handleTextChange: function(e) {
+    this.setState({
+      text: e.target.textContent
+    })
+  },
+
+  togleEditMode: function(e) {
+    console.log('Enter edit mode')
+    this.setState({
+      editMode: !this.state.editMode
+    })
+  },
+
+  saveEdits: function(e) {
+    console.log('Saving your work...', this.state)
+    request
+      .post('http://localhost:3000/api/' + this.props.params.id)
+      .set('Content-Type', 'application/json')
+      .send(this.state)
+      .end(function(err, res) {
+        if (err) return alert('Big Error!')
+        alert('Story Saved')
+      })
+  },
+
   render: function() {
-    console.log(this.state)
+    var btnClass = classnames({
+      'clicked': this.state.editMode,
+    });
+    var storyClass = classnames({
+      'story': true,
+      'editing': false,
+    });
+
     return (
-    	<div className="story">
-        <img src={this.state.img}></img>
-        <div className="text">
-      		<h2>{this.state.title}</h2>
-          <h3> - {this.state.author}</h3>
-          <p>{this.state.text}</p>
+      <div>
+        <ul className="buttonList">
+          <img src="/img/edit.png" onClick={this.togleEditMode} className={btnClass}></img>
+          <img src="/img/check.png" onClick={this.saveEdits}></img>
+        </ul>
+      	<div className={storyClass}>
+          <img src={this.state.img}></img>
+          <div className="text">
+        		<h2 contentEditable={this.state.editMode} onInput={this.handleTitleChange}>{this.state.title}</h2>
+            <h3 contentEditable={this.state.editMode} onInput={this.handleNameChange}> - {this.state.author_name}</h3>
+            <p contentEditable={this.state.editMode} onInput={this.handleTextChange}>{this.state.text}</p>
+          </div>
         </div>
       </div>
     )

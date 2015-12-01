@@ -9,6 +9,8 @@ var headClass = classnames({'head': true})
 var barClass = classnames({'bar': true})
 var medTextClass = classnames({'medText': true})
 
+import SearchBar from 'react-search-bar';
+
 var StoryBoard = React.createClass({
 
 	getInitialState: function() {
@@ -34,10 +36,6 @@ var StoryBoard = React.createClass({
   render: function() {
     return (
     	<div>
-    		<div className="biglead blue">
-          <h2>Stories</h2>
-        </div>
-    		<hr/>
 	    	<ul className="storyboard">
 					{this.state.stories.map(this.makeStoryItem)}
 		    </ul>

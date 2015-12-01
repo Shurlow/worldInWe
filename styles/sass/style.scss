@@ -13,6 +13,7 @@ $susy: (
 $white: #f5f5f5;
 $lightgrey: #d8d8d8;
 $darkgrey: #424242;
+$darkest: #353535;
 $blue: #378BFF;
 
 @mixin light-border {
@@ -27,11 +28,16 @@ $blue: #378BFF;
 	@include border-radius(3px);
 }
 
-@mixin ease($property) {
+@mixin ease($property, $duration) {
 	@include transition-property($property);
-  @include transition-duration(0.08s);
+  @include transition-duration($duration);
   @include transition-timing-function(ease-in);
 }
+
+// @fontface {
+// 	font-family: Futura;
+// 	src: url('FuturaLT-Light.ttf')
+// }
 
 * {
 	font-family: Helvetica;
@@ -49,8 +55,12 @@ body {
 }
 
 h1 {
-	font-size: 30px;
-	color: #378BFF;
+	// font-family: 'Josefin Sans', serif;
+	font-family: Futura, sans;
+	font-weight: 400;
+	font-size: 38px;
+	display: flex;
+	justify-content: center;
 }
 
 h2 {
@@ -65,7 +75,7 @@ h3 {
 }
 
 p {
-	font-size: 18px;
+	font-size: 21px;
 }
 
 ul {
@@ -80,36 +90,50 @@ a {
 }
 
 hr {
-	margin-top: gutter() * 2;
+	margin-top: gutter()/2;
 	border: 0;
-	height: 2px;
+	height: 1px;
 	width: 80%;
 	background: #333;
   background-image: linear-gradient(to right, #ccc, #333, #ccc);
 }
 
+.downclick {
+	margin: gutter() * 1.1;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #333;
+}
+
 //Nav Style
 nav {
-	@include container(full);
-	border-bottom: solid 1px #DDDDDD;
+
+	img {
+		margin: gutter();
+		cursor: pointer;
+		@include ease(margin, 0.08s);
+	}
 
   h1 {
-  	@include span(4);
   	margin: 0;
+  	margin-top: gutter() * 2;
   	margin-left: 1em;
 		padding: 8px;
   }
 
   ul {
   	
-  	@include span(3 last);
+  	@include span(4 last);
   	margin: 0;
+  	margin-right: 95px;
 
 	  a {
 	  	color: rgba(0, 0, 0, 0.6);
 	  	margin: 0;
-	  	padding-top: 18px;
-	  	padding-bottom: 12px;
+	  	padding-bottom: 4px;
 	  	display: inline-block;  	
 	  	font-size: 20px;
 	  	margin-left: 2rem;
@@ -134,7 +158,8 @@ nav {
 
 // Storyboard Style
 .storyboard {
-	@extend .content;
+	@include container(80%);
+	margin-top: gutter() * 2;
 	padding-right: 40px;
 
 	li {
@@ -174,12 +199,20 @@ nav {
 
 // Single-story style
 .story {
-	@include container(80%);
+	@include container(70%);
+	@include ease(all, 0.2s);
+	padding: gutter();
 
 	img {
-		// @include span(full);
-		margin-top: gutter() * 2;
+		@include span(full);
+		// display: block;
+		// margin: 0 auto;
 		margin-bottom: gutter(4);
+	}
+
+	div {
+		padding-left: gutter() * 3;
+		padding-right: gutter() * 3;
 	}
 
 	h3 {
@@ -187,8 +220,9 @@ nav {
 	}
 }
 
-.editing * {
-	border: 1px solid black;
+.editing {
+	@include box-shadow(#B6B6B6 5px 5px 20px);
+	@include translate(-2px, -2px);
 }
 
 .editable {
@@ -206,13 +240,14 @@ nav {
 
 .buttonList {
 	margin: 0;
+	padding: 0;
 	padding-top: 1em;
 	@include span(1);
 	float: right;
 
 	img {
 		padding-top: 0.5em;
-		@include ease(all);
+		@include ease(all, 0.08s);
 
 		&:hover {
 			@include scale(0.97);
@@ -222,18 +257,27 @@ nav {
 
 }
 
-.text {
-	clear: both;
-	width: span(8);
-	margin: 0 auto;
-}
-
 // Post story style
 .biglead {
 	width: 100%;
 	height: 400px;
-	color: white;
-	position: relative;
+	color: $darkest;
+	// display:flex;
+	// justify-content: center;
+	// align-items: center;
+	height: 100vh;
+
+	div {
+		width: 200px;
+		height: 200px;
+		border: 4px solid $darkest;
+	}
+
+	h1 {
+		height: 50px;
+		line-height: 60px;
+		margin: 10px;
+	}
 
 	h2 {
 		position: absolute;
@@ -260,6 +304,68 @@ nav {
 	background-color: #ffc425;
 }
 
+.login {
+	@include container(45%);
+	margin-top: gutter() * 2;
+
+	div {
+		// background: $lightgrey;
+		margin-top: 2em;
+		padding: 2em;
+		@include box-shadow(#B6B6B6 2px 2px 8px);
+	}
+
+	h2 {
+		display: block;
+		margin: 0 auto 10px auto;
+		text-align: center;
+	}
+
+	p {
+		font-size: 14px;
+		float: right;
+	}
+
+}
+
+@mixin formbox {
+	display: block;
+	appearance: none;
+	outline: 0;
+	border: 1px solid $darkgrey;
+	background-color: fade(white, 20%);
+	@include span(3 of 5);
+	float: none;
+	text-align: center;
+	margin: 0 auto 10px auto;
+	font-size: 18px;
+	font-weight: 300;
+	padding: 10px 15px;
+	@include border-radius(3px);
+	transition-duration: 0.25s;
+}
+
+input {
+		@include formbox;
+				
+		&:hover{
+			background-color: $lightgrey;
+		}
+		
+		&:focus{
+			background-color: white;			
+			color: orangered;
+		}
+}
+
+button{
+	@include formbox;
+	cursor: pointer;
+	
+	&:hover{
+		background-color: rgb(245, 247, 249);
+	}
+}
 
 
 // .post {

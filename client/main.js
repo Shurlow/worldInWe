@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import { Router, Route, Link, Redirect } from 'react-router'
 import { createHistory, useBasename } from 'history'
 import classnames from 'classnames'
+import auth from './auth'
 
 const history = useBasename(createHistory)({
   basename: '/w'
@@ -15,27 +16,59 @@ var Post = React.createFactory(require('./components/Post.jsx'))
 var Nav = React.createFactory(require('./components/Nav.jsx'))
 var Home = React.createFactory(require('./components/Home.jsx'))
 var About = React.createFactory(require('./components/About.jsx'))
+var Login = React.createFactory(require('./components/Login.jsx'))
+var Logout = React.createFactory(require('./components/Logout.jsx'))
 
-class App extends React.Component {
+const App = React.createClass({
+
+	// constructor(props) {
+	// 	super(props)
+	// 	this.state = { loggedIn: auth.loggedIn() }
+	// },
+
+	getInitialState() {
+		return { loggedIn: auth.loggedIn() }
+	},
+
+	updateAuth(isLoggedIn) {
+		console.log(this)
+    this.setState({
+      loggedIn: !!isLoggedIn
+    })
+  },
+
+	componentWillMount() {
+		auth.onChange = this.updateAuth
+		auth.login()
+	},
+
   render() {
+  	console.log('User Logged In:', this.state.loggedIn)
     return (
       <div>
-      	<Nav />
+      	<Nav loggedIn={this.state.loggedIn}/>
         {this.props.children}
       </div>
     )
   }
+})
+
+function requireAuth(nextState, replaceState) {
+  if (!auth.loggedIn())
+    replaceState({ nextPathname: nextState.location.pathname }, '/login')
 }
 
 render((
   <Router history={history}>
     <Route path="/" component={App}>
     	<Route path="home" component={Home}/>
+    	<Route path="login" component={Login}/>
+    	<Route path="logout" component={Logout}/>
       <Route path="about" component={About}/>
       <Route path="stories" component={StoryBoard}/>
       	<Route path="/stories/:id" component={Story}/>
       		<Route path="/stories/:id/editing" component={Editable}/>
-      <Route path="post" component={Post}/>
+      <Route path="post" component={Post} onEnter={requireAuth}/>
     </Route>
   </Router>
 ), document.getElementById('react-app-mount'))

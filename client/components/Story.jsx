@@ -73,7 +73,7 @@ var Story = React.createClass({
     });
     var storyClass = classnames({
       'story': true,
-      'editing': false,
+      'editing': this.state.editMode,
     });
 
     return (
@@ -83,8 +83,8 @@ var Story = React.createClass({
           <img src="/img/check.png" onClick={this.saveEdits}></img>
         </ul>
       	<div className={storyClass}>
-          <img src={this.state.img}></img>
-          <div className="text">
+          <img src="/img/testbigimg.png"></img>
+          <div>
         		<h2 contentEditable={this.state.editMode} onInput={this.handleTitleChange}>{this.state.title}</h2>
             <h3 contentEditable={this.state.editMode} onInput={this.handleNameChange}> - {this.state.author_name}</h3>
             <p contentEditable={this.state.editMode} onInput={this.handleTextChange}>{this.state.text}</p>

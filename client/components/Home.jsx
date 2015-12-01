@@ -32,13 +32,12 @@ var Home = React.createClass({
   render: function() {
     return (
     	<div>
-        <div className="biglead red">
-          <h2>Featured Stories</h2>
+        <div className="biglead">
+          
         </div>
         <ul>
           {this.state.featured.map(this.makeFeaturedStory)}
         </ul>
-
       </div>
     )
   }

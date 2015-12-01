@@ -14,8 +14,11 @@ body {
 }
 
 h1 {
-  font-size: 30px;
-  color: #378BFF;
+  font-family: Futura, sans;
+  font-weight: 400;
+  font-size: 38px;
+  display: flex;
+  justify-content: center;
 }
 
 h2 {
@@ -30,7 +33,7 @@ h3 {
 }
 
 p {
-  font-size: 18px;
+  font-size: 21px;
 }
 
 ul li {
@@ -43,44 +46,57 @@ a {
 }
 
 hr {
-  margin-top: 3.38983%;
+  margin-top: 0.84746%;
   border: 0;
-  height: 2px;
+  height: 1px;
   width: 80%;
   background: #333;
   background-image: linear-gradient(to right, #cccccc, #333333, #cccccc);
 }
 
-nav {
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  border-bottom: solid 1px #DDDDDD;
+.downclick {
+  margin: 1.86441%;
 }
-nav:after {
-  content: " ";
-  display: block;
-  clear: both;
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #333;
+}
+
+nav img {
+  margin: 1.69492%;
+  cursor: pointer;
+  -moz-transition-property: margin;
+  -o-transition-property: margin;
+  -webkit-transition-property: margin;
+  transition-property: margin;
+  -moz-transition-duration: 0.08s;
+  -o-transition-duration: 0.08s;
+  -webkit-transition-duration: 0.08s;
+  transition-duration: 0.08s;
+  -moz-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  -webkit-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
 }
 nav h1 {
-  width: 32.20339%;
-  float: left;
-  margin-right: 1.69492%;
   margin: 0;
+  margin-top: 3.38983%;
   margin-left: 1em;
   padding: 8px;
 }
 nav ul {
-  width: 23.72881%;
+  width: 32.20339%;
   float: right;
   margin-right: 0;
   margin: 0;
+  margin-right: 95px;
 }
 nav ul a {
   color: rgba(0, 0, 0, 0.6);
   margin: 0;
-  padding-top: 18px;
-  padding-bottom: 12px;
+  padding-bottom: 4px;
   display: inline-block;
   font-size: 20px;
   margin-left: 2rem;
@@ -94,20 +110,29 @@ nav ul a:hover {
   color: rgba(0, 0, 0, 0.8);
 }
 
-.content, .storyboard {
+.content {
   max-width: 80%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 3.38983%;
 }
-.content:after, .storyboard:after {
+.content:after {
   content: " ";
   display: block;
   clear: both;
 }
 
 .storyboard {
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3.38983%;
   padding-right: 40px;
+}
+.storyboard:after {
+  content: " ";
+  display: block;
+  clear: both;
 }
 .storyboard li {
   width: 32.20339%;
@@ -176,9 +201,22 @@ nav ul a:hover {
 }
 
 .story {
-  max-width: 80%;
+  max-width: 70%;
   margin-left: auto;
   margin-right: auto;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  -webkit-transition-property: all;
+  transition-property: all;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -moz-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  -webkit-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+  padding: 1.69492%;
 }
 .story:after {
   content: " ";
@@ -186,15 +224,28 @@ nav ul a:hover {
   clear: both;
 }
 .story img {
-  margin-top: 3.38983%;
+  width: 100%;
+  float: left;
+  margin-left: 0;
+  margin-right: 0;
   margin-bottom: 5.26316%;
+}
+.story div {
+  padding-left: 5.08475%;
+  padding-right: 5.08475%;
 }
 .story h3 {
   display: inline-block;
 }
 
-.editing * {
-  border: 1px solid black;
+.editing {
+  -moz-box-shadow: #B6B6B6 5px 5px 20px;
+  -webkit-box-shadow: #B6B6B6 5px 5px 20px;
+  box-shadow: #B6B6B6 5px 5px 20px;
+  -moz-transform: translate(-2px, -2px);
+  -ms-transform: translate(-2px, -2px);
+  -webkit-transform: translate(-2px, -2px);
+  transform: translate(-2px, -2px);
 }
 
 .editable img:hover {
@@ -208,6 +259,7 @@ nav ul a:hover {
 
 .buttonList {
   margin: 0;
+  padding: 0;
   padding-top: 1em;
   width: 6.77966%;
   float: left;
@@ -237,17 +289,21 @@ nav ul a:hover {
   cursor: pointer;
 }
 
-.text {
-  clear: both;
-  width: 66.10169%;
-  margin: 0 auto;
-}
-
 .biglead {
   width: 100%;
   height: 400px;
-  color: white;
-  position: relative;
+  color: #353535;
+  height: 100vh;
+}
+.biglead div {
+  width: 200px;
+  height: 200px;
+  border: 4px solid #353535;
+}
+.biglead h1 {
+  height: 50px;
+  line-height: 60px;
+  margin: 10px;
 }
 .biglead h2 {
   position: absolute;
@@ -271,4 +327,85 @@ nav ul a:hover {
 
 .yellow {
   background-color: #ffc425;
+}
+
+.login {
+  max-width: 45%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3.38983%;
+}
+.login:after {
+  content: " ";
+  display: block;
+  clear: both;
+}
+.login div {
+  margin-top: 2em;
+  padding: 2em;
+  -moz-box-shadow: #B6B6B6 2px 2px 8px;
+  -webkit-box-shadow: #B6B6B6 2px 2px 8px;
+  box-shadow: #B6B6B6 2px 2px 8px;
+}
+.login h2 {
+  display: block;
+  margin: 0 auto 10px auto;
+  text-align: center;
+}
+.login p {
+  font-size: 14px;
+  float: right;
+}
+
+input {
+  display: block;
+  appearance: none;
+  outline: 0;
+  border: 1px solid #424242;
+  background-color: fade(white, 20%);
+  width: 58.33333%;
+  float: left;
+  margin-right: 4.16667%;
+  float: none;
+  text-align: center;
+  margin: 0 auto 10px auto;
+  font-size: 18px;
+  font-weight: 300;
+  padding: 10px 15px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  transition-duration: 0.25s;
+}
+input:hover {
+  background-color: #d8d8d8;
+}
+input:focus {
+  background-color: white;
+  color: orangered;
+}
+
+button {
+  display: block;
+  appearance: none;
+  outline: 0;
+  border: 1px solid #424242;
+  background-color: fade(white, 20%);
+  width: 58.33333%;
+  float: left;
+  margin-right: 4.16667%;
+  float: none;
+  text-align: center;
+  margin: 0 auto 10px auto;
+  font-size: 18px;
+  font-weight: 300;
+  padding: 10px 15px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  transition-duration: 0.25s;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #f5f7f9;
 }

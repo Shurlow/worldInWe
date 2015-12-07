@@ -32,17 +32,15 @@ var Nav = React.createClass({
     var btnClass = classnames({
       'downclick': this.state.clicked,
     });
-    console.log('Nav Props:', this.props)
     return (
       <nav>
-        <h1>World In Me</h1>
+        <Link to='/home'><img className="logo" src="/img/logonew.svg"></img></Link>
       	<ul>
-          <Link to='/stories' activeClassName="link-active">stories</Link>
-		      <Link to='/about' activeClassName="link-active">about</Link>
-		      <Link to='/post' activeClassName="link-active">post</Link>
           {this.toggleLogin(this.props.loggedIn)}
+		      <Link to='/post' activeClassName="link-active">new</Link>
+          <Link to='/stories' activeClassName="link-active">stories</Link>
+          <Link to='/about' activeClassName="link-active">about</Link>          
 	      </ul>
-        <hr></hr>
       </nav>
     )
   }

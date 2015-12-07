@@ -36,8 +36,20 @@ router.get('/:story_id', function(req, res) {
 	})
 });
 
+// Post new story
+router.post('/', function(req, res) {
+	console.log('Posting New Story')
+	db.postStory(req.body, function(err, data) {
+		if (err) {
+			res.status(500).send('Error adding story object')
+		} else {
+			res.send('Story submitted.')
+		}
+	})
+});
+
 //Update indevidual story
-router.post('/:story_id', function(req, res) {
+router.post('/update/:story_id', function(req, res) {
 	console.log('updating')
 	var id = req.params.story_id
 	db.updateStory(id, req.body, function(err, data) {

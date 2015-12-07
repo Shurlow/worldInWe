@@ -11,7 +11,7 @@ const history = useBasename(createHistory)({
 
 var StoryBoard = React.createFactory(require('./components/StoryBoard.jsx'))
 var Story = React.createFactory(require('./components/Story.jsx'))
-var Editable = React.createFactory(require('./components/Editable.jsx'))
+// var Editable = React.createFactory(require('./components/Editable.jsx'))
 var Post = React.createFactory(require('./components/Post.jsx'))
 var Nav = React.createFactory(require('./components/Nav.jsx'))
 var Home = React.createFactory(require('./components/Home.jsx'))
@@ -31,7 +31,6 @@ const App = React.createClass({
 	},
 
 	updateAuth(isLoggedIn) {
-		console.log(this)
     this.setState({
       loggedIn: !!isLoggedIn
     })
@@ -48,6 +47,7 @@ const App = React.createClass({
       <div>
       	<Nav loggedIn={this.state.loggedIn}/>
         {this.props.children}
+        <div className="footer"><hr/><h4>contact</h4></div>
       </div>
     )
   }
@@ -67,8 +67,10 @@ render((
       <Route path="about" component={About}/>
       <Route path="stories" component={StoryBoard}/>
       	<Route path="/stories/:id" component={Story}/>
-      		<Route path="/stories/:id/editing" component={Editable}/>
+
       <Route path="post" component={Post} onEnter={requireAuth}/>
     </Route>
   </Router>
 ), document.getElementById('react-app-mount'))
+
+// <Route path="/stories/:id/edit" component={Editable}/>

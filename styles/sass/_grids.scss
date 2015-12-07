@@ -6,5 +6,9 @@
 $susy: (
 	columns: 12,
 	gutters: 1 / 4,
-	global-box-sizing: border-box
+	global-box-sizing: border-box,
 )
+
+$global-keywords: {
+	container-position: center
+}

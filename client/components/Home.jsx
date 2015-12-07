@@ -1,6 +1,7 @@
 var React = require('react')
 var request = require('superagent')
 var Video = React.createFactory(require('./Video.jsx'))
+var StoryBoard = React.createFactory(require('./StoryBoard.jsx'))
 
 var Home = React.createClass({
 
@@ -31,13 +32,17 @@ var Home = React.createClass({
 
   render: function() {
     return (
-    	<div>
-        <div className="biglead">
-          
-        </div>
-        <ul>
-          {this.state.featured.map(this.makeFeaturedStory)}
+    	<div className="home">
+        <h2>Topics</h2>
+        <ul className="topics">
+          <li>recent</li>
+          <li>family</li>
+          <li>politics</li>
+          <li>topic</li>
+          <li>topic</li>
         </ul>
+        <hr/>
+        <StoryBoard />
       </div>
     )
   }

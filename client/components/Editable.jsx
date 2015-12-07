@@ -1,56 +1,140 @@
-var React = require('react')
-var request = require('superagent')
-var B = React.createFactory(require('./Button.jsx'))
+import React from 'react'
+import request from 'superagent'
+import ReactDOM from'react-dom'
+// import Editor from 'react-medium-editor'
+import classnames from 'classnames'
 
-var Editable = React.createClass({
+var toolbarOptions = {
+  allowMultiParagraphSelection: true,
+  buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3', 'quote'],
+  diffLeft: 0,
+  diffTop: -10,
+  firstButtonClass: 'medium-editor-button-first',
+  lastButtonClass: 'medium-editor-button-last',
+  standardizeSelectionStart: false,
+  static: false,
+  relativeContainer: null,
+}
 
-  getInitialState: function() {
+const Editable = React.createClass({
+
+  getInitialState() {
     return {
-      text: "",
-      author: "",
-      title: "",
-      img: ""
+      text: "body text",
+      author_name: "author",
+      title: "Title",
+      img: "",
+      editing: false
     }
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
     var self = this
     request
       .get('http://localhost:3000/api/' + this.props.params.id)
       .set('Content-Type', 'application/json')
       .end(function(err, res) {
-        console.log(err)
         self.setState({
           text: res.body.text,
-          author: res.body.author_name,
+          author_name: res.body.author_name,
           title: res.body.title,
           img: res.body.img,
         })
       })
   },
 
-  editMode: function(e) {
-    console.log('Enter edit mode')
-
+  handleTitleChange: function(value, medium) {
+    console.log(value, medium)
+    this.setState({
+      title: value
+    })
+  },
+  handleNameChange: function(value) {
+    this.setState({
+      author_name: value
+    })
+  },
+  handleTextChange: function(value) {
+    this.setState({
+      text: value
+    })
   },
 
-  render: function() {
-    console.log(this.state)
+  toggleEditMode: function(e) {
+    console.log('Enter edit mode')
+    this.setState({
+      editMode: !this.state.editMode
+    })
+  },
+
+  saveEdits: function(e) {
+    console.log('Saving your work...', this.state)
+    request
+      .post('http://localhost:3000/api/' + this.props.params.id)
+      .set('Content-Type', 'application/json')
+      .send(this.state)
+      .end(function(err, res) {
+        if (err) return alert('Big Error!')
+        alert('Story Saved')
+      })
+  },
+
+  render() {
+    var storyClass = classnames({
+      'story': true,
+      'editing': this.state.editing
+    })
+
     return (
       <div>
-        <B src="/img/edit.png" onClick={this.editMode} />
-      	<div className="story">
-          <img src={this.state.img}></img>
-          <div className="text">
-        		<h2>{this.state.title}</h2>
-            <h3> - {this.state.author}</h3>
-            <p>{this.state.text}</p>
-          </div>
+        <div id="fleximg">
+          <img className="leadimg" src="/img/testbigimg.png"></img>
+        </div>
+        <div className="story">
+
+          <Editor
+            tag="h2"
+            className="title"
+            text={this.state.title}
+            onChange={this.handleTitleChange}
+            options={{
+              disableEditing: true,
+              toolbar: toolbarOptions
+            }}
+          />
+
+          <Editor
+            tag="h3"
+            className="author"
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
+            text={this.state.author_name}
+            onChange={this.handleNameChange}
+            options={{toolbar: toolbarOptions}}
+          />
+
+          <Editor
+            tag="p"
+            className="text"
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
+            text={this.state.text}
+            onChange={this.handleTextChange}
+            options={{toolbar: toolbarOptions}}
+          />
         </div>
       </div>
-    )
-  }
+    );
+  },
 
-})
+  handleFocus() {
+    console.log('onFocus');
+  },
 
-module.exports = Editable
+  handleBlur() {
+    console.log('onBlur');
+  },
+
+});
+
+export default Editable

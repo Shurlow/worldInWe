@@ -1,98 +1,105 @@
-var React = require('react')
-var request = require('superagent')
-var classnames = require('classnames')
-var storyMain = classnames({'story': true})
+import React from 'react'
+import request from 'superagent'
+import ReactDOM from'react-dom'
+// import Editor from '../../../react-medium-editor/dist/editor.js'
+import Editor from './Editor.jsx'
+import classnames from 'classnames'
 
-var Post = React.createClass({
+class Post extends React.Component {
 
-  getInitialState: function() {
-    return {
-      text: "Paste your story here..",
+  constructor(props) {
+    super(props)
+    this.state = {
+      text: props.text,
       author_name: "Name",
       title: "Title",
-      img: "Photo url"
+      img: "/img/blankimg.png",
+      data_uri: ""
     }
-  },
+  }
 
-  handleNameChange: function(e) {
+  handleTitleChange(value) {
     this.setState({
-      author_name: e.target.value
+      title: value
     })
-  },
-  handleTitleChange: function(e) {
+  }
+  handleNameChange(value) {
     this.setState({
-      title: e.target.value
+      author_name: value
     })
-  },
-  handleTextChange: function(e) {
+  }
+  handleTextChange(value) {
     this.setState({
-      text: e.target.value
+      text: value
     })
-  },
-  handleImgChange: function(e) {
+  }
+
+  handleImgChange(e) {
     this.setState({
       img: e.target.value
     })
-  },
-
-  handleClick: function(e) {
-    console.log()
-    var self = this
-    request
-      .post('http://localhost:3000/api/story!')
-      .send(this.state)
-      .end(function(err, res) {
-        console.log('Posted')
-        alert('Your story was posted!')
-      })
-
-  },
-
-  uploadImage: function(e) {
-    console.log('image click')
-  },
-
-  render: function() {
-    return (
-      <div className="story editable">
-        <img onClick={this.uploadImage} src="/img/blankimg.png"></img>
-        <h2 contentEditable="true">Title</h2>
-        <h3>-<h3 contentEditable="true">Author Name</h3></h3>
-        <p contentEditable="true" >Body of your story here</p>
-      </div>
-    )
-    // return (
-    //   <div>
-    //     <div className="biglead orange">
-    //       <h2>Post a story of your own.</h2>
-    //     </div>
-    //   	<div className="post">
-    //       <div>
-    //         <h2>Name.</h2>
-    //         <p>You can use your real name or your pen name!</p>
-    //         <textarea className="name" type="text" value={this.state.author_name} onChange={this.handleNameChange} onfocus=""></textarea>
-    //       </div>
-    //       <div>
-    //         <h2>Title.</h2>
-    //         <p>Pick a title for your work</p>
-    //         <textarea className="title" type="text" value={this.state.title} onChange={this.handleTitleChange} onfocus=""></textarea>
-    //       </div>
-    //       <div>
-    //         <h2>Body.</h2>
-    //         <p>Past or upload the body of your story here:</p>
-    //         <textarea className="body" type="text" value={this.state.text} onChange={this.handleTextChange} onfocus=""></textarea>
-    //       </div>
-    //       <div>
-    //         <h2>Photo.</h2>
-    //         <p>Dont forget to add an image to start of your story. Large images look best!</p>
-    //         <textarea className="photo" type="text" value={this.state.img} onChange={this.handleImgChange} onfocus=""></textarea>
-    //       </div>
-    //       <div className="button" onClick={this.handleClick}>Post</div>
-    //     </div>
-    //   </div>
-    // )
   }
 
-})
+  triggerUpload(e) {
+    console.log(document.getElementById("upload"))
+    // document.getElementById("upload").onchange()
+  }
 
-module.exports = Post
+  handleImg(e) {
+    var self = this;
+    var reader = new FileReader();
+    var file = e.target.files[0];
+
+    reader.onload = function(upload) {
+      self.setState({
+        img: upload.target.result,
+      });
+    }
+
+    reader.readAsDataURL(file);
+  }
+
+  submitStory(e) {
+    var obj = this.state
+    request
+      .post('http://localhost:3000/api/')
+      .set('Content-Type', 'application/json')
+      .send(obj)
+      .end(function(err, res) {
+        console.log(err, res)
+      })
+  }
+
+  render() {
+    return (
+      <div className="story editable">
+        <img className="editorbutton" src="/img/check.png" onClick={this.submitStory.bind(this)}></img>
+        <img src={this.state.img}></img>
+        <input id="upload"type="file" accept="image/*" onChange={this.handleImg.bind(this)}></input>
+
+        <Editor
+          tag="h2"
+          className="title"
+          text={this.state.title}
+          onChange={this.handleTitleChange.bind(this)}
+        />
+        <Editor
+          tag="h3"
+          className="author"
+          text={this.state.author_name}
+          onChange={this.handleNameChange.bind(this)}
+        />
+        <Editor
+          tag="p"
+          className="text"
+          text={this.state.text}
+          onChange={this.handleTextChange.bind(this)}
+        />
+
+      </div>
+    )
+  }
+
+}
+
+export default Post

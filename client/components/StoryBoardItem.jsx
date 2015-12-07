@@ -13,7 +13,7 @@ var StoryBoardItem = React.createClass({
           <div className="textover">
             <h3>{this.props.title}<br/> - {this.props.author_name}</h3>
           </div>
-		  		<img src="/img/testsmallimg.png"></img>
+		  		<img src={this.props.img}></img>
         </Link>
       </li>
     )

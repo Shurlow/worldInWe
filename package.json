@@ -17,6 +17,7 @@
     "hbs": "~3.1.0",
     "morgan": "~1.6.1",
     "react": "^0.14.0",
+    "react-medium-editor": "^1.6.1",
     "react-search-bar": "^1.1.4",
     "reactify": "^1.1.1",
     "rethinkdb": "^2.1.1",

@@ -3,7 +3,7 @@ import Link from 'react-router'
 import Editor from './Editor.jsx'
 import request from 'superagent'
 import classnames from 'classnames'
-import ImageBlurLoader from '../../../react-imageblurloader/src/ImageBlurLoader.js'
+// import ImageBlurLoader from '../../../react-imageblurloader/src/ImageBlurLoader.js'
 var btnClass, btnClass2, storyClass;
 
 class PostFile extends React.Component {

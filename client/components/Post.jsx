@@ -3,6 +3,7 @@ import request from 'superagent'
 import ReactDOM from'react-dom'
 // import Editor from '../../../react-medium-editor/dist/editor.js'
 import Editor from './Editor.jsx'
+import LeadImage from './LeadImage.jsx'
 import classnames from 'classnames'
 
 class Post extends React.Component {
@@ -14,10 +15,10 @@ class Post extends React.Component {
       author_name: "Name",
       title: "Title",
       img: "/img/blankimg.png",
-      data_uri: ""
+      data_uri: "",
+      editing: false
     }
-    this.handleImg = this.handleImg.bind(this)
-    this.triggerUpload = this.triggerUpload.bind(this)
+    this.toggleEditMode = this.toggleEditMode.bind(this)
   }
 
   handleTitleChange(value) {
@@ -42,27 +43,20 @@ class Post extends React.Component {
     })
   }
 
+  toggleEditMode() {
+    this.setState({
+      editing: !this.state.editing
+    })
+    console.log(this.inputref)
+  }
+
   handleRef(e) {
     console.log(this.titleref)
   }
 
-  triggerUpload(e) {
-    console.log(document.getElementById("upload"))
-    console.log(this.inputref.onchange())
-  }
-
-  handleImg(e) {
-    var self = this;
-    var reader = new FileReader();
-    var file = e.target.files[0];
-
-    reader.onload = function(upload) {
-      self.setState({
-        img: upload.target.result,
-      });
-    }
-    reader.readAsDataURL(file);
-  }
+  // triggerUpload(e) {
+  //   this.handleImg(this.inputref)
+  // }
 
   submitStory(e) {
     var obj = this.state
@@ -76,11 +70,24 @@ class Post extends React.Component {
   }
 
   render() {
-    return (
-      <div className="story editable">
-        <img src={this.state.img} onClick={this.triggerUpload}></img>
-        <input ref={(c) => this.inputref = c} id="upload"type="file" accept="image/*" onChange={this.handleImg}></input>
 
+    // const imageStyle = classnames({
+    //   'hidden': this.state.editing,
+    // })
+    // const inputStyle = classnames({
+    //   'hidden': !this.state.editing,
+    // })
+
+    // const bgImageStyle = {
+    //   'background': 'url(' + this.state.img + ')',
+    // }
+
+    return (
+      <div className="story">
+        
+        <img src='/img/plus.png' onClick={this.toggleEditMode} className="logo right secondary"></img>
+        <LeadImage src={this.state.img} editing={this.state.editing} onChange={this.handleImg}/>
+        
         <Editor
           tag="h2"
           className="title"

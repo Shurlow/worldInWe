@@ -73,8 +73,6 @@
   position: absolute;
   top: 0;
   white-space: pre;
-  padding: inherit;
-  margin: inherit;
 }
 
 .medium-toolbar-arrow-under:after, .medium-toolbar-arrow-over:before {
@@ -273,7 +271,7 @@ body {
   margin-right: 0.25316%;
 }
 
-nav .logo {
+.logo {
   position: fixed;
   top: 0px;
   margin: 20px;
@@ -293,14 +291,17 @@ nav .logo {
   transition-timing-function: ease-in;
   z-index: 1;
 }
-nav .logo.left {
+.logo.left {
   left: 0px;
 }
-nav .logo.right {
+.logo.right {
   right: 6px;
 }
+.logo.secondary {
+  top: 60px;
+}
 @media (min-width: 1024px) {
-  nav .logo {
+  .logo {
     width: 50px;
   }
 }
@@ -426,18 +427,34 @@ nav .logo.right {
 }
 
 .leadimg {
-  margin: 0 auto;
   margin-top: 6em;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  max-width: 100vw;
+}
+.leadimg img {
+  outline: 4px dotted blue;
   position: relative;
-  overflow: hidden;
+  z-index: -1;
+}
+.leadimg input {
+  outline: 4px dotted blue;
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 .story {
   max-width: 92%;
   margin-left: auto;
   margin-right: auto;
-  margin: 0;
-  margin-top: 1em;
+  margin: 0 auto;
 }
 .story:after {
   content: " ";

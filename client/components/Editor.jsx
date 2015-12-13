@@ -48,7 +48,6 @@ export default class Editor extends React.Component {
   // }
 
   render() {
-    console.log('render editor', this.state)
     var tag = this.props.tag;
     var props = blacklist(this.props, 'tag', 'contentEditable', 'dangerouslySetInnerHTML');
 
@@ -59,6 +58,7 @@ export default class Editor extends React.Component {
     // console.log(tag, props)
     return React.createElement(tag, props);
   }
+  
   //When editor sees change, propogate
   change(text) {
     if(this.props.onChange) this.props.onChange(text, this.medium);

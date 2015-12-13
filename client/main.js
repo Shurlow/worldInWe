@@ -13,6 +13,7 @@ var StoryBoard = React.createFactory(require('./components/StoryBoard.jsx'))
 var Story = React.createFactory(require('./components/Story.jsx'))
 // var Editable = React.createFactory(require('./components/Editable.jsx'))
 var Post = React.createFactory(require('./components/Post.jsx'))
+var PostFile = React.createFactory(require('./components/PostFile.jsx'))
 var Nav = React.createFactory(require('./components/Nav.jsx'))
 var Home = React.createFactory(require('./components/Home.jsx'))
 var About = React.createFactory(require('./components/About.jsx'))
@@ -69,6 +70,7 @@ render((
       	<Route path="/stories/:id" component={Story}/>
 
       <Route path="post" component={Post} onEnter={requireAuth}/>
+        <Route path="post/file" component={PostFile} onEnter={requireAuth}/>
     </Route>
   </Router>
 ), document.getElementById('react-app-mount'))

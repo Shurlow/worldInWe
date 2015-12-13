@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 //Eneble JSX transpiling for server side react
 // require("node-jsx").install();
-require('babel/register')
+require('babel-core/register')
 
 
 

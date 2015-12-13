@@ -6,7 +6,7 @@ import classnames from 'classnames'
 import ImageBlurLoader from '../../../react-imageblurloader/src/ImageBlurLoader.js'
 var btnClass, btnClass2, storyClass;
 
-class Story extends React.Component {
+class PostFile extends React.Component {
 
   constructor(props) {
     super(props)
@@ -121,35 +121,10 @@ class Story extends React.Component {
       <div>
         <div id="fleximg">
           <img className="leadimg" src={this.state.img}></img>
-          <ImageBlurLoader
-            src={this.state.img}
-            preview={"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD//gA7Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcgSlBFRyB2NjIpLCBxdWFsaXR5ID0gODAK/9sAQwAKBwcIBwYKCAgICwoKCw4YEA4NDQ4dFRYRGCMfJSQiHyIhJis3LyYpNCkhIjBBMTQ5Oz4+PiUuRElDPEg3PT47/9sAQwEKCwsODQ4cEBAcOygiKDs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7/8AAEQgADQAUAwEiAAIRAQMRAf/EABgAAAMBAQAAAAAAAAAAAAAAAAAFBwYI/8QAJBAAAgEDBAICAwAAAAAAAAAAAQIDAAQRBQYSIQcxE0FxgcL/xAAVAQEBAAAAAAAAAAAAAAAAAAABAv/EABcRAQEBAQAAAAAAAAAAAAAAAAAhERL/2gAMAwEAAhEDEQA/AH8W9k1xVittwG2u5UINrb2/Jo8ZZjzbphx6BA91qdnzXFzognnuprlHkb4XmILlB12QB9gnuuarZn0vcJhgkbEUrxqSe8HkufziqL423XNo9huWQ2yzJC0c6xh+ABbKn6OPQqcp6lVsas8t1dQwWbSC2lETPzABPBW/rFFJfHGpS6ztybVZURJL29llZVzhewAP0AKKQ//Z"}
-          />
-        </div>
-        <div className={storyClass}>
-          <div>
-            <Editor
-              tag="h2"
-              className="title"
-              text={this.state.title}
-              onChange={this.handleTitleChange.bind(this)}
-              ref={(c) => this.titleref = c}
-            />
-            <Editor
-              tag="h3"
-              className="author"
-              text={this.state.author_name}
-              onChange={this.handleNameChange.bind(this)}
-              ref={(c) => this.authref = c}
-            />
-            <Editor
-              tag="p"
-              className="text"
-              text={this.state.text}
-              onChange={this.handleTextChange.bind(this)}
-              ref={(c) => this.textref = c}
-            />
           </div>
+        <div className={storyClass}>
+          <h2>Upload your story here:</h2>
+          <h3>formats: .word .txt .rtf</h3>
         </div>
         
       </div>
@@ -158,12 +133,4 @@ class Story extends React.Component {
 
 }
 
-export default Story
-
-// <ul className="buttonList">
-//           <img src="/img/edit.png" onClick={this.togleEditMode} className={btnClass}></img>
-//           <img src="/img/check.png" onClick={this.saveEdits} className={btnClass2}></img>
-//           <Link to='/stories/9fb5#/edit' className="e"><p>TEST</p></Link>
-//         </ul>
-
-
+export default PostFile

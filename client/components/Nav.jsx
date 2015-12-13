@@ -34,13 +34,8 @@ var Nav = React.createClass({
     });
     return (
       <nav>
-        <Link to='/home'><img className="logo" src="/img/logonew.svg"></img></Link>
-      	<ul>
-          {this.toggleLogin(this.props.loggedIn)}
-		      <Link to='/post' activeClassName="link-active">new</Link>
-          <Link to='/stories' activeClassName="link-active">stories</Link>
-          <Link to='/about' activeClassName="link-active">about</Link>          
-	      </ul>
+        <Link to='/home'><img className="logo left" src="/img/check.png"></img></Link>
+        <Link to='/post'><img className="logo right" src="/img/edit.png"></img></Link>
       </nav>
     )
   }
@@ -48,5 +43,10 @@ var Nav = React.createClass({
 })
 
 module.exports = Nav
-
+// <ul>
+//           {this.toggleLogin(this.props.loggedIn)}
+//           <Link to='/post' activeClassName="link-active">new</Link>
+//           <Link to='/stories' activeClassName="link-active">stories</Link>
+//           <Link to='/about' activeClassName="link-active">about</Link>          
+//         </ul>
 // <img src="/img/Logo.svg" onClick={this.handleClick} className={btnClass}></img>

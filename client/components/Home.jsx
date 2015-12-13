@@ -33,15 +33,6 @@ var Home = React.createClass({
   render: function() {
     return (
     	<div className="home">
-        <h2>Topics</h2>
-        <ul className="topics">
-          <li>recent</li>
-          <li>family</li>
-          <li>politics</li>
-          <li>topic</li>
-          <li>topic</li>
-        </ul>
-        <hr/>
         <StoryBoard />
       </div>
     )

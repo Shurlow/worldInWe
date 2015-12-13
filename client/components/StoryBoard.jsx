@@ -1,23 +1,18 @@
-// var ReactDOMServer = require('react-dom/server');
-var React = require('react')
-var request = require('superagent')
-var classnames = require('classnames')
-var StoryBoardItem = React.createFactory(require('./StoryBoardItem.jsx'))
+import React from 'react'
+import request from 'superagent'
+import classnames from 'classnames'
+import StoryBoardItem from './StoryBoardItem.jsx'
 
-var boardClass = classnames({'board': true})
-var headClass = classnames({'head': true})
-var barClass = classnames({'bar': true})
-var medTextClass = classnames({'medText': true})
+class StoryBoard extends React.Component {
 
-import SearchBar from 'react-search-bar';
+	constructor(props) {
+		super(props)
+	 	this.state = {
+	 		stories: []
+	 	}
+	}
 
-var StoryBoard = React.createClass({
-
-	getInitialState: function() {
-		return { stories: [] }
-	},
-
-	componentDidMount: function() {
+	componentDidMount() {
 		var self = this
 		request
 			.get('http://localhost:3000/api')
@@ -27,13 +22,20 @@ var StoryBoard = React.createClass({
 					stories: res.body
 				})
 			})
-	},
+	}
 
-	makeStoryItem: function(item) {
-		return StoryBoardItem(item)
-	},
+	makeStoryItem(item) {
+		return(
+			<StoryBoardItem
+				key={item.id}
+				id={item.id}
+				img={item.img}
+				text={item.text}
+				author_name={item.author_name} />
+		)
+	}
 
-  render: function() {
+  render() {
     return (
     	<div>
 	    	<ul className="storyboard">
@@ -43,6 +45,6 @@ var StoryBoard = React.createClass({
     )
   }
 
-})
+}
 
-module.exports = StoryBoard
+export default StoryBoard

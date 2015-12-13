@@ -70,6 +70,8 @@
   position: absolute;
   top: 0;
   white-space: pre;
+  padding: inherit;
+  margin: inherit;
 }
 
 .medium-toolbar-arrow-under:after, .medium-toolbar-arrow-over:before {
@@ -595,13 +597,13 @@ nav ul a:hover {
 .biglead {
   width: 100%;
   height: 400px;
-  color: #353535;
+  color: #3d464d;
   height: 100vh;
 }
 .biglead div {
   width: 200px;
   height: 200px;
-  border: 4px solid #353535;
+  border: 4px solid #3d464d;
 }
 .biglead h1 {
   height: 50px;
@@ -663,7 +665,7 @@ nav ul a:hover {
   display: block;
   appearance: none;
   outline: 0;
-  border: 1px solid #424242;
+  border: 1px solid #47525d;
   background-color: fade(white, 20%);
   width: 58.33333%;
   float: left;
@@ -680,7 +682,7 @@ nav ul a:hover {
   transition-duration: 0.25s;
 }
 .login input:hover {
-  background-color: #d8d8d8;
+  background-color: #7b8994;
 }
 .login input:focus {
   background-color: white;
@@ -690,7 +692,7 @@ nav ul a:hover {
   display: block;
   appearance: none;
   outline: 0;
-  border: 1px solid #424242;
+  border: 1px solid #47525d;
   background-color: fade(white, 20%);
   width: 58.33333%;
   float: left;

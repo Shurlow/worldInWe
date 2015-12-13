@@ -16,6 +16,8 @@ class Post extends React.Component {
       img: "/img/blankimg.png",
       data_uri: ""
     }
+    this.handleImg = this.handleImg.bind(this)
+    this.triggerUpload = this.triggerUpload.bind(this)
   }
 
   handleTitleChange(value) {
@@ -40,9 +42,13 @@ class Post extends React.Component {
     })
   }
 
+  handleRef(e) {
+    console.log(this.titleref)
+  }
+
   triggerUpload(e) {
     console.log(document.getElementById("upload"))
-    // document.getElementById("upload").onchange()
+    console.log(this.inputref.onchange())
   }
 
   handleImg(e) {
@@ -55,7 +61,6 @@ class Post extends React.Component {
         img: upload.target.result,
       });
     }
-
     reader.readAsDataURL(file);
   }
 
@@ -73,15 +78,15 @@ class Post extends React.Component {
   render() {
     return (
       <div className="story editable">
-        <img className="editorbutton" src="/img/check.png" onClick={this.submitStory.bind(this)}></img>
-        <img src={this.state.img}></img>
-        <input id="upload"type="file" accept="image/*" onChange={this.handleImg.bind(this)}></input>
+        <img src={this.state.img} onClick={this.triggerUpload}></img>
+        <input ref={(c) => this.inputref = c} id="upload"type="file" accept="image/*" onChange={this.handleImg}></input>
 
         <Editor
           tag="h2"
           className="title"
           text={this.state.title}
           onChange={this.handleTitleChange.bind(this)}
+          ref={(c) => this.titleref = c}
         />
         <Editor
           tag="h3"

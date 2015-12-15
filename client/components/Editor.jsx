@@ -28,7 +28,10 @@ export default class Editor extends React.Component {
       static: false,
     }
     dom = ReactDom.findDOMNode(this);
-    this.medium = new MediumEditor(dom, {toolbar: toolbarOptions});
+    this.medium = new MediumEditor(dom, {
+      toolbar: toolbarOptions,
+      imageDragging: true
+    });
     this.medium.subscribe('editableInput', (e) => {
       this._updated = true;
       this.change(dom.innerHTML);

@@ -5,20 +5,22 @@ import ReactDOM from'react-dom'
 import Editor from './Editor.jsx'
 import LeadImage from './LeadImage.jsx'
 import classnames from 'classnames'
+import blacklist from 'blacklist'
 
 class Post extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      text: props.text,
+      text: "Your story goes here..",
       author_name: "Name",
       title: "Title",
       img: "/img/blankimg.png",
-      data_uri: "",
-      editing: false
+      imgtype: "",
+      imgext: "",
+      editing: false,
+      id: guid()
     }
-    this.toggleEditMode = this.toggleEditMode.bind(this)
   }
 
   handleTitleChange(value) {
@@ -50,43 +52,72 @@ class Post extends React.Component {
     console.log(this.inputref)
   }
 
-  handleRef(e) {
-    console.log(this.titleref)
+  handleImg(e) {
+    var self = this;
+    var findImgType = new RegExp("\:(.*?)\;")
+    var findImgExtension = new RegExp("\.([0-9a-z]+)(?:[\?#]|$)")
+    var reader = new FileReader();
+    var file = e.target.files[0];
+
+    reader.onload = function(data) {
+      var image = data.target.result
+      self.setState({
+        img: image,
+        imgtype: findImgType.exec(image)[1],
+        imgext: findImgExtension.exec(file.name)[0]
+      });
+    }
+    reader.readAsDataURL(file);
+
   }
 
-  // triggerUpload(e) {
-  //   this.handleImg(this.inputref)
-  // }
-
   submitStory(e) {
-    var obj = this.state
+
+    // Store image
     request
-      .post('http://localhost:3000/api/')
-      .set('Content-Type', 'application/json')
-      .send(obj)
+      .post('http://localhost:3000/api/image')
+      .set('Accept', this.state.imgtype)
+      .send({
+        image: this.state.img,
+        id: this.state.id,
+        extension: this.state.imgext
+      })
       .end(function(err, res) {
         console.log(err, res)
+        if (err) {
+          alert(err)
+        }
       })
+
+    var preparedStory = blacklist(this.state, 'imgtype', 'imgext', 'editing')
+    preparedStory.img = 'http://s3-us-west-2.amazonaws.com/world-in-me/' + this.state.id + this.state.imgext
+
+    request
+      .post('http://localhost:3000/api/')
+      .set('Accept', 'application/json')
+      .send(preparedStory)
+      .end(function(err, res) {
+        console.log(err, res)
+        if (err) {
+          alert(err)
+        }
+      })
+
   }
 
   render() {
 
-    // const imageStyle = classnames({
-    //   'hidden': this.state.editing,
-    // })
-    // const inputStyle = classnames({
-    //   'hidden': !this.state.editing,
-    // })
-
-    // const bgImageStyle = {
-    //   'background': 'url(' + this.state.img + ')',
-    // }
+    const storyClass = classnames({
+      story: true,
+      editor: this.state.editing
+    })
 
     return (
-      <div className="story">
+      <div className={storyClass}>
         
-        <img src='/img/plus.png' onClick={this.toggleEditMode} className="logo right secondary"></img>
-        <LeadImage src={this.state.img} editing={this.state.editing} onChange={this.handleImg}/>
+        <img src='/img/plus.png' onClick={this.toggleEditMode.bind(this)} className="logo right second"></img>
+        <img src='/img/check.png' onClick={this.submitStory.bind(this)} className="logo right third"></img>
+        <LeadImage src={this.state.img} editing={this.state.editing} onChange={this.handleImg.bind(this)}/>
         
         <Editor
           tag="h2"
@@ -112,6 +143,15 @@ class Post extends React.Component {
     )
   }
 
+}
+
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4();
 }
 
 export default Post

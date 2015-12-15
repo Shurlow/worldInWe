@@ -73,6 +73,8 @@
   position: absolute;
   top: 0;
   white-space: pre;
+  padding: inherit;
+  margin: inherit;
 }
 
 .medium-toolbar-arrow-under:after, .medium-toolbar-arrow-over:before {
@@ -285,10 +287,10 @@ body {
   -o-transition-duration: 0.08s;
   -webkit-transition-duration: 0.08s;
   transition-duration: 0.08s;
-  -moz-transition-timing-function: ease-in;
-  -o-transition-timing-function: ease-in;
-  -webkit-transition-timing-function: ease-in;
-  transition-timing-function: ease-in;
+  -moz-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  -o-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
   z-index: 1;
 }
 .logo.left {
@@ -297,8 +299,11 @@ body {
 .logo.right {
   right: 6px;
 }
-.logo.secondary {
+.logo.second {
   top: 60px;
+}
+.logo.third {
+  top: 120px;
 }
 @media (min-width: 1024px) {
   .logo {
@@ -307,7 +312,7 @@ body {
 }
 
 .hidden {
-  opacity: 0;
+  visibility: hidden;
 }
 
 .image {
@@ -320,10 +325,10 @@ body {
   -o-transition-duration: 5s;
   -webkit-transition-duration: 5s;
   transition-duration: 5s;
-  -moz-transition-timing-function: ease-in;
-  -o-transition-timing-function: ease-in;
-  -webkit-transition-timing-function: ease-in;
-  transition-timing-function: ease-in;
+  -moz-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  -o-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .image_wrapper {
@@ -398,9 +403,9 @@ body {
   }
 }
 .storyboard li:hover {
-  -moz-box-shadow: #E5E6E9 4px 4px 6px;
-  -webkit-box-shadow: #E5E6E9 4px 4px 6px;
-  box-shadow: #E5E6E9 4px 4px 6px;
+  -moz-box-shadow: #47525d 6px 6px 0px;
+  -webkit-box-shadow: #47525d 6px 6px 0px;
+  box-shadow: #47525d 6px 6px 0px;
   margin-top: -1px;
 }
 .storyboard li img {
@@ -434,20 +439,15 @@ body {
   justify-content: center;
   -webkit-align-items: center;
   align-items: center;
-  max-width: 100vw;
 }
-.leadimg img {
-  outline: 4px dotted blue;
-  position: relative;
-  z-index: -1;
+.leadimg img:hover {
+  cursor: pointer;
+  -moz-box-shadow: #47525d 8px 8px 0px;
+  -webkit-box-shadow: #47525d 8px 8px 0px;
+  box-shadow: #47525d 8px 8px 0px;
 }
 .leadimg input {
-  outline: 4px dotted blue;
-  background-repeat: no-repeat;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
+  display: none;
 }
 
 .story {
@@ -455,6 +455,30 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin: 0 auto;
+  -moz-transition-property: box-shadow;
+  -o-transition-property: box-shadow;
+  -webkit-transition-property: box-shadow;
+  transition-property: box-shadow;
+  -moz-transition-duration: 2s;
+  -o-transition-duration: 2s;
+  -webkit-transition-duration: 2s;
+  transition-duration: 2s;
+  -moz-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  -o-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  -moz-transition-property: outline;
+  -o-transition-property: outline;
+  -webkit-transition-property: outline;
+  transition-property: outline;
+  -moz-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  -webkit-transition-duration: 1s;
+  transition-duration: 1s;
+  -moz-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  -o-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 .story:after {
   content: " ";
@@ -486,6 +510,17 @@ body {
   font-family: "PT Serif", serif;
   font-size: 21px;
   line-height: 1.58;
+}
+
+.editor {
+  -moz-box-shadow: #47525d 10px 10px 0px;
+  -webkit-box-shadow: #47525d 10px 10px 0px;
+  box-shadow: #47525d 10px 10px 0px;
+  outline: 1px solid #7b8994;
+  -moz-transform: translateY(-10);
+  -ms-transform: translateY(-10);
+  -webkit-transform: translateY(-10);
+  transform: translateY(-10);
 }
 
 .footer {

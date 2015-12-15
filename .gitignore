@@ -8,4 +8,5 @@ rethinkdb_data
 npm-debug.log
 savedStyles/
 .sass-cache/
+aws_config.json
 .DS_Store

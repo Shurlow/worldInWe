@@ -1,5 +1,6 @@
 var React = require('react')
 var classnames = require('classnames')
+import transition from 'moveit'
 // var imagesLoaded = require('imagesloaded')
 
 var storybox = classnames({'storybox': true})
@@ -22,7 +23,13 @@ export default class StoryBoardItem extends React.Component {
     return <img className="preview" src="/img/placeholder.png" />;
   }
 
+  load(e) {
+    console.log(e)
+  }
+
   render() {
+
+
     return (
       <li>
         <Link to={'/stories/' + this.props.id}>
@@ -32,7 +39,8 @@ export default class StoryBoardItem extends React.Component {
           <ImageLoader
             src={this.props.img}
             wrapper={React.DOM.div}
-            preloader={this.preloader}>
+            preloader={this.preloader}
+            onLoad={this.load}>
             Image load failed!
           </ImageLoader>
         </Link>

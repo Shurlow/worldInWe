@@ -8,19 +8,6 @@ export default class LeadImage extends React.Component {
     super(props)
   }
 
-  handleImg(e) {
-    var self = this;
-    var reader = new FileReader();
-    var file = e.target.files[0];
-
-    reader.onload = function(upload) {
-      self.setState({
-        img: upload.target.result,
-      });
-    }
-    reader.readAsDataURL(file);
-  }
-
   makeImage() {
 
     const imageStyle = classnames({
@@ -32,10 +19,10 @@ export default class LeadImage extends React.Component {
     })
 
     const bgImageStyle = {
-      'background': 'url(' + this.props.src + ')',
+      'background': 'url(' + this.props.src + ') no-repeat',
     }
+
     if (this.props.editing) {
-      console.log('render input')
       return (
         <input
           className={inputStyle}
@@ -45,19 +32,32 @@ export default class LeadImage extends React.Component {
           onChange={this.props.onChange}
         />
       )
-    } else {
-      console.log('render plain img')
-      return (
-        <img src={this.props.src} className={imageStyle}></img>
-      )
     }
   }
 
+  triggerUpload() {
+    this.inputref.click()
+  }
+
   render() {
-    console.log('Leadimage:', this.props)
+    // console.log('Leadimage:', this.props)
+    const inputStyle = classnames({
+      'hidden': !this.props.editing,
+    })
+    // const imageStyle = classnames({
+    //   'hidden': this.props.editing,
+    // })
     return (
       <div className="leadimg">
-        {this.makeImage()}
+        <img src={this.props.src} onClick={this.triggerUpload.bind(this)}></img>
+          <input
+          // className={inputStyle}
+          // style={bgImageStyle}
+          type="file"
+          accept="image/*"
+          onChange={this.props.onChange}
+          ref={(c) => this.inputref = c}
+        />
       </div>
     )
   }

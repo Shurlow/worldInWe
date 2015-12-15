@@ -38,7 +38,7 @@ router.get('/:story_id', function(req, res) {
 
 // Post new story
 router.post('/', function(req, res) {
-	console.log('Posting New Story')
+	console.log('Posting New Story', req.body)	
 	db.postStory(req.body, function(err, data) {
 		if (err) {
 			res.status(500).send('Error adding story object')
@@ -46,6 +46,32 @@ router.post('/', function(req, res) {
 			res.send('Story submitted.')
 		}
 	})
+});
+
+
+//Image Upload using s3
+var aws = require('aws-sdk');
+aws.config.loadFromPath('./aws_config.json');
+var s3 = new aws.S3();
+
+router.post('/image', function(req, res) {
+	var buf = new Buffer(req.body.image.replace(/^data:image\/\w+;base64,/, ""),'base64')
+	s3.putObject({
+		ACL: 'public-read',
+    Bucket: "world-in-me",
+    Key: req.body.id + req.body.extension,
+    Body: buf,
+    ContentEncoding: 'base64',
+    ContentType: req.accepts()[0]
+  }, function(error, response) {
+  	console.log('s3 response:', error, response)
+  		if (error) {
+  			res.status(500).send("error")			
+  		} else {
+  			res.status(200).send(response)
+  		}
+  })
+	
 });
 
 //Update indevidual story
@@ -62,12 +88,6 @@ router.post('/update/:story_id', function(req, res) {
 });
 
 
-router.post('/story', function(req, res) {
-	var data = req.body
-	console.log(data)	
-	db.postStory(data, function(err) {
-		if (err) return console.log(err)
-	})
-});
+
 
 module.exports = router;

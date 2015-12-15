@@ -66,6 +66,7 @@ router.post('/image', function(req, res) {
   }, function(error, response) {
   	console.log('s3 response:', error, response)
   		if (error) {
+        console.log(error)
   			res.status(500).send("error")			
   		} else {
   			res.status(200).send(response)
@@ -82,7 +83,7 @@ router.post('/update/:story_id', function(req, res) {
 		if (err) {
 			res.status(500).send('Error updating story object')
 		} else {
-			res.send('All good')
+			res.status(200).send('All good')
 		}
 	})
 });

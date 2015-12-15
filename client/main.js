@@ -1,13 +1,17 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, Link, Redirect } from 'react-router'
-import { createHistory, useBasename } from 'history'
+// import { createHistory, useBasename } from 'history'
+import createBrowserHistory from 'history/lib/createBrowserHistory'
 import classnames from 'classnames'
 import auth from './auth'
 
-const history = useBasename(createHistory)({
-  basename: '/w'
-})
+// const history = useBasename(createHistory)({
+//   basename: '/w'
+// })
+
+const history = createBrowserHistory()
+export default createBrowserHistory()
 
 var StoryBoard = React.createFactory(require('./components/StoryBoard.jsx'))
 var Story = React.createFactory(require('./components/Story.jsx'))

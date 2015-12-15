@@ -26,12 +26,7 @@ class StoryBoard extends React.Component {
 
 	makeStoryItem(item) {
 		return(
-			<StoryBoardItem
-				key={item.id}
-				id={item.id}
-				img={item.img}
-				text={item.text}
-				author_name={item.author_name} />
+			<StoryBoardItem key={item.id} {...item}/>
 		)
 	}
 

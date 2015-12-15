@@ -1,9 +1,12 @@
 import React from 'react'
 import Link from 'react-router'
-import Editor from './Editor.jsx'
 import request from 'superagent'
 import classnames from 'classnames'
-// import ImageBlurLoader from '../../../react-imageblurloader/src/ImageBlurLoader.js'
+import blacklist from 'blacklist'
+// import history from './history'
+import Editor from './Editor.jsx'
+import LeadImage from './LeadImage.jsx'
+
 var btnClass, btnClass2, storyClass;
 
 class Story extends React.Component {
@@ -15,9 +18,14 @@ class Story extends React.Component {
       author_name: "author",
       title: "Title",
       img: "/img/testbigimg.png",
-      editMode: false,
+      imgtype: "",
+      imgext: "",
+      id: "",
+      editing: false
     }
   }
+
+  // mixins: [ History ]
 
   //Helper function that pushes Editor components to update state manually
   //pretty much use once for api update
@@ -38,12 +46,15 @@ class Story extends React.Component {
           author_name: res.body.author_name,
           title: res.body.title,
           img: res.body.img,
+          id: res.body.id
         })
         self.pushState()
       })
+      this.goHome()
   }
 
   handleTitleChange(value) {
+    console.log('Setting Title:', value)
     this.setState({
       title: value
     })
@@ -65,38 +76,75 @@ class Story extends React.Component {
     })
   }
 
-
-  togleEditMode(e) {
+  toggleEditMode(e) {
     this.setState({
       editMode: !this.state.editMode
     })
   }
 
-  saveEdits(e) {
-    console.log('Saving your work...', this.state)
+  handleImg(e) {
+    var self = this;
+    var findImgType = new RegExp("\:(.*?)\;")
+    var findImgExtension = new RegExp("\.([0-9a-z]+)(?:[\?#]|$)")
+    var reader = new FileReader();
+    var file = e.target.files[0];
+
+    reader.onload = function(data) {
+      let image = data.target.result
+      let ext = findImgExtension.exec(file.name)[0]
+      let type = findImgType.exec(image)[1]
+      let withExtension = (self.state.imgext == ext)
+      self.setState({
+        img: image,
+        imgtype: type,
+        imgext: ext
+      });
+      self.saveImage(withExtension)
+    }
+    reader.readAsDataURL(file);
+  }
+
+  saveImage(withExtension) {
+    var self = this
+    // Store image
     request
-      .post('http://localhost:3000/api/update/' + this.props.params.id)
-      .set('Content-Type', 'application/json')
-      .send(this.state)
+      .post('http://localhost:3000/api/image')
+      .set('Accept', this.state.imgtype)
+      .send({
+        image: this.state.img,
+        id: this.state.id,
+        extension: this.state.imgext
+      })
       .end(function(err, res) {
-        if (err) return alert('Big Error!')
-        alert('Story Saved')
+        console.log(err, res)
+        if (err) {
+          alert(err)
+        } else {
+          alert("Image Saved")
+        }
+      })
+      console.log("With Extension? ", withExtension)
+      if (withExtension) {
+        self.saveEdits()
+      }
+  }
+
+  saveEdits() {
+    var self = this
+    var preparedStory = blacklist(this.state, 'imgtype', 'imgext', 'editing')
+    
+    request
+      .post('http://localhost:3000/api/update/' + this.state.id)
+      .set('Content-Type', 'application/json')
+      .send(preparedStory)
+      .end(function(err, res) {
+        if (err) {
+          alert('Big Error!')
+        } else {
+          alert('Story Saved')
+        }
       })
   }
-
-  handleFocus() {
-    console.log('onFocus');
-  }
-
-  handleBlur() {
-    console.log('onBlur');
-  }
-
-  // handleChange(text, medium) {
-  //   this.setState({
-  //     text: text
-  //   });
-  // },
 
   defineClasses() {
     // btnClass = classnames({
@@ -108,50 +156,47 @@ class Story extends React.Component {
     //   'slidebutton': true,
     // });
     
-    storyClass = classnames({
-      'story': true,
-      'editing': this.state.editMode,
-    });
+    const storyClass = classnames({
+      story: true,
+      editor: this.state.editing
+    })
   }
 
   render() {
     console.log('render story', this.state)
-    this.defineClasses()
+
+    const storyClass = classnames({
+      story: true,
+      editor: this.state.editing
+    })
     return (
-      <div>
-        <div id="fleximg">
-          <img className="leadimg" src={this.state.img}></img>
-          <ImageBlurLoader
-            src={this.state.img}
-            preview={"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD//gA7Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcgSlBFRyB2NjIpLCBxdWFsaXR5ID0gODAK/9sAQwAKBwcIBwYKCAgICwoKCw4YEA4NDQ4dFRYRGCMfJSQiHyIhJis3LyYpNCkhIjBBMTQ5Oz4+PiUuRElDPEg3PT47/9sAQwEKCwsODQ4cEBAcOygiKDs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7/8AAEQgADQAUAwEiAAIRAQMRAf/EABgAAAMBAQAAAAAAAAAAAAAAAAAFBwYI/8QAJBAAAgEDBAICAwAAAAAAAAAAAQIDAAQRBQYSIQcxE0FxgcL/xAAVAQEBAAAAAAAAAAAAAAAAAAABAv/EABcRAQEBAQAAAAAAAAAAAAAAAAAhERL/2gAMAwEAAhEDEQA/AH8W9k1xVittwG2u5UINrb2/Jo8ZZjzbphx6BA91qdnzXFzognnuprlHkb4XmILlB12QB9gnuuarZn0vcJhgkbEUrxqSe8HkufziqL423XNo9huWQ2yzJC0c6xh+ABbKn6OPQqcp6lVsas8t1dQwWbSC2lETPzABPBW/rFFJfHGpS6ztybVZURJL29llZVzhewAP0AKKQ//Z"}
-          />
-        </div>
-        <div className={storyClass}>
-          <div>
-            <Editor
-              tag="h2"
-              className="title"
-              text={this.state.title}
-              onChange={this.handleTitleChange.bind(this)}
-              ref={(c) => this.titleref = c}
-            />
-            <Editor
-              tag="h3"
-              className="author"
-              text={this.state.author_name}
-              onChange={this.handleNameChange.bind(this)}
-              ref={(c) => this.authref = c}
-            />
-            <Editor
-              tag="p"
-              className="text"
-              text={this.state.text}
-              onChange={this.handleTextChange.bind(this)}
-              ref={(c) => this.textref = c}
-            />
-          </div>
-        </div>
-        
+      <div className={storyClass}>
+      
+        <img src='/img/plus.png' onClick={this.toggleEditMode.bind(this)} className="logo right second"></img>
+        <img src='/img/check.png' onClick={this.saveEdits.bind(this)} className="logo right third"></img>
+        <LeadImage src={this.state.img} editing={this.state.editing} onChange={this.handleImg.bind(this)}/>
+      
+        <Editor
+          tag="h2"
+          className="title"
+          text={this.state.title}
+          onChange={this.handleTitleChange.bind(this)}
+          ref={(c) => this.titleref = c}
+        />
+        <Editor
+          tag="h3"
+          className="author"
+          text={this.state.author_name}
+          onChange={this.handleNameChange.bind(this)}
+          ref={(c) => this.authref = c}
+        />
+        <Editor
+          tag="p"
+          className="text"
+          text={this.state.text}
+          onChange={this.handleTextChange.bind(this)}
+          ref={(c) => this.textref = c}
+        />
       </div>
     )
   }

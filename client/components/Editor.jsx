@@ -5,7 +5,6 @@ import React from 'react'
 import ReactDom from 'react-dom'
 import MediumEditor from 'medium-editor'
 
-var dom;
 
 export default class Editor extends React.Component {
 
@@ -27,7 +26,7 @@ export default class Editor extends React.Component {
       standardizeSelectionStart: false,
       static: false,
     }
-    dom = ReactDom.findDOMNode(this);
+    var dom = ReactDom.findDOMNode(this);
     this.medium = new MediumEditor(dom, {
       toolbar: toolbarOptions,
       imageDragging: true

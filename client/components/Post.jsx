@@ -39,12 +39,6 @@ class Post extends React.Component {
     })
   }
 
-  handleImgChange(e) {
-    this.setState({
-      img: e.target.value
-    })
-  }
-
   toggleEditMode() {
     this.setState({
       editing: !this.state.editing
@@ -66,13 +60,13 @@ class Post extends React.Component {
         imgtype: findImgType.exec(image)[1],
         imgext: findImgExtension.exec(file.name)[0]
       });
+      self.saveImage()
     }
     reader.readAsDataURL(file);
-
   }
 
-  submitStory(e) {
-
+  saveImage() {
+    var self = this
     // Store image
     request
       .post('http://localhost:3000/api/image')
@@ -86,9 +80,14 @@ class Post extends React.Component {
         console.log(err, res)
         if (err) {
           alert(err)
+        } else {
+          alert("Image Saved")
         }
       })
+  }
 
+  submitStory(e) {
+    var self = this
     var preparedStory = blacklist(this.state, 'imgtype', 'imgext', 'editing')
     preparedStory.img = 'http://s3-us-west-2.amazonaws.com/world-in-me/' + this.state.id + this.state.imgext
 
@@ -100,9 +99,10 @@ class Post extends React.Component {
         console.log(err, res)
         if (err) {
           alert(err)
+        } else {
+          self.props.history.replaceState(null, '/home')
         }
       })
-
   }
 
   render() {

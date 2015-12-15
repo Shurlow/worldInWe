@@ -53,26 +53,17 @@ router.post('/', function(req, res) {
 var aws = require('aws-sdk');
 aws.config.loadFromPath('./aws_config.json');
 var s3 = new aws.S3();
+var processImage = require('../processImage.js')
 
 router.post('/image', function(req, res) {
 	var buf = new Buffer(req.body.image.replace(/^data:image\/\w+;base64,/, ""),'base64')
-	s3.putObject({
-		ACL: 'public-read',
-    Bucket: "world-in-me",
-    Key: req.body.id + req.body.extension,
-    Body: buf,
-    ContentEncoding: 'base64',
-    ContentType: req.accepts()[0]
-  }, function(error, response) {
-  	console.log('s3 response:', error, response)
-  		if (error) {
-        console.log(error)
-  			res.status(500).send("error")			
-  		} else {
-  			res.status(200).send(response)
-  		}
+  processImage(buf, req.body.id, req.body.extension, function(err) {
+    if (err) {
+      console.log(err)
+      res.status(500).send(err)    
+    } else {
+      res.status(200).send(response)
   })
-	
 });
 
 //Update indevidual story

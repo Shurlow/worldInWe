@@ -170,33 +170,33 @@ class Story extends React.Component {
       editor: this.state.editing
     })
     return (
-      <div className={storyClass}>
-      
+      <div>
         <img src='/img/plus.png' onClick={this.toggleEditMode.bind(this)} className="logo right second"></img>
         <img src='/img/check.png' onClick={this.saveEdits.bind(this)} className="logo right third"></img>
         <LeadImage src={this.state.img} editing={this.state.editing} onChange={this.handleImg.bind(this)}/>
-      
-        <Editor
-          tag="h2"
-          className="title"
-          text={this.state.title}
-          onChange={this.handleTitleChange.bind(this)}
-          ref={(c) => this.titleref = c}
-        />
-        <Editor
-          tag="h3"
-          className="author"
-          text={this.state.author_name}
-          onChange={this.handleNameChange.bind(this)}
-          ref={(c) => this.authref = c}
-        />
-        <Editor
-          tag="p"
-          className="text"
-          text={this.state.text}
-          onChange={this.handleTextChange.bind(this)}
-          ref={(c) => this.textref = c}
-        />
+        <div className={storyClass}>
+          <Editor
+            tag="h2"
+            className="title"
+            text={this.state.title}
+            onChange={this.handleTitleChange.bind(this)}
+            ref={(c) => this.titleref = c}
+          />
+          <Editor
+            tag="h3"
+            className="author"
+            text={this.state.author_name}
+            onChange={this.handleNameChange.bind(this)}
+            ref={(c) => this.authref = c}
+          />
+          <Editor
+            tag="p"
+            className="text"
+            text={this.state.text}
+            onChange={this.handleTextChange.bind(this)}
+            ref={(c) => this.textref = c}
+          />
+        </div>
       </div>
     )
   }

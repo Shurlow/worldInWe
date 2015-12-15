@@ -81,7 +81,7 @@ class Post extends React.Component {
         if (err) {
           alert(err)
         } else {
-          alert("Image Saved")
+          alert("Image saved")
         }
       })
   }

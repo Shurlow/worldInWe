@@ -268,9 +268,9 @@ body {
 }
 
 .content {
-  width: 8.10127%;
+  width: 7.74194%;
   float: left;
-  margin-right: 0.25316%;
+  margin-right: 0.64516%;
 }
 
 .logo {
@@ -356,7 +356,7 @@ body {
 }
 @media (min-width: 1024px) {
   .storyboard {
-    max-width: 76%;
+    max-width: 56%;
     margin-left: auto;
     margin-right: auto;
   }
@@ -369,6 +369,7 @@ body {
 .storyboard li {
   position: relative;
   overflow: none;
+  outline: 4px solid #7b8994;
 }
 @media (min-width: 320px) and (max-width: 767px) {
   .storyboard li {
@@ -376,14 +377,15 @@ body {
     float: left;
     margin-left: 0;
     margin-right: 0;
-    margin-bottom: 0.50633%;
+    margin-bottom: 2em;
   }
 }
 @media (min-width: 1024px) {
   .storyboard li {
-    width: 32.65306%;
+    width: 31.57895%;
     float: left;
-    margin-bottom: 1.01266%;
+    margin-bottom: 2.58065%;
+    height: 260px;
   }
   .storyboard li:nth-child(3n + 1) {
     margin-left: 0;
@@ -392,12 +394,12 @@ body {
     margin-left: 0;
   }
   .storyboard li:nth-child(3n + 2) {
-    margin-left: 33.67347%;
+    margin-left: 34.21053%;
     margin-right: -100%;
     clear: none;
   }
   .storyboard li:nth-child(3n + 3) {
-    margin-left: 67.34694%;
+    margin-left: 68.42105%;
     margin-right: -100%;
     clear: none;
   }
@@ -410,6 +412,7 @@ body {
 }
 .storyboard li img {
   width: 100%;
+  padding-top: 2em;
 }
 .storyboard li .textover {
   opacity: 0;
@@ -439,6 +442,7 @@ body {
   justify-content: center;
   -webkit-align-items: center;
   align-items: center;
+  width: 100%;
 }
 .leadimg img:hover {
   cursor: pointer;
@@ -479,6 +483,7 @@ body {
   -o-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
   -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
   transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  font-size: 20px;
 }
 .story:after {
   content: " ";
@@ -495,12 +500,12 @@ body {
   color: #47525d;
   font-weight: 900;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 56px;
+  font-size: 5em;
   margin-top: 1em;
 }
 .story h3 {
   font-family: "Lato";
-  font-size: 32px;
+  font-size: 3em;
   color: #7b8994;
 }
 .story .author {
@@ -508,7 +513,7 @@ body {
 }
 .story .text {
   font-family: "PT Serif", serif;
-  font-size: 21px;
+  font-size: 2.2em;
   line-height: 1.58;
 }
 

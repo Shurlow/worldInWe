@@ -29,7 +29,6 @@ export default class StoryBoardItem extends React.Component {
 
   render() {
 
-
     return (
       <li>
         <Link to={'/stories/' + this.props.id}>

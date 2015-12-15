@@ -5,7 +5,7 @@
 
 $susy: (
 	columns: 12,
-	gutters: 1 / 32,
+	gutters: 1 / 12,
 );
 
 $lightgrey: #7b8994;
@@ -116,21 +116,24 @@ nav {
 	padding: 0;
 
 	@include desktop {
-		@include container(76%)
+		@include container(56%)
 	}
 
 	li {
 		position: relative;
 		overflow: none;
+		outline: 4px solid $lightgrey;
 		
 		@include phone {
 			@include span(1 of 1);
-			margin-bottom: gutter()*2;
+			// margin-bottom: gutter()*2;
+			margin-bottom: 2em;
 		}
 
 		@include desktop {
 			@include gallery(1 of 3);
 			margin-bottom: gutter()*4;
+			height: 260px;
 		}
 
 		&:hover {
@@ -140,6 +143,7 @@ nav {
 
 		img {
 			width: 100%;
+			padding-top: 2em;
 		}
 
 		.textover {
@@ -173,7 +177,7 @@ nav {
 	@include display-flex;
 	@include justify-content(center);
 	@include align-items(center);
-	// width: 100vw;
+	width: 100%;
 
 	img {
 
@@ -193,6 +197,8 @@ nav {
 	margin: 0 auto;
 	@include ease(box-shadow, 2s);
 	@include ease(outline, 1s);
+
+	font-size: 20px;
 	// margin-top: 1em;
 
 	@include desktop {
@@ -205,7 +211,7 @@ nav {
 		// font-family: "Lato";
 		font-weight: 900;
 		font-family: 'Source Sans Pro', sans-serif;
-		font-size: 56px;
+		font-size: 5em;
 
 		margin-top: 1em;
 
@@ -213,14 +219,8 @@ nav {
 
 	h3 {
 		font-family: "Lato";
-		font-size: 32px;
+		font-size: 3em;
 		color: $lightgrey;
-	}
-
-	p {
-		// font-family: "Lato";
-		// font-weight: 400;
-
 	}
 
 	.author {
@@ -229,8 +229,9 @@ nav {
 
 	.text {
 		font-family: "PT Serif", serif;
-		font-size: 21px;
+		font-size: 2.2em;
 		line-height: 1.58;
+
 	}
 }
 

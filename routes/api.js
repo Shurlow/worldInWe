@@ -62,9 +62,10 @@ router.post('/image', function(req, res) {
       console.log(err)
       res.status(500).send(err)    
     } else {
-      res.status(200).send(response)
+      res.status(200).send("Image done.")
+    }
   })
-});
+})
 
 //Update indevidual story
 router.post('/update/:story_id', function(req, res) {

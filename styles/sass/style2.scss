@@ -173,7 +173,7 @@ nav {
 
 .leadimg {
 	// margin: 0 auto;
-	margin-top: 6em;
+	margin-top: 12em;
 	@include display-flex;
 	@include justify-content(center);
 	@include align-items(center);
@@ -202,8 +202,9 @@ nav {
 	// margin-top: 1em;
 
 	@include desktop {
-		padding-left: 10em;
-		padding-right: 10em;
+		// padding-left: 10em;
+		// padding-right: 10em;
+		@include container(40%);
 	}
 
 	h2 {
@@ -211,7 +212,7 @@ nav {
 		// font-family: "Lato";
 		font-weight: 900;
 		font-family: 'Source Sans Pro', sans-serif;
-		font-size: 5em;
+		font-size: 50px;
 
 		margin-top: 1em;
 
@@ -219,7 +220,7 @@ nav {
 
 	h3 {
 		font-family: "Lato";
-		font-size: 3em;
+		font-size: 30px;
 		color: $lightgrey;
 	}
 
@@ -229,8 +230,12 @@ nav {
 
 	.text {
 		font-family: "PT Serif", serif;
-		font-size: 2.2em;
+		font-size: 2em;
 		line-height: 1.58;
+
+		@include desktop {
+			font-size: 1em;
+		}
 
 	}
 }
@@ -239,6 +244,15 @@ nav {
 	@include heavy-shadow(10px);
 	outline: 1px solid $lightgrey;
 	@include translateY(-10);
+}
+
+.login {
+	@include container(50%);
+	@include medium-shadow;
+	padding: 4em;
+	@include display-flex;
+	@include justify-content(center);
+	@include align-items(center);
 }
 
 

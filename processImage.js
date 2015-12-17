@@ -38,10 +38,10 @@ module.exports = function(imageBuffer, id, extension) {
       ContentEncoding: 'base64',
       ContentType: req.accepts()[0]
     }, function(error, response) {
-      console.log('s3 response:', error, response)
-      
-        }
-    })
+        console.log('s3 response:', error, response)
+
+      })
   }
 }
 
+reactMixin(Login.prototype, React.addons.LinkedStateMixin);

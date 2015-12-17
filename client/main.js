@@ -21,7 +21,7 @@ var PostFile = React.createFactory(require('./components/PostFile.jsx'))
 var Nav = React.createFactory(require('./components/Nav.jsx'))
 var Home = React.createFactory(require('./components/Home.jsx'))
 var About = React.createFactory(require('./components/About.jsx'))
-var Login = React.createFactory(require('./components/Login.jsx'))
+import Login from './components/Login.jsx'
 var Logout = React.createFactory(require('./components/Logout.jsx'))
 
 const App = React.createClass({

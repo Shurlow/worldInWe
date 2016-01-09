@@ -1,11 +1,13 @@
 import React from 'react'
-import { History } from 'react-router'
+import { browserHistory } from 'react-router'
 import auth from '../auth.js'
 
 class Login extends React.Component {
 
-  constructor() {
-    super()
+  constructor(props, context) {
+    console.log('cx:', props.route.compnent.contextTypes.router, props)
+    super(props, context)
+    context.router
     this.state = {
       user: '',
       pass: '',
@@ -13,8 +15,10 @@ class Login extends React.Component {
       editor: false
     }
   }
+
+
   
-  mixins: [History]
+  // mixins: [History]
 
   login(e) {
     e.preventDefault()
@@ -29,9 +33,13 @@ class Login extends React.Component {
       const { location } = self.props
 
       if (location.state && location.state.nextPathname) {
-        self.history.replaceState(null, location.state.nextPathname)
+        console.log('something', self)
+        self.context.router.replace(location.state.nextPathname)
+        // self.history.replaceState(null, location.state.nextPathname)
       } else {
-        self.history.replaceState(null, '/')
+        // self.history.replaceState(null, '/')
+        console.log('else', self)
+        self.context.router.replace('/')
       }
 
     })
@@ -46,7 +54,7 @@ class Login extends React.Component {
             <h2>Log In</h2>
             <form onSubmit={this.login.bind(this)}>
               <input type="text" ref={(c) => this.userref = c} placeholder="Username"></input>
-              <input type="text" ref={(c) => this.userref = c} placeholder="Password"></input>
+              <input type="text" ref={(c) => this.passref = c} placeholder="Password"></input>
               <button type="submit">login</button>
             </form>
           </div>
@@ -62,6 +70,10 @@ class Login extends React.Component {
     )
   }
 
+}
+
+Login.contextTypes = {
+  router: React.PropTypes.func.isRequired
 }
 
 export default Login

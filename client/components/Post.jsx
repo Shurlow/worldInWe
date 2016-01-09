@@ -1,111 +1,33 @@
 import React from 'react'
-import request from 'superagent'
-import ReactDOM from'react-dom'
+// import request from 'superagent'
+// import ReactDOM from'react-dom'
 // import Editor from '../../../react-medium-editor/dist/editor.js'
 import Editor from './Editor.jsx'
 import LeadImage from './LeadImage.jsx'
+import Story from './Story.jsx'
 import classnames from 'classnames'
-import blacklist from 'blacklist'
+// import blacklist from 'blacklist'
 
-class Post extends React.Component {
+class Post extends Story {
 
   constructor(props) {
     super(props)
     this.state = {
-      text: "Your story goes here..",
-      author_name: "Name",
-      title: "Title",
+      text: "",
+      author_name: "",
+      title: "",
       img: "/img/blankimg.png",
-      imgtype: "",
-      imgext: "",
       editing: false,
       id: guid()
     }
   }
 
-  handleTitleChange(value) {
-    this.setState({
-      title: value
-    })
-  }
-  handleNameChange(value) {
-    this.setState({
-      author_name: value
-    })
-  }
-  handleTextChange(value) {
-    this.setState({
-      text: value
-    })
-  }
-
-  toggleEditMode() {
-    this.setState({
-      editing: !this.state.editing
-    })
-    console.log(this.inputref)
-  }
-
-  handleImg(e) {
-    var self = this;
-    var findImgType = new RegExp("\:(.*?)\;")
-    var findImgExtension = new RegExp("\.([0-9a-z]+)(?:[\?#]|$)")
-    var reader = new FileReader();
-    var file = e.target.files[0];
-
-    reader.onload = function(data) {
-      var image = data.target.result
-      self.setState({
-        img: image,
-        imgtype: findImgType.exec(image)[1],
-        imgext: findImgExtension.exec(file.name)[0]
-      });
-      self.saveImage()
-    }
-    reader.readAsDataURL(file);
-  }
-
-  saveImage() {
-    var self = this
-    // Store image
-    request
-      .post('http://localhost:3000/api/image')
-      .set('Accept', this.state.imgtype)
-      .send({
-        image: this.state.img,
-        id: this.state.id,
-        extension: this.state.imgext
-      })
-      .end(function(err, res) {
-        console.log(err, res)
-        if (err) {
-          alert(err)
-        } else {
-          alert("Image saved")
-        }
-      })
-  }
-
-  submitStory(e) {
-    var self = this
-    var preparedStory = blacklist(this.state, 'imgtype', 'imgext', 'editing')
-    preparedStory.img = 'http://s3-us-west-2.amazonaws.com/world-in-me/' + this.state.id + this.state.imgext
-
-    request
-      .post('http://localhost:3000/api/')
-      .set('Accept', 'application/json')
-      .send(preparedStory)
-      .end(function(err, res) {
-        console.log(err, res)
-        if (err) {
-          alert(err)
-        } else {
-          self.props.history.replaceState(null, '/home')
-        }
-      })
+  componentDidMount() {
+    console.log('mounted')
   }
 
   render() {
+    // console.log('render story', this.state)
 
     const storyClass = classnames({
       story: true,
@@ -113,36 +35,48 @@ class Post extends React.Component {
     })
 
     return (
-      <div className={storyClass}>
-        
+      <div>
         <img src='/img/plus.png' onClick={this.toggleEditMode.bind(this)} className="logo right second"></img>
-        <img src='/img/check.png' onClick={this.submitStory.bind(this)} className="logo right third"></img>
+        <img src='/img/check.png' onClick={this.saveStory.bind(this)} className="logo right third"></img>
         <LeadImage src={this.state.img} editing={this.state.editing} onChange={this.handleImg.bind(this)}/>
-        
-        <Editor
-          tag="h2"
-          className="title"
-          text={this.state.title}
-          onChange={this.handleTitleChange.bind(this)}
-          ref={(c) => this.titleref = c}
-        />
-        <Editor
-          tag="h3"
-          className="author"
-          text={this.state.author_name}
-          onChange={this.handleNameChange.bind(this)}
-        />
-        <Editor
-          tag="p"
-          className="text"
-          text={this.state.text}
-          onChange={this.handleTextChange.bind(this)}
-        />
-
+        <div className={storyClass}>
+          <Editor
+            tag="h2"
+            className="title"
+            text={this.state.title}
+            isEditing={this.state.editing}
+            onChange={this.handleTitleChange.bind(this)}
+            placeholder={this.props.title}
+            ref={(c) => this.titleref = c}
+          />
+          <Editor
+            tag="h3"
+            className="author"
+            text={this.state.author_name}
+            isEditing={this.state.editing}
+            onChange={this.handleNameChange.bind(this)}
+            placeholder={this.props.author_name}
+            ref={(c) => this.authref = c}
+          />
+          <Editor
+            tag="p"
+            className="text"
+            text={this.state.text}
+            isEditing={this.state.editing}
+            onChange={this.handleTextChange.bind(this)}
+            placeholder={this.props.text}
+            ref={(c) => this.textref = c}
+          />
+        </div>
       </div>
     )
   }
+}
 
+Post.defaultProps = {
+  text: "type your story here",
+  title: "title",
+  author_name: "Name"
 }
 
 function guid() {

@@ -2,6 +2,8 @@ import React from 'react'
 import request from 'superagent'
 import classnames from 'classnames'
 import StoryBoardItem from './StoryBoardItem.jsx'
+// import Image from './Image.jsx'
+import ImageBlurLoader from 'react-imageblurloader';
 
 class StoryBoard extends React.Component {
 
@@ -24,6 +26,10 @@ class StoryBoard extends React.Component {
 			})
 	}
 
+	preloader() {
+    return <img className="image" src="/img/testbigimg.png" />;
+  }
+
 	makeStoryItem(item) {
 		return(
 			<StoryBoardItem key={item.id} {...item}/>
@@ -31,8 +37,14 @@ class StoryBoard extends React.Component {
 	}
 
   render() {
+
+  	const imageStyle = {
+  		image: true
+  	}
+
     return (
     	<div>
+        <img className="bigimage" src={"/img/trees.jpeg"}></img>
 	    	<ul className="storyboard">
 					{this.state.stories.map(this.makeStoryItem)}
 		    </ul>
@@ -43,3 +55,10 @@ class StoryBoard extends React.Component {
 }
 
 export default StoryBoard
+
+// <ImageBlurLoader
+// src={"/img/trees.jpeg"}
+// preview={"/img/testbigimg.png"}
+// />
+
+// <Image className="frontimage" src="/img/trees.jpeg" preview="/img/testbigimg.png" />

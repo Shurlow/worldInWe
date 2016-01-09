@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { transition } from 'moveit';
+// import { transition } from 'moveit';
 import classnames from 'classnames'
 
 export default class ImageBlurLoader extends Component {
 
   constructor(props) {
     super(props)
-    this.handleLoad = this.handleLoad.bind(this)
     this.state = {
       loaded: false
     }
@@ -32,15 +31,28 @@ export default class ImageBlurLoader extends Component {
     }
   }
 
-  render() {
+  makeImage() {
 
-    const imageStyle = {
+    const imageStyle = classnames({
+      'hidden': this.state.loaded,
+      'image': true
+    })
+
+    if (this.state.loaded) {
+      return <img className={imageStyle} src={ this.props.src } onLoad={ this.handleLoad.bind(this) }/>
+    }
+  }
+
+  render() {
+    const previewStyle = classnames({
       'hidden': !this.state.loaded,
       'image': true
-    };
-
+    })
     return (
-        <img  className={imageStyle} src={ this.props.src } onLoad={ this.handleLoad }/>
+      <div>
+      {this.makeImage()}
+      <img className={previewStyle} src={ this.props.preview }/>
+      </div>
     );
   }
 
@@ -58,6 +70,7 @@ ImageBlurLoader.propTypes = {
   animation: PropTypes.object,
   onLoad: PropTypes.func
 }
+
 ImageBlurLoader.defaultProps = {
   blur: 30,
   animation: {

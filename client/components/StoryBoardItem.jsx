@@ -1,6 +1,5 @@
 var React = require('react')
 var classnames = require('classnames')
-import transition from 'moveit'
 // var imagesLoaded = require('imagesloaded')
 
 var storybox = classnames({'storybox': true})
@@ -32,16 +31,17 @@ export default class StoryBoardItem extends React.Component {
     return (
       <li>
         <Link to={'/stories/' + this.props.id}>
-          <div className="textover">
-            <h3>{this.props.title}<br/> - {this.props.author_name}</h3>
-          </div>
           <ImageLoader
             src={this.props.img}
             wrapper={React.DOM.div}
             preloader={this.preloader}
-            onLoad={this.load}>
+            onLoad={this.load}
+            className="storythumb">
             Image load failed!
           </ImageLoader>
+          <div className="textover">
+            <h3>{this.props.title}<br/>{this.props.author_name}</h3>
+          </div>
         </Link>
       </li>
     )

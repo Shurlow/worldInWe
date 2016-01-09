@@ -4,6 +4,7 @@ import blacklist from 'blacklist'
 import React from 'react'
 import ReactDom from 'react-dom'
 import MediumEditor from 'medium-editor'
+// import AlloyEditor from 'alloyeditor/dist/alloy-editor/alloy-editor-all-min.js'
 
 
 export default class Editor extends React.Component {
@@ -29,11 +30,14 @@ export default class Editor extends React.Component {
     var dom = ReactDom.findDOMNode(this);
     this.medium = new MediumEditor(dom, {
       toolbar: toolbarOptions,
-      imageDragging: true
+      imageDragging: true,
+      disableEditing: true
+      // placeholder: {text: this.props.placeholder},
+
     });
     this.medium.subscribe('editableInput', (e) => {
       this._updated = true;
-      this.change(dom.innerHTML);
+      this.change(dom.innerText);
     });
   }
 
@@ -41,26 +45,6 @@ export default class Editor extends React.Component {
     this.medium.destroy();
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if(nextProps.text !== this.state.text && !this._updated) {
-  //     this.setState({text: nextProps.text});
-  //   }
-
-  //   if(this._updated) this._updated = false;
-  // }
-
-  render() {
-    var tag = this.props.tag;
-    var props = blacklist(this.props, 'tag', 'contentEditable', 'dangerouslySetInnerHTML');
-
-    assign(props, {
-      contentEditable: true,
-      dangerouslySetInnerHTML: {__html: this.state.text}
-    });
-    // console.log(tag, props)
-    return React.createElement(tag, props);
-  }
-  
   //When editor sees change, propogate
   change(text) {
     if(this.props.onChange) this.props.onChange(text, this.medium);
@@ -71,4 +55,16 @@ export default class Editor extends React.Component {
       text: text
     })
   }
-};
+
+  render() {
+    let tag = this.props.tag;
+    let props = blacklist(this.props, 'tag', 'contentEditable', 'dangerouslySetInnerHTML', 'isEditing', 'onChange');
+
+    assign(props, {
+      contentEditable: this.props.isEditing,
+      dangerouslySetInnerHTML: {__html: this.state.text}
+    });
+
+    return React.createElement(tag, props);
+  }
+}

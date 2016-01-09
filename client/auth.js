@@ -1,9 +1,10 @@
-//big thanks: https://github.com/rackt/react-router/blob/master/examples/auth-flow/auth.js
+//thanks: https://github.com/rackt/react-router/blob/master/examples/auth-flow/auth.js
 
 module.exports = {
   
   login(email, pass, cb) {
-    // cb = arguments[arguments.length - 1]
+    cb = arguments[arguments.length - 1]
+    // console.log(cb)
 
     if (localStorage.loggedIn) {
       if (cb) cb(true)
@@ -43,7 +44,7 @@ module.exports = {
 
 function pretendRequest(email, pass, cb) {
   setTimeout(() => {
-    if (email === 'admin' && pass === 'pass1') {
+    if (email === 'a' && pass === 'p') {
       cb({
         authenticated: true,
         token: Math.random().toString(36).substring(7)

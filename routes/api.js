@@ -50,19 +50,18 @@ router.post('/', function(req, res) {
 
 
 //Image Upload using s3
-var aws = require('aws-sdk');
-aws.config.loadFromPath('./aws_config.json');
-var s3 = new aws.S3();
 var processImage = require('../processImage.js')
 
 router.post('/image', function(req, res) {
+	// console.log(req.body)
 	var buf = new Buffer(req.body.image.replace(/^data:image\/\w+;base64,/, ""),'base64')
-  processImage(buf, req.body.id, req.body.extension, function(err) {
+  processImage(buf, req.body.id, function(err, response) {
     if (err) {
       console.log(err)
       res.status(500).send(err)    
     } else {
-      res.status(200).send("Image done.")
+    	console.log('image upload good.', response)
+      res.status(200).send(response.ETag)
     }
   })
 })

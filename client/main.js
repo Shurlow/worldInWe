@@ -26,14 +26,17 @@ var Logout = React.createFactory(require('./components/Logout.jsx'))
 
 const App = React.createClass({
 
-	// constructor(props) {
-	// 	super(props)
+	// constructor(props, context) {
+	// 	super(props, context)
+ //    console.log(props, context)
 	// 	this.state = { loggedIn: auth.loggedIn() }
-	// },
+	// }
 
-	getInitialState() {
-		return { loggedIn: auth.loggedIn() }
-	},
+  getInitialState() {
+    return {
+      loggedIn: auth.loggedIn()
+    }
+  },
 
 	updateAuth(isLoggedIn) {
     this.setState({
@@ -42,6 +45,7 @@ const App = React.createClass({
   },
 
 	componentWillMount() {
+    console.log('App Mounted')
 		auth.onChange = this.updateAuth
 		auth.login()
 	},
@@ -76,11 +80,21 @@ render((
       <Route path="about" component={About}/>
       <Route path="stories" component={StoryBoard}/>
       	<Route path="/stories/:id" component={Story}/>
-
-      <Route path="post" component={Post} onEnter={requireAuth}/>
-        <Route path="post/file" component={PostFile} onEnter={requireAuth}/>
+      <Route path="post" component={Post}/>
+        <Route path="post/file" component={PostFile}/>
     </Route>
   </Router>
 ), document.getElementById('react-app-mount'))
 
+
+// render((
+//   <Router history={browserHistory}>
+//     <Route path="/" component={App}>
+//       <Route path="login" component={Login} />
+//       <Route path="logout" component={Logout} />
+//       <Route path="about" component={About} />
+//       <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />
+//     </Route>
+//   </Router>
+// ), document.getElementById('example'))
 // <Route path="/stories/:id/edit" component={Editable}/>

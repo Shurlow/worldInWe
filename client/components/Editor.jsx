@@ -31,10 +31,10 @@ export default class Editor extends React.Component {
     this.medium = new MediumEditor(dom, {
       toolbar: toolbarOptions,
       imageDragging: true,
-      disableEditing: true
-      // placeholder: {text: this.props.placeholder},
-
+      disableEditing: true,
+      placeholder: { text: this.props.placeholder }
     });
+    console.log(dom.innerHTML)
     this.medium.subscribe('editableInput', (e) => {
       this._updated = true;
       this.change(dom.innerText);

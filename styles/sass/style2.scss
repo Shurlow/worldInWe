@@ -1,6 +1,6 @@
 @import "susy";
 @import "compass/css3";
-// @import "../../node_modules/medium-editor/src/sass/medium-editor.scss";
+@import "../../node_modules/medium-editor/src/sass/medium-editor.scss";
 // @import "./medium-editor.css";
 @import "mixins.scss";
 
@@ -221,13 +221,13 @@ nav {
 	}
 }
 
-.leadimg {
-	// margin: 0 auto;
-	margin-top: 12em;
+.imgulpoader {
+	width: 100%;
+	padding-top: 300px;
 	@include display-flex;
 	@include justify-content(center);
 	@include align-items(center);
-	width: 100%;
+	
 
 	input {
 		display: none;

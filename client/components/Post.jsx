@@ -3,7 +3,7 @@ import React from 'react'
 // import ReactDOM from'react-dom'
 // import Editor from '../../../react-medium-editor/dist/editor.js'
 import Editor from './Editor.jsx'
-import LeadImage from './LeadImage.jsx'
+import ImageUploader from './ImageUploader.jsx'
 import Story from './Story.jsx'
 import classnames from 'classnames'
 // import blacklist from 'blacklist'
@@ -28,17 +28,17 @@ class Post extends Story {
 
   render() {
     // console.log('render story', this.state)
-
+// <img src='/img/plus.png' onClick={this.toggleEditMode.bind(this)} className="logo right second"></img>
+        // <img src='/img/check.png' onClick={this.saveStory.bind(this)} className="logo right third"></img>
     const storyClass = classnames({
       story: true,
       editor: this.state.editing
     })
 
     return (
-      <div>
-        <img src='/img/plus.png' onClick={this.toggleEditMode.bind(this)} className="logo right second"></img>
-        <img src='/img/check.png' onClick={this.saveStory.bind(this)} className="logo right third"></img>
-        <LeadImage src={this.state.img} editing={this.state.editing} onChange={this.handleImg.bind(this)}/>
+      <div className="newstory">
+        
+        <ImageUploader src={this.state.img} editing={this.state.editing} onChange={this.handleImg.bind(this)}/>
         <div className={storyClass}>
           <Editor
             tag="h2"
@@ -74,8 +74,8 @@ class Post extends Story {
 }
 
 Post.defaultProps = {
-  text: "type your story here",
-  title: "title",
+  text: "Type your story here",
+  title: "Title",
   author_name: "Name"
 }
 

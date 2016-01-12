@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import blacklist from 'blacklist'
 // import history from './history'
 import Editor from './Editor.jsx'
-import LeadImage from './LeadImage.jsx'
+// import LeadImage from './LeadImage.jsx'
 
 // var btnClass, btnClass2, storyClass;
 
@@ -150,7 +150,7 @@ saveStory(e) {
 
   render() {
     // console.log('render story', this.state)
-
+// <LeadImage src={this.state.img} editing={this.state.editing} onChange={this.handleImg.bind(this)}/>
     const storyClass = classnames({
       story: true,
       editor: this.state.editing
@@ -160,7 +160,7 @@ saveStory(e) {
       <div>
         <img src='/img/plus.png' onClick={this.toggleEditMode.bind(this)} className="logo right second"></img>
         <img src='/img/check.png' onClick={this.saveStory.bind(this)} className="logo right third"></img>
-        <LeadImage src={this.state.img} editing={this.state.editing} onChange={this.handleImg.bind(this)}/>
+        
         <div className={storyClass}>
           <Editor
             tag="h2"

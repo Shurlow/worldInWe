@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDom from 'react-dom'
 import classnames from 'classnames'
 
-export default class LeadImage extends React.Component {
+export default class ImageUploader extends React.Component {
 
   constructor(props) {
     super(props)
@@ -48,7 +48,7 @@ export default class LeadImage extends React.Component {
     //   'hidden': this.props.editing,
     // })
     return (
-      <div className="leadimg">
+      <div className="imgulpoader">
         <img src={this.props.src} onClick={this.triggerUpload.bind(this)}></img>
           <input
           // className={inputStyle}

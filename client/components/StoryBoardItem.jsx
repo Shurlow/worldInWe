@@ -37,7 +37,7 @@ export default class StoryBoardItem extends React.Component {
             preloader={this.preloader}
             onLoad={this.load}
             className="storythumb">
-            Image load failed!
+            Image load failed! {this.props.img} hi mom
           </ImageLoader>
           <div className="textover">
             <h3>{this.props.title}<br/>{this.props.author_name}</h3>

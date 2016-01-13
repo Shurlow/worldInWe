@@ -53,12 +53,11 @@ router.post('/', function(req, res) {
 var processImage = require('../processImage.js')
 
 router.post('/image', function(req, res) {
-	// console.log(req.body)
-	var buf = new Buffer(req.body.image.replace(/^data:image\/\w+;base64,/, ""),'base64')
+	var buf = new Buffer(req.body.img.replace(/^data:image\/\w+;base64,/, ""),'base64')
   processImage(buf, req.body.id, function(err, response) {
     if (err) {
       console.log(err)
-      res.status(500).send(err)    
+      res.status(500).send("There was an error uploading your image.")
     } else {
     	console.log('image upload good.', response)
       res.status(200).send(response.ETag)

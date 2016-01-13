@@ -223,11 +223,14 @@ nav {
 
 .imgulpoader {
 	width: 100%;
-	padding-top: 300px;
+	padding-top: 150px;
 	@include display-flex;
 	@include justify-content(center);
 	@include align-items(center);
 	
+	img {
+		max-width: 100vw;
+	}
 
 	input {
 		display: none;
@@ -237,12 +240,12 @@ nav {
 
 .story {
 	@include container(92%);
-	margin: 0 auto;
 	@include ease(box-shadow, 2s);
 	@include ease(outline, 1s);
+	margin: 0 auto;
+	margin-top: 2em;
 
 	font-size: 20px;
-	// margin-top: 1em;
 
 	@include desktop {
 		// padding-left: 10em;
@@ -252,12 +255,9 @@ nav {
 
 	h2 {
 		color: $darkgrey;
-		// font-family: "Lato";
 		font-weight: 900;
 		font-family: 'Source Sans Pro', sans-serif;
 		font-size: 50px;
-
-		margin-top: 1em;
 
 	}
 

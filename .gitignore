@@ -1,8 +1,8 @@
 public/js/main.js
 public/js/App.jsx
-public/img
 public/.DS_Store
 etc/
+testImages
 node_modules/
 rethinkdb_data
 npm-debug.log

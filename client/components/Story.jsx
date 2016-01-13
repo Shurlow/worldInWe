@@ -14,10 +14,10 @@ class Story extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      text: "",
-      author_name: "",
-      title: "",
-      img: "/img/testbigimg.png",
+      text: props.text,
+      author_name: props.author_name,
+      title: props.title,
+      img: props.img,
       id: props.params.id || "",
       editing: false
     }
@@ -67,11 +67,11 @@ class Story extends React.Component {
     })
   }
 
-  handleImgChange(e) {
-    this.setState({
-      img: e.target.value
-    })
-  }
+  // handleImgChange(e) {
+  //   this.setState({
+  //     img: e.target.value
+  //   })
+  // }
 
   toggleEditMode(e) {
     console.log('toggle edit mode', this.state.editing)
@@ -84,30 +84,16 @@ class Story extends React.Component {
     var self = this;
     var findImgType = new RegExp("\:(.*?)\;")
     var findImgExtension = new RegExp("\.([0-9a-z]+)(?:[\?#]|$)")
-    var reader = new FileReader();
-    var file = e.target.files[0];
+    var reader = new FileReader()
+    var file = e.target.files[0]
 
     reader.onload = function(data) {
       let image = data.target.result
       let imgtype = findImgType.exec(image)[1]
-
-      request
-        .post('http://localhost:3000/api/image')
-        .set('Accept', imgtype)
-        .send({
-          image: image,
-          id: self.state.id,
-        })
-        .end(function(err, res) {
-          if (err) {
-            alert(err)
-          } else {
-            self.setState({
-              img: "https://s3-us-west-2.amazonaws.com/world-in-me/" + self.state.id + ".jpg"
-            })
-            alert("Image saved.")
-          }
-        })
+      self.setState({
+        img: image,
+        imgtype: imgtype
+      })
     }
     reader.readAsDataURL(file);
   }
@@ -116,21 +102,40 @@ class Story extends React.Component {
 saveStory(e) {
   var self = this
   var preparedStory = blacklist(this.state, 'editing')
-  preparedStory.img = 'http://s3-us-west-2.amazonaws.com/world-in-me/' + this.state.id + this.state.imgext
-
+  // preparedStory.img = 'http://s3-us-west-2.amazonaws.com/world-in-me/' + this.state.id
+  // console.log("Post req with", preparedStory, "image:", this.state.img, this.state.imgtype)
+  //Save Image
   request
-    .post('http://localhost:3000/api/')
-    .set('Accept', 'application/json')
-    .send(preparedStory)
-    .end(function(err, res) {
-      console.log(err, res)
-      if (err) {
-        alert(err)
-      } else {
-        self.props.history.replaceState(null, '/home')
-      }
-    })
-  }
+  .post('http://localhost:3000/api/image')
+  .set('Accept', this.state.imgtype)
+  .send({
+    img: this.state.img,
+    id: self.state.id,
+  })
+  .end(function(err, res) {
+    if (err) {
+      alert(err)
+    } else {
+      // alert("Image saved.")
+      //if image success, post story
+      request
+        .post('http://localhost:3000/api/')
+        .set('Accept', 'application/json')
+        .send(preparedStory)
+        .end(function(err, res) {
+          console.log(err, res)
+          if (err) {
+            alert(err)
+          } else {
+            alert("Your story is uploaded!")
+            self.props.history.replaceState(null, '/home')
+          }
+        })
+    }
+  })
+}
+
+
 
   // defineClasses() {
   //   // btnClass = classnames({
@@ -191,6 +196,13 @@ saveStory(e) {
     )
   }
 
+}
+
+Story.defaultProps = {
+  text: "Type your story here",
+  title: "Title",
+  author_name: "Name",
+  img: "/img/blankimg.png"
 }
 
 

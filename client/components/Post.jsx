@@ -13,10 +13,10 @@ class Post extends Story {
   constructor(props) {
     super(props)
     this.state = {
-      text: "",
-      author_name: "",
-      title: "",
-      img: "/img/blankimg.png",
+      text: props.text,
+      author_name: props.author_name,
+      title: props.title,
+      img: props.img,
       editing: false,
       id: guid()
     }
@@ -39,6 +39,7 @@ class Post extends Story {
       <div className="newstory">
         
         <ImageUploader src={this.state.img} editing={this.state.editing} onChange={this.handleImg.bind(this)}/>
+        <img src='/img/check.png' onClick={this.saveStory.bind(this)} className="logo right third"></img>
         <div className={storyClass}>
           <Editor
             tag="h2"
@@ -73,11 +74,12 @@ class Post extends Story {
   }
 }
 
-Post.defaultProps = {
-  text: "Type your story here",
-  title: "Title",
-  author_name: "Name"
-}
+// Post.defaultProps = {
+//   text: "Type your story here",
+//   title: "Title",
+//   author_name: "Name",
+//   img: "/img/blankimg.png"
+// }
 
 function guid() {
   function s4() {

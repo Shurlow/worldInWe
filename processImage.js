@@ -6,17 +6,17 @@ module.exports = function(imageBuffer, id, callback) {
   var w, h;
   gm(imageBuffer)
     .size(function(err, value) {
-      console.log("size:", value)
+      console.log("size:", value, "error:", err)
       w = value.width
       h = value.height
     })
-    .toBuffer(function(err, buffer){
+    .toBuffer(function(err, buffer) {
       console.log('time to uploads')
       if (err) return callback(err)
       uploadImage(buffer, id, function(error, response) {
         if (error) return callback(error)
         console.log(w, h)
-        callback(null, response)
+        callback(null, "S3:" + response)
       })
     })
 

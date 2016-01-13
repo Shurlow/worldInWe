@@ -48,7 +48,7 @@ export default class ImageUploader extends React.Component {
     //   'hidden': this.props.editing,
     // })
     return (
-      <div className="imgulpoader">
+      <div className="imguploader">
         <img src={this.props.src} onClick={this.triggerUpload.bind(this)}></img>
           <input
           // className={inputStyle}

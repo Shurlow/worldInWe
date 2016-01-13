@@ -404,7 +404,7 @@ nav ul a:hover {
   margin: 0;
 }
 
-.imgulpoader {
+.imguploader {
   width: 100%;
   padding-top: 150px;
   display: -webkit-flex;
@@ -414,10 +414,10 @@ nav ul a:hover {
   -webkit-align-items: center;
   align-items: center;
 }
-.imgulpoader img {
+.imguploader img {
   max-width: 100vw;
 }
-.imgulpoader input {
+.imguploader input {
   display: none;
 }
 

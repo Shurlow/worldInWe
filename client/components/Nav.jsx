@@ -19,11 +19,11 @@ var Nav = React.createClass({
   toggleLogin: function(isLoggedIn) {
     if (isLoggedIn) {
       return (
-        <Link to='/logout' activeClassName="link-active">logout</Link>
+        <Link to='/logout' activeClassName="link-active">LOGOUT</Link>
       )
     } else {
       return (
-        <Link to='/login' activeClassName="link-active">login</Link>
+        <Link to='/login' activeClassName="link-active">LOGIN</Link>
       )
     }
   },
@@ -35,13 +35,13 @@ var Nav = React.createClass({
     return (
       <nav>
         <Link to='/stories' activeClassName="link-active">
-          <img className="logo" src="/img/logo.svg"></img>
+          <img className="logo" src="/res/logoslice.svg"></img>
         </Link>
         
         <ul>
           {this.toggleLogin(this.props.loggedIn)}
-          <Link to='/post' activeClassName="link-active">new</Link>
-          <Link to='/about' activeClassName="link-active">about</Link>          
+          <Link to='/post' activeClassName="link-active">NEW</Link>
+          <Link to='/about' activeClassName="link-active">ABOUT</Link>          
         </ul>
       </nav>
     )

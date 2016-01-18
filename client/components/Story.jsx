@@ -94,47 +94,69 @@ class Story extends React.Component {
         img: image,
         imgtype: imgtype
       })
+      self.uploadImage()
     }
     reader.readAsDataURL(file);
   }
 
+  uploadImage(e) {
+    // var self = this
 
-saveStory(e) {
-  var self = this
-  var preparedStory = blacklist(this.state, 'editing')
-  // preparedStory.img = 'http://s3-us-west-2.amazonaws.com/world-in-me/' + this.state.id
-  // console.log("Post req with", preparedStory, "image:", this.state.img, this.state.imgtype)
-  //Save Image
-  request
-  .post('http://localhost:3000/api/image')
-  .set('Accept', this.state.imgtype)
-  .send({
-    img: this.state.img,
-    id: self.state.id,
-  })
-  .end(function(err, res) {
-    if (err) {
-      alert(err)
-    } else {
-      // alert("Image saved.")
-      //if image success, post story
-      request
-        .post('http://localhost:3000/api/')
-        .set('Accept', 'application/json')
-        .send(preparedStory)
-        .end(function(err, res) {
-          console.log(err, res)
-          if (err) {
-            alert(err)
-          } else {
-            alert("Your story is uploaded!")
-            self.props.history.replaceState(null, '/home')
-          }
-        })
-    }
-  })
-}
+    request
+      .post('http://localhost:3000/api/image')
+      .set('Accept', this.state.imgtype)
+      .send({
+        img: this.state.img,
+        id: this.state.id,
+      })
+      .end(function(err, res) {
+        if (err) {
+          alert(err)
+        } else {
+          alert("Image saved.") 
+        }
+      })
+  }
 
+  postNewStory(e) {
+    var self = this
+    var preparedStory = blacklist(this.state, 'editing', 'img')
+
+    request
+      .post('http://localhost:3000/api/')
+      .set('Accept', 'application/json')
+      .send(preparedStory)
+      .end(function(err, res) {
+        console.log(err, res)
+        if (err) {
+          alert(err)
+        } else {
+          alert("Your story is uploaded!")
+          self.props.history.replaceState(null, '/home')
+        }
+      })
+
+  }
+
+  saveStory(e) {
+    var self = this
+    var preparedStory = blacklist(this.state, 'editing', 'img')
+
+    request
+      .post('http://localhost:3000/api/update/' + this.state.id)
+      .set('Accept', 'application/json')
+      .send(preparedStory)
+      .end(function(err, res) {
+        console.log(err, res)
+        if (err) {
+          alert(err)
+        } else {
+          alert("Your story is uploaded!")
+          self.props.history.replaceState(null, '/home')
+        }
+      })
+
+  }
 
 
   // defineClasses() {
@@ -163,10 +185,15 @@ saveStory(e) {
     console.log('Editing', this.state.editing)
     return (
       <div>
-        <img src='/img/plus.png' onClick={this.toggleEditMode.bind(this)} className="logo right second"></img>
-        <img src='/img/check.png' onClick={this.saveStory.bind(this)} className="logo right third"></img>
-        
+        <div className="leadimage">
+          <img src={"https://s3-us-west-2.amazonaws.com/world-in-me/" + this.state.id + ".jpg"}></img>
+        </div>
         <div className={storyClass}>
+          <div className="controlbar">
+            <span onClick={this.toggleEditMode.bind(this)}> Edit.</span>
+            <span onClick={this.saveStory.bind(this)}>Save.</span>
+            <div className="bigbar"></div>
+          </div>
           <Editor
             tag="h2"
             className="title"

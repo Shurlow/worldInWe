@@ -43,8 +43,15 @@ class StoryBoard extends React.Component {
   	}
 
     return (
-    	<div>
-        <img className="bigimage" src={"/img/trees.jpeg"}></img>
+    	<div className="content">
+        <div className="leadimage">
+          <img src="/img/trees.jpeg"></img>
+          <div className="leadinfo">
+            <h1>This is a Cabin in Front of Some Trees</h1>
+            <h2>Here is a subheading or maybe the first few lines of the featured text ...</h2>
+            <div className="bar"/>
+          </div>
+        </div>
 	    	<ul className="storyboard">
 					{this.state.stories.map(this.makeStoryItem)}
 		    </ul>

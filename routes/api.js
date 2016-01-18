@@ -38,7 +38,7 @@ router.get('/:story_id', function(req, res) {
 
 // Post new story
 router.post('/', function(req, res) {
-	console.log('Posting New Story', req.body)	
+	console.log('Posting New Story')	
 	db.postStory(req.body, function(err, data) {
 		if (err) {
 			res.status(500).send('Error adding story object')

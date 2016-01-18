@@ -10,7 +10,7 @@ var Logout = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className="login content">
         <h2>Logged out</h2>
       </div>
     )

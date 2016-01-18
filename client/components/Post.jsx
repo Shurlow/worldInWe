@@ -67,7 +67,7 @@ class Post extends Story {
             ref={(c) => this.textref = c}
           />
         </div>
-        <img src='/img/check.png' onClick={this.saveStory.bind(this)} className="logo right third"></img>
+        <img src='/img/check.png' onClick={this.postNewStory.bind(this)} className="logo right third"></img>
       </div>
     )
   }

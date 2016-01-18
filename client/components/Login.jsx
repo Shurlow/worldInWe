@@ -1,11 +1,11 @@
 import React from 'react'
-import { browserHistory } from 'react-router'
+// import { browserHistory } from 'react-router'
 import auth from '../auth.js'
 
 class Login extends React.Component {
 
   constructor(props, context) {
-    console.log('cx:', props.route.compnent.contextTypes.router, props)
+    // console.log('cx:', props.route.compnent.contextTypes.router, props)
     super(props, context)
     context.router
     this.state = {
@@ -18,7 +18,7 @@ class Login extends React.Component {
 
 
   
-  // mixins: [History]
+  mixins: [History]
 
   login(e) {
     e.preventDefault()
@@ -33,13 +33,13 @@ class Login extends React.Component {
       const { location } = self.props
 
       if (location.state && location.state.nextPathname) {
-        console.log('something', self)
-        self.context.router.replace(location.state.nextPathname)
-        // self.history.replaceState(null, location.state.nextPathname)
+        console.log('something', self.props)
+        // self.context.router.replace(location.state.nextPathname)
+        self.history.replaceState(null, location.state.nextPathname)
       } else {
-        // self.history.replaceState(null, '/')
-        console.log('else', self)
-        self.context.router.replace('/')
+        console.log('else', self.props.history)
+        self.props.history.replaceState(null, '/')
+        // self.context.router.replace('/')
       }
 
     })
@@ -72,8 +72,5 @@ class Login extends React.Component {
 
 }
 
-Login.contextTypes = {
-  router: React.PropTypes.func.isRequired
-}
 
 export default Login

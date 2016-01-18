@@ -1,16 +1,14 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { browserHistory, Router, Route, Link, Redirect } from 'react-router'
+import { Router, Route, Link, Redirect } from 'react-router'
 // import { createHistory, useBasename } from 'history'
-// import createBrowserHistory from 'history/lib/createBrowserHistory'
+import createBrowserHistory from 'history/lib/createBrowserHistory'
 import classnames from 'classnames'
 import auth from './auth'
 
-// const history = useBasename(createHistory)({
-//   basename: '/w'
-// })
 
-// const history = createBrowserHistory()
+
+const history = createBrowserHistory();
 // export default createBrowserHistory()
 
 var StoryBoard = React.createFactory(require('./components/StoryBoard.jsx'))
@@ -21,7 +19,8 @@ var PostFile = React.createFactory(require('./components/PostFile.jsx'))
 var Nav = React.createFactory(require('./components/Nav.jsx'))
 var Home = React.createFactory(require('./components/Home.jsx'))
 var About = React.createFactory(require('./components/About.jsx'))
-import Login from './components/Login.jsx'
+var Login = React.createFactory(require('./components/Login.jsx'))
+// var Login = './components/Login.jsx'
 var Logout = React.createFactory(require('./components/Logout.jsx'))
 
 const App = React.createClass({
@@ -72,7 +71,7 @@ function requireAuth(nextState, replace) {
 }
 
 render((
-  <Router history={browserHistory}>
+  <Router history={history}>
     <Route path="/" component={App}>
     	<Route path="home" component={Home}/>
     	<Route path="login" component={Login}/>

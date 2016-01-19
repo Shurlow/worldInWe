@@ -260,6 +260,8 @@ body {
   max-width: 1540px;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 .content:after {
   content: " ";
@@ -293,7 +295,8 @@ nav:after {
 }
 nav .logo {
   position: absolute;
-  padding-top: 3em;
+  padding-top: 30px;
+  padding-left: 30px;
   width: 550px;
   z-index: 1;
 }
@@ -348,9 +351,9 @@ nav ul a:hover {
 }
 .leadinfo:hover {
   bottom: 1px;
-  -moz-box-shadow: rgba(255, 255, 255, 0.3) -8px 8px 0px;
-  -webkit-box-shadow: rgba(255, 255, 255, 0.3) -8px 8px 0px;
-  box-shadow: rgba(255, 255, 255, 0.3) -8px 8px 0px;
+  -moz-box-shadow: rgba(255, 255, 255, 0.3) -6px 6px 0px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.3) -6px 6px 0px;
+  box-shadow: rgba(255, 255, 255, 0.3) -6px 6px 0px;
 }
 .leadinfo h1 {
   color: white;
@@ -375,11 +378,6 @@ nav ul a:hover {
   max-width: 100%;
   margin: 0 auto;
   cursor: pointer;
-}
-.leadimage img:hover {
-  -moz-box-shadow: #47525d -5px 5px 0px;
-  -webkit-box-shadow: #47525d -5px 5px 0px;
-  box-shadow: #47525d -5px 5px 0px;
 }
 
 .hidden {
@@ -407,7 +405,6 @@ nav ul a:hover {
 
 .storyboard {
   margin: 0 auto;
-  padding: 0;
 }
 .storyboard li {
   outline: 1px solid #7b8994;

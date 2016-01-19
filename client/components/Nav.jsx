@@ -35,7 +35,7 @@ var Nav = React.createClass({
     return (
       <nav>
         <Link to='/stories' activeClassName="link-active">
-          <img className="logo" src="/res/logoslice.svg"></img>
+          <img className="logo" src="/res/tightlogo.svg"></img>
         </Link>
         
         <ul>

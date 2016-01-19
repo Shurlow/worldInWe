@@ -43,6 +43,8 @@ body {
 
 .content {
 	@include container(1540px);
+	padding-left: 30px;
+	padding-right: 30px;
 	// position: relative;
 	// max-width: 1540px;
 	// margin: 0 auto;
@@ -84,7 +86,8 @@ nav {
 	.logo {
 		// display: inline-block;
 		position: absolute;
-		padding-top: 3em;
+		padding-top: 30px;
+		padding-left: 30px;
 		// float: left;
 		width: 550px;
 		z-index: 1;
@@ -159,7 +162,7 @@ nav {
 		bottom: 1px;
 		// left: 1px;
 		// @include heavy-shadow(6px);
-		@include box-shadow(rgba(255,255,255, 0.3) -8px 8px 0px);
+		@include box-shadow(rgba(255,255,255, 0.3) -6px 6px 0px);
 	}
 
 	h1 {
@@ -195,7 +198,7 @@ nav {
 		margin: 0 auto;
 
 		&:hover {
-			@include heavy-shadow;
+			// @include heavy-shadow;
 		}
 		cursor: pointer;
 	}
@@ -265,7 +268,6 @@ nav {
 .storyboard {
 	margin: 0 auto;
 	// margin-left: 2%;
-	padding: 0;
 
 	@include desktop {
 		// @include container(56%)

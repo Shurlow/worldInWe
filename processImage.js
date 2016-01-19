@@ -44,7 +44,7 @@ function cropThumb(imageBuffer, id) {
       h = value.height
     })
     .gravity('Center')
-    .crop(400, 400)
+    .crop(530, 345)
     .extent(400,400)
     .toBuffer(function(err, buffer){
       uploadImage(buffer, id, 'world-in-me-thumbs', function(err, res){

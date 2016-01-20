@@ -5,6 +5,7 @@ import classnames from 'classnames'
 import blacklist from 'blacklist'
 // import history from './history'
 import Editor from './Editor.jsx'
+import ImageUploader from './ImageUploader.jsx'
 // import LeadImage from './LeadImage.jsx'
 
 // var btnClass, btnClass2, storyClass;
@@ -39,6 +40,7 @@ class Story extends React.Component {
       .get('http://worldinme.xyz/api/' + this.state.id)
       .set('Content-Type', 'application/json')
       .end(function(err, res) {
+        if (err) return console.error(err)
         self.setState({
           text: res.body.text,
           author_name: res.body.author_name,
@@ -100,18 +102,21 @@ class Story extends React.Component {
   }
 
   uploadImage(e) {
-    // var self = this
+    var self = this
 
     request
-      .post('http://worldinme.xyz/api/image')
-      .set('Accept', this.state.imgtype)
+      .post('http://worldinme.xyz/api/image/' + this.state.id)
+      // .set('Accept', this.state.imgtype)
+      .set('Accept', 'application/json')
       .send({
         img: this.state.img,
-        id: this.state.id,
       })
       .end(function(err, res) {
         if (err) {
           alert(err)
+          self.setState({
+            img: self.props.img
+          })
         } else {
           alert("Image saved.") 
         }
@@ -127,7 +132,7 @@ class Story extends React.Component {
       .set('Accept', 'application/json')
       .send(preparedStory)
       .end(function(err, res) {
-        console.log(err, res)
+        // console.log(err, res)
         if (err) {
           alert(err)
         } else {
@@ -141,13 +146,14 @@ class Story extends React.Component {
   saveStory(e) {
     var self = this
     var preparedStory = blacklist(this.state, 'editing', 'img')
+    // console.log('Prepd Story:', preparedStory)
 
     request
       .post('http://worldinme.xyz/api/update/' + this.state.id)
       .set('Accept', 'application/json')
       .send(preparedStory)
       .end(function(err, res) {
-        console.log(err, res)
+        // console.log(err, res)
         if (err) {
           alert(err)
         } else {
@@ -164,7 +170,7 @@ class Story extends React.Component {
     request
       .post('http://worldinme.xyz/api/delete/' + this.state.id)
       .end(function(err, res) {
-        console.log(err, res)
+        // console.log(err, res)
         if (err) {
           alert(err)
         } else {
@@ -201,9 +207,7 @@ class Story extends React.Component {
     console.log('Editing', this.state.editing)
     return (
       <div>
-        <div className="leadimage">
-          <img src={"https://s3-us-west-2.amazonaws.com/world-in-me/" + this.state.id + ".jpg"}></img>
-        </div>
+        <ImageUploader src={"https://s3-us-west-2.amazonaws.com/world-in-me/" + this.state.id + ".jpg"} editing={this.state.editing} onChange={this.handleImg.bind(this)}/>
         <div className={storyClass}>
           <div className="controlbar">
             <span onClick={this.toggleEditMode.bind(this)}>Edit</span>

@@ -241,9 +241,9 @@ nav {
 	}
 }
 .preview {
-	position: absolute;
-	width: 100%;
-	height: 100%;
+	// position: absolute;
+	// width: 100%;
+	// height: 100%;
 }
 .blur {
 	 @include filter(blur(5px));

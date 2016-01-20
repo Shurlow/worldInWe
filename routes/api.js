@@ -52,9 +52,9 @@ router.post('/', function(req, res) {
 //Image Upload using s3
 var processImage = require('../processImage.js')
 
-router.post('/image', function(req, res) {
+router.post('/image/:id', function(req, res) {
 	var buf = new Buffer(req.body.img.replace(/^data:image\/\w+;base64,/, ""),'base64')
-  processImage(buf, req.body.id, function(err, response) {
+  processImage(buf, req.params.id, function(err, response) {
     if (err) {
       console.log(err)
       res.status(500).send("There was an error uploading your image.")
@@ -67,12 +67,13 @@ router.post('/image', function(req, res) {
 
 //Update indevidual story
 router.post('/update/:story_id', function(req, res) {
-	console.log('updating')
 	var id = req.params.story_id
+	console.log('updating', id, req.body)
 	db.updateStory(id, req.body, function(err, data) {
 		if (err) {
 			res.status(500).send('Error updating story object')
 		} else {
+			console.log('update successfull', data)
 			res.status(200).send('All good')
 		}
 	})

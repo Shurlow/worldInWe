@@ -31,7 +31,7 @@ for (var i = 0; i < 3; i++) {
 
 
 function makeImage(id) {
-  var pickImg = chance.integer({ min: 1, max: 4 })
+  var pickImg = chance.integer({ min: 1, max: 6 })
   var imgUrl = "testimg/" + pickImg + ".jpg"
   fs.readFile(imgUrl, function(err, data) {
     if (err) return console.log(err);

@@ -20,6 +20,7 @@ app.set('view engine', 'hbs');
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'img', 'favicon.ico')));
 app.use(logger('dev'));
+// app.use()
 app.use(bodyParser.json({ limit: '5mb' }));
 // app.use(bodyParser.raw({limit: '5mb'}));
 // app.use(bodyParser.urlencoded({ limit: '5mb' }));
@@ -27,11 +28,12 @@ app.use(bodyParser.json({ limit: '5mb' }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+// app.use(function(req, res, next) {
+//   console.log('In Cors', req.body)
+//   // res.header("Access-Control-Allow-Origin", "*");
+//   // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
 
 app.use('/api', require('./routes/api.js'));
 app.use('/', require('./routes/index'));
@@ -50,7 +52,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    console.log('Dev err handler says:', err)
+    console.log('Dev err handler says:', err, res.body)
     res.render('error', {
       message: err.message,
       error: err

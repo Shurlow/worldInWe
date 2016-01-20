@@ -3,7 +3,6 @@ var connection = null;
 
 exports.postStory = function(story, cb) {
   withConnection(function(conn) {
-    console.log('post story to db', story)
     r.table('story')
       .insert(story)
       .run(conn, cb)

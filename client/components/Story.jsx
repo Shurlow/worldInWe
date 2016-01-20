@@ -208,7 +208,7 @@ class Story extends React.Component {
           <div className="controlbar">
             <span onClick={this.toggleEditMode.bind(this)}>Edit</span>
             <span onClick={this.saveStory.bind(this)}>Save</span>
-            <span onClick={this.deleteStory.bind(this)}>Delete</span>
+            <span onClick={this.deleteStory.bind(this)}>delete</span>
             <div className="bigbar"></div>
           </div>
           <Editor

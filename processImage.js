@@ -40,6 +40,7 @@ function cropThumb(imageBuffer, id) {
 
   gm(imageBuffer)
     .size(function(err, value) {
+      if (err) {console.error(err)}
       w = value.width
       h = value.height
     })
@@ -47,8 +48,9 @@ function cropThumb(imageBuffer, id) {
     .crop(400, 400)
     .extent(400,400)
     .toBuffer(function(err, buffer){
-      uploadImage(buffer, id, 'world-in-me-thumbs', function(err, res){
-        if (err) console.error(err)
+      if (err) console.error(err)
+      uploadImage(buffer, id, 'world-in-me-thumbs', function(error, res){
+        if (err) console.error(error)
       })
     })
     // .write('TESTIMG.jpg', function(err) {

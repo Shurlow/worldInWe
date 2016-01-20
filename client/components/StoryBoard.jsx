@@ -17,9 +17,10 @@ class StoryBoard extends React.Component {
 	componentDidMount() {
 		var self = this
 		request
-			.get('http://localhost:3000/api')
+			.get('http://localhost:3000/api/')
 			.set('Content-Type', 'application/json')
 			.end(function(err, res) {
+        if (err) return console.log(err)
 				self.setState({
 					stories: res.body
 				})

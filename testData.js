@@ -35,7 +35,7 @@ function makeImage(id) {
   var imgUrl = "testimg/" + pickImg + ".jpg"
   fs.readFile(imgUrl, function(err, data) {
     if (err) return console.log(err);
-    console.log("Using image", pickImg)
+    console.log("Using image", pickImg, data)
     processImage(data, id, function(err, res) {
       if (err) {
         console.log(err)

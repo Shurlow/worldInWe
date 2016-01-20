@@ -23,7 +23,6 @@ for (var i = 0; i < 3; i++) {
 	// db.createUser(user, handleError())
 
 	var story = makeStory()
-	console.log(story)
 	// story.video = 'bkhLzHuUYmo'
 	db.postStory(story, handleError())
 	

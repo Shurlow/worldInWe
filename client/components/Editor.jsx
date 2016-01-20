@@ -63,6 +63,7 @@ export default class Editor extends React.Component {
 
     assign(props, {
       contentEditable: this.props.isEditing,
+      spellcheck: this.props.isEditing,
       dangerouslySetInnerHTML: {__html: this.state.text}
     });
 

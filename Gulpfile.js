@@ -7,6 +7,8 @@ var reactify = require('reactify');
 var watchify = require('watchify');
 var babelify = require("babelify");
 var notify = require("gulp-notify");
+var uglify = require("gulp-uglify");
+var streamify = require("gulp-streamify");
 
 var scriptsDir = './client';
 var buildDir = './public/js';
@@ -36,6 +38,7 @@ function buildScript(file, watch) {
     var stream = bundler.bundle();
     return stream.on('error', handleErrors)
     .pipe(source(file))
+    .pipe(streamify(uglify()))
     .pipe(gulp.dest(buildDir + '/'));
   }
   bundler.on('update', function() {
@@ -56,9 +59,9 @@ function styles() {
     return gulp.src('styles/*.scss')
       .pipe(compass(opt).on('error', handleErrors))
       .pipe(gulp.dest('public/css/'))
-      .pipe(notify({
-        message: "CSS Compiling Done.",
-      }))
+      // .pipe(notify({
+      //   message: "CSS Compiling Done.",
+      // }))
   }
   return preprocess()
 }

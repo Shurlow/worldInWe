@@ -37,6 +37,7 @@ module.exports = function(imageBuffer, id, callback) {
 
 function cropThumb(imageBuffer, id) {
   var w, h;
+  console.log(imageBuffer)
 
   gm(imageBuffer)
     .size(function(err, value) {
@@ -44,7 +45,7 @@ function cropThumb(imageBuffer, id) {
       h = value.height
     })
     .gravity('Center')
-    .crop(530, 345)
+    .crop(400, 400)
     .extent(400,400)
     .toBuffer(function(err, buffer){
       uploadImage(buffer, id, 'world-in-me-thumbs', function(err, res){

@@ -53,6 +53,16 @@ exports.updateStory = function(id, obj, cb) {
   })
 }
 
+exports.deleteStory = function(id, cb) {
+  withConnection(function(conn) {
+    r.table('story')
+      .get(id)
+      .delete()
+      .run(conn, cb)
+  })
+}
+
+
 exports.createUser = function(userObj, cb) {
   withConnection(function(conn) {
     r.table('user')

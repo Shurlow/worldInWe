@@ -39,6 +39,10 @@ class Post extends Story {
       <div className="newstory">
         <ImageUploader src={this.state.img} editing={this.state.editing} onChange={this.handleImg.bind(this)}/>
         <div className={storyClass}>
+          <div className="controlbar">
+            <span onClick={this.postNewStory.bind(this)}>Save</span>
+            <div className="bar3"></div>
+          </div>
           <Editor
             tag="h2"
             className="title"
@@ -67,7 +71,6 @@ class Post extends Story {
             ref={(c) => this.textref = c}
           />
         </div>
-        <img src='/img/check.png' onClick={this.postNewStory.bind(this)} className="logo right third"></img>
       </div>
     )
   }

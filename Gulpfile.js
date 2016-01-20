@@ -56,6 +56,9 @@ function styles() {
     return gulp.src('styles/*.scss')
       .pipe(compass(opt).on('error', handleErrors))
       .pipe(gulp.dest('public/css/'))
+      .pipe(notify({
+        message: "CSS Compiling Done.",
+      }))
   }
   return preprocess()
 }

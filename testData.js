@@ -1,4 +1,5 @@
 var db = require('./db')
+var fs = require('fs')
 var faker = require('faker')
 var Chance = require('chance');
 var chance = new Chance();
@@ -24,19 +25,28 @@ for (var i = 0; i < 3; i++) {
 	var story = makeStory()
 	console.log(story)
 	// story.video = 'bkhLzHuUYmo'
-	// db.postStory(story, handleError())
+	db.postStory(story, handleError())
 	
 };
 
-  processImage(buf, req.body.id, function(err, response) {
-    if (err) {
-      console.log(err)
-      res.status(500).send("There was an error uploading your image.")
-    } else {
-    	console.log('image upload good.', response)
-      res.status(200).send(response.ETag)
-    }
+
+
+function makeImage(id) {
+  var pickImg = chance.integer({ min: 1, max: 4 })
+  var imgUrl = "testimg/" + pickImg + ".jpg"
+  fs.readFile(imgUrl, function(err, data) {
+    if (err) return console.log(err);
+    processImage(data, id, function(err, res) {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log('image upload good.')
+      }
+    })
   })
+  
+}
+
 
 function makeUser() {
 	var user = {}
@@ -52,12 +62,13 @@ function makeStory() {
 	story.author_name = chance.name()
 	// story.title1 = faker.lorem.sentence()
 	var randomTitle = chance.sentence({words: chance.integer({min: 5, max: 10})})
-	var p1 = chance.sentence({words: chance.integer({min: 5, max: 10})})
-	var p2 = chance.sentence({words: chance.integer({min: 5, max: 10})})
-	var p3 = chance.sentence({words: chance.integer({min: 5, max: 10})})
+	var p1 = chance.sentence({words: chance.integer({min: 25, max: 300})})
+	var p2 = chance.sentence({words: chance.integer({min: 25, max: 300})})
+	var p3 = chance.sentence({words: chance.integer({min: 25, max: 300})})
 	story.text = p1 + "\n" + p2 + "\n" + p3 + "\n";
 	story.title = toTitleCase(randomTitle)
 	// console.log("Title Case:", )
+  makeImage(story.id)
 
 	// story.text = 
 	// story.text = faker.lorem.paragraphs() + "\n" + " \n" + faker.lorem.paragraphs() + '\n\n' + faker.lorem.paragraphs()

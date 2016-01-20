@@ -32,6 +32,7 @@ export default class Editor extends React.Component {
       toolbar: toolbarOptions,
       imageDragging: true,
       disableEditing: false,
+      spellcheck: false,
       placeholder: { text: this.props.placeholder }
     });
     console.log(dom.innerHTML)

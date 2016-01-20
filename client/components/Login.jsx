@@ -38,7 +38,7 @@ class Login extends React.Component {
         self.history.replaceState(null, location.state.nextPathname)
       } else {
         console.log('else', self.props.history)
-        self.props.history.replaceState(null, '/')
+        self.props.history.replaceState(null, '/home')
         // self.context.router.replace('/')
       }
 
@@ -48,7 +48,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="login">
+      <div className="login story">
         <div>
           <div>
             <h2>Log In</h2>

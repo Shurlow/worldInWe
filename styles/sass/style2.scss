@@ -7,13 +7,14 @@
 
 $susy: (
 	columns: 12,
-	gutters: 1 / 8,
+	gutters: 1 / 16,
 );
 
 $lightgrey: #7b8994;
 $darkgrey: #47525d;
 $darkest: #3d464d;
 $blue: #2e9fff;
+$darkblue: #206FB2;
 
 @include border-box-sizing;
 
@@ -63,31 +64,51 @@ a {
 	text-decoration: none;
 }
 
-.bar {
-	height: 5px;
+.bar1 {
+	height: 4px;
 	width: 100px;
 	background: $blue;
 	float: left;
-	margin-top: 4em;
+	margin-top: 3em;
 	// position: absolute;
 	// bottom: 0px;
 	// right: 0px;
 }
 
+.bar2 {
+	height: 4px;
+	width: 186px;
+	background: $blue;
+	float: left;
+	margin-top: 2em;
+}
 
+.bar3 {
+	height: 4px;
+	width: 100%;
+	background: $blue;
+}
 
+// @font-face {
+// 	font-family: WIM-Garamond;
+// 	src: url(../fonts/WIM-Garamond.ttf) format('truetype')
+// }
 
+// svg {
+// 	font-family: WIM-Garamond;
+// }
 
 nav {
-	@include container(1580px);
+	@include container(1540px);
 	// position: relative;
 	height: 90px;
+	// padding-top: 30px;
 
 	.logo {
 		// display: inline-block;
 		position: absolute;
-		padding-top: 30px;
-		padding-left: 30px;
+		padding-top: 28px;
+		// padding-left: 20px;
 		// float: left;
 		width: 550px;
 		z-index: 1;
@@ -127,25 +148,19 @@ nav {
 	span {
 		font-size: 24px;
 		font-family: "Helvetica";
-		border: 1px solid $darkgrey;
-		padding: 10px;
-		margin-right: 20px;
-		float: left;
+		// border: 2px solid $darkgrey;
+		// padding: 10px;
+		// margin-right: 20px;
+		// float: left;
 
 		&:hover {
-			background: $lightgrey;
+			// background: $lightgrey;
+			color: $lightgrey;
 			cursor: pointer;
 		}
 
 	}
 
-}
-
-.bigbar {
-	height: 5px;
-	width: 200px;
-	// width: 100%;
-	background: $blue;
 }
 
 .leadinfo {
@@ -204,37 +219,6 @@ nav {
 	}
 }
 
-// .logo {
-	// width: 25%;
-// }
-// 		position: fixed;
-// 		top: 0px;
-// 		margin: 20px;
-// 		width: 120px;
-// 		cursor: pointer;
-// 		@include ease(margin, 0.08s);
-// 		z-index: 1;
-
-// 		&.left {
-// 			left: 0px;
-// 		}
-// 		&.right {
-// 			right: 6px;
-// 		}
-
-// 		&.second {
-// 			top: 60px;
-// 		}
-		
-// 		&.third {
-// 			top: 120px;
-// 		}
-
-// 		@include desktop {
-// 			width: 50px;
-// 		}
-
-// 	}
 
 .hidden {
 	visibility: hidden;
@@ -275,15 +259,16 @@ nav {
 
 	li {
 		// position: relative;
-		// overflow: none;
-		outline: 1px solid $lightgrey;
+		overflow: hidden;
+		outline: 2px solid $lightgrey;
 		margin-bottom: 4em;
-		height: 400px;
+		// height: 450px;
+		// padding: 50px;
 
 		@include phone {
 			@include span(1 of 1);
 			// margin-bottom: gutter()*2;
-			margin-bottom: 2em;
+			margin-bottom: gutter();
 		}
 
 		@include desktop {
@@ -299,11 +284,19 @@ nav {
 
 		a {
 			@include display-flex;
-		// @include justify-content(center);
-			@include align-items(flex-start);
+			@include justify-content(center);
+			@include align-items(center);
 		}
 
 		.storythumb {
+			// float: left;
+			// width: 50%;
+			img {
+				// width: 100%;	
+				// width: 320px;
+			}
+			// padding-left: gutter();
+			
 			// float: left;
 			// padding-top: 40px;
 			// align-self: flex-start;
@@ -312,17 +305,30 @@ nav {
 
 		.textover {
 			// align-self: flex-end;
-			margin-top: 50px;
+			// overflow: hidden;
+			width: 50%;
+			// @include truncate(400px);
 			padding: 20px;
+			// float: left;
+			padding-top: 35px;
+			// text-overflow: ellipsis;
+			// height: 100%;
+			// margin-top: 50px;
+			// padding: gutter();
 
 			h3 {
 				font-family: "Lato";
 				font-size: 36px;
+				height: 180px;
+				overflow: hidden;
+				white-space: normal;
+				text-overflow: ellipsis;
 			}
 
 			h4 {
 				font-size: 24px;
 				margin-top: 15px;
+				color: $lightgrey;
 			}
 
 			// opacity: 0;
@@ -399,11 +405,12 @@ nav {
 
 	.text {
 		font-family: "PT Serif", serif;
-		font-size: 2em;
-		line-height: 1.58;
+		font-size: 24px;
+		line-height: 1.8;
+		padding: 50px;
 
 		@include desktop {
-			font-size: 1em;
+			// font-size: 1em;
 		}
 
 	}

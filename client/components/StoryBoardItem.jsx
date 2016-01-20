@@ -42,7 +42,7 @@ export default class StoryBoardItem extends React.Component {
           <div className="textover">
             <h3>{this.props.title}</h3>
             <h4>{this.props.author_name}</h4>
-            <div className="bar"/>
+            <div className="bar2"/>
           </div>
         </Link>
       </li>

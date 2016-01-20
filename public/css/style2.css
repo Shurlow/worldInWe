@@ -274,16 +274,30 @@ a {
   text-decoration: none;
 }
 
-.bar {
-  height: 5px;
+.bar1 {
+  height: 4px;
   width: 100px;
   background: #2e9fff;
   float: left;
-  margin-top: 4em;
+  margin-top: 3em;
+}
+
+.bar2 {
+  height: 4px;
+  width: 186px;
+  background: #2e9fff;
+  float: left;
+  margin-top: 2em;
+}
+
+.bar3 {
+  height: 4px;
+  width: 100%;
+  background: #2e9fff;
 }
 
 nav {
-  max-width: 1580px;
+  max-width: 1540px;
   margin-left: auto;
   margin-right: auto;
   height: 90px;
@@ -295,8 +309,7 @@ nav:after {
 }
 nav .logo {
   position: absolute;
-  padding-top: 30px;
-  padding-left: 30px;
+  padding-top: 28px;
   width: 550px;
   z-index: 1;
 }
@@ -324,20 +337,10 @@ nav ul a:hover {
 .controlbar span {
   font-size: 24px;
   font-family: "Helvetica";
-  border: 1px solid #47525d;
-  padding: 10px;
-  margin-right: 20px;
-  float: left;
 }
 .controlbar span:hover {
-  background: #7b8994;
+  color: #7b8994;
   cursor: pointer;
-}
-
-.bigbar {
-  height: 5px;
-  width: 200px;
-  background: #2e9fff;
 }
 
 .leadinfo {
@@ -407,9 +410,9 @@ nav ul a:hover {
   margin: 0 auto;
 }
 .storyboard li {
-  outline: 1px solid #7b8994;
+  overflow: hidden;
+  outline: 2px solid #7b8994;
   margin-bottom: 4em;
-  height: 400px;
 }
 @media (min-width: 320px) and (max-width: 767px) {
   .storyboard li {
@@ -417,12 +420,12 @@ nav ul a:hover {
     float: left;
     margin-left: 0;
     margin-right: 0;
-    margin-bottom: 2em;
+    margin-bottom: 0.49261%;
   }
 }
 @media (min-width: 1024px) {
   .storyboard li {
-    width: 47.05882%;
+    width: 48.48485%;
     float: left;
   }
   .storyboard li:nth-child(2n + 1) {
@@ -432,7 +435,7 @@ nav ul a:hover {
     margin-left: 0;
   }
   .storyboard li:nth-child(2n + 2) {
-    margin-left: 52.94118%;
+    margin-left: 51.51515%;
     margin-right: -100%;
     clear: none;
   }
@@ -445,20 +448,28 @@ nav ul a:hover {
 .storyboard li a {
   display: -webkit-flex;
   display: flex;
-  -webkit-align-items: flex-start;
-  align-items: flex-start;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
 }
 .storyboard li .textover {
-  margin-top: 50px;
+  width: 50%;
   padding: 20px;
+  padding-top: 35px;
 }
 .storyboard li .textover h3 {
   font-family: "Lato";
   font-size: 36px;
+  height: 180px;
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
 }
 .storyboard li .textover h4 {
   font-size: 24px;
   margin-top: 15px;
+  color: #7b8994;
 }
 
 .imguploader {
@@ -549,13 +560,9 @@ nav ul a:hover {
 }
 .story .text {
   font-family: "PT Serif", serif;
-  font-size: 2em;
-  line-height: 1.58;
-}
-@media (min-width: 1024px) {
-  .story .text {
-    font-size: 1em;
-  }
+  font-size: 24px;
+  line-height: 1.8;
+  padding: 50px;
 }
 
 .editor {

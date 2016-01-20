@@ -158,6 +158,22 @@ class Story extends React.Component {
 
   }
 
+  deleteStory(e) {
+    var self = this
+
+    request
+      .post('http://localhost:3000/api/delete/' + this.state.id)
+      .end(function(err, res) {
+        console.log(err, res)
+        if (err) {
+          alert(err)
+        } else {
+          alert(res)
+          self.props.history.replaceState(null, '/home')
+        }
+      })
+
+  }
 
   // defineClasses() {
   //   // btnClass = classnames({
@@ -190,8 +206,9 @@ class Story extends React.Component {
         </div>
         <div className={storyClass}>
           <div className="controlbar">
-            <span onClick={this.toggleEditMode.bind(this)}> Edit.</span>
-            <span onClick={this.saveStory.bind(this)}>Save.</span>
+            <span onClick={this.toggleEditMode.bind(this)}>Edit</span>
+            <span onClick={this.saveStory.bind(this)}>Save</span>
+            <span onClick={this.deleteStory.bind(this)}>Delete</span>
             <div className="bigbar"></div>
           </div>
           <Editor

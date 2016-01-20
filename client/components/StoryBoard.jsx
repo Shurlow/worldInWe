@@ -49,7 +49,7 @@ class StoryBoard extends React.Component {
           <div className="leadinfo">
             <h1>This is a Cabin in Front of Some Trees</h1>
             <h2>Here is a subheading or maybe the first few lines of the featured text ...</h2>
-            <div className="bar"/>
+            <div className="bar1"/>
           </div>
         </div>
 	    	<ul className="storyboard">

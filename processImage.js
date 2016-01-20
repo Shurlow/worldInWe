@@ -37,7 +37,6 @@ module.exports = function(imageBuffer, id, callback) {
 
 function cropThumb(imageBuffer, id) {
   var w, h;
-  console.log(imageBuffer)
 
   gm(imageBuffer)
     .size(function(err, value) {

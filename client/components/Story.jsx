@@ -36,7 +36,7 @@ class Story extends React.Component {
   componentDidMount() {
     var self = this
     request
-      .get('http://localhost:3000/api/' + this.state.id)
+      .get('http://worldinme.xyz/api/' + this.state.id)
       .set('Content-Type', 'application/json')
       .end(function(err, res) {
         self.setState({
@@ -103,7 +103,7 @@ class Story extends React.Component {
     // var self = this
 
     request
-      .post('http://localhost:3000/api/image')
+      .post('http://worldinme.xyz/api/image')
       .set('Accept', this.state.imgtype)
       .send({
         img: this.state.img,
@@ -123,7 +123,7 @@ class Story extends React.Component {
     var preparedStory = blacklist(this.state, 'editing', 'img')
 
     request
-      .post('http://localhost:3000/api/')
+      .post('http://worldinme.xyz/api/')
       .set('Accept', 'application/json')
       .send(preparedStory)
       .end(function(err, res) {
@@ -143,7 +143,7 @@ class Story extends React.Component {
     var preparedStory = blacklist(this.state, 'editing', 'img')
 
     request
-      .post('http://localhost:3000/api/update/' + this.state.id)
+      .post('http://worldinme.xyz/api/update/' + this.state.id)
       .set('Accept', 'application/json')
       .send(preparedStory)
       .end(function(err, res) {
@@ -162,7 +162,7 @@ class Story extends React.Component {
     var self = this
 
     request
-      .post('http://localhost:3000/api/delete/' + this.state.id)
+      .post('http://worldinme.xyz/api/delete/' + this.state.id)
       .end(function(err, res) {
         console.log(err, res)
         if (err) {

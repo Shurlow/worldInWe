@@ -8,11 +8,11 @@ var ReactDOMServer = require('react-dom/server')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.render('index', { reactOutput: 'Hi' });	
+	res.render('index', { reactOutput: 'Loading...' });	
 });
 
 router.get('/*', function(req, res, next) {
-	res.render('index', { reactOutput: 'Hi W' });	
+	res.render('index', { reactOutput: 'Loading...' });	
 });
 
 module.exports = router;

@@ -89,14 +89,14 @@ a {
 	background: $blue;
 }
 
-// @font-face {
-// 	font-family: WIM-Garamond;
-// 	src: url(../fonts/WIM-Garamond.ttf) format('truetype')
-// }
+@font-face {
+	font-family: Aquamax;
+	src: url(../fonts/AquamaxBlack.ttf)
+}
 
-// svg {
-// 	font-family: WIM-Garamond;
-// }
+svg {
+	font-family: Aquamax;
+}
 
 nav {
 	@include container(1540px);
@@ -382,7 +382,7 @@ nav {
 	@include desktop {
 		// padding-left: 10em;
 		// padding-right: 10em;
-		@include container(46%);
+		@include container(66%);
 	}
 
 	h2 {

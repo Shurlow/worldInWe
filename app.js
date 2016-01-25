@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 //Eneble JSX transpiling for server side react
 // require("node-jsx").install();
@@ -28,12 +29,7 @@ app.use(bodyParser.json({ limit: '5mb' }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use(function(req, res, next) {
-//   console.log('In Cors', req.body)
-//   // res.header("Access-Control-Allow-Origin", "*");
-//   // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
+app.use(cors());
 
 app.use('/api', require('./routes/api.js'));
 app.use('/', require('./routes/index'));

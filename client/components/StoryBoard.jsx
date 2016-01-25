@@ -17,8 +17,9 @@ class StoryBoard extends React.Component {
 	componentDidMount() {
 		var self = this
 		request
-			.get('http://worldinme.xyz/api/')
+			.get('http://www.worldinme.xyz/api/')
 			.set('Content-Type', 'application/json')
+			.set('Access-Control-Allow-Origin', '*')
 			.end(function(err, res) {
         if (err) return console.log(err)
 				self.setState({

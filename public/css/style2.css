@@ -296,6 +296,14 @@ a {
   background: #2e9fff;
 }
 
+@font-face {
+  font-family: Aquamax;
+  src: url(../fonts/AquamaxBlack.ttf);
+}
+svg {
+  font-family: Aquamax;
+}
+
 nav {
   max-width: 1540px;
   margin-left: auto;
@@ -528,7 +536,7 @@ nav ul a:hover {
 }
 @media (min-width: 1024px) {
   .story {
-    max-width: 46%;
+    max-width: 66%;
     margin-left: auto;
     margin-right: auto;
   }

@@ -31,7 +31,7 @@ export default class Editor extends React.Component {
     this.medium = new MediumEditor(dom, {
       toolbar: toolbarOptions,
       imageDragging: true,
-      disableEditing: false,
+      disableEditing: true,
       spellcheck: false,
       placeholder: { text: this.props.placeholder }
     });
@@ -59,11 +59,12 @@ export default class Editor extends React.Component {
 
   render() {
     let tag = this.props.tag;
-    let props = blacklist(this.props, 'tag', 'contentEditable', 'dangerouslySetInnerHTML', 'isEditing', 'onChange');
+    let self = this;
+    let props = blacklist(this.props, 'tag', 'isEditing', 'contentEditable', 'dangerouslySetInnerHTML', 'onChange');
 
     assign(props, {
-      contentEditable: this.props.isEditing,
-      spellcheck: this.props.isEditing,
+      contentEditable: self.props.isEditing,
+      spellcheck: self.props.isEditing,
       dangerouslySetInnerHTML: {__html: this.state.text}
     });
 

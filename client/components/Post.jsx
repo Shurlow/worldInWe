@@ -17,7 +17,7 @@ class Post extends Story {
       author_name: props.author_name,
       title: props.title,
       img: props.img,
-      editing: false,
+      editing: true,
       id: guid()
     }
   }

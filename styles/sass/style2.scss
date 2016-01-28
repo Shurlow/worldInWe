@@ -6,7 +6,7 @@
 @import "mixins.scss";
 
 $susy: (
-	columns: 12,
+	columns: 2,
 	gutters: 1 / 16,
 );
 
@@ -19,7 +19,7 @@ $darkblue: #206FB2;
 @include border-box-sizing;
 
 * {
-	display: block;
+	// display: block;
 	margin: 0;
 	padding: 0;
 }
@@ -80,7 +80,7 @@ a {
 	width: 186px;
 	background: $blue;
 	float: left;
-	margin-top: 2em;
+	margin-top: 3em;
 }
 
 .bar3 {
@@ -149,7 +149,7 @@ nav {
 		font-size: 24px;
 		font-family: "Helvetica";
 		// border: 2px solid $darkgrey;
-		// padding: 10px;
+		padding: 10px;
 		// margin-right: 20px;
 		// float: left;
 
@@ -197,7 +197,7 @@ nav {
 }
 
 .leadimage {
-	margin-bottom: 4em;
+	margin-bottom: 2.8%;
 	position: relative;
 	top: 0px;
 	width: 100%;
@@ -259,11 +259,13 @@ nav {
 
 	li {
 		// position: relative;
-		overflow: hidden;
+		// overflow: hidden;
 		outline: 2px solid $lightgrey;
 		margin-bottom: 4em;
+		list-style-type: none;
 		// height: 450px;
 		// padding: 50px;
+		padding: 30px;
 
 		@include phone {
 			@include span(1 of 1);
@@ -283,16 +285,20 @@ nav {
 		}
 
 		a {
-			@include display-flex;
-			@include justify-content(center);
-			@include align-items(center);
+			// float: left;
+			// display: inline-block;
+			// @include display-flex;
+			// @include justify-content(center);
+			// @include align-items(center);
 		}
 
 		.storythumb {
 			// float: left;
-			// width: 50%;
+			width: 100%;
+			// padding: 30px;
 			img {
-				// width: 100%;	
+				margin: 0 auto;
+				width: 100%;
 				// width: 320px;
 			}
 			// padding-left: gutter();
@@ -305,12 +311,12 @@ nav {
 
 		.textover {
 			// align-self: flex-end;
-			// overflow: hidden;
-			width: 50%;
+			overflow: hidden;
+			width: 75%;
 			// @include truncate(400px);
-			padding: 20px;
+			// padding: 20px;
 			// float: left;
-			padding-top: 35px;
+			padding-top: 10px;
 			// text-overflow: ellipsis;
 			// height: 100%;
 			// margin-top: 50px;
@@ -319,7 +325,7 @@ nav {
 			h3 {
 				font-family: "Lato";
 				font-size: 36px;
-				height: 180px;
+				// height: 180px;
 				overflow: hidden;
 				white-space: normal;
 				text-overflow: ellipsis;
@@ -327,7 +333,7 @@ nav {
 
 			h4 {
 				font-size: 24px;
-				margin-top: 15px;
+				margin-top: 5px;
 				color: $lightgrey;
 			}
 
@@ -348,7 +354,7 @@ nav {
 
 .imguploader {
 	width: 100%;
-	padding-top: 150px;
+	padding-top: 60px;
 	@include display-flex;
 	@include justify-content(center);
 	@include align-items(center);
@@ -371,18 +377,21 @@ nav {
 
 
 .story {
-	@include container(92%);
-	@include ease(box-shadow, 2s);
-	@include ease(outline, 1s);
+	// @include container(92%);
+	// @include ease(box-shadow, 2s);
+	// @include ease(outline, 1s);
 	margin: 0 auto;
-	margin-top: 2em;
+	max-width: 900px;
+	// margin-top: 2em;
 
 	font-size: 20px;
 
 	@include desktop {
 		// padding-left: 10em;
 		// padding-right: 10em;
-		@include container(66%);
+		// @include container(60%);
+		max-width: 800px;
+		margin: 0 auto;
 	}
 
 	h2 {
@@ -399,18 +408,35 @@ nav {
 		color: $lightgrey;
 	}
 
+	.title {
+		margin-top: 30px;
+		margin-bottom: 5px;
+		// width: 100%;
+		padding-left: 20px;
+		@include desktop {
+			padding-left: 20px;
+			padding-top: 20px;
+		}
+	}
+
 	.author {
-		margin-bottom: 1em;
+		// margin-bottom: 1em;
+		padding-left: 20px;
+		
+		@include desktop {
+			padding-left: 20px;
+		}
 	}
 
 	.text {
 		font-family: "PT Serif", serif;
 		font-size: 24px;
 		line-height: 1.8;
-		padding: 50px;
+		padding: 40px;
 
 		@include desktop {
-			// font-size: 1em;
+			padding: 50px;
+			font-size: 22px;
 		}
 
 	}

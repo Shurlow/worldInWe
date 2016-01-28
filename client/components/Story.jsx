@@ -12,8 +12,8 @@ import ImageUploader from './ImageUploader.jsx'
 
 class Story extends React.Component {
 
-  constructor(props) {
-    super(props)
+  constructor(props, context) {
+    super(props, context)
     this.state = {
       text: props.text,
       author_name: props.author_name,
@@ -37,7 +37,8 @@ class Story extends React.Component {
   componentDidMount() {
     var self = this
     request
-      .get('http://worldinme.xyz/api/' + this.state.id)
+      // .get('http://worldinme.xyz/api/' + this.state.id)
+      .get( self.context.api_url + self.state.id)
       .set('Content-Type', 'application/json')
       .end(function(err, res) {
         if (err) return console.error(err)
@@ -76,7 +77,7 @@ class Story extends React.Component {
   // }
 
   toggleEditMode(e) {
-    console.log('toggle edit mode', this.state.editing)
+    console.log('Toggle Edit Mode:', !this.state.editing)
     this.setState({
       editing: !this.state.editing
     })
@@ -105,7 +106,7 @@ class Story extends React.Component {
     var self = this
 
     request
-      .post('http://worldinme.xyz/api/image/' + this.state.id)
+      .post( this.context.api_url + 'image/' + this.state.id)
       // .set('Accept', this.state.imgtype)
       .set('Accept', 'application/json')
       .send({
@@ -128,7 +129,7 @@ class Story extends React.Component {
     var preparedStory = blacklist(this.state, 'editing', 'img')
 
     request
-      .post('http://worldinme.xyz/api/')
+      .post( this.context.api_url )
       .set('Accept', 'application/json')
       .send(preparedStory)
       .end(function(err, res) {
@@ -137,7 +138,7 @@ class Story extends React.Component {
           alert(err)
         } else {
           alert("Your story is uploaded!")
-          self.props.history.replaceState(null, '/home')
+          self.props.history.replaceState(null, '/stories')
         }
       })
 
@@ -149,7 +150,7 @@ class Story extends React.Component {
     // console.log('Prepd Story:', preparedStory)
 
     request
-      .post('http://worldinme.xyz/api/update/' + this.state.id)
+      .post( this.context.api_url + '/update/' + this.state.id)
       .set('Accept', 'application/json')
       .send(preparedStory)
       .end(function(err, res) {
@@ -168,14 +169,14 @@ class Story extends React.Component {
     var self = this
 
     request
-      .post('http://worldinme.xyz/api/delete/' + this.state.id)
+      .post( this.context.api_url + '/delete/' + this.state.id)
       .end(function(err, res) {
         // console.log(err, res)
         if (err) {
           alert(err)
         } else {
           alert(res)
-          self.props.history.replaceState(null, '/home')
+          self.props.history.replaceState(null, '/stories')
         }
       })
 
@@ -204,7 +205,6 @@ class Story extends React.Component {
       story: true,
       editor: this.state.editing
     })
-    console.log('Editing', this.state.editing)
     return (
       <div>
         <ImageUploader src={"https://s3-us-west-2.amazonaws.com/world-in-me/" + this.state.id + ".jpg"} editing={this.state.editing} onChange={this.handleImg.bind(this)}/>
@@ -245,6 +245,10 @@ class Story extends React.Component {
   }
 
 }
+
+Story.contextTypes = {
+  api_url: React.PropTypes.string.isRequired
+};
 
 Story.defaultProps = {
   text: "Type your story here",

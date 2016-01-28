@@ -38,7 +38,7 @@ function buildScript(file, watch) {
     var stream = bundler.bundle();
     return stream.on('error', handleErrors)
     .pipe(source(file))
-    .pipe(streamify(uglify()))
+    // .pipe(streamify(uglify()))
     .pipe(gulp.dest(buildDir + '/'));
   }
   bundler.on('update', function() {

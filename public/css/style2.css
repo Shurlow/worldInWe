@@ -228,7 +228,6 @@
 }
 
 * {
-  display: block;
   margin: 0;
   padding: 0;
 }
@@ -287,7 +286,7 @@ a {
   width: 186px;
   background: #2e9fff;
   float: left;
-  margin-top: 2em;
+  margin-top: 3em;
 }
 
 .bar3 {
@@ -345,6 +344,7 @@ nav ul a:hover {
 .controlbar span {
   font-size: 24px;
   font-family: "Helvetica";
+  padding: 10px;
 }
 .controlbar span:hover {
   color: #7b8994;
@@ -379,7 +379,7 @@ nav ul a:hover {
 }
 
 .leadimage {
-  margin-bottom: 4em;
+  margin-bottom: 2.8%;
   position: relative;
   top: 0px;
   width: 100%;
@@ -412,9 +412,10 @@ nav ul a:hover {
   margin: 0 auto;
 }
 .storyboard li {
-  overflow: hidden;
   outline: 2px solid #7b8994;
   margin-bottom: 4em;
+  list-style-type: none;
+  padding: 30px;
 }
 @media (min-width: 320px) and (max-width: 767px) {
   .storyboard li {
@@ -422,7 +423,7 @@ nav ul a:hover {
     float: left;
     margin-left: 0;
     margin-right: 0;
-    margin-bottom: 0.49261%;
+    margin-bottom: 3.0303%;
   }
 }
 @media (min-width: 1024px) {
@@ -447,36 +448,34 @@ nav ul a:hover {
   -webkit-box-shadow: #47525d -5px 5px 0px;
   box-shadow: #47525d -5px 5px 0px;
 }
-.storyboard li a {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  align-items: center;
+.storyboard li .storythumb {
+  width: 100%;
+}
+.storyboard li .storythumb img {
+  margin: 0 auto;
+  width: 100%;
 }
 .storyboard li .textover {
-  width: 50%;
-  padding: 20px;
-  padding-top: 35px;
+  overflow: hidden;
+  width: 75%;
+  padding-top: 10px;
 }
 .storyboard li .textover h3 {
   font-family: "Lato";
   font-size: 36px;
-  height: 180px;
   overflow: hidden;
   white-space: normal;
   text-overflow: ellipsis;
 }
 .storyboard li .textover h4 {
   font-size: 24px;
-  margin-top: 15px;
+  margin-top: 5px;
   color: #7b8994;
 }
 
 .imguploader {
   width: 100%;
-  padding-top: 150px;
+  padding-top: 60px;
   display: -webkit-flex;
   display: flex;
   -webkit-justify-content: center;
@@ -498,52 +497,14 @@ nav ul a:hover {
 }
 
 .story {
-  max-width: 92%;
-  margin-left: auto;
-  margin-right: auto;
-  -moz-transition-property: box-shadow;
-  -o-transition-property: box-shadow;
-  -webkit-transition-property: box-shadow;
-  transition-property: box-shadow;
-  -moz-transition-duration: 2s;
-  -o-transition-duration: 2s;
-  -webkit-transition-duration: 2s;
-  transition-duration: 2s;
-  -moz-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-  -o-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-  -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-  -moz-transition-property: outline;
-  -o-transition-property: outline;
-  -webkit-transition-property: outline;
-  transition-property: outline;
-  -moz-transition-duration: 1s;
-  -o-transition-duration: 1s;
-  -webkit-transition-duration: 1s;
-  transition-duration: 1s;
-  -moz-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-  -o-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-  -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
   margin: 0 auto;
-  margin-top: 2em;
+  max-width: 900px;
   font-size: 20px;
-}
-.story:after {
-  content: " ";
-  display: block;
-  clear: both;
 }
 @media (min-width: 1024px) {
   .story {
-    max-width: 66%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .story:after {
-    content: " ";
-    display: block;
-    clear: both;
+    max-width: 800px;
+    margin: 0 auto;
   }
 }
 .story h2 {
@@ -557,14 +518,36 @@ nav ul a:hover {
   font-size: 30px;
   color: #7b8994;
 }
+.story .title {
+  margin-top: 30px;
+  margin-bottom: 5px;
+  padding-left: 20px;
+}
+@media (min-width: 1024px) {
+  .story .title {
+    padding-left: 20px;
+    padding-top: 20px;
+  }
+}
 .story .author {
-  margin-bottom: 1em;
+  padding-left: 20px;
+}
+@media (min-width: 1024px) {
+  .story .author {
+    padding-left: 20px;
+  }
 }
 .story .text {
   font-family: "PT Serif", serif;
   font-size: 24px;
   line-height: 1.8;
-  padding: 50px;
+  padding: 40px;
+}
+@media (min-width: 1024px) {
+  .story .text {
+    padding: 50px;
+    font-size: 22px;
+  }
 }
 
 .editor {

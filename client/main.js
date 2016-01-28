@@ -11,8 +11,23 @@ import auth from './auth'
 const history = createBrowserHistory();
 // export default createBrowserHistory()
 
-var StoryBoard = React.createFactory(require('./components/StoryBoard.jsx'))
-var Story = React.createFactory(require('./components/Story.jsx'))
+// var wrapUrl = function(Component, props) {
+//   // console.log('In Wrap:', Component, props)
+//   return React.createClass({
+//     render: function() {
+//       return React.createElement(Component, {api_url: "http://localhost:3000/api/"});
+//     }
+//   });
+// };
+
+// function createElement(Component, props) {
+//   _.extend(props, {url_api: "http://localhost:3000/api/"})
+//   return <Component {...props}/>
+// }
+
+var StoryBoard = require('./components/StoryBoard.jsx')
+var Story = require('./components/Story.jsx')
+// var Story = wrapUrl(require('./components/Story.jsx'))
 // var Editable = React.createFactory(require('./components/Editable.jsx'))
 var Post = React.createFactory(require('./components/Post.jsx'))
 var PostFile = React.createFactory(require('./components/PostFile.jsx'))
@@ -22,6 +37,8 @@ var About = React.createFactory(require('./components/About.jsx'))
 var Login = React.createFactory(require('./components/Login.jsx'))
 // var Login = './components/Login.jsx'
 var Logout = React.createFactory(require('./components/Logout.jsx'))
+
+
 
 const App = React.createClass({
 
@@ -35,6 +52,14 @@ const App = React.createClass({
     return {
       loggedIn: auth.loggedIn()
     }
+  },
+
+  childContextTypes: {
+    api_url: React.PropTypes.string.isRequired
+  },
+
+  getChildContext() {
+    return { api_url: "http://localhost:3000/api/" };
   },
 
 	updateAuth(isLoggedIn) {
@@ -56,6 +81,7 @@ const App = React.createClass({
       	<Nav loggedIn={this.state.loggedIn}/>
         {this.props.children}
         <div className="footer"><hr/><h4>contact</h4></div>
+
       </div>
     )
   }

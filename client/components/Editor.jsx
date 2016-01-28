@@ -35,7 +35,7 @@ export default class Editor extends React.Component {
       spellcheck: false,
       placeholder: { text: this.props.placeholder }
     });
-    console.log(dom.innerHTML)
+    // console.log(dom.innerHTML)
     this.medium.subscribe('editableInput', (e) => {
       this._updated = true;
       this.change(dom.innerText);

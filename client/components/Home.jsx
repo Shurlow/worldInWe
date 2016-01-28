@@ -6,6 +6,7 @@ var StoryBoard = React.createFactory(require('./StoryBoard.jsx'))
 var Home = React.createClass({
 
   getInitialState: function() {
+    console.log("Home", this.props)
     return { featured: [] }
   },
 

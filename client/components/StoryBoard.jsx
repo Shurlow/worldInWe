@@ -7,17 +7,19 @@ import ImageBlurLoader from 'react-imageblurloader';
 
 class StoryBoard extends React.Component {
 
-	constructor(props) {
-		super(props)
+	constructor(props, context) {
+		super(props, context)
 	 	this.state = {
 	 		stories: []
 	 	}
 	}
 
 	componentDidMount() {
+    console.log('did mount storyboard')
 		var self = this
 		request
-			.get('http://www.worldinme.xyz/api/')
+			// .get('http://www.worldinme.xyz/api/')
+      .get( this.context.api_url )
 			.set('Content-Type', 'application/json')
 			.set('Access-Control-Allow-Origin', '*')
 			.end(function(err, res) {
@@ -62,6 +64,10 @@ class StoryBoard extends React.Component {
   }
 
 }
+
+StoryBoard.contextTypes = {
+  api_url: React.PropTypes.string.isRequired
+};
 
 export default StoryBoard
 

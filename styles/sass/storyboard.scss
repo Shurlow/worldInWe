@@ -1,0 +1,138 @@
+@import "global.scss";
+@import "compass/utilities/general/clearfix";
+
+.leadimage {
+  position: relative;
+  top: 0px;
+  width: 100%;
+  max-height: 950px;
+  // @include container(100%);
+  // @include display-flex;
+  // @include justify-content(center);
+  // @include align-items(center);
+
+
+  img {
+    max-width: 100%;
+    margin: 0 auto;
+
+    &:hover {
+      // @include heavy-shadow;
+    }
+    cursor: pointer;
+  }
+}
+
+.leadinfo {
+
+  width: 80%;
+  margin: 0 auto;
+
+
+  @include desktop {
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    margin: 3em;
+    padding: 3em;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    max-width: 66%;
+  }
+
+  &:hover {
+    cursor: pointer;
+    bottom: 1px;
+    @include box-shadow(rgba(255,255,255, 0.3) -6px 6px 0px);
+  }
+
+  h1 {
+    
+    // font-size: 6em;
+  }
+
+  h2 {
+    color: rgba(0,0,0, 1);
+  }
+}
+
+.storyboard {
+  padding: gutters(4);
+
+  @include desktop {
+    padding: 0;
+    padding-top: gutters(8);
+  }
+}
+
+.storyboard_item {
+    position: relative;
+    background-color: white;
+    @include ease(all, 0.15s);
+    @include border-radius(4px);
+    border: 2px solid $darkest;
+    
+    // margin-bottom: 4em;
+    list-style-type: none;
+    // height: 850px;
+
+    @include span(8 of 8);
+    margin-bottom: gutters(4);
+    // padding: gutters(4);
+
+    @include desktop {
+      @include gallery(4 of 8);
+      margin-bottom: gutters(8);
+      height: 650px;
+    }
+
+    &:hover {
+      @include medium-shadow();
+      @include translateY(-2px);
+      // margin-top: -1px;
+    }
+
+    .storythumb {
+      width: 100%;
+      img {
+        margin: 0 auto;
+        width: 100%;
+      }
+
+    }
+
+    .textover {
+      overflow: hidden;
+      padding: gutters(8);
+      text-overflow: ellipsis;
+
+      h1 {
+        overflow: hidden;
+        white-space: normal;
+        text-overflow: ellipsis;
+        // height: 100px;
+      }
+
+      h3 {
+        position: absolute;
+        right: gutters(8);
+        bottom: gutters(8);
+        // margin-top: 80px;
+        // color: $lightgrey;
+      }
+
+      // opacity: 0;
+      // display: inline-block;
+
+      &:hover {
+        // opacity: 1;
+        // position: absolute;
+        // width: 100%;
+        // height: 100%;
+        // color: white;
+        // background-color: rgba(0,0,0, 0.5);
+      }
+    }
+
+
+  }

@@ -32,6 +32,7 @@ exports.getFeatured = function(cb) {
         cb(array)
       }).error(function(err) {
         console.log('Error getting stories:', err)
+        cb()
       })
   })
 }

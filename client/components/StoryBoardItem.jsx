@@ -26,7 +26,7 @@ export default class StoryBoardItem extends React.Component {
   render() {
 
     return (
-      <li>
+      <div className="storyboard_item">
         <Link to={'/stories/' + this.props.id}>
           <ImageLoader
             src={"https://s3-us-west-2.amazonaws.com/world-in-me-thumbs/" + this.props.id + ".jpg"}
@@ -37,12 +37,13 @@ export default class StoryBoardItem extends React.Component {
             Image load failed!
           </ImageLoader>
           <div className="textover">
-            <h3>{this.props.title}</h3>
-            <h4>{this.props.author_name}</h4>
-            <div className="bar2"/>
+            <h1>{this.props.title}</h1>
+            <h2>{this.props.firstline}...</h2>
+            <h3>{this.props.author_name}</h3>
           </div>
+          <div className="bar2"/>
         </Link>
-      </li>
+      </div>
     )
   }
 }

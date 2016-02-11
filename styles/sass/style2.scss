@@ -22,6 +22,8 @@ $darkblue: #206FB2;
 	// display: block;
 	margin: 0;
 	padding: 0;
+	-webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 //PT Serif
@@ -33,7 +35,7 @@ $darkblue: #206FB2;
 @include scrollbars(6px, #A8ADB0);
 
 body {
-	font-family: "Lato";
+	// font-family: "Lato";
 	font-size: 10px;
 }
 
@@ -51,18 +53,24 @@ body {
 	// margin: 0 auto;
 }
 
-// #react-app-mount {
-// 	@extend .wrap;
-// }
-
-// h1 {
-// 	font-family
-// }
-
 a {
 	color: inherit;
 	text-decoration: none;
 }
+
+h1 {
+
+}
+
+h2 {
+
+}
+
+h3 {
+
+}
+
+
 
 .bar1 {
 	height: 4px;
@@ -174,6 +182,7 @@ nav {
 
 	&:hover {
 		// margin-top: -2px;
+		cursor: pointer;
 		bottom: 1px;
 		// left: 1px;
 		// @include heavy-shadow(6px);
@@ -260,15 +269,20 @@ nav {
 	li {
 		// position: relative;
 		// overflow: hidden;
-		outline: 2px solid $lightgrey;
+		@include ease(all, 0.15s);
+		border: 1px solid #aaa;
+		@include border-radius(2px);
+		@include light-shadow;
 		margin-bottom: 4em;
 		list-style-type: none;
+
 		// height: 450px;
 		// padding: 50px;
 		padding: 30px;
 
 		@include phone {
-			@include span(1 of 1);
+			// @include span(1 of 1);
+			@include
 			// margin-bottom: gutter()*2;
 			margin-bottom: gutter();
 		}
@@ -280,7 +294,8 @@ nav {
 		}
 
 		&:hover {
-			@include heavy-shadow();
+			@include medium-shadow();
+			@include translateY(-3px);
 			// margin-top: -1px;
 		}
 
@@ -312,13 +327,12 @@ nav {
 		.textover {
 			// align-self: flex-end;
 			overflow: hidden;
-			width: 75%;
-			// @include truncate(400px);
+			// width: 75%;
 			// padding: 20px;
 			// float: left;
 			padding-top: 10px;
-			// text-overflow: ellipsis;
-			// height: 100%;
+			text-overflow: ellipsis;
+			height: 160px;
 			// margin-top: 50px;
 			// padding: gutter();
 
@@ -384,7 +398,7 @@ nav {
 	max-width: 900px;
 	// margin-top: 2em;
 
-	font-size: 20px;
+	// font-size: 20px;
 
 	@include desktop {
 		// padding-left: 10em;
@@ -394,19 +408,19 @@ nav {
 		margin: 0 auto;
 	}
 
-	h2 {
-		color: $darkgrey;
-		font-weight: 900;
-		font-family: 'Source Sans Pro', sans-serif;
-		font-size: 50px;
+	// h2 {
+	// 	color: $darkgrey;
+	// 	font-weight: 900;
+	// 	font-family: 'Source Sans Pro', sans-serif;
+	// 	font-size: 50px;
 
-	}
+	// }
 
-	h3 {
-		font-family: "Lato";
-		font-size: 30px;
-		color: $lightgrey;
-	}
+	// h3 {
+	// 	font-family: "Lato";
+	// 	font-size: 30px;
+	// 	color: $lightgrey;
+	// }
 
 	.title {
 		margin-top: 30px;

@@ -37,7 +37,6 @@ class Story extends React.Component {
   componentDidMount() {
     var self = this
     request
-      // .get('http://worldinme.xyz/api/' + this.state.id)
       .get( self.context.api_url + self.state.id)
       .set('Content-Type', 'application/json')
       .end(function(err, res) {
@@ -216,7 +215,7 @@ class Story extends React.Component {
             <div className="bigbar"></div>
           </div>
           <Editor
-            tag="h2"
+            tag="h1"
             className="title"
             text={this.state.title}
             isEditing={this.state.editing}
@@ -224,7 +223,7 @@ class Story extends React.Component {
             ref={(c) => this.titleref = c}
           />
           <Editor
-            tag="h3"
+            tag="h2"
             className="author"
             text={this.state.author_name}
             isEditing={this.state.editing}

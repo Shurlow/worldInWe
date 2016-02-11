@@ -1,6 +1,11 @@
+$lightgrey: #e3e3e3;
+$darkgrey: #c9c9c9;
+$darkest: #3d464d;
+$blue: #2e9fff;
+$darkblue: #89bdd3;
 
 @mixin light-shadow {
-  @include box-shadow(-2 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24))
+  @include box-shadow(0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24))
 }
 
 @mixin medium-shadow {
@@ -31,7 +36,7 @@
 @mixin ease($property, $duration) {
   @include transition-property($property);
   @include transition-duration($duration);
-  @include transition-timing-function(cubic-bezier(0.215, 0.61, 0.355, 1));
+  @include transition-timing-function(cubic-bezier(0.33, 0.66, 0.66, 1));
 }
 
 @mixin find($color) {
@@ -74,7 +79,7 @@ $desktop-width: 1024px;
 }
 
 
-@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white,  50%)) {
+@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white,  70%)) {
   // For Google Chrome
   ::-webkit-scrollbar {
       width:  $size;

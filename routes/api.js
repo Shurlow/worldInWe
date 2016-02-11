@@ -3,16 +3,21 @@ var router = express.Router();
 var db = require('../db.js');
 
 router.get('/', function(req, res, next) {
-	db.getStories(function(data) {
-		res.json(data);
+	db.getStories(function(err, data) {
+		if (err) {
+			res.status(500).send('Error adding story object')
+		} else {
+			res.json(data);
+			res.send('Story submitted.')
+		}
 	})
 });
 
-router.get('/featured', function(req, res, next) {
-	db.getFeatured(function(data) {
-		res.json(data);
-	})
-});
+// router.get('/featured', function(req, res, next) {
+// 	db.getFeatured(function(data) {
+// 		res.json(data);
+// 	})
+// });
 
 router.get('/:story_id', function(req, res) {
 	var id = req.params.story_id

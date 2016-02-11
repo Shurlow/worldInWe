@@ -33,7 +33,6 @@ function buildScript(file, watch) {
     transform: [babelify, reactify]
   };
   var bundler = watch ? watchify(browserify(props)) : browserify(props);
-  // bundler.transform([ reactify, babelify ]);
   function rebundle() {
     var stream = bundler.bundle();
     return stream.on('error', handleErrors)
@@ -56,7 +55,7 @@ function styles() {
   }
   var preprocess = function() {
     gutil.log('Compiling Sass');
-    return gulp.src('styles/*.scss')
+    return gulp.src('styles/sass/main.scss')
       .pipe(compass(opt).on('error', handleErrors))
       .pipe(gulp.dest('public/css/'))
       // .pipe(notify({

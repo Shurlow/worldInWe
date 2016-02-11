@@ -11,24 +11,17 @@ var cors = require('cors');
 require('babel-core/register')
 
 
-
 var app = express();
-
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
-// uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'img', 'favicon.ico')));
 app.use(logger('dev'));
-// app.use()
 app.use(bodyParser.json({ limit: '5mb' }));
 // app.use(bodyParser.raw({limit: '5mb'}));
 // app.use(bodyParser.urlencoded({ limit: '5mb' }));
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(cors());
 
 app.use('/api', require('./routes/api.js'));
@@ -40,8 +33,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
-// error handlers
 
 // development error handler
 // will print stacktrace

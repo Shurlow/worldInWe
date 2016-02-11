@@ -9,21 +9,6 @@ import auth from './auth'
 
 
 const history = createBrowserHistory();
-// export default createBrowserHistory()
-
-// var wrapUrl = function(Component, props) {
-//   // console.log('In Wrap:', Component, props)
-//   return React.createClass({
-//     render: function() {
-//       return React.createElement(Component, {api_url: "http://localhost:3000/api/"});
-//     }
-//   });
-// };
-
-// function createElement(Component, props) {
-//   _.extend(props, {url_api: "http://localhost:3000/api/"})
-//   return <Component {...props}/>
-// }
 
 var StoryBoard = require('./components/StoryBoard.jsx')
 var Story = require('./components/Story.jsx')
@@ -37,6 +22,7 @@ var About = React.createFactory(require('./components/About.jsx'))
 var Login = React.createFactory(require('./components/Login.jsx'))
 // var Login = './components/Login.jsx'
 var Logout = React.createFactory(require('./components/Logout.jsx'))
+// var Overlay = require('./components/Overlay.jsx')
 
 
 
@@ -59,7 +45,8 @@ const App = React.createClass({
   },
 
   getChildContext() {
-    return { api_url: "http://localhost:3000/api/" };
+    return { api_url: "http://worldinme.xyz/api/" };
+    // return { api_url: "http://localhost:3000/api/" };
   },
 
 	updateAuth(isLoggedIn) {
@@ -79,7 +66,7 @@ const App = React.createClass({
     return (
       <div>
       	<Nav loggedIn={this.state.loggedIn}/>
-        {this.props.children}
+        {this.props.children || <StoryBoard/>}
         <div className="footer"><hr/><h4>contact</h4></div>
 
       </div>

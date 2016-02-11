@@ -44,7 +44,7 @@ class Post extends Story {
             <div className="bar3"></div>
           </div>
           <Editor
-            tag="h2"
+            tag="h1"
             className="title"
             text={this.state.title}
             isEditing={this.state.editing}
@@ -53,7 +53,7 @@ class Post extends Story {
             ref={(c) => this.titleref = c}
           />
           <Editor
-            tag="h3"
+            tag="h2"
             className="author"
             text={this.state.author_name}
             isEditing={this.state.editing}

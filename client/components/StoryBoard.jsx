@@ -12,16 +12,15 @@ class StoryBoard extends React.Component {
 	 	this.state = {
 	 		stories: []
 	 	}
+
 	}
 
 	componentDidMount() {
     console.log('did mount storyboard')
 		var self = this
 		request
-			// .get('http://www.worldinme.xyz/api/')
       .get( this.context.api_url )
 			.set('Content-Type', 'application/json')
-			.set('Access-Control-Allow-Origin', '*')
 			.end(function(err, res) {
         if (err) return console.log(err)
 				self.setState({
@@ -34,9 +33,17 @@ class StoryBoard extends React.Component {
     return <img className="image" src="/img/testbigimg.png" />;
   }
 
+  getFirstLine(str) {
+    let newStr = str.slice(0,50)
+    // console.log(newStr)
+    return newStr
+  }
+
 	makeStoryItem(item) {
+    let firstline = this.getFirstLine(item.text)
+    console.log(firstline)
 		return(
-			<StoryBoardItem key={item.id} {...item}/>
+			<StoryBoardItem key={item.id} firstline={firstline} {...item}/>
 		)
 	}
 
@@ -56,9 +63,9 @@ class StoryBoard extends React.Component {
             <div className="bar1"/>
           </div>
         </div>
-	    	<ul className="storyboard">
-					{this.state.stories.map(this.makeStoryItem)}
-		    </ul>
+	    	<div className="storyboard">
+					{this.state.stories.map(this.makeStoryItem.bind(this))}
+		    </div>
 		  </div>
     )
   }

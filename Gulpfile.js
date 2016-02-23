@@ -1,6 +1,7 @@
 var source = require('vinyl-source-stream');
 var gulp = require('gulp');
 var compass = require('gulp-compass');
+var lrload = require('livereactload');
 var gutil = require('gulp-util');
 var browserify = require('browserify');
 var reactify = require('reactify');
@@ -9,10 +10,21 @@ var babelify = require("babelify");
 var notify = require("gulp-notify");
 var uglify = require("gulp-uglify");
 var streamify = require("gulp-streamify");
+var duration = require('gulp-duration')
+var exorcist = require('exorcist');
 
 var scriptsDir = './client';
 var buildDir = './public/js';
 
+const production = process.env.NODE_ENV === 'production';
+const config = require('./package.json').build
+const browserifyProps = {
+  entries: [config.scripts.source],
+  extensions: config.scripts.extensions,
+  debug: true,
+  cache: {}, packageCache: {}, fullPaths: true, // req for watchify
+  transform: [babelify, reactify]
+};
 
 function handleErrors() {
   var args = Array.prototype.slice.call(arguments);
@@ -25,27 +37,33 @@ function handleErrors() {
 
 
 // Based on: http://blog.avisi.nl/2014/04/25/how-to-keep-a-fast-build-with-browserify-and-reactjs/
-function buildScript(file, watch) {
-  var props = {
-    entries: [scriptsDir + '/' + file],
-    debug: true,
-    cache: {}, packageCache: {}, fullPaths: true, // req for watchify
-    transform: [babelify, reactify]
-  };
-  var bundler = watch ? watchify(browserify(props)) : browserify(props);
-  function rebundle() {
-    var stream = bundler.bundle();
-    return stream.on('error', handleErrors)
-    .pipe(source(file))
-    // .pipe(streamify(uglify()))
-    .pipe(gulp.dest(buildDir + '/'));
+gulp.task('build', function() {
+  // var bundler = watch ? watchify(browserify(browserifyProps)) : browserify(browserifyProps);
+  var pipeline = browserify(browserifyProps)
+    .bundle()
+    .on('error', handleErrors)
+    .pipe(source(config.scripts.filename))
+
+  if(production) {
+    pipeline = pipeline
+      .pipe(streamify(uglify()))
+  } else {
   }
-  bundler.on('update', function() {
-    rebundle();
-    gutil.log('Rebundle...');
-  });
-  return rebundle();
-}
+  return pipeline.pipe(gulp.dest(config.scripts.destination))
+})
+
+  // function rebundle() {
+  //   var stream = bundler.bundle();
+  //   return stream.on('error', handleErrors)
+  //   .pipe(source(config.scripts.filename))
+  //   // .pipe(streamify(uglify()))
+  //   .pipe(gulp.dest(buildDir + '/'));
+  // }
+  // bundler.on('update', function() {
+  //   rebundle();
+  //   gutil.log('Rebundle...');
+  // });
+  // return rebundle();
 
 function styles() {
   var opt = {
@@ -65,18 +83,26 @@ function styles() {
   return preprocess()
 }
 
-
-gulp.task('build', function() {
-  return buildScript('main.js', false);
-});
-
 gulp.task('styles', function() {
   styles()
   return gulp.watch('styles/sass/*.scss', styles);
 });
 
-gulp.task('default', ['build', 'styles'], function() {
-  return buildScript('main.js', true);
+gulp.task('watch', () => {
+
+  const bundle = watchify(browserify(browserifyProps));
+
+  bundle.on('update', () => {
+    const build = bundle.bundle()
+      .on('error', handleErrors)
+      .pipe(source(config.scripts.filename));
+
+    build
+    .pipe(gulp.dest(config.scripts.destination))
+    .pipe(duration('Rebundling browserify bundle'));
+  }).emit('update');
 });
+
+gulp.task('default', ['styles', 'build', 'watch']);
 
 // https://gist.github.com/Sigmus/9253068

@@ -15,7 +15,7 @@ exports.getStories = function(cb) {
       .run(conn).then(function(cursor) {
         return cursor.toArray()
       }).then(function(array) {
-        cb(array)
+        cb(null, array)
       }).error(function(err) {
         console.log('Error getting stories:', err)
       })

@@ -5,10 +5,23 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var passport = require('passport')
 
 //Eneble JSX transpiling for server side react
 // require("node-jsx").install();
 require('babel-core/register')
+
+var FacebookStrategy = require('passport-facebook').Strategy;
+// facebook auth middleware
+passport.use(new FacebookStrategy({
+    clientID: "980809698642161",
+    clientSecret: "0c70b108f6e604e0c9763e78809861b5",
+    callbackURL: "http://localhost:3000/auth/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    console.log('AUTH:', accessToken, profile)
+  }
+));
 
 
 var app = express();

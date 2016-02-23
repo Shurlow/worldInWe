@@ -9,10 +9,10 @@ var router = express.Router();
 var clientSrc = "";
 
 if (process.env.NODE_ENV == 'prod') {
-  var clientSrc = "http://worldinme.xyz/js/main.js"
+  var clientSrc = "http://worldinme.xyz/js/bundle.js"
 }
 if (process.env.NODE_ENV == 'dev') {
-  var clientSrc = "http://localhost:3000/js/main.js"
+  var clientSrc = "http://localhost:3000/js/bundle.js"
 }
 
 

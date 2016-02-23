@@ -1,44 +1,44 @@
-var React = require('react')
-var request = require('superagent')
-var Video = React.createFactory(require('./Video.jsx'))
-var StoryBoard = React.createFactory(require('./StoryBoard.jsx'))
+import React from 'react'
+import AuthenticatedComponent from './AuthenticatedComponent'
 
-var Home = React.createClass({
+export default AuthenticatedComponent(class Home extends React.Component {
 
-  getInitialState: function() {
-    console.log("Home", this.props)
-    return { featured: [] }
-  },
+  getInitialState() {
+    return {
+      loggedIn: auth.loggedIn()
+    }
+  }
 
-  // componentDidMount: function() {
-  //   var self = this
-  //   request
-  //     .get('http://localhost:3000/api/featured')
-  //     .set('Content-Type', 'application/json')
-  //     .end(function(err, res) {
-  //       self.setState({
-  //         featured: res.body
-  //       })
-  //     })
-  // },
+  childContextTypes() {
+    api_url: React.PropTypes.string.isRequired
+  }
 
-  // makeFeaturedStory: function(item) {
-  //   return (
-  //     <li>
-  //       <h2>Video Title</h2>
-  //       {Video({title: item.title, video: item.video})}
-  //     </li>
-  //     )
-  // },
+  getChildContext() {
+    // return { api_url: "http://worldinme.xyz/api/" };
+    return { api_url: "http://localhost:3000/api/" };
+  }
 
-  render: function() {
+ updateAuth(isLoggedIn) {
+    this.setState({
+      loggedIn: !!isLoggedIn
+    })
+  }
+
+ componentWillMount() {
+    console.log('App Mounted')
+   auth.onChange = this.updateAuth
+   auth.login()
+ }
+
+  render() {
+   console.log('User Logged In:', this.state.loggedIn)
     return (
-    	<div className="home">
-        <StoryBoard />
+      <div>
+       <Nav loggedIn={this.state.loggedIn}/>
+        {this.props.children || <StoryBoard/>}
+        <div className="footer"><hr/><h4>contact</h4></div>
+
       </div>
     )
   }
-
 })
-
-module.exports = Home

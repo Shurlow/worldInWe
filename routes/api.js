@@ -5,10 +5,11 @@ var db = require('../db.js');
 router.get('/', function(req, res, next) {
 	db.getStories(function(err, data) {
 		if (err) {
+			console.error(err)
 			res.status(500).send('Error adding story object')
 		} else {
 			res.json(data);
-			res.send('Story submitted.')
+			// res.send('Story submitted.')
 		}
 	})
 });

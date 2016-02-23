@@ -1,6 +1,7 @@
 import React from 'react'
 // import { browserHistory } from 'react-router'
 import auth from '../auth.js'
+import FacebookButton from "./FacebookButton.jsx"
 
 class Login extends React.Component {
 
@@ -15,7 +16,6 @@ class Login extends React.Component {
       editor: false
     }
   }
-
 
   
   mixins: [History]

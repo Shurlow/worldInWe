@@ -1,50 +1,40 @@
 import React from 'react'
 import request from 'superagent'
 import classnames from 'classnames'
-import StoryBoardItem from './StoryBoardItem.jsx'
+// import StoryBoardItem from './StoryBoardItem.jsx'
 // import Image from './Image.jsx'
-import ImageBlurLoader from 'react-imageblurloader';
+// import ImageBlurLoader from 'react-imageblurloader';
 
 class StoryBoard extends React.Component {
 
 	constructor(props, context) {
 		super(props, context)
 	 	this.state = {
-	 		stories: []
+	 		stories: [1,2,3]
 	 	}
-
 	}
 
 	componentDidMount() {
     console.log('did mount storyboard')
-		var self = this
-		request
-      .get( this.context.api_url )
-			.set('Content-Type', 'application/json')
-			.end(function(err, res) {
-        if (err) return console.log(err)
-				self.setState({
-					stories: res.body
-				})
-			})
 	}
 
 	preloader() {
     return <img className="image" src="/img/testbigimg.png" />;
   }
 
-  getFirstLine(str) {
-    let newStr = str.slice(0,50)
-    // console.log(newStr)
-    return newStr
-  }
+  // getFirstLine(str) {
+  //   let newStr = str.slice(0,50)
+  //   // console.log(newStr)
+  //   return newStr
+  // }
 
 	makeStoryItem(item) {
-    let firstline = this.getFirstLine(item.text)
+    // let firstline = this.getFirstLine(item.text)
     // console.log(firstline)
-		return(
-			<StoryBoardItem key={item.id} firstline={firstline} {...item}/>
-		)
+    return <h1>Story</h1>
+		// return(
+		// 	<StoryBoardItem key={item.id} firstline={firstline} {...item}/>
+		// )
 	}
 
   render() {
@@ -72,9 +62,6 @@ class StoryBoard extends React.Component {
 
 }
 
-StoryBoard.contextTypes = {
-  api_url: React.PropTypes.string.isRequired
-};
 
 export default StoryBoard
 

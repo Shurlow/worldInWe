@@ -16,7 +16,8 @@ console.log('Make dat store')
 // const finalCreateStore = compose(
 //   applyMiddleware(historyMiddleware)
 // )(createStore)
-const store = createStore(rootReducer)
+// const store = createStore(rootReducer)
+const store = configureStore()
 // historyMiddleware.listenForReplays(store)
 // console.log('made it')
 
@@ -26,6 +27,6 @@ const store = createStore(rootReducer)
 // )
 
 ReactDOM.render(
-  <Root store={store}/>,
+  <Root store={store} />,
   document.getElementById('mount')
 )

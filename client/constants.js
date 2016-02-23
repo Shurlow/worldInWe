@@ -1,3 +1,5 @@
-export const BASE_URL = 'http://localhost:3000/';
+export const API_URL = 'http://localhost:3000/api'
 export const LOGIN_USER = 'LOGIN_USER'
 export const LOGOUT_USER = 'LOGOUT_USER'
+export const FETCH_STORIES = 'FETCH_STORIES'
+export const RECEIVE_STORIES = 'RECEIVE_STORIES'

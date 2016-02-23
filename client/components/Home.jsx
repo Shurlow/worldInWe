@@ -1,11 +1,13 @@
 import React from 'react'
-import AuthenticatedComponent from './AuthenticatedComponent'
+import Nav from './Nav.jsx'
+import StoryBoard from './Storyboard.jsx'
 
-export default AuthenticatedComponent(class Home extends React.Component {
+export default class Home extends React.Component {
 
-  getInitialState() {
-    return {
-      loggedIn: auth.loggedIn()
+  constructor(props) {
+    super(props)
+    this.state = {
+      loggedIn: false
     }
   }
 
@@ -26,8 +28,8 @@ export default AuthenticatedComponent(class Home extends React.Component {
 
  componentWillMount() {
     console.log('App Mounted')
-   auth.onChange = this.updateAuth
-   auth.login()
+   // auth.onChange = this.updateAuth
+   // auth.login()
  }
 
   render() {
@@ -41,4 +43,4 @@ export default AuthenticatedComponent(class Home extends React.Component {
       </div>
     )
   }
-})
+}

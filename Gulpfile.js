@@ -90,7 +90,7 @@ gulp.task('styles', function() {
 
 gulp.task('watch', () => {
 
-  const bundle = watchify(browserify(browserifyProps));
+  const bundle = watchify(browserify(browserifyProps).plugin(lrload));
 
   bundle.on('update', () => {
     const build = bundle.bundle()

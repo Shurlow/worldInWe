@@ -5,6 +5,11 @@ import React from 'react'
 
 class Login extends React.Component {
 
+  login(e) {
+    e.preventDefault();
+    this.props.actions.loginUser(this.state.email, this.state.password, this.state.redirectTo);
+  }
+
   render() {
     return (
       <div className="login story">

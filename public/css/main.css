@@ -486,6 +486,10 @@ p {
   font-size: 18px;
 }
 
+span {
+  font-size: 24px;
+}
+
 ul {
   list-style: none;
 }

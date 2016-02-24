@@ -8,23 +8,14 @@ import rootReducer from './reducers'
 import Root from './containers/Root'
 import configureStore from './store/configureStore'
 
-console.log('Main')
-// 
 // const historyMiddleware = syncHistory(browserHistory)
 
-console.log('Make dat store')
 // const finalCreateStore = compose(
 //   applyMiddleware(historyMiddleware)
 // )(createStore)
 // const store = createStore(rootReducer)
 const store = configureStore()
 // historyMiddleware.listenForReplays(store)
-// console.log('made it')
-
-// ReactDOM.render(
-//   <h1>FUCKKKK</h1>,
-//   document.getElementById('mount')
-// )
 
 ReactDOM.render(
   <Root store={store} />,

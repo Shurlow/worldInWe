@@ -102,67 +102,69 @@ class Story extends React.Component {
   }
 
   uploadImage(e) {
-    var self = this
+    this.props.uploadImage(this.state.img, this.state.id)
 
-    request
-      .post( this.context.api_url + 'image/' + this.state.id)
-      // .set('Accept', this.state.imgtype)
-      .set('Accept', 'application/json')
-      .send({
-        img: this.state.img,
-      })
-      .end(function(err, res) {
-        if (err) {
-          alert(err)
-          self.setState({
-            img: self.props.img
-          })
-        } else {
-          alert("Image saved.") 
-        }
-      })
-  }
-
-  postNewStory(e) {
-    var self = this
-    var preparedStory = blacklist(this.state, 'editing', 'img')
-
-    request
-      .post( this.context.api_url )
-      .set('Accept', 'application/json')
-      .send(preparedStory)
-      .end(function(err, res) {
-        // console.log(err, res)
-        if (err) {
-          alert(err)
-        } else {
-          alert("Your story is uploaded!")
-          self.props.history.replaceState(null, '/stories')
-        }
-      })
-
+    // request
+    //   .post( this.context.api_url + 'image/' + this.state.id)
+    //   // .set('Accept', this.state.imgtype)
+    //   .set('Accept', 'application/json')
+    //   .send({
+    //     img: this.state.img,
+    //   })
+    //   .end(function(err, res) {
+    //     if (err) {
+    //       alert(err)
+    //       self.setState({
+    //         img: self.props.img
+    //       })
+    //     } else {
+    //       alert("Image saved.") 
+    //     }
+    //   })
   }
 
   saveStory(e) {
-    var self = this
+    // var self = this
     var preparedStory = blacklist(this.state, 'editing', 'img')
-    // console.log('Prepd Story:', preparedStory)
+    this.props.uploadStory(preparedStory)
 
-    request
-      .post( this.context.api_url + '/update/' + this.state.id)
-      .set('Accept', 'application/json')
-      .send(preparedStory)
-      .end(function(err, res) {
-        // console.log(err, res)
-        if (err) {
-          alert(err)
-        } else {
-          alert("Your story is uploaded!")
-          self.props.history.replaceState(null, '/home')
-        }
-      })
+
+    // request
+    //   .post( this.context.api_url )
+    //   .set('Accept', 'application/json')
+    //   .send(preparedStory)
+    //   .end(function(err, res) {
+    //     // console.log(err, res)
+    //     if (err) {
+    //       alert(err)
+    //     } else {
+    //       alert("Your story is uploaded!")
+    //       self.props.history.replaceState(null, '/stories')
+    //     }
+    //   })
 
   }
+
+  // saveStory(e) {
+  //   var self = this
+  //   var preparedStory = blacklist(this.state, 'editing', 'img')
+  //   // console.log('Prepd Story:', preparedStory)
+
+  //   request
+  //     .post( this.context.api_url + '/update/' + this.state.id)
+  //     .set('Accept', 'application/json')
+  //     .send(preparedStory)
+  //     .end(function(err, res) {
+  //       // console.log(err, res)
+  //       if (err) {
+  //         alert(err)
+  //       } else {
+  //         alert("Your story is uploaded!")
+  //         self.props.history.replaceState(null, '/home')
+  //       }
+  //     })
+
+  // }
 
   deleteStory(e) {
     var self = this
@@ -244,10 +246,6 @@ class Story extends React.Component {
   }
 
 }
-
-Story.contextTypes = {
-  api_url: React.PropTypes.string.isRequired
-};
 
 Story.defaultProps = {
   text: "Type your story here",

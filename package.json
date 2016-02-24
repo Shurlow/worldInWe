@@ -11,7 +11,7 @@
     "scripts":{
       "source":"./client/main.js",
       "destination":"./public/js/",
-      "extensions":[],
+      "extensions":["js", "jsx"],
       "filename":"bundle.js"
     }
   },

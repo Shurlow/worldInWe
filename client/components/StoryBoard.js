@@ -1,7 +1,7 @@
 import React from 'react'
 import request from 'superagent'
 import classnames from 'classnames'
-// import StoryBoardItem from './StoryBoardItem.jsx'
+import StoryBoardItem from './StoryBoardItem.jsx'
 // import Image from './Image.jsx'
 // import ImageBlurLoader from 'react-imageblurloader';
 
@@ -9,13 +9,10 @@ class StoryBoard extends React.Component {
 
 	constructor(props, context) {
 		super(props, context)
-	 	this.state = {
-	 		stories: [1,2,3]
-	 	}
 	}
 
 	componentDidMount() {
-    console.log('did mount storyboard')
+    // console.log('did mount storyboard')
 	}
 
 	preloader() {
@@ -30,11 +27,10 @@ class StoryBoard extends React.Component {
 
 	makeStoryItem(item) {
     // let firstline = this.getFirstLine(item.text)
-    // console.log(firstline)
-    return <h1>Story</h1>
-		// return(
-		// 	<StoryBoardItem key={item.id} firstline={firstline} {...item}/>
-		// )
+    // return <h1>Story: {item.title}</h1>
+		return(
+			<StoryBoardItem key={item.id} {...item}/>
+		)
 	}
 
   render() {
@@ -54,7 +50,7 @@ class StoryBoard extends React.Component {
           </div>
         </div>
 	    	<div className="storyboard">
-					{this.state.stories.map(this.makeStoryItem.bind(this))}
+					{this.props.stories.map(this.makeStoryItem.bind(this))}
 		    </div>
 		  </div>
     )
@@ -62,12 +58,12 @@ class StoryBoard extends React.Component {
 
 }
 
+StoryBoard.defaultProps = {
+  stories: []
+}
+
+StoryBoard.propTypes = {
+  stories: React.PropTypes.array.isRequired
+}
 
 export default StoryBoard
-
-// <ImageBlurLoader
-// src={"/img/trees.jpeg"}
-// preview={"/img/testbigimg.png"}
-// />
-
-// <Image className="frontimage" src="/img/trees.jpeg" preview="/img/testbigimg.png" />

@@ -43,7 +43,7 @@ router.get('/:story_id', function(req, res) {
 });
 
 // Post new story
-router.post('/', function(req, res) {
+router.post('/story', function(req, res) {
 	console.log('Posting New Story')	
 	db.postStory(req.body, function(err, data) {
 		if (err) {

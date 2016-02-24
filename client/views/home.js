@@ -1,15 +1,14 @@
 import React, {PropTypes} from 'react'
 import Nav from '../components/Nav.jsx'
-import StoryBoard from '../components/Storyboard.jsx'
+import StoryBoard from '../components/StoryBoard.js'
 import { fetchStories } from "../actions"
 import { connect } from 'react-redux'
 
 export default class Home extends React.Component {
 
  componentWillMount() {
-    console.log('App Will Mount')
+    // console.log('App Will Mount')
     const dispatch = this.props.dispatch
-    console.log(this.props.fetchStories)
     this.props.fetchStories()
  }
 
@@ -25,7 +24,7 @@ export default class Home extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    stories: state.stories,
+  stories: state.data.stories,
 });
 
 export default connect(mapStateToProps, {

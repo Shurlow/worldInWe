@@ -34,13 +34,13 @@ var Nav = React.createClass({
     });
     return (
       <nav>
-        <Link to='/stories' activeClassName="link-active">
+        <Link to='/' activeClassName="link-active">
           <img className="logo" src="/res/logo.svg"></img>
         </Link>
         
         <ul>
           {this.toggleLogin(this.props.loggedIn)}
-          <Link to='/post' activeClassName="link-active">NEW</Link>
+          <Link to='/story/new' activeClassName="link-active">NEW</Link>
           <Link to='/about' activeClassName="link-active">ABOUT</Link>          
         </ul>
       </nav>

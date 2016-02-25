@@ -29,6 +29,7 @@ function buildScript(file, watch) {
 
   var props = {
     entries: [scriptsDir + '/main.js'],
+    extensions: ['.js', '.jsx'],
     debug : true,
     cache: {},
     packageCache: {},

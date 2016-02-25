@@ -15,7 +15,7 @@ export default class Root extends React.Component {
     console.log('history:', history)
     return (
       <Provider store={store}>
-        <Router>
+        <Router history={history}>
           <Route path="/" component={Home}>
             <Route path="login" component={Login}/>
             <Route path="about" component={About}/>

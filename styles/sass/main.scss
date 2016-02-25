@@ -6,6 +6,7 @@
 @import "global.scss";
 @import "storyboard.scss";
 @import "story.scss";
+@import "login.scss";
 
 $susy: (
   columns: 8,
@@ -71,10 +72,6 @@ h3 {
 p {
   font-family: "PT Serif", georgia, serif;
   font-size: 18px;
-}
-
-span {
-  font-size: 24px;
 }
 
 ul {

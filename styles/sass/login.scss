@@ -1,0 +1,23 @@
+@import "global.scss";
+
+.login {
+  padding: 4em;
+  background-image: url('/img/trees.jpeg');
+  background-size: cover;
+  height: 1000px;
+  width: 100vw;
+  @include display-flex;
+  @include justify-content(center);
+  @include align-items(center);
+}
+
+.card {
+  display: inline;
+  padding: 3em;
+  @include display-flex;
+  @include flex-direction(column);
+
+  h2 {
+    // color: white;
+  }
+}

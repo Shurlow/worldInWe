@@ -13,7 +13,6 @@ import fetch from 'isomorphic-fetch'
 export function loginUser() {    
   return {
     actionType: LOGIN_USER,
-    jwt: jwt
   }
 }
 

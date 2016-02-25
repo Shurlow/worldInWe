@@ -77,9 +77,7 @@ class Story extends React.Component {
         <ImageUploader src={"https://s3-us-west-2.amazonaws.com/world-in-me/" + this.state.id + ".jpg"} editing={this.state.editing} onChange={this.handleImg.bind(this)}/>
         <div className={storyClass}>
           <div className="controlbar">
-            <Link to={'edit/' + this.state.id}>
-              <h3>EDIT</h3>
-            </Link>
+
             <div className="bigbar"></div>
           </div>
           <h1 className="title">{this.props.title}</h1>
@@ -89,7 +87,9 @@ class Story extends React.Component {
       </div>
     )
   }
-
+            // <Link to={'edit/' + this.state.id}>
+            //   <h3>EDIT</h3>
+            // </Link>
 }
 
 Story.defaultProps = {

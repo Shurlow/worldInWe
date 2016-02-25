@@ -412,6 +412,29 @@
   }
 }
 
+.login {
+  padding: 4em;
+  background-image: url("/img/trees.jpeg");
+  background-size: cover;
+  height: 1000px;
+  width: 100vw;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.card {
+  display: inline;
+  padding: 3em;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
 *, *:before, *:after {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -484,10 +507,6 @@ h3 {
 p {
   font-family: "PT Serif", georgia, serif;
   font-size: 18px;
-}
-
-span {
-  font-size: 24px;
 }
 
 ul {

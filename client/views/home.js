@@ -3,6 +3,8 @@ import Nav from '../components/Nav.jsx'
 import StoryBoard from '../components/StoryBoard.js'
 import { fetchStories } from "../actions"
 import { connect } from 'react-redux'
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin()
 
 export default class Home extends React.Component {
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux'
-import routes from '../routes'
+// import routes from '../routes'
 import { Router, Route } from 'react-router'
 import Home from '../views/Home'
 import About from '../views/About'
@@ -12,6 +12,7 @@ export default class Root extends React.Component {
 
   render() {
     const { store, history } = this.props
+    console.log('history:', history)
     return (
       <Provider store={store}>
         <Router>
@@ -19,6 +20,7 @@ export default class Root extends React.Component {
             <Route path="login" component={Login}/>
             <Route path="about" component={About}/>
             <Route path="stories/:id" component={Story}/>
+            <Route path="new" component={Story}/>
             <Route path="edit/:id" component={Story}/>
           </Route>
         </Router>

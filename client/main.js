@@ -1,23 +1,16 @@
-// import 'babel-polyfill'
+import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
-// import { browserHistory } from 'react-router'
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
-// import { syncHistory, routeReducer } from 'react-router-redux'
-import rootReducer from './reducers'
+import { syncHistoryWithStore } from 'react-router-redux'
+import rr from 'react-router'
 import Root from './containers/Root'
 import configureStore from './store/configureStore'
 
-// const historyMiddleware = syncHistory(browserHistory)
-
-// const finalCreateStore = compose(
-//   applyMiddleware(historyMiddleware)
-// )(createStore)
-// const store = createStore(rootReducer)
+console.log('browhist:', rr)
 const store = configureStore()
-// historyMiddleware.listenForReplays(store)
+// const history = syncHistoryWithStore(History, store)
 
 ReactDOM.render(
-  <Root store={store} />,
+  <Root store={store} history={history}/>,
   document.getElementById('mount')
 )

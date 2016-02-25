@@ -1,7 +1,7 @@
 var source = require('vinyl-source-stream');
 var gulp = require('gulp');
 var compass = require('gulp-compass');
-var lrload = require('livereactload');
+// var lrload = require('livereactload');
 var gutil = require('gulp-util');
 var browserify = require('browserify');
 var reactify = require('reactify');
@@ -11,7 +11,7 @@ var notify = require("gulp-notify");
 var uglify = require("gulp-uglify");
 var streamify = require("gulp-streamify");
 var duration = require('gulp-duration')
-var exorcist = require('exorcist');
+// var exorcist = require('exorcist');
 
 var scriptsDir = './client';
 var buildDir = './public/js';

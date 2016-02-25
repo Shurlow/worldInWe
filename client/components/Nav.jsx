@@ -40,7 +40,7 @@ var Nav = React.createClass({
         
         <ul>
           {this.toggleLogin(this.props.loggedIn)}
-          <Link to='/story/new' activeClassName="link-active">NEW</Link>
+          <Link to='/new' activeClassName="link-active">NEW</Link>
           <Link to='/about' activeClassName="link-active">ABOUT</Link>          
         </ul>
       </nav>

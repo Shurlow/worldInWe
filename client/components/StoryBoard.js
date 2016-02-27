@@ -2,7 +2,7 @@ import React from 'react'
 import request from 'superagent'
 import classnames from 'classnames'
 import StoryBoardItem from './StoryBoardItem.jsx'
-// import Image from './Image.jsx'
+import LeadImage from './LeadImage.jsx'
 // import ImageBlurLoader from 'react-imageblurloader';
 
 class StoryBoard extends React.Component {
@@ -41,14 +41,7 @@ class StoryBoard extends React.Component {
 
     return (
     	<div className="content">
-        <div className="leadimage">
-          <img src="/img/trees.jpeg"></img>
-          <div className="leadinfo">
-            <h1>This is a Cabin in Front of Some Trees</h1>
-            <h2>Here is a subheading or maybe the first few lines of the featured text ...</h2>
-            <div className="bar1"/>
-          </div>
-        </div>
+        <LeadImage img={'/img/morehouses.jpeg'}/>
 	    	<div className="storyboard">
 					{this.props.stories.map(this.makeStoryItem.bind(this))}
 		    </div>

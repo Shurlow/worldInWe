@@ -43,18 +43,16 @@ a {
 h1 {
   margin: 0;
   font-size: 48px;
-  font-weight: 700;
-  @include desktop {
-    font-size: 35px;
-  }
+  font-weight: 400;
+  // @include desktop {
+  //   font-size: 35px;
+  // }
 }
 
 h2 {
   margin: 0;
   font-size: 40px;
   font-weight: 400;
-  // color: #7F7F7F;
-  color: rgba(0,0,0,0.8);
   @include desktop {
     font-size: 22px;
   }
@@ -104,17 +102,17 @@ nav {
     margin-top: 60px;
     font-size: 16px;
 
-    a {
-      float: left;
-      margin-left: 20px;
-      align-items: center;
-      cursor: pointer;
+    // a {
+    //   float: left;
+    //   margin-left: 20px;
+    //   align-items: center;
+    //   cursor: pointer;
 
-      &:hover {
-        padding-bottom: 4px;
-        border-bottom: 2px solid $blue;
-        opacity: 0.55;
-      }
-    }
+    //   &:hover {
+    //     padding-bottom: 4px;
+    //     border-bottom: 2px solid $blue;
+    //     opacity: 0.55;
+    //   }
+    // }
   }
 }

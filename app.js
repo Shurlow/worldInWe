@@ -38,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 app.use('/api', require('./routes/api.js'));
+app.use('/auth', require('./routes/auth.js'));
 app.use('/', require('./routes/index'));
 
 // catch 404 and forward to error handler
@@ -49,7 +50,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
+if (app.get('env') === 'dev') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     console.log('Dev err handler says:', err, res.body)
@@ -64,7 +65,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  console.log('Prod err handler says:', err)
+  console.log('Production err handler says:', err)
   res.render('error', {
     message: err.message,
     error: {}

@@ -1,62 +1,54 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router'
-var classnames = require('classnames')
-// var $ = require('jquery');
-// <Link to="/home"><h1>World In Me</h1></Link>
-var Nav = React.createClass({
+import { connect } from 'react-redux'
+import { logoutUser } from "../actions"
+import FlatButton from 'material-ui/lib/flat-button';
 
-  getInitialState: function() {
-    return { clicked: false }
-  },
+class Nav extends React.Component {
 
-  handleClick: function(e) {
-    console.log('click')
-    this.setState({
-      clicked: !this.state.clicked
-    })
-  },
-
-  toggleLogin: function(isLoggedIn) {
-    if (isLoggedIn) {
+  makeLoginButton() {
+    if (this.props.isAuthenticated) {
       return (
-        <Link to='/logout' activeClassName="link-active">LOGOUT</Link>
+        <FlatButton label="LOGOUT" onClick={this.logout.bind(this)}/>
       )
     } else {
       return (
-        <Link to='/login' activeClassName="link-active">LOGIN</Link>
+        <Link to="/login">
+          <FlatButton label="LOGIN"/>
+        </Link>
       )
     }
-  },
+  }
 
-  render: function() {
-    var btnClass = classnames({
-      'downclick': this.state.clicked,
-    });
+  logout() {
+    this.props.logoutUser()
+  }
+
+  render() {
+    console.log(this.props)
     return (
       <nav>
         <Link to='/' activeClassName="link-active">
           <img className="logo" src="/res/logo.svg"></img>
         </Link>
-        
         <ul>
-          {this.toggleLogin(this.props.loggedIn)}
-          <Link to='/new' activeClassName="link-active">NEW</Link>
-          <Link to='/about' activeClassName="link-active">ABOUT</Link>          
+          <Link to="/new">
+            <FlatButton label="NEW"/>
+          </Link>
+          <Link to="/about">
+            <FlatButton label="ABOUT"/>
+          </Link>
+          {this.makeLoginButton()}
         </ul>
       </nav>
     )
   }
+}
 
-})
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
 
-module.exports = Nav
-
-// <Link to='/home'><img className="logo left" src="/img/check.png"></img></Link>
-//         <Link to='/post'><img className="logo right" src="/img/edit.png"></img></Link>
-// <ul>
-//           {this.toggleLogin(this.props.loggedIn)}
-//           <Link to='/post' activeClassName="link-active">new</Link>
-//           <Link to='/stories' activeClassName="link-active">stories</Link>
-//           <Link to='/about' activeClassName="link-active">about</Link>          
-//         </ul>
-// <img src="/img/Logo.svg" onClick={this.handleClick} className={btnClass}></img>
+export default connect(mapStateToProps, {
+  logoutUser
+})(Nav)

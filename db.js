@@ -63,13 +63,26 @@ exports.deleteStory = function(id, cb) {
 }
 
 
-exports.createUser = function(userObj, cb) {
+exports.createUser = function(email, password, cb) {
+  var userObj = {
+    email: email,
+    password: password
+  }
   withConnection(function(conn) {
     r.table('user')
-      .insert(userObj)
+      .insert(userObj, {returnChanges: true})
       .run(conn, cb)
   })
 }
+
+exports.getUser = function(id, cb) {
+  withConnection(function(conn) {
+    r.table('user')
+      .get(id)
+      .run(conn, cb)
+  })
+}
+
 
 //Handles generic db response
 exports.handleError = function(error, cursor) {

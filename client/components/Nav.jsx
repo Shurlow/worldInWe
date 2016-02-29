@@ -28,8 +28,8 @@ class Nav extends React.Component {
     console.log(this.props)
     return (
       <nav>
-        <Link to='/' activeClassName="link-active">
-          <img className="logo" src="/res/logo.svg"></img>
+        <Link to='/' className="logo" >
+          <img src="/res/logopng.png"></img>
         </Link>
         <ul>
           <Link to="/new">

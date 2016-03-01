@@ -2,37 +2,57 @@ var express = require('express');
 // var passport = require('passport');
 var router = express.Router();
 var db = require('../db')
-var jwt = require('express-jwt');
+var expressJWT = require('express-jwt');
+var jwt = require('jsonwebtoken')
 
-/* GET /auth */
-router.post('/getToken', function(req, res, next) {
-  console.log('Login Attempt from', req.body.email)
-  db.getUser(req.body.email, req.body.password, function(err, user) {
-    if (err) return res.sendStatus(403)
-    else if (user) {
-      res.json({token: '1234TOKEN'})
+router.post('/login', function(req, res) {
+  console.log('Login Attempt for', req.body.email)
+  //TODO: clean up db request handling
+  db.getUser(req.body.email, function(err, user) {
+    if (user) {
+      if (user.password === req.body.password) {
+        var token = jwt.sign({ name: user.name, id: user.id }, 'supersecret!')
+        res.status(200).json({'token': token})
+      } else {
+        res.status(403).send('Incorrect Authentication.')
+      }
+    } else {
+      return res.status(404).send('User not found.')
     }
   })
 });
 
-router.post('/newUser', function(req, res, next) {
-  console.log('Adding new user:', req.body.email)
-  db.createUser(req.body.email, req.body.password, function(err, user) {
-    console.log('get user', user)
-    if (err) return res.send("Sign Up Error!")
-    else if (user) {
-      res.json(user.changes[0].new_val)
+router.post('/createUser', function(req, res, next) {
+  var user = req.body
+  console.log('Adding new user:', user)
+  db.createUser(user, function(err, success) {
+    if (success) {
+      console.log('success!')
+      var token = jwt.sign({ name: user.name, id: user.id }, 'supersecret!')
+      res.status(200).json({'token': token})
+    } else {
+      console.log('Create user error:', err)
+      return res.status(403).send('Error creating user.')
     }
+
+    // console.log('From DB:', user, err)
+    // if (err) return res.send("Sign Up Error!")
+    // else if (user) {
+    //   console.log('Good User:', user)
+    //   delete user.password
+    //   res.json(user)
+    // }
   })
 });
 
-// var fs = require('fs')
-// var pubKey = fs.readFileSync('/Users/scotthurlow/.ssh/id_rsa.pub')
-// router.post('/protected', jwt({secret: pubKey}), function(req, res) {
-//   if (!req.user.admin) return res.sendStatus(401);
-//   res.sendStatus(200);
-// });
-
-// router.get('facebook/callback', passport.authenticate('facebook'))
+router.get('/user', expressJWT({secret: 'supersecret!'}), function(req, res, next) {
+  console.log('Getting users...')
+  db.getUsers(function(err, users) {
+    if (err) return res.sendStatus(403).json({message: 'Could not get users.'})
+    else if (users) {
+      res.json(users)
+    }
+  })
+});
 
 module.exports = router;

@@ -31,11 +31,11 @@ class SignUp extends React.Component {
 
   constructor(props) {
     super(props);
-    const redirectRoute = this.props.location.query.next || '/';
     this.state = {
+      name: '',
       email: '',
       password: '',
-      redirectTo: redirectRoute,
+      redirectTo: '/',
       errorText: ''
     };
   }
@@ -60,11 +60,17 @@ class SignUp extends React.Component {
     })
   }
 
+  nameChange(e) {
+    this.setState({
+      name: e.target.value
+    })
+  }
+
   signUp() {
 
     // console.log('Signing up:', this.state)
     if (this.validateEmail(this.state.email)) {
-      this.props.signUpUser(this.state.email, this.state.password, this.state.redirectTo);      
+      this.props.signUpUser(this.state.name, this.state.email, this.state.password, this.state.redirectTo);      
     } else {
       this.setState({
         errorText: "Email input is invalid!"
@@ -79,6 +85,7 @@ class SignUp extends React.Component {
   }
 
   render() {
+    console.log(this.props.location)
     return (
       <div className="content">
         <LeadImage img={'/img/morehouses.jpeg'} withLink={false}>
@@ -88,7 +95,7 @@ class SignUp extends React.Component {
               <TextField
                 hintText="name"
                 style={textstyle}
-                onChange={this.passwordChange.bind(this)}
+                onChange={this.nameChange.bind(this)}
               />
               <TextField 
                 hintText="email"
@@ -107,6 +114,7 @@ class SignUp extends React.Component {
                 label="Sign Up"
                 style={bstyle}
                 onMouseDown={this.signUp.bind(this)}
+                disabled={this.props.isAuthenticating}
               />
             </Paper>
           </div>
@@ -120,7 +128,8 @@ class SignUp extends React.Component {
 SignUp.childContextTypes = {muiTheme: React.PropTypes.object};
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  isAuthenticating: state.auth.isAuthenticating
 });
 
 export default connect(mapStateToProps, {

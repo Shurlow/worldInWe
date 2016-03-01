@@ -1,4 +1,4 @@
-import { checkHttpStatus, parseJSON } from '../util.js';
+import { checkHttpStatus, parseJSON, guid} from '../util.js';
 import {LOGIN_USER,
   LOGOUT_USER,
   LOGIN_USER_FAILURE,
@@ -13,8 +13,7 @@ import {LOGIN_USER,
   UPLOAD_IMAGE_SUCCESS
 } from '../constants.js';
 import { browserHistory } from 'react-router'
-
-// import jwtDecode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 // import { pushState } from 'redux-router';
 
 import fetch from 'isomorphic-fetch'
@@ -22,10 +21,16 @@ import fetch from 'isomorphic-fetch'
 
 export function loginUserSuccess(token) {
   localStorage.setItem('token', token);
+  console.log(token)
+  browserHistory.push('/')
+  var user = jwtDecode(token)
+  // console.log(user)
   return {
     type: LOGIN_USER_SUCCESS,
     payload: {
-      token: token
+      token: token,
+      id: user.id,
+      name: user.name
     }
   }
 }
@@ -58,19 +63,21 @@ export function loginUser(email, password, redirect) {
 
   return function(dispatch) {
     dispatch(loginUserRequest())
-    return fetch(BASE_URL + 'auth/getToken', {
+    return fetch(BASE_URL + 'auth/login', {
       method: 'post',
       credentials: 'include',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-        body: JSON.stringify({email: email, password: password})
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })
       })
       .then(checkHttpStatus)
       .then(parseJSON)
       .then(response => {
-        console.log(response)
         dispatch(loginUserSuccess(response.token))
       })
       .catch(error => {
@@ -80,28 +87,33 @@ export function loginUser(email, password, redirect) {
   }
 }
 
-export function signUpUser(email, password, redirect) {    
+export function signUpUser(name, email, password, redirect) {    
 
   return function(dispatch) {
     dispatch(signUpUserRequest())
-    return fetch(BASE_URL + 'auth/newUser', {
+    return fetch(BASE_URL + 'auth/createUser', {
       method: 'post',
       credentials: 'include',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-        body: JSON.stringify({email: email, password: password})
+        body: JSON.stringify({
+          id: guid(),
+          name: name,
+          email: email,
+          password: password
+        })
       })
       .then(checkHttpStatus)
       .then(parseJSON)
       .then(response => {
         console.log('response', response)
-        dispatch(signUpUserSuccess(response))
+        dispatch(loginUserSuccess(response.token))
       })
       .catch(error => {
-        console.log('errrr',error)
-        dispatch(signUpUserFailure(error.response))
+        console.log('Error sign up', error)
+        dispatch(signUpUserFailure(error))
       })
   }
 }
@@ -117,7 +129,7 @@ export function signUpUserSuccess(user) {
   localStorage.setItem('token', user.token);
   browserHistory.push('/')
   return {
-    type: SIGNUP_USER_SUCCESS,
+    type: LOGIN_USER_SUCCESS,
     payload: {
       user: user
     }
@@ -129,8 +141,7 @@ export function signUpUserFailure(error) {
   return {
     type: SIGNUP_USER_FAILURE,
     payload: {
-      status: error.status,
-      statusText: error.statusText
+      statusText: error
     }
   }
 }
@@ -248,4 +259,8 @@ export function uploadImage(img_data, id) {
       }
     })
   }
+}
+
+export function navigateTo(location) {
+  return
 }

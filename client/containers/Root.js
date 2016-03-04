@@ -6,7 +6,9 @@ import Home from '../views/Home'
 import About from '../views/About'
 import Login from '../views/Login'
 import Story from '../views/Story'
-import SignUp from '../views/SignUp.js'
+import SignUp from '../views/SignUp'
+import EditStory from '../views/EditStory'
+import NewStory from '../views/NewStory'
 import {requireAuthentication} from '../components/requireAuthentication.js';
 
 export default class Root extends React.Component {
@@ -21,8 +23,8 @@ export default class Root extends React.Component {
             <Route path="signup" component={SignUp}/>
             <Route path="about" component={About}/>
             <Route path="stories/:id" component={Story}/>
-            <Route path="new" component={Story}/>
-            <Route path="edit/:id" component={Story}/>
+            <Route path="new" component={NewStory}/>
+            <Route path="edit/:id" component={EditStory}/>
             <Route path="topics/housing" component={About}/>
           </Route>
         </Router>

@@ -8,7 +8,8 @@ export default class LeadImage extends React.Component {
       backgroundImage: 'url(' + this.props.img + ')'
     }
 
-    return (this.props.withLink
+    return (
+      this.props.withLink
       ? <Link to='topics/housing'>
           <div style={style} className="fullimage">
             <div className="overlay">
@@ -38,5 +39,5 @@ LeadImage.propTypes = {
 }
 
 LeadImage.defaultProps = {
-  withLink: true
+  withLink: false
 }

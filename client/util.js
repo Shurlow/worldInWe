@@ -11,9 +11,11 @@ export function createReducer(initialState, reducerMap) {
 
 export function checkHttpStatus(response) {
   if (response.status >= 200 && response.status < 300) {
+    console.log('HTTP OK', response)
     return response
   } else {
     var error = new Error(response.statusText)
+    console.log('HTTP ERR', response)
     error.response = response
     throw error
   }

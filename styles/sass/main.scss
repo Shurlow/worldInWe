@@ -1,12 +1,15 @@
 @import "susy";
 @import "compass/css3";
-@import "compass/css3/transform";
-@import "../../node_modules/medium-editor/src/sass/medium-editor.scss";
+// @import "compass/css3/transform";
+// @import "../../node_modules/medium-editor/src/sass/medium-editor.scss";
 
 @import "global.scss";
 @import "storyboard.scss";
 @import "story.scss";
 @import "login.scss";
+@import "post.scss";
+// @import "../../node_modules/draft-js/lib/Draft.css";
+// @import "../../node_modules/draft-js/lib/Draft.css";
 
 $susy: (
   columns: 8,
@@ -40,40 +43,40 @@ a {
   text-decoration: none;
 }
 
-h1 {
-  margin: 0;
-  font-size: 48px;
-  font-weight: 400;
-  // @include desktop {
-  //   font-size: 35px;
-  // }
+h2 {
+  @extend .header-one;
 }
 
 h2 {
-  margin: 0;
-  font-size: 40px;
-  font-weight: 400;
-  @include desktop {
-    font-size: 22px;
-  }
+  @extend .header-two;
+}
 
+.header-one {
+  font-size: 36px;
+  font-weight: bold;
+  color: orangered;
+}
+
+.header-two {
+  font-size: 24px;
+  font-weight: bold;
 }
 
 
-h3 {
-  margin: 0;
-  font-size: 50px;
-  font-weight: 100;
-  color: rgba(0,0,0, 0.8)
-}
+// h3 {
+//   margin: 0;
+//   font-size: 50px;
+//   font-weight: 100;
+//   color: rgba(0,0,0, 0.8)
+// }
 
-p {
-  font-family: "PT Serif", georgia, serif;
-  font-size: 18px;
-}
+// p {
+//   font-family: "PT Serif", georgia, serif;
+//   font-size: 18px;
+// }
 
 ul {
-  list-style: none;
+  // list-style: none;
 }
 
 .content {

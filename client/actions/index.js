@@ -10,7 +10,8 @@ import {LOGIN_USER,
   RECEIVE_STORIES,
   FETCH_STORY_REQ,
   RECEIVE_STORY,
-  UPLOAD_IMAGE_SUCCESS
+  UPLOAD_IMAGE_SUCCESS,
+  UPLOAD_IMAGE_REQ
 } from '../constants.js';
 import { browserHistory } from 'react-router'
 import jwtDecode from 'jwt-decode';
@@ -199,6 +200,7 @@ export function fetchStory(id) {
     .catch(error => {
       if(error.response.status === 401) {
         console.log(401)
+        console.log('Fetch Error:', error)
       }
     })
   }
@@ -206,7 +208,7 @@ export function fetchStory(id) {
 
 
 
-export function uploadStory(story) {
+export function uploadStory(id, img_url, content, rawState) {
   return (dispatch, state) => {
     // dispatch(fetchProtectedDataRequest());
     return fetch(BASE_URL + 'api/story', {
@@ -215,30 +217,43 @@ export function uploadStory(story) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(story)
+      body: JSON.stringify({
+        id: id,
+        img: img_url,
+        auth_id: 'empty',
+        content: content,
+        backup: rawState
+      })
     })
     .then(checkHttpStatus)
     .then(parseJSON)
     .then(response => {
-      console.log(response.status)
+      console.log('Image Upload Successful')
+      browserHistory.push('/')
     })
     .catch(error => {
-      if(error.response.status === 401) {
-        console.log(401)
-      }
+      console.log('Story Upload Error:', error)
     })
   }
 }
 
-export function uploadImageSuccess() {
+export function uploadImageRequest() {
   return {
-    type: UPLOAD_IMAGE_SUCCESS
+    type: UPLOAD_IMAGE_REQ
   }
 }
 
-export function uploadImage(img_data, id) {
+export function uploadImageSuccess(id) {
+  return {
+    type: UPLOAD_IMAGE_SUCCESS,
+    payload: "https://s3-us-west-2.amazonaws.com/world-in-me/"+ id + ".jpg?" + Date.now()
+  }
+}
+
+export function uploadImage(id, img_data) {
   return (dispatch, state) => {
-    return fetch(BASE_URL + 'image/' + id, {
+    dispatch(uploadImageRequest())
+    return fetch(BASE_URL + 'api/image/' + id, {
       method: 'post',
       headers: {
         'Accept': 'application/json',
@@ -250,13 +265,11 @@ export function uploadImage(img_data, id) {
     })
     .then(checkHttpStatus)
     .then(response => {
-      console.log('Resp',response)
+      console.log('Image Upload Successful')
+      dispatch(uploadImageSuccess(id))
     })
     .catch(error => {
-      console.log('err', error)
-      if(error.response === 401) {
-        console.log(401)
-      }
+      console.log('Image Upload Error:', error)
     })
   }
 }

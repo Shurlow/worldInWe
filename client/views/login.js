@@ -85,7 +85,7 @@ class Login extends React.Component {
     // console.log(this)
     return (
       <div className="content">
-        <LeadImage img={'/img/morehouses.jpeg'} withLink={false}>
+        <LeadImage img={'/img/morehouses.jpeg'}>
           <div className="login">
             <Paper zDepth={2} style={pstyle} className="card">
               <h2>Login</h2>

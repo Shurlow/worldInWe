@@ -7,7 +7,16 @@ exports.postStory = function(story, cb) {
   withConnection(function(conn) {
     r.table('story')
       .insert(story)
-      .run(conn, cb)
+      .run(conn, function(err, res) {
+        if (err) {
+          cb(err, null)
+        }
+        else if (res.errors) {
+          cb(res.errors, null)
+        } else {
+          cb(null, res)
+        }
+      })
   })
 }
 

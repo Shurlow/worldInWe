@@ -13,7 +13,7 @@ $darkblue: #89bdd3;
 }
 
 @mixin heavy-shadow() {
-  @include box-shadow($darkgrey -5px 5px 0px);
+  @include box-shadow($darkest -5px 5px 0px);
 }
 
 @mixin light-border {

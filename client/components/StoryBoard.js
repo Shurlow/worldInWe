@@ -41,7 +41,7 @@ class StoryBoard extends React.Component {
 
     return (
     	<div className="content">
-        <LeadImage img={'/img/morehouses.jpeg'}/>
+        <LeadImage img={'/img/morehouses.jpeg'} withLink={true}/>
 	    	<div className="storyboard">
 					{this.props.stories.map(this.makeStoryItem.bind(this))}
 		    </div>

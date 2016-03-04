@@ -23,7 +23,6 @@ router.get('/', function(req, res, next) {
 router.get('/:story_id', function(req, res) {
 	var id = req.params.story_id
 	db.getStory(id, function(err, data) {
-
 		//TODO: abstract error handling
 		if (err) {
 			res.status(500);
@@ -44,12 +43,13 @@ router.get('/:story_id', function(req, res) {
 
 // Post new story
 router.post('/story', function(req, res) {
-	console.log('Posting New Story')	
+	console.log('Posting New Story', req.body)
 	db.postStory(req.body, function(err, data) {
+		console.log('Post:', err, data)
 		if (err) {
 			res.status(500).send('Error adding story object')
 		} else {
-			res.send('Story submitted.')
+			res.status(200).send('Story submitted.')
 		}
 	})
 });

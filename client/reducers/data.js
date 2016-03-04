@@ -5,13 +5,19 @@ import {
   STORY_UPLOAD_START,
   STORY_UPLOAD_SUCCESS,
   STORY_UPLOAD_ERROR,
-  UPLOAD_IMAGE_SUCCESS
+  UPLOAD_IMAGE_SUCCESS,
+  UPLOAD_IMAGE_REQ
 } from '../constants.js'
 import {createReducer} from '../util.js';
 
 const initialState = {
   stories: [],
-  selectedStory: {},
+  selectedStory: {
+    id: null,
+    content: [],
+    backup: null,
+    img: "/res/blankimg.png",
+  },
   isFetching: false,
   isError: false
 }
@@ -29,7 +35,8 @@ export default createReducer(initialState, {
   },
   [RECEIVE_STORY]: (state, payload) => {
     return Object.assign({}, state, {
-      'selectedStory': payload.data
+      'selectedStory': payload.data,
+      'isFetching': false
     })
   },
   [STORY_UPLOAD_START]: (state, payload) => {
@@ -47,9 +54,19 @@ export default createReducer(initialState, {
       'isFetching': false
     })
   },
-  [UPLOAD_IMAGE_SUCCESS]: (state, payload) => {
+  [UPLOAD_IMAGE_REQ]: (state, payload) => {
     return Object.assign({}, state, {
-      'isFetching': false
+      'isFetching': true
+    })
+  },
+  [UPLOAD_IMAGE_SUCCESS]: (state, payload) => {
+    const updatedSelection = Object.assign(state.selectedStory, {
+      img: payload
+    })
+    console.log('OLD:', state.selectedStory, "NEW:", updatedSelection)
+    return Object.assign({}, state, {
+      'isFetching': false,
+      'selectedStory': updatedSelection
     })
   }
 

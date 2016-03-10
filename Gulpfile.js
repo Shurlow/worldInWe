@@ -11,6 +11,7 @@ var notify = require("gulp-notify");
 var uglify = require("gulp-uglify");
 var streamify = require("gulp-streamify");
 var duration = require('gulp-duration')
+var rename = require("gulp-rename");
 // var exorcist = require('exorcist');
 
 var scriptsDir = './client';
@@ -76,6 +77,13 @@ function styles() {
   return preprocess()
 }
 
+gulp.task('compress', function() {
+  return gulp.src('public/js/bundle.js')
+    .pipe(uglify())
+    .pipe(rename('bundle.min.js'))
+    .pipe(gulp.dest('public/js'));
+});
+
 gulp.task('styles', function() {
   styles()
   return gulp.watch('styles/sass/*.scss', styles);
@@ -85,6 +93,6 @@ gulp.task('build', function() {
   return buildScript('bundle.js', false);
 });
 
-gulp.task('default', ['build', 'styles'], function() {
+gulp.task('default', ['build', 'styles', 'compress'], function() {
   return buildScript('bundle.js', true);
 });

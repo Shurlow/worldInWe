@@ -1,3 +1,4 @@
+// export const BASE_URL = 'http://worldinme.xyz/'
 export const BASE_URL = 'http://localhost:3000/'
 export const LOGIN_USER = 'LOGIN_USER'
 export const LOGOUT_USER = 'LOGOUT_USER'
@@ -12,6 +13,8 @@ export const RECEIVE_STORY  = 'RECEIVE_STORY';
 export const FETCH_STORY_REQ  = 'FETCH_STORY_REQ';
 export const UPLOAD_IMAGE_SUCCESS  = 'UPLOAD_IMAGE_SUCCESS';
 export const UPLOAD_IMAGE_REQ  = 'UPLOAD_IMAGE_REQ';
+export const UPLOAD_STORY_REQ  = 'UPLOAD_STORY_REQ';
+export const UPLOAD_STORY_SUCCESS  = 'UPLOAD_STORY_SUCCESS';
 export const SIGNUP_USER  = 'SIGNUP_USER';
 export const SIGNUP_USER_SUCCESS  = 'SIGNUP_USER_SUCCESS';
 export const SIGNUP_USER_FAILURE  = 'SIGNUP_USER_FAILURE';

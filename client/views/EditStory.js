@@ -28,7 +28,7 @@ class EditStory extends React.Component {
     const id = this.props.id || guid()
 
     return (
-      <div className="edit-story">
+      <div className="edit-story content">
         <ImageUploader
           id={id}
           src={this.props.img}

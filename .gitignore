@@ -1,5 +1,6 @@
 public/img
 public/js/bundle.js
+public/js/bundle.min.js
 public/js/App.jsx
 public/.DS_Store
 etc/

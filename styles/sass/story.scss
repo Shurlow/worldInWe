@@ -1,4 +1,8 @@
+$top: 140px;
+
+
 .image-uploader {
+  margin-top: $top;
   width: 100%;
   @include display-flex;
   @include justify-content(center);
@@ -13,13 +17,13 @@
 
   &:hover {
     cursor: pointer;
-    @include heavy-shadow;
+    @include medium-shadow;
   }
 }
 
 .image:after {
     content: "";
-    background: rgba(0, 0, 0, 0.15);
+    background: rgba(0, 0, 0, 0.05);
     position: absolute;
     top: 0;
     left: 0;
@@ -28,7 +32,8 @@
     z-index: 1;
     opacity:0;
     // @include ease(all, 2);
-    -webkit-transition: all 0.2s;
+    -webkit-transition: all 0.1s;
+
 }
 
 .image:hover:after {
@@ -42,6 +47,7 @@
 }
 
 .story {
+  margin-top: $top;
   // @include container(92%);
   // @include ease(box-shadow, 2s);
   // @include ease(outline, 1s);

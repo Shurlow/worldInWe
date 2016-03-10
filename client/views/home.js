@@ -2,24 +2,25 @@ import React, {PropTypes} from 'react'
 import Nav from '../components/Nav.jsx'
 import StoryBoard from '../components/StoryBoard.js'
 import { fetchStories } from "../actions"
+import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin()
 
 export default class Home extends React.Component {
 
- componentWillMount() {
+  componentWillMount() {
     // console.log('App Will Mount')
     const dispatch = this.props.dispatch
     this.props.fetchStories()
- }
+  }
 
   render() {
     return (
       <div>
-       <Nav/>
+        <Nav/>
         {this.props.children || <StoryBoard stories={this.props.stories}/>}
-        <div className="footer"><hr/><h4>contact</h4></div>
+        <div className="footer"><h4>contact</h4></div>
       </div>
     )
   }

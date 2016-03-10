@@ -22,7 +22,7 @@ class NewStory extends React.Component {
   render() {
 
     return (
-      <div className="new-story">
+      <div className="new-story content">
         <ImageUploader
           id={this.props.id}
           src={this.props.img}

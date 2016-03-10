@@ -3,17 +3,20 @@ $darkgrey: #c9c9c9;
 $darkest: #3d464d;
 $blue: #2e9fff;
 $darkblue: #89bdd3;
+$red: #D34E4A;
 
 @mixin light-shadow {
   @include box-shadow(0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24))
 }
 
 @mixin medium-shadow {
-  @include box-shadow(0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23))
+  // @include box-shadow(0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23))
+  // @include box-shadow(rgba(65,65,65, 0.4), 5px, -5px, 0);
+  @include box-shadow(rgba(65,65,65, 0.4) -5px 5px);
 }
 
 @mixin heavy-shadow() {
-  @include box-shadow($darkest -5px 5px 0px);
+  @include box-shadow($darkest -4px 4px 0px);
 }
 
 @mixin light-border {
@@ -79,8 +82,9 @@ $desktop-width: 1024px;
 }
 
 
-@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white,  70%)) {
+@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white, 45%)) {
   // For Google Chrome
+  // overflow-y: scroll;
   ::-webkit-scrollbar {
       width:  $size;
       height: $size;
@@ -98,5 +102,6 @@ $desktop-width: 1024px;
   body {
     scrollbar-face-color: $foreground-color;
     scrollbar-track-color: $background-color;
+    overflow-y: scroll;
   }
 }

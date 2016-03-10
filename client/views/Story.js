@@ -25,7 +25,7 @@ class Story extends React.Component {
   render() {
     // console.log('story!', this.props.story)
     return (
-      <div>
+      <div className="content">
         <ImageUploader
           src={this.props.img}
         />

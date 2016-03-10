@@ -30,11 +30,11 @@ $susy: (
 @import url(https://fonts.googleapis.com/css?family=Karla:400,700);
 @import url(https://fonts.googleapis.com/css?family=Alegreya:400,400italic,700italic,900,700);
 
-@include scrollbars(4px, $blue);
+@include scrollbars(3px, $darkgrey);
 
 body {
   margin: 0;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   font-family: "Lato", sans-serif;
 }
 
@@ -52,15 +52,33 @@ h2 {
 }
 
 .header-one {
-  font-size: 36px;
+  font-size: 38px;
   font-weight: bold;
-  color: orangered;
+  color: #323232;
 }
 
 .header-two {
   font-size: 24px;
   font-weight: bold;
+  color: #9B9B9B;
 }
+
+
+.bar1 {
+  background: $red;
+  width: 200px;
+  height: 10px;
+}
+
+
+
+
+
+.footer {
+  border-top: 1px solid #DDDDDD;
+  padding: 1em;
+}
+
 
 
 // h3 {
@@ -85,37 +103,68 @@ ul {
     padding-left: 30px;
     padding-right: 30px;
   }
+  margin-bottom: 30px;
 }
 
-nav {
+.big-nav {
   @include container(1540px);
   height: 90px;
-
-  .logo {
-    position: absolute;
-    padding-top: 28px;
+  position: relative;
+  z-index: 1;
+  
+  img {
+    padding-top: 38px;
     padding-left: 20px;
-    // width: 550px;
-    z-index: 1;
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   ul {
-    float: right;
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+    right: 0;
     margin-right: 30px;
-    margin-top: 60px;
     font-size: 16px;
-
-    // a {
-    //   float: left;
-    //   margin-left: 20px;
-    //   align-items: center;
-    //   cursor: pointer;
-
-    //   &:hover {
-    //     padding-bottom: 4px;
-    //     border-bottom: 2px solid $blue;
-    //     opacity: 0.55;
-    //   }
-    // }
   }
+
+
 }
+
+.hidden {
+  // display: none !important;
+  opacity: 0;
+  z-index: -1 !important;
+}
+
+.sticky-nav {
+  @include ease(opacity, 0.15s);
+  border-bottom: 1px solid #DDDDDD;
+  width: 100%;
+  height: 60px;
+  background-color: rgba(255,255,255,0.94);
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  @include display-flex;
+  
+  img {
+    margin-left: 2em;
+    width: 300px;
+    
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  ul {
+    position: absolute;
+    right: 0;
+    @include display-flex;
+  }
+
+}
+
+
+

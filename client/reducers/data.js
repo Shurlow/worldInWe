@@ -2,9 +2,9 @@ import {
   RECEIVE_STORIES,
   FETCH_STORY_REQ,
   RECEIVE_STORY,
-  STORY_UPLOAD_START,
-  STORY_UPLOAD_SUCCESS,
-  STORY_UPLOAD_ERROR,
+  UPLOAD_STORY_REQ,
+  UPLOAD_STORY_SUCCESS,
+  UPLOAD_STORY_FAIL,
   UPLOAD_IMAGE_SUCCESS,
   UPLOAD_IMAGE_REQ
 } from '../constants.js'
@@ -39,17 +39,17 @@ export default createReducer(initialState, {
       'isFetching': false
     })
   },
-  [STORY_UPLOAD_START]: (state, payload) => {
+  [UPLOAD_STORY_REQ]: (state, payload) => {
     return Object.assign({}, state, {
       'isFetching': true
     })
   },
-  [STORY_UPLOAD_SUCCESS]: (state, payload) => {
+  [UPLOAD_IMAGE_SUCCESS]: (state, payload) => {
     return Object.assign({}, state, {
       'isFetching': false
     })
   },
-  [STORY_UPLOAD_ERROR]: (state, payload) => {
+  [UPLOAD_STORY_FAIL]: (state, payload) => {
     return Object.assign({}, state, {
       'isFetching': false
     })

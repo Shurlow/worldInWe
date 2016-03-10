@@ -7,12 +7,14 @@ var router = express.Router();
 // var htmlStr = ReactDOMServer.renderToString(App({stories: 'hello'}))
 
 var clientSrc = "";
+var mode = process.env.NODE_ENV
 
-if (process.env.NODE_ENV == 'prod') {
+if ( mode === 'prod') {
   var clientSrc = "http://worldinme.xyz/js/bundle.js"
-}
-if (process.env.NODE_ENV == 'dev') {
+} else if ( mode === 'dev') {
   var clientSrc = "http://localhost:3000/js/bundle.js"
+} else {
+  throw "No env mode specified!"
 }
 
 

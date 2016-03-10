@@ -45,8 +45,8 @@ class ImageUploader extends React.Component {
   }
 }
 
-ImageUploader.propTypes = {
-  pushImageUpload: React.PropTypes.func.isRequired,
-}
+// ImageUploader.propTypes = {
+//   pushImageUpload: React.PropTypes.func.isRequired,
+// }
 
 export default ImageUploader

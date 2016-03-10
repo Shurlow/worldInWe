@@ -45,8 +45,8 @@ function cropThumb(imageBuffer, id) {
       h = value.height
     })
     .gravity('Center')
-    .crop(650, 280)
-    .extent(650, 280)
+    .crop(650, 450)
+    .extent(650, 450)
     .toBuffer(function(err, buffer){
       if (err) console.error(err)
       uploadImage(buffer, id, 'world-in-me-thumbs', function(error, res){
@@ -71,7 +71,7 @@ function cropThumb(imageBuffer, id) {
 }
 
 var aws = require('aws-sdk');
-aws.config.loadFromPath('./aws_config.json');
+aws.config.loadFromPath('aws_config.json');
 var s3 = new aws.S3();
  
 function uploadImage(buf, id, bucket, cb) {

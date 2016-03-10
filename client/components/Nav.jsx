@@ -2,9 +2,78 @@ import React from 'react'
 import { Link, Redirect } from 'react-router'
 import { connect } from 'react-redux'
 import { logoutUser } from "../actions"
+import classnames from 'classnames'
+import { browserHistory } from 'react-router'
 import FlatButton from 'material-ui/lib/flat-button';
 
 class Nav extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      showStickyNav: false
+    }
+    this.handleScroll = this.handleScroll.bind(this)
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll(e) {
+    var top = window.pageYOffset
+    var isSticky = this.state.showStickyNav
+
+    if (top >= 160) {
+      console.log('Show nav')
+      this.setState({
+        showStickyNav: true
+      })
+    } else {
+      console.log('Hide nav')
+      this.setState({
+        showStickyNav: false
+      })
+    }
+  }
+
+  navigateToNew() {
+    
+  }
+  navigateToAbout() {
+    browserHistory.push('/about')
+  }
+  navigateToNew() {
+    browserHistory.push('/new')
+  }
+
+  makeNav(sticky) {
+    console
+    var navStyle;
+    if (sticky) {
+      navStyle = classnames({
+        'hidden': !this.state.showStickyNav,
+        'sticky-nav': true
+      })
+    } else {
+      navStyle = "big-nav"
+    }
+
+    return (
+        <nav className={navStyle}>
+          <img src="/res/logov1.svg" onClick={() => {browserHistory.push('/')}}></img>
+          <ul>
+            <FlatButton label="NEW" onClick={() => {browserHistory.push('/new')}}/>
+            <FlatButton label="ABOUT" onClick={() => {browserHistory.push('/about')}}/>
+            {this.makeLoginButton()}
+          </ul>
+        </nav>
+      )
+ }
 
   makeLoginButton() {
     if (this.props.isAuthenticated) {
@@ -13,9 +82,7 @@ class Nav extends React.Component {
       )
     } else {
       return (
-        <Link to="/login">
-          <FlatButton label="LOGIN"/>
-        </Link>
+        <FlatButton label="LOGIN" onClick={() => {browserHistory.push('/login')}}/>
       )
     }
   }
@@ -25,22 +92,11 @@ class Nav extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     return (
-      <nav>
-        <Link to='/' className="logo" >
-          <img src="/res/logopng.png"></img>
-        </Link>
-        <ul>
-          <Link to="/new">
-            <FlatButton label="NEW"/>
-          </Link>
-          <Link to="/about">
-            <FlatButton label="ABOUT"/>
-          </Link>
-          {this.makeLoginButton()}
-        </ul>
-      </nav>
+      <div>
+        {this.makeNav()}
+        {this.makeNav(true)}
+      </div>
     )
   }
 }

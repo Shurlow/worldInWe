@@ -10,6 +10,8 @@ import {LOGIN_USER,
   RECEIVE_STORIES,
   FETCH_STORY_REQ,
   RECEIVE_STORY,
+  UPLOAD_STORY_REQ,
+  UPLOAD_STORY_SUCCESS,
   UPLOAD_IMAGE_SUCCESS,
   UPLOAD_IMAGE_REQ
 } from '../constants.js';
@@ -206,11 +208,21 @@ export function fetchStory(id) {
   }
 }
 
+export function uploadStoryRequest() {
+  return {
+    type: UPLOAD_STORY_REQ
+  }
+}
 
+export function uploadStorySuccess() {
+  return {
+    type: UPLOAD_STORY_SUCCESS
+  }
+}
 
 export function uploadStory(id, img_url, content, rawState) {
   return (dispatch, state) => {
-    // dispatch(fetchProtectedDataRequest());
+    dispatch(uploadStoryRequest());
     return fetch(BASE_URL + 'api/story', {
       method: 'post',
       headers: {
@@ -229,7 +241,7 @@ export function uploadStory(id, img_url, content, rawState) {
     .then(parseJSON)
     .then(response => {
       console.log('Image Upload Successful')
-      browserHistory.push('/')
+      dispatch(uploadStorySuccess());
     })
     .catch(error => {
       console.log('Story Upload Error:', error)
@@ -257,7 +269,8 @@ export function uploadImage(id, img_data) {
       method: 'post',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true
       },
       body: JSON.stringify({
         img: img_data

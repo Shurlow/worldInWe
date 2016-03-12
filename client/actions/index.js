@@ -13,7 +13,8 @@ import {LOGIN_USER,
   UPLOAD_STORY_REQ,
   UPLOAD_STORY_SUCCESS,
   UPLOAD_IMAGE_SUCCESS,
-  UPLOAD_IMAGE_REQ
+  UPLOAD_IMAGE_REQ,
+  DESELECT_STORY
 } from '../constants.js';
 import { browserHistory } from 'react-router'
 import jwtDecode from 'jwt-decode';
@@ -22,18 +23,27 @@ import jwtDecode from 'jwt-decode';
 import fetch from 'isomorphic-fetch'
 // import RouterContainer from '../RouterContainer.js'
 
+export function deselectStory() {
+  return {
+    type: DESELECT_STORY
+  }
+}
+
 export function loginUserSuccess(token) {
   localStorage.setItem('token', token);
   console.log(token)
   browserHistory.push('/')
   var user = jwtDecode(token)
-  // console.log(user)
-  return {
-    type: LOGIN_USER_SUCCESS,
-    payload: {
-      token: token,
-      id: user.id,
-      name: user.name
+
+  return dispatch => {
+    dispatch(deselectStory());
+    return {
+      type: LOGIN_USER_SUCCESS,
+      payload: {
+        token: token,
+        id: user.id,
+        name: user.name
+      }
     }
   }
 }
@@ -130,6 +140,7 @@ export function signUpUserRequest(token) {
 
 export function signUpUserSuccess(user) {
   localStorage.setItem('token', user.token);
+  deselectStory
   browserHistory.push('/')
   return {
     type: LOGIN_USER_SUCCESS,
@@ -215,6 +226,7 @@ export function uploadStoryRequest() {
 }
 
 export function uploadStorySuccess() {
+  browserHistory.push('/')
   return {
     type: UPLOAD_STORY_SUCCESS
   }
@@ -255,6 +267,32 @@ export function uploadImageRequest() {
   }
 }
 
+export function updateStory(id, content, rawState) {
+  return (dispatch, state) => {
+    dispatch(uploadStoryRequest());
+    return fetch(BASE_URL + 'api/update/' + id, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        content: content,
+        backup: rawState
+      })
+    })
+    .then(checkHttpStatus)
+    .then(parseJSON)
+    .then(response => {
+      console.log('Image Upload Successful')
+      dispatch(uploadStorySuccess());
+    })
+    .catch(error => {
+      console.log('Story Upload Error:', error)
+    })
+  }
+}
+
 export function uploadImageSuccess(id) {
   return {
     type: UPLOAD_IMAGE_SUCCESS,
@@ -287,6 +325,6 @@ export function uploadImage(id, img_data) {
   }
 }
 
-export function navigateTo(location) {
-  return
-}
+// export function navigateTo(location) {
+//   return
+// }

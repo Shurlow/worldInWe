@@ -6,7 +6,8 @@ import {
   UPLOAD_STORY_SUCCESS,
   UPLOAD_STORY_FAIL,
   UPLOAD_IMAGE_SUCCESS,
-  UPLOAD_IMAGE_REQ
+  UPLOAD_IMAGE_REQ,
+  DESELECT_STORY
 } from '../constants.js'
 import {createReducer} from '../util.js';
 
@@ -23,6 +24,11 @@ const initialState = {
 }
 
 export default createReducer(initialState, {
+  [DESELECT_STORY]: (state, payload) => {
+    return Object.assign({}, state, {
+      'selectedStory': {}
+    })
+  },  
   [RECEIVE_STORIES]: (state, payload) => {
     return Object.assign({}, state, {
       'stories': payload.data

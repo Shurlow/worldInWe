@@ -20,7 +20,11 @@ export default class Home extends React.Component {
       <div>
         <Nav/>
         {this.props.children || <StoryBoard stories={this.props.stories}/>}
-        <div className="footer"><h4>contact</h4></div>
+        <div className="footer">
+          <a href="mailto:worldinmemn@gmail.com">
+            <h4 href>contact</h4>
+          </a>
+        </div>
       </div>
     )
   }

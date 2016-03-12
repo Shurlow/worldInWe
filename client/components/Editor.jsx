@@ -1,6 +1,7 @@
 import React from 'react'
 import {Editor, EditorState, RichUtils, convertToRaw, convertFromRaw, ContentState} from 'draft-js';
 // import backdraft from 'backdraft-js';
+import RaisedButton from 'material-ui/lib/raised-button';
 import backdraft from '../../../backdraft-js/index.js';
 
 class CustomEditor extends React.Component {
@@ -78,7 +79,7 @@ class CustomEditor extends React.Component {
 
     return (
       <div>
-        <button onClick={this.uploadContent.bind(this)}>Save</button>
+        <RaisedButton className="story-button" label="Save" onClick={this.uploadContent.bind(this)}/>
         <div className="RichEditor-root">
           <BlockStyleControls
             editorState={editorState}

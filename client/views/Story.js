@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'react-router'
 import Editor from '../components/Editor.jsx'
 import ImageUploader from '../components/ImageUploader.jsx'
+import RaisedButton from 'material-ui/lib/raised-button';
 import { fetchStory, uploadImage } from "../actions"
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
@@ -29,8 +30,10 @@ class Story extends React.Component {
         <ImageUploader
           src={this.props.img}
         />
-        <button onClick={this.openEditor.bind(this)}>EDIT</button>
-        <div className="story" dangerouslySetInnerHTML={{__html: this.props.content}}>
+        <div className="story">
+          <div className="bar1" ></div>
+          <RaisedButton className="story-button" label="Edit" onClick={this.openEditor.bind(this)}/>
+          <div dangerouslySetInnerHTML={{__html: this.props.content}}></div>
         </div>
       </div>
     )

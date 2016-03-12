@@ -2,7 +2,7 @@ import React from 'react'
 import ImageUploader from '../components/ImageUploader.jsx'
 // import Story from '../views/Story'
 import classnames from 'classnames'
-import { fetchStory, uploadStory, uploadImage } from "../actions"
+import { fetchStory, updateStory, uploadImage } from "../actions"
 import CustomEditor from '../components/Editor'
 import {connect} from "react-redux"
 
@@ -19,8 +19,9 @@ class EditStory extends React.Component {
   pushImageUpload(id, imgData) {
     this.props.uploadImage(id, imgData)
   }
-  pushStoryUpload(id, img_url, content, rawState) {
-    this.props.uploadStory(id, img_url, content, rawState)
+
+  pushStoryUpdate(id, content, rawState) {
+    this.props.updateStory(id, content, rawState)
   }
 
   render() {
@@ -38,7 +39,7 @@ class EditStory extends React.Component {
           <CustomEditor
             id={id}
             state={this.props.backup}
-            pushStoryUpload={this.pushStoryUpload.bind(this)}
+            pushStoryUpload={this.pushStoryUpdate.bind(this)}
             backup={this.props.backup}
           />
         </div>
@@ -46,19 +47,6 @@ class EditStory extends React.Component {
     )
   }
 }
-
-function guid() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-  return s4();
-}
-
-// EditStory.defaultProps = {
-//   img: 'res/blankimg.png'
-// }
 
 export default EditStory
 
@@ -70,6 +58,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   fetchStory,
-  uploadStory,
+  updateStory,
   uploadImage
 })(EditStory)

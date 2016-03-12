@@ -31,6 +31,8 @@
   padding: 1.5em;
   padding-left: 9em;
   padding-right: 3em;
+  display: -webkit-flex;
+  display: flex;
 }
 
 .lightbar {
@@ -71,7 +73,7 @@
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
 }
-.storyboard_item img {
+.storyboard_item object {
   padding: 30px;
 }
 .storyboard_item:hover {
@@ -97,6 +99,7 @@
 
 .image-uploader {
   margin-top: 140px;
+  margin-bottom: 20px;
   width: 100%;
   display: -webkit-flex;
   display: flex;
@@ -136,8 +139,14 @@
   opacity: 1;
 }
 
-.loading {
+.image-object {
+  width: 400px;
+  height: 100px;
   background-color: red;
+}
+
+.loading {
+  background-color: black;
 }
 
 .story {
@@ -187,17 +196,6 @@
   padding: 2em;
 }
 
-.header-one, h2 {
-  font-size: 36px;
-  font-weight: bold;
-  color: orangered;
-}
-
-.header-two, h2 {
-  font-size: 24px;
-  font-weight: bold;
-}
-
 .login {
   padding: 5.26316%;
   width: 100%;
@@ -226,7 +224,7 @@
   font-family: 'Georgia', serif;
   font-size: 14px;
   padding: 15px;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .RichEditor-editor {
@@ -448,4 +446,8 @@ a {
   right: 0;
   display: -webkit-flex;
   display: flex;
+}
+
+.story-button {
+  float: right;
 }

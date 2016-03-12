@@ -11,24 +11,14 @@ import { Router, Route, Link, RouteHandler } from 'react-router'
 
 export default class StoryBoardItem extends React.Component {
 
-  constructor(props) {
-    super(props)
-  }
-
-  preloader() {
-    return <img className="preview" src="/img/placeholder.png" />;
-  }
-
-  load(e) {
-    // console.log(e)
-  }
-
   render() {
+
+    const imgsrc = "https://s3-us-west-2.amazonaws.com/world-in-me-thumbs/" + this.props.id + ".jpg"
 
     return (
       <div className="storyboard_item">
         <Link to={'/stories/' + this.props.id}>
-          <img src={"https://s3-us-west-2.amazonaws.com/world-in-me-thumbs/" + this.props.id + ".jpg"}></img>
+          <object class="avatar" data={imgsrc} type="image/jpg"></object>
           <div className="textover">
             <div className="center">
               <h1>{this.props.title}</h1>
@@ -45,5 +35,5 @@ export default class StoryBoardItem extends React.Component {
 
 StoryBoardItem.defaultProps = {
   title: "No Title Found for This Story",
-  firstline: "Here is a saple first line of a story that starts like this..."
+  firstline: "Here is a sample first line of a story that starts like this..."
 }

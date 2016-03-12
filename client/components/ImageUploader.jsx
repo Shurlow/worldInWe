@@ -29,9 +29,9 @@ class ImageUploader extends React.Component {
 
   render() {
     return (
-      <div className={'image-uploader'}>
-        <div className={'image'} onClick={this.triggerUpload.bind(this)}>
-          <img src={this.props.src}></img>
+      <div className='image-uploader'>
+        <div className='image' onClick={this.triggerUpload.bind(this)}>
+          <object className="img-object" data={this.props.src} type="image/jpg"></object>
         </div>
         <input
           type="file"

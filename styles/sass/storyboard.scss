@@ -30,6 +30,7 @@ $alt_gutters: 30px;
   padding: 1.5em;
   padding-left: 9em;
   padding-right: 3em;
+  @include display-flex;
 }
 
 .lightbar {
@@ -61,7 +62,7 @@ $alt_gutters: 30px;
       @include justify-content(flex-start);
     }
 
-    img {
+    object {
       // padding: gutter(8);
       padding: $alt_gutters;
     }

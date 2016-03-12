@@ -3,6 +3,7 @@ $top: 140px;
 
 .image-uploader {
   margin-top: $top;
+  margin-bottom: 20px;
   width: 100%;
   @include display-flex;
   @include justify-content(center);
@@ -40,9 +41,14 @@ $top: 140px;
   opacity:1;
 }
 
+.image-object {
+  width: 400px;
+  height: 100px;
+  background-color: red;
+}
 
 .loading {
-  background-color: red;
+  background-color: black;
   // background-blend-mode: screen;
 }
 
@@ -118,15 +124,15 @@ $top: 140px;
   padding: 2em;
 }
 
-.header-one {
-  font-size: 36px;
-  font-weight: bold;
-  color: orangered;
-}
+// .header-one {
+//   font-size: 36px;
+//   font-weight: bold;
+//   color: orangered;
+// }
 
-.header-two {
-  font-size: 24px;
-  font-weight: bold;
-}
+// .header-two {
+//   font-size: 24px;
+//   font-weight: bold;
+// }
 
 

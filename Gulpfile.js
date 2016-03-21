@@ -80,6 +80,7 @@ function styles() {
 gulp.task('compress', function() {
   return gulp.src('public/js/bundle.js')
     .pipe(uglify())
+    .on('error', handleErrors)
     .pipe(rename('bundle.min.js'))
     .pipe(gulp.dest('public/js'));
 });

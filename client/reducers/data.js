@@ -17,7 +17,7 @@ const initialState = {
     id: null,
     content: [],
     backup: null,
-    img: "/res/blankimg.png",
+    img: "/res/uploadimg.png"
   },
   isFetching: false,
   isError: false

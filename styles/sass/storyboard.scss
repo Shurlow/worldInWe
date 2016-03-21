@@ -13,7 +13,8 @@ $alt_gutters: 30px;
 .overlay {
   color: white;
   position: absolute;
-  bottom: 6em;
+  bottom: $alt_gutters;
+  right: $alt_gutters;
 }
 
 .fullimage {
@@ -26,18 +27,25 @@ $alt_gutters: 30px;
 }
 
 .darkbar {
-  background-color: rgba(#1F6FA8,0.7);
-  padding: 1.5em;
-  padding-left: 9em;
-  padding-right: 3em;
+  background-color: rgba(#000000, 0.4);
+  padding: $alt_gutters;
+  // padding-left: 9em;
+  // padding-right: 3em;
   @include display-flex;
+
+  h1 {
+    margin: 0;
+    &:hover {
+      color: $red;
+    }
+  }
 }
 
-.lightbar {
-  background-color: rgba(#82CBFF, 0.7);
-  height: 12px;
-  width: 70%;
-}
+// .lightbar {
+//   background-color: rgba(#82CBFF, 0.7);
+//   height: 12px;
+//   width: 70%;
+// }
 
 .storyboard {
   // padding-top: gutters(8);

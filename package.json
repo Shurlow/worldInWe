@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=dev node ./bin/www"
+    "start": "NODE_ENV=dev node ./bin/www",
+    "build": "gulp"
   },
   "build": {
     "source": "./client",
@@ -23,6 +24,7 @@
     "babel": "^6.3.13",
     "babel-core": "~6.4.5",
     "babelify": "^6.3.0",
+    "backdraft-js": "0.0.1",
     "blacklist": "^1.1.2",
     "body-parser": "~1.13.1",
     "browserify": "^13.0.0",

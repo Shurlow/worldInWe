@@ -26,7 +26,7 @@ class Nav extends React.Component {
 
   handleScroll(e) {
     var top = window.pageYOffset
-    var isSticky = this.state.showStickyNav
+    // var isSticky = this.state.showStickyNav
 
     if (top >= 160) {
       console.log('Show nav')
@@ -65,7 +65,9 @@ class Nav extends React.Component {
 
     return (
         <nav className={navStyle}>
-          <img src="/res/logov1.svg" onClick={() => {browserHistory.push('/')}}></img>
+          <div className="image-container">
+            <img src="/res/logo.png" onClick={() => {browserHistory.push('/')}}></img>
+          </div>
           <ul>
             <FlatButton label="NEW" onClick={() => {browserHistory.push('/new')}}/>
             <FlatButton label="ABOUT" onClick={() => {browserHistory.push('/about')}}/>

@@ -2,7 +2,7 @@ import React from 'react'
 import {Editor, EditorState, RichUtils, convertToRaw, convertFromRaw, ContentState} from 'draft-js';
 // import backdraft from 'backdraft-js';
 import RaisedButton from 'material-ui/lib/raised-button';
-import backdraft from '../../../backdraft-js/index.js';
+import backdraft from 'backdraft-js';
 
 class CustomEditor extends React.Component {
   constructor(props) {

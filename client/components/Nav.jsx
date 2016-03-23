@@ -29,12 +29,10 @@ class Nav extends React.Component {
     // var isSticky = this.state.showStickyNav
 
     if (top >= 160) {
-      console.log('Show nav')
       this.setState({
         showStickyNav: true
       })
     } else {
-      console.log('Hide nav')
       this.setState({
         showStickyNav: false
       })
@@ -44,6 +42,7 @@ class Nav extends React.Component {
   navigateToNew() {
     
   }
+
   navigateToAbout() {
     browserHistory.push('/about')
   }
@@ -80,7 +79,7 @@ class Nav extends React.Component {
   makeLoginButton() {
     if (this.props.isAuthenticated) {
       return (
-        <FlatButton label="LOGOUT" onClick={this.logout.bind(this)}/>
+        <FlatButton label={this.props.username} onClick={this.logout.bind(this)}/>
       )
     } else {
       return (
@@ -105,7 +104,7 @@ class Nav extends React.Component {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-  // userName: state.auth.user.name
+  username: state.auth.name
 });
 
 export default connect(mapStateToProps, {

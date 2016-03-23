@@ -20,14 +20,12 @@ class EditStory extends React.Component {
     this.props.uploadImage(id, imgData)
   }
 
-  pushStoryUpdate(id, content, rawState) {
-    this.props.updateStory(id, content, rawState)
+  pushStoryUpdate(id, title, imgUrl, content, rawState) {
+    this.props.updateStory(id, title, content, rawState)
   }
 
   render() {
-
     const id = this.props.id || guid()
-
     return (
       <div className="edit-story content">
         <ImageUploader
@@ -41,6 +39,7 @@ class EditStory extends React.Component {
             state={this.props.backup}
             pushStoryUpload={this.pushStoryUpdate.bind(this)}
             backup={this.props.backup}
+            title={this.props.title}
           />
         </div>
       </div>
@@ -52,6 +51,7 @@ export default EditStory
 
 const mapStateToProps = (state) => ({
   backup: state.data.selectedStory.backup,
+  title: state.data.selectedStory.title,
   img: state.data.selectedStory.img,
   id: state.data.selectedStory.id
 });

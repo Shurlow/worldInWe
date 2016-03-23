@@ -15,24 +15,29 @@ module.exports = function(imageBuffer, id, callback) {
   //   })
 
 
-  uploadImage(imageBuffer, id, 'world-in-me', function(err, res) {
+  uploadImage(imageBuffer, id, 'worldinme-full', function(err, res) {
     if (err) return callback(err)
     callback(null, "S3:" + res)
   })
 
   cropThumb(imageBuffer, id)
+  cropBlur(imageBuffer, id)
 
+}
 
-  // blur preview
-  // gm(imageBuffer)
-  //   .resize(20, 20)
-  //   .quality(70)
-  //   .noise('laplacian')
-  //   .toBuffer(function (err, buffer) {
-  //     if (err) return console.log(err);
-  //     uploadImage("preview", buffer)
-  //   })
-
+function cropBlur(imageBuffer, id) {
+  console.log('making blur')
+  gm(imageBuffer)
+  .resize(20, 20)
+  .quality(70)
+  .noise('laplacian')
+  .toBuffer(function (err, buffer) {
+    console.log('blur image:', err, buffer)
+    if (err) return console.log(err);
+    uploadImage(buffer, id, 'worldinme-previews', function(error, res){
+      if (err) console.error(error)
+    })
+  })
 }
 
 function cropThumb(imageBuffer, id) {
@@ -49,7 +54,7 @@ function cropThumb(imageBuffer, id) {
     .extent(650, 450)
     .toBuffer(function(err, buffer){
       if (err) console.error(err)
-      uploadImage(buffer, id, 'world-in-me-thumbs', function(error, res){
+      uploadImage(buffer, id, 'worldinme-thumbs', function(error, res){
         if (err) console.error(error)
       })
     })
@@ -71,7 +76,7 @@ function cropThumb(imageBuffer, id) {
 }
 
 var aws = require('aws-sdk');
-aws.config.loadFromPath('aws_config.json');
+aws.config.loadFromPath('./aws_config.json');
 var s3 = new aws.S3();
  
 function uploadImage(buf, id, bucket, cb) {

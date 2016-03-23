@@ -76,9 +76,9 @@
   padding: 30px;
 }
 .storyboard_item:hover {
-  -moz-box-shadow: rgba(65, 65, 65, 0.4) -5px 5px;
-  -webkit-box-shadow: rgba(65, 65, 65, 0.4) -5px 5px;
-  box-shadow: rgba(65, 65, 65, 0.4) -5px 5px;
+  -moz-box-shadow: rgba(65, 65, 65, 0.4) 5px 5px;
+  -webkit-box-shadow: rgba(65, 65, 65, 0.4) 5px 5px;
+  box-shadow: rgba(65, 65, 65, 0.4) 5px 5px;
   -moz-transform: translateY(-2px);
   -ms-transform: translateY(-2px);
   -webkit-transform: translateY(-2px);
@@ -116,9 +116,9 @@
 }
 .image:hover {
   cursor: pointer;
-  -moz-box-shadow: rgba(65, 65, 65, 0.4) -5px 5px;
-  -webkit-box-shadow: rgba(65, 65, 65, 0.4) -5px 5px;
-  box-shadow: rgba(65, 65, 65, 0.4) -5px 5px;
+  -moz-box-shadow: rgba(65, 65, 65, 0.4) 5px 5px;
+  -webkit-box-shadow: rgba(65, 65, 65, 0.4) 5px 5px;
+  box-shadow: rgba(65, 65, 65, 0.4) 5px 5px;
 }
 
 .image:after {
@@ -254,7 +254,15 @@
 }
 
 .RichEditor-editor .public-DraftEditor-content {
-  min-height: 100px;
+  min-height: 60px;
+}
+
+.RichEditor-editor-body {
+  min-height: 120px;
+}
+
+.RichEditor-editor-title {
+  border-bottom: 1px solid #ddd;
 }
 
 .RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
@@ -351,6 +359,7 @@ a {
   background: #CF3934;
   width: 200px;
   height: 10px;
+  margin-top: 15px;
 }
 
 .footer {

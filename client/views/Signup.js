@@ -88,7 +88,7 @@ class SignUp extends React.Component {
     console.log(this.props.location)
     return (
       <div className="content">
-        <LeadImage img={'/img/morehouses.jpeg'} withLink={false}>
+        <LeadImage img={'/res/greenkid.jpeg'} withLink={false}>
           <div className="login">
             <Paper zDepth={2} style={pstyle} className="card">
               <h2>Sign Up</h2>

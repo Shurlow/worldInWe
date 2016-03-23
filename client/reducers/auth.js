@@ -1,10 +1,12 @@
-import {LOGIN_USER,
+import {
+  LOGIN_USER,
+  LOGOUT_USER,
   SIGNUP_USER,
   SIGNUP_USER_SUCCESS,
   SIGNUP_USER_FAILURE,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE, 
-  LOGOUT_USER} from '../constants';
+} from '../constants';
 import {createReducer} from '../util.js';
 import jwtDecode from 'jwt-decode'
 
@@ -50,15 +52,24 @@ export default createReducer(initialState, {
       'statusText': null
     })
   },
+  [LOGOUT_USER]: (state, payload) => {
+    return Object.assign({}, state, {
+      'isAuthenticating': false,
+      'isAuthenticated': false,
+      'name': null,
+      'token': null,
+      'email': null,
+      'id': null
+    })
+  },
   [LOGIN_USER_SUCCESS]: (state, payload) => {
+    console.log('Success', payload)
     return Object.assign({}, state, {
       'isAuthenticating': false,
       'isAuthenticated': true,
       'token': payload.token,
-      'user': {
-        'id': payload.id,
-        'name': payload.name
-      },
+      'id': payload.id,
+      'name': payload.name,
       'statusText': 'You have been successfully logged in.'
     });
   },

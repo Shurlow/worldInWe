@@ -6,14 +6,15 @@ var storybox = classnames({'storybox': true})
 var textClass = classnames({'text': true})
 // import ImageBlurLoader from '../../../react-imageblurloader/src/ImageBlurLoader.js'
 // import ImageLoader from 'react-imageloader';
-// import Image from './Image.jsx'
+// import Image from './Image'
 import { Router, Route, Link, RouteHandler } from 'react-router'
 
 export default class StoryBoardItem extends React.Component {
 
   render() {
 
-    const imgsrc = "https://s3-us-west-2.amazonaws.com/world-in-me-thumbs/" + this.props.id + ".jpg"
+    const imgsrc = "https://s3-us-west-2.amazonaws.com/worldinme-thumbs/" + this.props.id + ".jpg"
+    const blursrc = "https://s3-us-west-2.amazonaws.com/worldinme-preview/" + this.props.id + ".jpg"
 
     return (
       <div className="storyboard_item">

@@ -37,7 +37,15 @@
 }
 
 .RichEditor-editor .public-DraftEditor-content {
-  min-height: 100px;
+  min-height: 60px;
+}
+
+.RichEditor-editor-body {
+  min-height: 120px;
+}
+
+.RichEditor-editor-title {
+  border-bottom: 1px solid #ddd;
 }
 
 .RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {

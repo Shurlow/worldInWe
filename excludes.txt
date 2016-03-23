@@ -1,5 +1,6 @@
 .git
 node_modules
 .sass-cache
+public/js/bundle.js
 etc
 client

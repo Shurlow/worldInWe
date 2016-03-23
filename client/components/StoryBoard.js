@@ -19,17 +19,18 @@ class StoryBoard extends React.Component {
     return <img className="image" src="/img/testbigimg.png" />;
   }
 
-  // getFirstLine(str) {
-  //   let newStr = str.slice(0,50)
-  //   // console.log(newStr)
-  //   return newStr
-  // }
+  getFirstLine(contentArray) {
+    var text = contentArray.toString()
+    let newStr = text.slice(0,50)
+    console.log('Text:', text, 'new:', newStr)
+    return newStr
+  }
 
 	makeStoryItem(item) {
-    // let firstline = this.getFirstLine(item.text)
+    let firstline = this.getFirstLine(item.content)
     // return <h1>Story: {item.title}</h1>
 		return(
-			<StoryBoardItem key={item.id} {...item}/>
+			<StoryBoardItem key={item.id} firstline={firstline} {...item}/>
 		)
 	}
 

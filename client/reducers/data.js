@@ -6,6 +6,7 @@ import {
   UPLOAD_STORY_SUCCESS,
   UPLOAD_STORY_FAIL,
   UPLOAD_IMAGE_SUCCESS,
+  UPLOAD_IMAGE_FAILURE,
   UPLOAD_IMAGE_REQ,
   DESELECT_STORY
 } from '../constants.js'
@@ -53,6 +54,12 @@ export default createReducer(initialState, {
   [UPLOAD_IMAGE_SUCCESS]: (state, payload) => {
     return Object.assign({}, state, {
       'isFetching': false
+    })
+  },
+  [UPLOAD_IMAGE_FAILURE]: (state, payload) => {
+    return Object.assign({}, state, {
+      'isFetching': false,
+      'isError': true
     })
   },
   [UPLOAD_STORY_FAIL]: (state, payload) => {

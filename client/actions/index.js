@@ -13,6 +13,7 @@ import {LOGIN_USER,
   UPLOAD_STORY_REQ,
   UPLOAD_STORY_SUCCESS,
   UPLOAD_IMAGE_SUCCESS,
+  UPLOAD_IMAGE_FAILURE,
   UPLOAD_IMAGE_REQ,
   DESELECT_STORY
 } from '../constants.js';
@@ -31,20 +32,27 @@ export function deselectStory() {
 
 export function loginUserSuccess(token) {
   localStorage.setItem('token', token);
-  console.log(token)
   browserHistory.push('/')
   var user = jwtDecode(token)
-
-  return dispatch => {
-    dispatch(deselectStory());
-    return {
-      type: LOGIN_USER_SUCCESS,
-      payload: {
-        token: token,
-        id: user.id,
-        name: user.name
-      }
+  console.log('User from token:', user)
+  return {
+    type: LOGIN_USER_SUCCESS,
+    payload: {
+      token: token,
+      id: user.id,
+      name: user.name
     }
+  }
+  // return dispatch => {
+  //   // dispatch(deselectStory());
+
+  // }
+}
+
+export function logoutUser() {
+  localStorage.removeItem('token');
+  return {
+    type: LOGOUT_USER
   }
 }
 
@@ -232,7 +240,7 @@ export function uploadStorySuccess() {
   }
 }
 
-export function uploadStory(id, img_url, content, rawState) {
+export function uploadStory(id, title, img_url, content, rawState) {
   return (dispatch, state) => {
     dispatch(uploadStoryRequest());
     return fetch(BASE_URL + 'api/story', {
@@ -244,15 +252,15 @@ export function uploadStory(id, img_url, content, rawState) {
       body: JSON.stringify({
         id: id,
         img: img_url,
+        title: title,
         auth_id: 'empty',
         content: content,
         backup: rawState
       })
     })
     .then(checkHttpStatus)
-    .then(parseJSON)
     .then(response => {
-      console.log('Image Upload Successful')
+      console.log('New Story Successful')
       dispatch(uploadStorySuccess());
     })
     .catch(error => {
@@ -267,7 +275,7 @@ export function uploadImageRequest() {
   }
 }
 
-export function updateStory(id, content, rawState) {
+export function updateStory(id, title, content, rawState) {
   return (dispatch, state) => {
     dispatch(uploadStoryRequest());
     return fetch(BASE_URL + 'api/update/' + id, {
@@ -277,14 +285,15 @@ export function updateStory(id, content, rawState) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        title: title,
         content: content,
         backup: rawState
       })
     })
     .then(checkHttpStatus)
-    .then(parseJSON)
+    // .then(parseJSON)
     .then(response => {
-      console.log('Image Upload Successful')
+      console.log('Update Successful')
       dispatch(uploadStorySuccess());
     })
     .catch(error => {
@@ -296,7 +305,13 @@ export function updateStory(id, content, rawState) {
 export function uploadImageSuccess(id) {
   return {
     type: UPLOAD_IMAGE_SUCCESS,
-    payload: "https://s3-us-west-2.amazonaws.com/world-in-me/"+ id + ".jpg?" + Date.now()
+    payload: "https://s3-us-west-2.amazonaws.com/worldinme-full/"+ id + ".jpg?" + Date.now()
+  }
+}
+
+export function uploadImageFailure() {
+  return {
+    type: UPLOAD_IMAGE_FAILURE
   }
 }
 
@@ -321,6 +336,7 @@ export function uploadImage(id, img_data) {
     })
     .catch(error => {
       console.log('Image Upload Error:', error)
+      dispatch(uploadImageFailure())
     })
   }
 }

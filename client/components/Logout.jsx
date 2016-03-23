@@ -1,14 +1,15 @@
 var React = require('react')
 var request = require('superagent')
-var auth = require('../auth')
+import { connect } from 'react-redux'
+import {logoutUser} from '../actions'
 
-var Logout = React.createClass({
+class Logout extends React.Component {
 
-  componentDidMount: function() {
-    auth.logout()
-  },
+  componentDidMount() {
+    this.props.logoutUser()
+  }
 
-  render: function() {
+  render() {
     return (
       <div className="login content">
         <h2>Logged out</h2>
@@ -16,6 +17,12 @@ var Logout = React.createClass({
     )
   }
 
-})
+}
 
-module.exports = Logout
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, {
+  logoutUser
+})(Logout)

@@ -1,4 +1,5 @@
 var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
 var gulp = require('gulp');
 var compass = require('gulp-compass');
 // var lrload = require('livereactload');
@@ -7,6 +8,7 @@ var browserify = require('browserify');
 var reactify = require('reactify');
 var watchify = require('watchify');
 var babelify = require("babelify");
+var looseEnvify = require("loose-envify");
 var notify = require("gulp-notify");
 var uglify = require("gulp-uglify");
 var streamify = require("gulp-streamify");
@@ -16,6 +18,7 @@ var rename = require("gulp-rename");
 
 var scriptsDir = './client';
 var buildDir = './public/js';
+console.log(process.env.NODE_ENV)
 
 function handleErrors() {
   var args = Array.prototype.slice.call(arguments);
@@ -34,7 +37,7 @@ function buildScript(file, watch) {
     debug : true,
     cache: {},
     packageCache: {},
-    transform:  [babelify, reactify]
+    transform:  [babelify, looseEnvify, reactify]
   };
   
   // watchify() if watch requested, otherwise run browserify() once 
@@ -77,12 +80,28 @@ function styles() {
   return preprocess()
 }
 
-gulp.task('compress', function() {
-  return gulp.src('public/js/bundle.js')
+gulp.task('build-prod',['styles'],function() {
+  console.log('Building for production..')
+  var envifyCustomOptions = { _: 'purge', NODE_ENV: 'production'};
+  var b = browserify({
+    entries: [scriptsDir + '/main.js'],
+    extensions: ['.js', '.jsx'],
+    debug : true,
+    cache: {},
+    packageCache: {},
+    transform:  [babelify, reactify]
+  });
+  
+  b.transform('envify', envifyCustomOptions);
+
+  b.bundle()
+    // .on('error', handleErrors)
+    .pipe(source('bundle.js'))
+    .pipe(buffer())
     .pipe(uglify())
     .on('error', handleErrors)
     .pipe(rename('bundle.min.js'))
-    .pipe(gulp.dest('public/js'));
+    .pipe(gulp.dest('public/js'))
 });
 
 gulp.task('styles', function() {
@@ -94,6 +113,6 @@ gulp.task('build', function() {
   return buildScript('bundle.js', false);
 });
 
-gulp.task('default', ['build', 'styles', 'compress'], function() {
+gulp.task('default', ['build', 'styles'], function() {
   return buildScript('bundle.js', true);
 });

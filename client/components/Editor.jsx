@@ -10,14 +10,22 @@ class CustomEditor extends React.Component {
     if (props.backup != null) {
       var blocks = convertFromRaw(props.backup)
       var restoredContent = ContentState.createFromBlockArray(blocks)
-      console.log(props.backup, 'blocks:', blocks, 'content', restoredContent)
-      this.state = {editorState: EditorState.createWithContent(restoredContent)};  
+      // console.log(props.backup, 'blocks:', blocks, 'content', restoredContent)
+      this.state = {
+        titleState: EditorState.createWithContent(ContentState.createFromText(props.title)),
+        editorState: EditorState.createWithContent(restoredContent)
+      }; 
     } else {
-      this.state = {editorState: EditorState.createEmpty()};
+      this.state = {
+        titleState: EditorState.createEmpty(),
+        editorState: EditorState.createEmpty()
+      };
     }
 
     this.focus = () => this.refs.editor.focus();
+    this.focusTitle = () => this.refs.title.focus();
     this.onChange = (editorState) => this.setState({editorState});
+    this.onChangeTitle = (titleState) => this.setState({titleState});
 
     this.handleKeyCommand = (command) => this._handleKeyCommand(command);
     this.toggleBlockType = (type) => this._toggleBlockType(type);
@@ -27,6 +35,16 @@ class CustomEditor extends React.Component {
   _handleKeyCommand(command) {
     const {editorState} = this.state;
     const newState = RichUtils.handleKeyCommand(editorState, command);
+    if (newState) {
+      this.onChange(newState);
+      return true;
+    }
+    return false;
+  }
+
+  _handleKeyTitleCommand(command) {
+    const {titleState} = this.state;
+    const newState = RichUtils.handleKeyCommand(titleState, command);
     if (newState) {
       this.onChange(newState);
       return true;
@@ -59,13 +77,14 @@ class CustomEditor extends React.Component {
       'UNDERLINE': ['<u>', '</u>']
     };
     const contentState = this.state.editorState.getCurrentContent()
+    const title = this.state.titleState.getCurrentContent().getPlainText()
     const raw = convertToRaw(contentState)
-    const img_url = "https://s3-us-west-2.amazonaws.com/world-in-me/" + this.props.id + ".jpg"
-    this.props.pushStoryUpload(this.props.id, img_url, backdraft(raw, markup), raw)
+    const img_url = "https://s3-us-west-2.amazonaws.com/worldinme-full/" + this.props.id + ".jpg"
+    this.props.pushStoryUpload(this.props.id, title, img_url, backdraft(raw, markup), raw)
   }
 
   render() {
-    const {editorState} = this.state;
+    const {editorState, titleState} = this.state;
 
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
@@ -81,6 +100,7 @@ class CustomEditor extends React.Component {
       <div>
         <RaisedButton className="story-button" label="Save" onClick={this.uploadContent.bind(this)}/>
         <div className="RichEditor-root">
+
           <BlockStyleControls
             editorState={editorState}
             onToggle={this.toggleBlockType}
@@ -89,17 +109,30 @@ class CustomEditor extends React.Component {
             editorState={editorState}
             onToggle={this.toggleInlineStyle}
           />
-          <div className={className} onClick={this.focus}>
-            <Editor
-              blockStyleFn={getBlockStyle}
-              customStyleMap={styleMap}
-              editorState={editorState}
-              handleKeyCommand={this.handleKeyCommand}
-              onChange={this.onChange}
-              placeholder="Tell a story..."
-              ref="editor"
-              spellCheck={true}
-            />
+          <div className={className}>
+            <div onClick={this.focusTitle} className="RichEditor-editor-title">
+              <Editor
+                blockStyleFn={getBlockStyle}
+                customStyleMap={styleMap}
+                editorState={titleState}
+                onChange={this.onChangeTitle}
+                placeholder="Title"
+                ref="title"
+                spellCheck={true}
+              />
+            </div>
+            <div onClick={this.focus} className="RichEditor-editor-body">
+              <Editor
+                blockStyleFn={getBlockStyle}
+                customStyleMap={styleMap}
+                editorState={editorState}
+                handleKeyCommand={this.handleKeyCommand}
+                onChange={this.onChange}
+                placeholder="Tell a story..."
+                ref="editor"
+                spellCheck={true}
+              />
+            </div>
           </div>
         </div>
       </div>

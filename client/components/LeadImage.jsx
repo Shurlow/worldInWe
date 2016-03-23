@@ -14,7 +14,7 @@ export default class LeadImage extends React.Component {
           <div style={style} className="fullimage">
             <div className="overlay">
               <div className="darkbar">
-                <h1>Topics - HOUSING</h1>
+                <h1>Topic - HOUSING</h1>
               </div>
             </div>
           </div>

@@ -12,7 +12,7 @@ $red: #CF3934;
 @mixin medium-shadow {
   // @include box-shadow(0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23))
   // @include box-shadow(rgba(65,65,65, 0.4), 5px, -5px, 0);
-  @include box-shadow(rgba(65,65,65, 0.4) -5px 5px);
+  @include box-shadow(rgba(65,65,65, 0.4) 5px 5px);
 }
 
 @mixin heavy-shadow() {

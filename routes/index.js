@@ -9,12 +9,12 @@ var router = express.Router();
 var clientSrc = "";
 var mode = process.env.NODE_ENV
 
-if ( mode === 'prod') {
-  var clientSrc = "http://worldinme.xyz/js/bundle.js"
-} else if ( mode === 'dev') {
+if ( mode === 'production') {
+  var clientSrc = "http://worldinme.xyz/js/bundle.min.js"
+} else if ( mode === 'development') {
   var clientSrc = "http://localhost:3000/js/bundle.js"
 } else {
-  throw "No env mode specified!"
+  throw "No env mode found!"
 }
 
 

@@ -50,6 +50,7 @@ router.get('/user', expressJWT({secret: 'supersecret!'}), function(req, res, nex
   db.getUsers(function(err, users) {
     if (err) return res.sendStatus(403).json({message: 'Could not get users.'})
     else if (users) {
+      console.log('users', users)
       res.json(users)
     }
   })

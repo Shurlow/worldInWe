@@ -15,12 +15,12 @@ class NewStory extends React.Component {
   pushImageUpload(id, imgData) {
     this.props.uploadImage(id, imgData)
   }
-  pushStoryUpload(id, imgUrl, content, rawState) {
-    this.props.uploadStory(id, imgUrl, content, rawState)
+
+  pushStoryUpload(id, title, imgUrl, content, rawState) {
+    this.props.uploadStory(id, title, imgUrl, content, rawState)
   }
 
   render() {
-
     return (
       <div className="new-story content">
         <ImageUploader

@@ -17,7 +17,8 @@ const initialState = {
     token: null,
     name: null,
     email: null,
-    id: null
+    id: null,
+    error: null
 };
 export default createReducer(initialState, {
   [SIGNUP_USER]: (state, payload) => {
@@ -43,7 +44,7 @@ export default createReducer(initialState, {
       'isAuthenticating': false,
       'isAuthenticated': false,
       'user': null,
-      'statusText': `Authentication Error: ${payload.status} ${payload.statusText}`
+      'error': payload.error
     });
   },
   [LOGIN_USER]: (state, payload) => {

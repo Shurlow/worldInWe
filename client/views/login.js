@@ -32,10 +32,10 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     const redirectRoute = this.props.location.query.next || '/';
+    console.log('Construct',props)
     this.state = {
       email: '',
       password: '',
-      redirectTo: redirectRoute,
       errorText: ''
     };
   }
@@ -64,7 +64,7 @@ class Login extends React.Component {
   login() {
     // console.log('logging in:', this.state)
     if (this.validateEmail(this.state.email)) {
-      this.props.loginUser(this.state.email, this.state.password, this.state.redirectTo);
+      this.props.loginUser(this.state.email, this.state.password, this.props.location.query.next);
     } else {
       this.setState({
         errorText: "Email input is invalid!"
@@ -82,7 +82,6 @@ class Login extends React.Component {
   }
 
   render() {
-    // console.log(this)
     return (
       <div className="content">
         <LeadImage img={'/res/greenkid.jpeg'}>

@@ -27,7 +27,7 @@ const initialState = {
 export default createReducer(initialState, {
   [DESELECT_STORY]: (state, payload) => {
     return Object.assign({}, state, {
-      'selectedStory': {}
+      'selectedStory': initialState.selectedStory
     })
   },  
   [RECEIVE_STORIES]: (state, payload) => {

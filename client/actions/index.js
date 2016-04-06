@@ -18,8 +18,8 @@ import {LOGIN_USER,
   DESELECT_STORY
 } from '../constants.js';
 import { browserHistory } from 'react-router'
+import { push } from 'react-router-redux'
 import jwtDecode from 'jwt-decode';
-// import { pushState } from 'redux-router';
 
 import fetch from 'isomorphic-fetch'
 // import RouterContainer from '../RouterContainer.js'
@@ -32,7 +32,6 @@ export function deselectStory() {
 
 export function loginUserSuccess(token) {
   localStorage.setItem('token', token);
-  browserHistory.push('/')
   var user = jwtDecode(token)
   console.log('User from token:', user)
   return {
@@ -49,20 +48,12 @@ export function loginUserSuccess(token) {
   // }
 }
 
-export function logoutUser() {
-  localStorage.removeItem('token');
-  return {
-    type: LOGOUT_USER
-  }
-}
-
 export function loginUserFailure(error) {
   localStorage.removeItem('token');
   return {
     type: LOGIN_USER_FAILURE,
     payload: {
-      status: error.status,
-      statusText: error.statusText
+      error: error
     }
   }
 }
@@ -73,14 +64,7 @@ export function loginUserRequest() {
   }
 }
 
-export function logoutUser() {
-  localStorage.removeItem('token');
-  return {
-    type: LOGOUT_USER
-  }
-}
-
-export function loginUser(email, password, redirect) {    
+export function loginUser(email, password, redirect='/') {    
 
   return function(dispatch) {
     dispatch(loginUserRequest())
@@ -99,12 +83,21 @@ export function loginUser(email, password, redirect) {
       .then(checkHttpStatus)
       .then(parseJSON)
       .then(response => {
+        console.log(response)
         dispatch(loginUserSuccess(response.token))
+        dispatch(push(redirect))
       })
       .catch(error => {
         console.log('Error login', error)
-        dispatch(loginUserFailure(error.response))
+        dispatch(loginUserFailure(error))
       })
+  }
+}
+
+export function logoutUser() {
+  localStorage.removeItem('token');
+  return {
+    type: LOGOUT_USER
   }
 }
 

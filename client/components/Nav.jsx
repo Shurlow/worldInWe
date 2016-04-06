@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router'
 import { connect } from 'react-redux'
-import { logoutUser } from "../actions"
+import { logoutUser, deselectStory } from "../actions"
 import classnames from 'classnames'
 import { browserHistory } from 'react-router'
 import FlatButton from 'material-ui/lib/flat-button';
@@ -47,6 +47,7 @@ class Nav extends React.Component {
     browserHistory.push('/about')
   }
   navigateToNew() {
+    this.props.deselectStory()
     browserHistory.push('/new')
   }
 
@@ -108,5 +109,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  logoutUser
+  logoutUser,
+  deselectStory
 })(Nav)

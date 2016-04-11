@@ -5,13 +5,20 @@ import { logoutUser, deselectStory } from "../actions"
 import classnames from 'classnames'
 import { browserHistory } from 'react-router'
 import FlatButton from 'material-ui/lib/flat-button';
+import LeftNav from 'material-ui/lib/left-nav';
+import AppBar from 'material-ui/lib/app-bar';
+import MoreIcon from 'material-ui/lib/svg-icons/navigation/more-horiz';
+import MenuItem from 'material-ui/lib/menus/menu-item';
+import IconButton from 'material-ui/lib/icon-button';
+// import RaisedButton from 'material-ui/lib/raised-button';
 
 class Nav extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      showStickyNav: false
+      showStickyNav: false,
+      open: false
     }
     this.handleScroll = this.handleScroll.bind(this)
   }
@@ -25,6 +32,7 @@ class Nav extends React.Component {
   }
 
   handleScroll(e) {
+    console.log('scrollin...')
     var top = window.pageYOffset
     // var isSticky = this.state.showStickyNav
 
@@ -39,10 +47,6 @@ class Nav extends React.Component {
     }
   }
 
-  navigateToNew() {
-    
-  }
-
   navigateToAbout() {
     browserHistory.push('/about')
   }
@@ -51,8 +55,13 @@ class Nav extends React.Component {
     browserHistory.push('/new')
   }
 
+  handleToggle() {
+    this.setState({
+      open: !this.state.open
+    });
+  }
+
   makeNav(sticky) {
-    console
     var navStyle;
     if (sticky) {
       navStyle = classnames({
@@ -62,20 +71,48 @@ class Nav extends React.Component {
     } else {
       navStyle = "big-nav"
     }
+    const iconStyle = {
+      width: '100px',
+      height: '100px',
+      padding: '0px',
+    };
 
     return (
         <nav className={navStyle}>
           <div className="image-container">
-            <img src="/res/logo.png" onClick={() => {browserHistory.push('/')}}></img>
+            <img src="/res/logo.svg" onClick={() => {browserHistory.push('/')}}></img>
           </div>
           <ul>
             <FlatButton label="NEW" onClick={() => {browserHistory.push('/new')}}/>
             <FlatButton label="ABOUT" onClick={() => {browserHistory.push('/about')}}/>
             {this.makeLoginButton()}
           </ul>
+
+          <IconButton
+            className="menu"
+            style={iconStyle}
+            iconStyle={iconStyle}
+            onTouchEnd={this.handleToggle.bind(this)}
+          >
+            <MoreIcon/>
+          </IconButton>
+
+          <LeftNav
+            docked={false}
+            width={200}
+            open={this.state.open}
+            onRequestChange={open => this.setState({open})}
+            openRight={true}
+          >
+            <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
+            <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
+          </LeftNav>
+
         </nav>
       )
  }
+
+
 
   makeLoginButton() {
     if (this.props.isAuthenticated) {

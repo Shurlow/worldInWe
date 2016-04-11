@@ -15,6 +15,7 @@ import {createReducer} from '../util.js';
 const initialState = {
   stories: [],
   selectedStory: {
+    auth_id: null,
     id: null,
     content: [],
     backup: null,
@@ -76,7 +77,7 @@ export default createReducer(initialState, {
     const updatedSelection = Object.assign(state.selectedStory, {
       img: payload
     })
-    console.log('OLD:', state.selectedStory, "NEW:", updatedSelection)
+    // console.log('OLD:', state.selectedStory, "NEW:", updatedSelection)
     return Object.assign({}, state, {
       'isFetching': false,
       'selectedStory': updatedSelection

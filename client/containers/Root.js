@@ -10,7 +10,8 @@ import SignUp from '../views/SignUp'
 import EditStory from '../views/EditStory'
 import NewStory from '../views/NewStory'
 import Logout from '../components/Logout'
-import {requireAuthentication} from '../components/requireAuthentication.js';
+import { wrapAuth } from './wrapAuth.js';
+import { wrapUserAuth } from './wrapUserAuth.js';
 
 export default class Root extends React.Component {
 
@@ -25,8 +26,8 @@ export default class Root extends React.Component {
             <Route path="signup" component={SignUp}/>
             <Route path="about" component={About}/>
             <Route path="stories/:id" component={Story}/>
-            <Route path="new" component={requireAuthentication(NewStory)}/>
-            <Route path="edit/:id" component={requireAuthentication(EditStory)}/>
+            <Route path="new" component={wrapAuth(NewStory)}/>
+            <Route path="edit/:id" component={wrapUserAuth(EditStory)}/>
             <Route path="topics/housing" component={About}/>
           </Route>
         </Router>

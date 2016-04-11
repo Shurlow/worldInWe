@@ -25,8 +25,12 @@ import fetch from 'isomorphic-fetch'
 // import RouterContainer from '../RouterContainer.js'
 
 export function deselectStory() {
-  return {
-    type: DESELECT_STORY
+  return function(dispatch) {
+    dispatch(fetchStories())
+    dispatch(push('/'))
+    return {
+      type: DESELECT_STORY
+    }
   }
 }
 
@@ -124,6 +128,7 @@ export function signUpUser(name, email, password, redirect) {
       .then(response => {
         console.log('response', response)
         dispatch(loginUserSuccess(response.token))
+        dispatch(push(redirect))
       })
       .catch(error => {
         console.log('Error sign up', error)
@@ -142,7 +147,6 @@ export function signUpUserRequest(token) {
 export function signUpUserSuccess(user) {
   localStorage.setItem('token', user.token);
   deselectStory
-  browserHistory.push('/')
   return {
     type: LOGIN_USER_SUCCESS,
     payload: {
@@ -233,7 +237,7 @@ export function uploadStorySuccess() {
   }
 }
 
-export function uploadStory(id, title, img_url, content, rawState) {
+export function uploadStory(id, auth_id, title, img_url, content, rawState) {
   return (dispatch, state) => {
     dispatch(uploadStoryRequest());
     return fetch(BASE_URL + 'api/story', {
@@ -244,15 +248,15 @@ export function uploadStory(id, title, img_url, content, rawState) {
       },
       body: JSON.stringify({
         id: id,
+        auth_id: auth_id,
         img: img_url,
         title: title,
-        auth_id: 'empty',
         content: content,
         backup: rawState
       })
     })
     .then(checkHttpStatus)
-    .then(response => {
+    .then(function(response) {
       console.log('New Story Successful')
       dispatch(uploadStorySuccess());
     })
@@ -291,6 +295,27 @@ export function updateStory(id, title, content, rawState) {
     })
     .catch(error => {
       console.log('Story Upload Error:', error)
+    })
+  }
+}
+
+export function deleteStory(id) {
+  return (dispatch, state) => {
+    return fetch(BASE_URL + 'api/' + id, {
+      method: 'delete',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true
+      },
+    })
+    .then(checkHttpStatus)
+    .then(response => {
+      console.log('Story Deleted Successful')
+      dispatch(deselectStory())
+    })
+    .catch(error => {
+      console.log('Delete Error:', error)
     })
   }
 }

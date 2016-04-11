@@ -80,7 +80,7 @@ class CustomEditor extends React.Component {
     const title = this.state.titleState.getCurrentContent().getPlainText()
     const raw = convertToRaw(contentState)
     const img_url = "https://s3-us-west-2.amazonaws.com/worldinme-full/" + this.props.id + ".jpg"
-    this.props.pushStoryUpload(this.props.id, title, img_url, backdraft(raw, markup), raw)
+    this.props.pushStoryUpload(title, img_url, backdraft(raw, markup), raw)
   }
 
   render() {

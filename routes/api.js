@@ -86,10 +86,10 @@ router.post('/update/:story_id', function(req, res) {
 });
 
 //Update indevidual story
-router.post('/delete/:story_id', function(req, res) {
+router.delete('/:story_id', function(req, res) {
 	console.log('deleting')
 	var id = req.params.story_id
-	db.updateStory(id, req.body, function(err, data) {
+	db.deleteStory(id, function(err, data) {
 		if (err) {
 			res.status(500).send('Error deleting story object')
 		} else {

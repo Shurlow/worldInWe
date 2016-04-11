@@ -3,6 +3,8 @@ import request from 'superagent'
 import classnames from 'classnames'
 import StoryBoardItem from './StoryBoardItem.jsx'
 import LeadImage from './LeadImage.jsx'
+import { fetchStories } from '../actions'
+import { connect } from 'react-redux'
 // import ImageBlurLoader from 'react-imageblurloader';
 
 class StoryBoard extends React.Component {
@@ -11,8 +13,8 @@ class StoryBoard extends React.Component {
 		super(props, context)
 	}
 
-	componentDidMount() {
-    // console.log('did mount storyboard')
+	componentWillMount() {
+    this.props.fetchStories()
 	}
 
 	preloader() {
@@ -22,7 +24,7 @@ class StoryBoard extends React.Component {
   getFirstLine(contentArray) {
     var text = contentArray.toString()
     let newStr = text.slice(0,50)
-    console.log('Text:', text, 'new:', newStr)
+    // console.log('Text:', text, 'new:', newStr)
     return newStr
   }
 
@@ -52,12 +54,10 @@ class StoryBoard extends React.Component {
 
 }
 
-StoryBoard.defaultProps = {
-  stories: []
-}
+const mapStateToProps = (state) => ({
+  stories: state.data.stories,
+});
 
-StoryBoard.propTypes = {
-  stories: React.PropTypes.array.isRequired
-}
-
-export default StoryBoard
+export default connect(mapStateToProps, {
+  fetchStories
+})(StoryBoard)

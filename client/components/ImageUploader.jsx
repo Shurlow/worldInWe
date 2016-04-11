@@ -23,7 +23,7 @@ class ImageUploader extends React.Component {
     reader.onload = function(data) {
       let image = data.target.result
       let imgtype = findImgType.exec(image)[1]
-      self.props.pushImageUpload(self.props.id, image)
+      self.props.pushImageUpload(image)
     }
     reader.readAsDataURL(file);
   }

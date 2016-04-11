@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 // import {pushState} from 'redux-router';
 import { browserHistory } from 'react-router'
 
-export function requireAuthentication(Component) {
+export function wrapAuth(Component) {
   class AuthenticatedComponent extends React.Component {
 
     componentWillMount () {
@@ -17,7 +17,6 @@ export function requireAuthentication(Component) {
     checkAuth (isAuthenticated) {
       if (!isAuthenticated) {
         let redirectAfterLogin = this.props.location.pathname;
-        // this.props.dispatch(pushState(null, `/login?next=${redirectAfterLogin}`));
         browserHistory.push(`/login?next=${redirectAfterLogin}`)
       }
     }
@@ -36,8 +35,9 @@ export function requireAuthentication(Component) {
 
   const mapStateToProps = (state) => ({
     token: state.auth.token,
-    userName: state.auth.userName,
-    isAuthenticated: state.auth.isAuthenticated
+    id: state.auth.id,
+    isAuthenticated: state.auth.isAuthenticated,
+    auth_id: state.data.selectedStory.auth_id
   });
 
   return connect(mapStateToProps)(AuthenticatedComponent);

@@ -43,32 +43,41 @@ a {
   text-decoration: none;
 }
 
-h2 {
-  @extend .header-one;
-}
-
-h2 {
-  @extend .header-two;
-}
-
-.header-one {
-  font-size: 38px;
-  font-weight: bold;
+h1 {
   color: #323232;
+  @include retina {
+    margin: 0;
+    font-size: 62px;
+  }
 }
 
-.header-two {
-  font-size: 24px;
-  font-weight: bold;
+h2 {
   color: #9B9B9B;
+  @include retina {
+    margin: 0;
+    font-size: 45px;
+  }
+  
 }
+
+// .header-one {
+//   font-size: 38px;
+//   font-weight: bold;
+//   color: #323232;
+// }
+
+// .header-two {
+//   font-size: 24px;
+//   font-weight: bold;
+//   color: #9B9B9B;
+// }
 
 
 .bar1 {
   background: $red;
   width: 200px;
   height: 10px;
-  margin-top: 15px;
+  // margin-top: 15px;
 }
 
 
@@ -106,15 +115,28 @@ ul {
 
 .big-nav {
   @include container(1540px);
-  height: 85px;
   position: relative;
   z-index: 1;
+  height: 50vh;
+  @include desktop {
+    height: 85px;
+  }
+  
+  @include retina {
+    @include display-flex;
+    // @include align-items(center);
+    @include justify-content(center);  
+  }
   
   img {
-    width: 400px;
-    // padding-top: 38px;
-    padding-top: 20px;
-    padding-left: 20px;
+    width: 700px;
+    padding-top: calc(50vh - 118px);
+    @include desktop {
+      width: 400px;
+      padding-top: 20px;
+      padding-left: 20px;
+    }
+    
     &:hover {
       cursor: pointer;
     }
@@ -127,6 +149,9 @@ ul {
     right: 0;
     margin-right: 30px;
     font-size: 16px;
+    @include retina {
+      display: none;
+    }
   }
 
 
@@ -150,6 +175,17 @@ ul {
   @include display-flex;
   @include align-items(center);
 
+  // display: none;
+  @include retina {
+    display: none;
+  }
+  @include tablet {
+    display: none;
+  }
+  @include phone {
+    display: none;
+  }
+
   .image-container {
     width: 200px;
   }
@@ -168,7 +204,15 @@ ul {
     right: 0;
     @include display-flex;
   }
+}
 
+.menu {
+  position: fixed !important;
+  top: 0px;
+  right: 15px;
+  @include desktop {
+    display: none !important;
+  }
 }
 
 .story-button {

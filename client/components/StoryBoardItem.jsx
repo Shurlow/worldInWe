@@ -15,11 +15,11 @@ export default class StoryBoardItem extends React.Component {
 
     const imgsrc = "https://s3-us-west-2.amazonaws.com/worldinme-thumbs/" + this.props.id + ".jpg"
     const blursrc = "https://s3-us-west-2.amazonaws.com/worldinme-preview/" + this.props.id + ".jpg"
-
+// <object class="avatar" data={imgsrc} type="image/jpg"></object>
     return (
       <div className="storyboard_item">
         <Link to={'/stories/' + this.props.id}>
-          <object class="avatar" data={imgsrc} type="image/jpg"></object>
+          <img src={imgsrc}></img>
           <div className="textover">
             <div className="center">
               <h1>{this.props.title}</h1>

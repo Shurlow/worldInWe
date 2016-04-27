@@ -54,9 +54,6 @@ $top: 140px;
 
 .story {
   margin-top: $top;
-  // @include container(92%);
-  // @include ease(box-shadow, 2s);
-  // @include ease(outline, 1s);
   margin: 0 auto;
   max-width: 900px;
   margin-top: 2em;
@@ -64,26 +61,13 @@ $top: 140px;
   // font-size: 20px;
 
   @include desktop {
-    // padding-left: 10em;
-    // padding-right: 10em;
-    // @include container(60%);
     max-width: 800px;
     margin: 0 auto;
   }
 
-  // h2 {
-  //  color: $darkgrey;
-  //  font-weight: 900;
-  //  font-family: 'Source Sans Pro', sans-serif;
-  //  font-size: 50px;
-
-  // }
-
-  // h3 {
-  //  font-family: "Lato";
-  //  font-size: 30px;
-  //  color: $lightgrey;
-  // }
+  .bar1 {
+    margin-top: 60px;
+  }
 
   .title {
     margin-top: 30px;
@@ -122,6 +106,12 @@ $top: 140px;
 .about {
   margin-top: 4em;
   padding: 2em;
+  margin-bottom: 38%; 
+
+  h2 {
+    margin-top: 20px;
+    margin-bottom: 5px;
+  }
 }
 
 // .header-one {

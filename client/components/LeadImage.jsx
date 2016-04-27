@@ -19,17 +19,15 @@ export default class LeadImage extends React.Component {
             </div>
           </div>
         </Link>
-      : <div style={style} className="fullimage">
-          {this.props.children}
-        </div>
+      : <div style={style} className="fullimage"></div>
     )
   }
 
   render() {
 
     return (
-      <div className='leadimage'>
-        {this.makeImageComponent()}
+      <div className='leadimage mw8 center'>
+        <img className='mw-100 mw8-l' src={this.props.img}></img>
       </div>
     )
   }

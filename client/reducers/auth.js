@@ -18,13 +18,13 @@ const initialState = {
     name: null,
     email: null,
     id: null,
-    error: null
+    error: false
 };
 export default createReducer(initialState, {
   [SIGNUP_USER]: (state, payload) => {
     return Object.assign({}, state, {
       'isAuthenticating': true,
-      'statusText': null
+      error: false
     })
   },
   // [SIGNUP_USER_SUCCESS]: (state, payload) => {
@@ -44,13 +44,12 @@ export default createReducer(initialState, {
       'isAuthenticating': false,
       'isAuthenticated': false,
       'user': null,
-      'error': payload.error
+      'error': true
     });
   },
   [LOGIN_USER]: (state, payload) => {
     return Object.assign({}, state, {
-      'isAuthenticating': true,
-      'statusText': null
+      'isAuthenticating': true
     })
   },
   [LOGOUT_USER]: (state, payload) => {
@@ -78,7 +77,6 @@ export default createReducer(initialState, {
     return Object.assign({}, state, {
       'isAuthenticating': false,
       'isAuthenticated': false,
-      'statusText': `Authentication Error: ${payload.status} ${payload.statusText}`
     });
   },
   [LOGOUT_USER]: (state, payload) => {

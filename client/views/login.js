@@ -32,7 +32,6 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     const redirectRoute = this.props.location.query.next || '/';
-    console.log('Construct',props)
     this.state = {
       email: '',
       password: '',

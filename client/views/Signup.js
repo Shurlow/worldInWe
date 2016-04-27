@@ -12,18 +12,19 @@ import colors from 'material-ui/lib/styles/colors';
 import myTheme from '../uiStyle.js';
 import { signUpUser } from '../actions'
 import { connect } from 'react-redux'
+import classnames from 'classnames'
 
 const pstyle = {
   backgroundColor: "rgba(255,255,255,0.8)"
 }
 
-const bstyle = {
-  margin: '1em 0 0 0',
-}
-
 const textstyle = {
   // color: colors.grey400
 }
+
+    // const bstyle = {
+    //   margin: '1em 0 0 0'
+    // }
 
 // console.log(TextField.getStyle())
 // @ThemeDecorator(ThemeManager.getMuiTheme(myTheme))
@@ -36,7 +37,7 @@ class SignUp extends React.Component {
       email: '',
       password: '',
       redirectTo: '/',
-      errorText: ''
+      emailError: '',
     };
   }
 
@@ -50,7 +51,7 @@ class SignUp extends React.Component {
     const input = e.target.value
     this.setState({
       email: input,
-      errorText: ''
+      emailError: ''
     })
   }
 
@@ -73,7 +74,7 @@ class SignUp extends React.Component {
       this.props.signUpUser(this.state.name, this.state.email, this.state.password, this.state.redirectTo);      
     } else {
       this.setState({
-        errorText: "Email input is invalid!"
+        emailError: "Email input is invalid!"
       })
     }
 
@@ -86,6 +87,9 @@ class SignUp extends React.Component {
 
   render() {
     console.log(this.props.location)
+    const bcolor = this.props.error ? "white" : "#CF3934"
+    const tcolor = this.props.error ? "black" : "white"
+    console.log('HI', this.props.error, bclass)
     return (
       <div className="content">
         <LeadImage img={'/res/greenkid.jpeg'} withLink={false}>
@@ -99,7 +103,7 @@ class SignUp extends React.Component {
               />
               <TextField 
                 hintText="email"
-                errorText={this.state.errorText}
+                errorText={this.state.emailError}
                 hintStyle={textstyle}
                 style={textstyle}
                 onChange={this.emailChange.bind(this)}
@@ -112,10 +116,11 @@ class SignUp extends React.Component {
               />
               <RaisedButton
                 label="Sign Up"
-                style={bstyle}
+                backgroundColor={bclass}
                 onMouseDown={this.signUp.bind(this)}
                 disabled={this.props.isAuthenticating}
               />
+              {this.props.error ? <span>Email is already taken</span> : ''}
             </Paper>
           </div>
         </LeadImage>
@@ -129,7 +134,8 @@ SignUp.childContextTypes = {muiTheme: React.PropTypes.object};
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-  isAuthenticating: state.auth.isAuthenticating
+  isAuthenticating: state.auth.isAuthenticating,
+  error: state.auth.error
 });
 
 export default connect(mapStateToProps, {

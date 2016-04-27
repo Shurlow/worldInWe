@@ -42,7 +42,7 @@ function buildScript(file, watch) {
   
   // watchify() if watch requested, otherwise run browserify() once 
   var bundler = watch ? watchify(browserify(props)) : browserify(props);
-
+  
   function rebundle() {
     var stream = bundler.bundle();
     return stream
@@ -50,6 +50,7 @@ function buildScript(file, watch) {
       .pipe(source(file))
       .pipe(duration('Bundle done'))
       .pipe(gulp.dest(buildDir))
+      .pipe(notify({title: 'Bundle Complete', message:'good job buddy'}))
   }
 
   // listen for an update and run rebundle
@@ -70,12 +71,10 @@ function styles() {
   }
   var preprocess = function() {
     gutil.log('Compiling Sass');
-    return gulp.src('styles/sass/main.scss')
+    return gulp.src('styles/sass/mainALT.scss')
       .pipe(compass(opt).on('error', handleErrors))
       .pipe(gulp.dest('public/css/'))
-      // .pipe(notify({
-      //   message: "CSS Compiling Done.",
-      // }))
+      .pipe(notify({title: 'Css Compiling Done.', message:'lookin stylish today scott'}))
   }
   return preprocess()
 }
@@ -94,17 +93,20 @@ gulp.task('build-prod',['styles'],function() {
   
   b.transform('envify', envifyCustomOptions);
 
-  b.bundle()
-    // .on('error', handleErrors)
+  return b.bundle()
     .pipe(source('bundle.js'))
     .pipe(buffer())
-    .pipe(uglify())
+    // .pipe(uglify())
     .on('error', handleErrors)
     .pipe(rename('bundle.min.js'))
     .pipe(gulp.dest('public/js'))
 });
 
 gulp.task('styles', function() {
+  return styles()
+});
+
+gulp.task('watch-styles', function() {
   styles()
   return gulp.watch('styles/sass/*.scss', styles);
 });
@@ -113,6 +115,6 @@ gulp.task('build', function() {
   return buildScript('bundle.js', false);
 });
 
-gulp.task('default', ['build', 'styles'], function() {
+gulp.task('default', ['watch-styles'], function() {
   return buildScript('bundle.js', true);
 });

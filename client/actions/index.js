@@ -57,7 +57,7 @@ export function loginUserFailure(error) {
   return {
     type: LOGIN_USER_FAILURE,
     payload: {
-      error: error
+      error: true
     }
   }
 }
@@ -196,9 +196,11 @@ export function fetchStories(token) {
     .then(checkHttpStatus)
     .then(parseJSON)
     .then(response => {
+      console.log('Stories res: ', response)
       dispatch(receiveStories(response))
     })
     .catch(error => {
+      console.log('fetch story error:', error)
       if(error.response.status === 401) {
         console.log(401)
       }
@@ -216,7 +218,7 @@ export function fetchStory(id) {
       dispatch(receiveStory(response))
     })
     .catch(error => {
-      if(error.response.status === 401) {
+      if(error.status === 401) {
         console.log(401)
         console.log('Fetch Error:', error)
       }

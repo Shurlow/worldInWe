@@ -14,7 +14,7 @@ router.post('/login', function(req, res) {
         var token = jwt.sign({ name: user.name, id: user.id }, 'supersecret!')
         res.status(200).json({'token': token})
       } else {
-        res.status(403).send('Incorrect Authentication.')
+        res.status(403).send('Bad Authentication.')
       }
     } else {
       return res.status(404).send('User not found.')
@@ -24,7 +24,7 @@ router.post('/login', function(req, res) {
 
 router.post('/createUser', function(req, res, next) {
   var user = req.body
-  console.log('Adding new user:', user)
+  console.log('Adding new user:', user.name)
   db.createUser(user, function(err, success) {
     if (success) {
       console.log('success!')

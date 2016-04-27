@@ -26,15 +26,12 @@ class Story extends React.Component {
   render() {
     // console.log('story!', this.props.story)
     return (
-      <div className="content">
-        <ImageUploader
-          src={this.props.img}
-        />
-        <div className="story">
-          <RaisedButton className="story-button" label="Edit" onClick={this.openEditor.bind(this)}/>
-          <h1>{this.props.title}</h1>
-          <div dangerouslySetInnerHTML={{__html: this.props.content}}></div>
-          <div className="bar1"></div>
+      <div className="mw-100 mw8-l center">
+        <img src={this.props.img} className="mw8 center"></img>
+        <div className="story lh-copy pa4">
+          <h1 className="f2">{this.props.title}</h1>
+          <div className="f3 lh-copy" dangerouslySetInnerHTML={{__html: this.props.content}}></div>
+          <div className="fr bar1"></div>
         </div>
       </div>
     )

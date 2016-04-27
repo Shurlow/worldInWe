@@ -1,15 +1,17 @@
 var React = require('react')
 var classnames = require('classnames')
-// var imagesLoaded = require('imagesloaded')
-
 var storybox = classnames({'storybox': true})
 var textClass = classnames({'text': true})
-// import ImageBlurLoader from '../../../react-imageblurloader/src/ImageBlurLoader.js'
-// import ImageLoader from 'react-imageloader';
-// import Image from './Image'
+import { browserHistory } from 'react-router'
+
 import { Router, Route, Link, RouteHandler } from 'react-router'
 
 export default class StoryBoardItem extends React.Component {
+
+  navigateToStory() {
+    console.log('CLick navigate')
+    browserHistory.push('stories/' + this.props.id)
+  }
 
   render() {
 
@@ -17,19 +19,16 @@ export default class StoryBoardItem extends React.Component {
     const blursrc = "https://s3-us-west-2.amazonaws.com/worldinme-preview/" + this.props.id + ".jpg"
 // <object class="avatar" data={imgsrc} type="image/jpg"></object>
     return (
-      <div className="storyboard_item">
-        <Link to={'/stories/' + this.props.id}>
-          <img src={imgsrc}></img>
-          <div className="textover">
-            <div className="center">
-              <h1>{this.props.title}</h1>
-              <h2>{this.props.firstline}...</h2>
-              <h3>{this.props.author_name}</h3>
-            </div>
-            <div className="bar1"/>
+        <article
+          className="bg-white center mw8 ba b--black-10 mv4 item"
+          onClick={this.navigateToStory.bind(this)}>
+          <img src={imgsrc} className="w-80 center pt4 db"></img>
+          <div className="pa4">
+            <p className="f3 ma0 mb3 dim lh-title">{this.props.title}</p>
+            <p className="f4 gray ma0 mb3 lh-title">{this.props.firstline}</p>
+            <div className="fr bar1"></div>
           </div>
-        </Link>
-      </div>
+        </article>
     )
   }
 }

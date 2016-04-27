@@ -7,6 +7,7 @@ $desktop_gutters: 30px;
   color: white;
   position: relative;
   height: 50vh;
+  // width: 100%;
   @include desktop {
     min-height: 450px;
     max-height: 950px;
@@ -84,6 +85,8 @@ $desktop_gutters: 30px;
     a {
       height: 100%;
       @include display-flex;
+      color: inherit;
+      text-decoration: none !important;
       // @include justify-content(flex-start);
       @include retina {
         @include flex-direction(column)
@@ -111,7 +114,7 @@ $desktop_gutters: 30px;
     // list-style-type: none;
     // height: 850px;
 
-    @include span(8 of 8);
+    // @include span(8 of 8);
     // margin-bottom: gutters(4);
     // padding: gutters(4);
 

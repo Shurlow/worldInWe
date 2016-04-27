@@ -28,7 +28,7 @@ $susy: (
 @import url(https://fonts.googleapis.com/css?family=Lato:900,700,400,300,100);
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900);
 @import url(https://fonts.googleapis.com/css?family=Karla:400,700);
-@import url(https://fonts.googleapis.com/css?family=Alegreya:400,400italic,700italic,900,700);
+// @import url(https://fonts.googleapis.com/css?family=Alegreya:400,400italic,700italic,900,700);
 
 @include scrollbars(3px, $darkgrey);
 
@@ -36,15 +36,27 @@ body {
   margin: 0;
   background-color: #fafafa;
   font-family: "Lato", sans-serif;
+  font-size: 38px;
+  @include desktop {
+    font-size: 18px;
+  }
 }
 
 a {
-  color: inherit;
+  color: $blue;
   text-decoration: none;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+
 }
 
 h1 {
   color: #323232;
+  margin: 0;
+  margin-top: 40px;
+  margin-bottom: 20px;
   @include retina {
     margin: 0;
     font-size: 62px;
@@ -58,6 +70,18 @@ h2 {
     font-size: 45px;
   }
   
+}
+
+h4 {
+  margin: 0;
+  // margin-top: 20px;
+  margin-bottom: 60px;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.bold {
+  font-weight: 700;
 }
 
 // .header-one {
@@ -77,13 +101,20 @@ h2 {
   background: $red;
   width: 200px;
   height: 10px;
-  // margin-top: 15px;
 }
 
 
 .footer {
   border-top: 1px solid #DDDDDD;
-  padding: 1em;
+  max-width: 1540px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 60px;
+
+  * {
+    float: right;
+  }
+
 }
 
 
@@ -117,7 +148,7 @@ ul {
   @include container(1540px);
   position: relative;
   z-index: 1;
-  height: 50vh;
+  // height: 50vh;
   @include desktop {
     height: 85px;
   }
@@ -130,7 +161,8 @@ ul {
   
   img {
     width: 700px;
-    padding-top: calc(50vh - 118px);
+    padding-top: 20px;
+    // padding-top: calc(50vh - 118px);
     @include desktop {
       width: 400px;
       padding-top: 20px;

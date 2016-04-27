@@ -1,11 +1,11 @@
-var testurl = ''
-if (process.env.NODE_ENV === 'production') {
-   testurl = 'http://worldinme.xyz/'
-} else {
-  testurl = 'http://localhost:3000/'
-}
+// var testurl = ''
+// if (process.env.NODE_ENV === 'production') {
+//    testurl = 'http://worldinme.xyz/'
+// } else {
+//   testurl = 'http://localhost:3000/'
+// }
 
-export const BASE_URL = testurl
+export const BASE_URL = '/'
 export const LOGIN_USER = 'LOGIN_USER'
 export const LOGOUT_USER = 'LOGOUT_USER'
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS'

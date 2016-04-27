@@ -1,0 +1,17 @@
+@import url(../../node_modules/tachyons/css/tachyons.css);
+.item {
+  opacity: 1;
+  transition: all .15s ease-in-out;
+}
+.item:hover {
+  cursor: pointer;
+  opacity: .9;
+  transition: all .15s ease-in-out;
+  color: #CF3934;
+}
+
+.bar1 {
+  background: #CF3934;
+  width: 260px;
+  height: 10px;
+}

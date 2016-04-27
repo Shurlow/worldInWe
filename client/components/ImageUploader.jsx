@@ -7,11 +7,14 @@ class ImageUploader extends React.Component {
 
   constructor(props) {
     super(props)
-    console.log(props)
   }
 
   triggerUpload() {
-    this.inputref.click()
+    if (this.props.disabled === true) {
+      return
+    } else {
+      this.inputref.click()
+    }
   }
 
   handleImg(e) {

@@ -32,7 +32,6 @@ class Nav extends React.Component {
   }
 
   handleScroll(e) {
-    console.log('scrollin...')
     var top = window.pageYOffset
     // var isSticky = this.state.showStickyNav
 
@@ -78,41 +77,16 @@ class Nav extends React.Component {
     };
 
     return (
-        <nav className={navStyle}>
-          <div className="image-container">
-            <img src="/res/logo.svg" onClick={() => {browserHistory.push('/')}}></img>
+        <nav className="pa4 pa6-l tc big-nav">
+          <img className="mw5 mw6-l center" src="/res/logo.svg" onClick={() => {browserHistory.push('/')}}></img>
+          <div className="tc pv3">
+            <a className="link dim gray f6 f5-ns dib mr3" href="#" title="Home" onClick={this.navigateToAbout}>About</a>
+            <a className="link dim gray f6 f5-ns dib mr3" href="#" title="Store">Store</a>
+            <a className="link dim gray f6 f5-ns dib" href="#" title="Contact">Signup</a>
           </div>
-          <ul>
-            <FlatButton label="NEW" onClick={() => {browserHistory.push('/new')}}/>
-            <FlatButton label="ABOUT" onClick={() => {browserHistory.push('/about')}}/>
-            {this.makeLoginButton()}
-          </ul>
-
-          <IconButton
-            className="menu"
-            style={iconStyle}
-            iconStyle={iconStyle}
-            onTouchEnd={this.handleToggle.bind(this)}
-          >
-            <MoreIcon/>
-          </IconButton>
-
-          <LeftNav
-            docked={false}
-            width={200}
-            open={this.state.open}
-            onRequestChange={open => this.setState({open})}
-            openRight={true}
-          >
-            <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
-            <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
-          </LeftNav>
-
         </nav>
       )
  }
-
-
 
   makeLoginButton() {
     if (this.props.isAuthenticated) {
@@ -134,7 +108,6 @@ class Nav extends React.Component {
     return (
       <div>
         {this.makeNav()}
-        {this.makeNav(true)}
       </div>
     )
   }

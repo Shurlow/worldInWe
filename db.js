@@ -22,14 +22,14 @@ exports.postStory = function(story, cb) {
 
 exports.getStories = function(cb) {
   withConnection(function(conn) {
-    r.table('story')
-      .run(conn).then(function(cursor) {
+    r.table('story').run(conn)
+      .then(function(cursor) {
         return cursor.toArray()
       }).then(function(array) {
         cb(null, array)
       }).error(function(err) {
         console.log('Error getting stories:', err)
-        // cb(err, null)
+        cb(err, null)
       })
   })
 }
@@ -91,17 +91,21 @@ exports.getUsers = function(cb) {
 function isEmailAvailible(email, cb) {
   withConnection(function(conn) {
     r.table('user')
+      .get('email')
+      .contains()
       .getAll(email, {index: "email"})
       .run(conn, function(err, cursor) {
-        if (err) cb(false)
+        if (err) return false
         else {
-          cursor.toArray().then(function(data) {
-            if (data.length < 1) cb(true)
-            else {
-              console.log('email IS used')
-              cb(false)
-            }
-          }).error(console.log)
+          console.log(cursor)
+          return true
+          // cursor.toArray().then(function(data) {
+          //   if (data.length < 1) cb(true)
+          //   else {
+          //     console.log('email IS used')
+          //     cb(false)
+          //   }
+          // }).error(console.log)
         }
       })
   })
@@ -121,23 +125,40 @@ function isEmailAvailible(email, cb) {
 }
 
 exports.createUser = function(userObj, cb) {
-  //check if email is taken
-  isEmailAvailible(userObj.email, function(isAvailible) {
-    if (isAvailible) {
-      withConnection(function(conn) {
-        r.table('user')
-          .insert(userObj, {returnChanges: true})
-          .run(conn, function(err, res) {
-            if (err) return cb(err, false)
-            else {
-              cb(null, true)
-            }
-          })
-      })
-    } else {
-      cb('Email is already being used', null)
-    }
+  withConnection(function(conn) {
+    r.branch(
+      r.table("user").getAll(userObj.email, {index: "email"}).isEmpty(),
+      r.table("user").insert(userObj),
+      { error: 'Email is already taken.' }
+    ).run(conn, function(err, res) {
+      if (err || res.error) {
+        cb(res.error, null)
+      } else {
+        cb(null, true)
+      }
+    })
   })
+
+  // if (isEmailAvailible(userObj.email)) {
+  //   withConnection(function(conn) {
+  //     r.table('user')
+  //       .insert(userObj, {returnChanges: true})
+  //       .run(conn, function(err, res) {
+  //         if (err) return cb(err, false)
+  //         else {
+  //           console.log('IsAvail res:', res)
+  //           cb(null, true)
+  //         }
+  //       })
+  //   })
+  // }
+  //check if email is taken
+  // isEmailAvailible(userObj.email, function(isAvailible) {
+
+  //   } else {
+  //     cb('Email is already being used', null)
+  //   }
+  // })
 }
 
     

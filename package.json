@@ -66,6 +66,8 @@
   "devDependencies": {
     "gulp-compass": "^2.1.0",
     "gulp-notify": "^2.2.0",
+    "humps": "^1.1.0",
+    "normalizr": "^2.0.1",
     "tachyons": "^4.0.0-beta.22",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.6.1"

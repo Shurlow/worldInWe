@@ -3,7 +3,7 @@ import Link from 'react-router'
 import Editor from '../components/Editor.jsx'
 import ImageUploader from '../components/ImageUploader.jsx'
 import RaisedButton from 'material-ui/lib/raised-button';
-import { fetchStory, uploadImage } from "../actions"
+import { loadStory } from "../actions"
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 
@@ -15,16 +15,14 @@ class Story extends React.Component {
   }
 
   componentWillMount() {
-    // console.log('Story Props:', this.props)
-    this.props.fetchStory(this.props.params.id)
+    this.props.loadStory(this.props.params.id)
   }
 
-  openEditor() {
-    browserHistory.push('/edit/' + this.props.id)
-  }
+  // openEditor() {
+  //   browserHistory.push('/edit/' + this.props.id)
+  // }
 
   render() {
-    // console.log('story!', this.props.story)
     return (
       <div className="mw-100 mw8-l center">
         <img src={this.props.img} className="mw8 center"></img>
@@ -45,15 +43,17 @@ Story.defaultProps = {
   img: "/img/placeholder.png"
 }
 
-const mapStateToProps = (state) => ({
-  // story: state.data.selectedStory
-  content: state.data.selectedStory.content,
-  img: state.data.selectedStory.img,
-  id: state.data.selectedStory.id,
-  title: state.data.selectedStory.title,
-  // author_name: state.data.selectedStory.author_name
-});
+function mapStateToProps(state, ownProps) {
+  const { id } = ownProps.params
+  const story = state.data.stories[id]
+  return {
+    id: story.id,
+    title: story.title,
+    content: story.content,
+    img: story.img
+  }
+}
 
 export default connect(mapStateToProps, {
-  fetchStory
+  loadStory
 })(Story)

@@ -3,7 +3,7 @@ import request from 'superagent'
 import classnames from 'classnames'
 import StoryBoardItem from './StoryBoardItem.jsx'
 import LeadImage from './LeadImage.jsx'
-import { fetchStories } from '../actions'
+import { loadStories } from '../actions'
 import { connect } from 'react-redux'
 // import ImageBlurLoader from 'react-imageblurloader';
 
@@ -14,7 +14,7 @@ class StoryBoard extends React.Component {
 	}
 
 	componentWillMount() {
-    this.props.fetchStories()
+    this.props.loadStories('all')
 	}
 
 	preloader() {
@@ -30,6 +30,7 @@ class StoryBoard extends React.Component {
 
 	makeStoryItem(item) {
     let firstline = this.getFirstLine(item.content)
+    // console.log('item:', item)
     // return <h1>Story: {item.title}</h1>
 		return(
 			<StoryBoardItem key={item.id} firstline={firstline} {...item}/>
@@ -42,11 +43,13 @@ class StoryBoard extends React.Component {
   		image: true
   	}
 
+    // console.log('SB props:', this.props)
+
     return (
     	<div className="content">
         <LeadImage img={'/res/greenkid.jpeg'} withLink={true}/>
 	    	<div className="storyboard">
-					{this.props.stories.map(this.makeStoryItem.bind(this))}
+					{this.props.storiesArray.map(this.makeStoryItem.bind(this))}
 		    </div>
 		  </div>
     )
@@ -54,10 +57,17 @@ class StoryBoard extends React.Component {
 
 }
 
-const mapStateToProps = (state) => ({
-  stories: state.data.stories,
-});
+function mapStateToProps(state, ownProps) {
+  const stories = state.data.stories
+  const ids = state.result.stories
+  const idArray = ids || { stories: [] }
+  const storiesArray = idArray.map(id => stories[id])
+
+  return {
+    storiesArray
+  }
+}
 
 export default connect(mapStateToProps, {
-  fetchStories
+  loadStories
 })(StoryBoard)

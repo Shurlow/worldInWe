@@ -9,11 +9,11 @@ import { Router, Route, Link, RouteHandler } from 'react-router'
 export default class StoryBoardItem extends React.Component {
 
   navigateToStory() {
-    console.log('CLick navigate')
     browserHistory.push('stories/' + this.props.id)
   }
 
   render() {
+    // console.log('sb item', this.props)
 
     const imgsrc = "https://s3-us-west-2.amazonaws.com/worldinme-thumbs/" + this.props.id + ".jpg"
     const blursrc = "https://s3-us-west-2.amazonaws.com/worldinme-preview/" + this.props.id + ".jpg"

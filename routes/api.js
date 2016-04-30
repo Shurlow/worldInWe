@@ -8,8 +8,8 @@ router.get('/', function(req, res, next) {
 			console.error(err)
 			res.status(500).send('Error adding story object')
 		} else {
-			console.log("No error but:", data)
-			res.status(200).json(data)
+			console.log("Sent stories.", data)
+			res.status(200).json({stories: data})
 			// res.send('Story submitted.')
 		}
 	})

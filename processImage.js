@@ -14,15 +14,12 @@ module.exports = function(imageBuffer, id, callback) {
   //     })
   //   })
 
-
+  cropThumb(imageBuffer, id)
   uploadImage(imageBuffer, id, 'worldinme-full', function(err, res) {
     if (err) return callback(err)
-    callback(null, "S3:" + res)
+    return callback(null, res)
   })
-
-  cropThumb(imageBuffer, id)
-  cropBlur(imageBuffer, id)
-
+  // cropBlur(imageBuffer, id)
 }
 
 function cropBlur(imageBuffer, id) {
@@ -32,7 +29,6 @@ function cropBlur(imageBuffer, id) {
   .quality(70)
   .noise('laplacian')
   .toBuffer(function (err, buffer) {
-    console.log('blur image:', err, buffer)
     if (err) return console.log(err);
     uploadImage(buffer, id, 'worldinme-previews', function(error, res){
       if (err) console.error(error)

@@ -180,6 +180,9 @@ exports.getUser = function(email, cb) {
   })
 }
 
+exports.disconnect = function() {
+  return connection.close()
+}
 
 
 // exports.validateUser = function(email, password, cb) {
@@ -205,6 +208,8 @@ exports.handleError = function(error, cursor) {
     console.log('story posted successfully.')
   }
 }
+
+
 
 //Handles data expected db response
 // function handleData(error, cursor) {

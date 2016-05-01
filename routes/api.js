@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 			console.error(err)
 			res.status(500).send('Error adding story object')
 		} else {
-			console.log("Sent stories.", data)
+			// console.log("Sent stories.", data)
 			res.status(200).json({stories: data})
 			// res.send('Story submitted.')
 		}
@@ -32,7 +32,10 @@ router.get('/:story_id', function(req, res) {
 	      error: err
 	    });
 		}
-		if (data) return res.json(data);
+		if (data) {
+			// console.log(data)
+			return res.json({stories: data})
+		}
 		else {
 			res.status(404).json({
 	      message: 'Story not found: ' + id,
@@ -44,9 +47,9 @@ router.get('/:story_id', function(req, res) {
 
 // Post new story
 router.post('/story', function(req, res) {
-	console.log('Posting New Story', req.body)
+	// console.log('Posting New Story', req.body)
 	db.postStory(req.body, function(err, data) {
-		console.log('Post:', err, data)
+		// console.log('Post:', err, data)
 		if (err) {
 			res.status(500).send('Error adding story object')
 		} else {

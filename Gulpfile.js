@@ -2,7 +2,6 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var gulp = require('gulp');
 var compass = require('gulp-compass');
-// var lrload = require('livereactload');
 var gutil = require('gulp-util');
 var browserify = require('browserify');
 var reactify = require('reactify');
@@ -14,7 +13,6 @@ var uglify = require("gulp-uglify");
 var streamify = require("gulp-streamify");
 var duration = require('gulp-duration')
 var rename = require("gulp-rename");
-// var exorcist = require('exorcist');
 
 var scriptsDir = './client';
 var buildDir = './public/js';
@@ -71,7 +69,7 @@ function styles() {
   }
   var preprocess = function() {
     gutil.log('Compiling Sass');
-    return gulp.src('styles/sass/mainALT.scss')
+    return gulp.src('styles/sass/main.scss')
       .pipe(compass(opt).on('error', handleErrors))
       .pipe(gulp.dest('public/css/'))
       .pipe(notify({title: 'Css Compiling Done.', message:'lookin stylish today scott'}))
@@ -96,7 +94,7 @@ gulp.task('build-prod',['styles'],function() {
   return b.bundle()
     .pipe(source('bundle.js'))
     .pipe(buffer())
-    // .pipe(uglify())
+    .pipe(uglify())
     .on('error', handleErrors)
     .pipe(rename('bundle.min.js'))
     .pipe(gulp.dest('public/js'))

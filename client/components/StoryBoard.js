@@ -22,13 +22,18 @@ class StoryBoard extends React.Component {
   }
 
   getFirstLine(contentArray) {
-    var text = contentArray.toString()
-    let newStr = text.slice(0,50)
-    // console.log('Text:', text, 'new:', newStr)
+    var newStr;
+    if (contentArray) {
+      var text = contentArray.toString()
+      newStr = text.slice(0,50)  
+    } else {
+      newStr = ' '
+    }
     return newStr
   }
 
 	makeStoryItem(item) {
+    console.log(item, typeof(item.content))
     let firstline = this.getFirstLine(item.content)
     // console.log('item:', item)
     // return <h1>Story: {item.title}</h1>
@@ -47,7 +52,7 @@ class StoryBoard extends React.Component {
 
     return (
     	<div className="content">
-        <LeadImage img={'/res/greenkid.jpeg'} withLink={true}/>
+        <LeadImage img={this.props.leadImageSrc} withLink={true}/>
 	    	<div className="storyboard">
 					{this.props.storiesArray.map(this.makeStoryItem.bind(this))}
 		    </div>
@@ -55,6 +60,15 @@ class StoryBoard extends React.Component {
     )
   }
 
+}
+
+StoryBoard.defaultProps = {
+  leadImageSrc: pickRandomImage()
+}
+
+function pickRandomImage() {
+  var randomIndex = Math.floor(Math.random() * 8) + 1
+  return `/res/leadimg/${randomIndex}.jpg`
 }
 
 function mapStateToProps(state, ownProps) {

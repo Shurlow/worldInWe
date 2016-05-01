@@ -22,20 +22,9 @@ class NewStory extends React.Component {
   }
 
   render() {
-    console.log('Auth:', this.props.auth_id, 'Story:', this.props.new_story_id)
     return (
-      <div className="new-story content">
-        <ImageUploader
-          src={this.props.img}
-          isFetching={this.props.isFetching}
-          pushImageUpload={this.pushImageUpload.bind(this)}
-        />
-        <div className="story">
-          <CustomEditor
-            id={this.props.new_story_id}
-            pushStoryUpload={this.pushStoryUpload.bind(this)}
-          />
-        </div>
+      <div className="">
+        <header>Hiya</header>
       </div>
     )
   }

@@ -10,9 +10,9 @@ var clientSrc = "";
 var mode = process.env.NODE_ENV
 
 if ( mode === 'production') {
-  var clientSrc = "http://worldinme.xyz/js/bundle.min.js"
+  var clientSrc = "/js/bundle.min.js"
 } else if ( mode === 'development') {
-  var clientSrc = "http://localhost:3000/js/bundle.js"
+  var clientSrc = "/js/bundle.js"
 } else {
   throw "No env mode found!"
 }

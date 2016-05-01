@@ -1,253 +1,57 @@
-@import "susy";
-@import "compass/css3";
-// @import "compass/css3/transform";
-// @import "../../node_modules/medium-editor/src/sass/medium-editor.scss";
-
-@import "global.scss";
-@import "storyboard.scss";
-@import "story.scss";
-@import "login.scss";
-@import "post.scss";
-// @import "../../node_modules/draft-js/lib/Draft.css";
-// @import "../../node_modules/draft-js/lib/Draft.css";
-
-$susy: (
-  columns: 8,
-  container: 1540px,
-  gutters: 1/32,
-  global-box-sizing: border-box,
-);
-
-*, *:before, *:after {
-  @include border-box-sizing;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-@import url(https://fonts.googleapis.com/css?family=PT+Serif:400,700,700italic);
-@import url(https://fonts.googleapis.com/css?family=Lato:900,700,400,300,100);
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900);
-@import url(https://fonts.googleapis.com/css?family=Karla:400,700);
-// @import url(https://fonts.googleapis.com/css?family=Alegreya:400,400italic,700italic,900,700);
-
-@include scrollbars(3px, $darkgrey);
+@import '../../node_modules/tachyons/css/tachyons.css';
+@import 'compass/css3';
+@import 'global.scss';
 
 body {
-  margin: 0;
   background-color: #fafafa;
-  font-family: "Lato", sans-serif;
-  font-size: 38px;
-  @include desktop {
-    font-size: 18px;
-  }
 }
 
-a {
-  color: $blue;
-  text-decoration: none;
-  
+.item {
+  opacity: 1;
+  transition: all .15s ease-out;
   &:hover {
-    text-decoration: underline;
-  }
-
-}
-
-h1 {
-  color: #323232;
-  margin: 0;
-  margin-top: 40px;
-  margin-bottom: 20px;
-  @include retina {
-    margin: 0;
-    font-size: 62px;
+    cursor: pointer;
+    opacity: .9;
+    transition: all .15s ease-out;
+    // color: $red;
+    @include medium-shadow();
+    @include translateY(-2px);
   }
 }
-
-h2 {
-  color: #9B9B9B;
-  @include retina {
-    margin: 0;
-    font-size: 45px;
-  }
-  
-}
-
-h4 {
-  margin: 0;
-  // margin-top: 20px;
-  margin-bottom: 60px;
-  font-size: 20px;
-  font-weight: 400;
-}
-
-.bold {
-  font-weight: 700;
-}
-
-// .header-one {
-//   font-size: 38px;
-//   font-weight: bold;
-//   color: #323232;
-// }
-
-// .header-two {
-//   font-size: 24px;
-//   font-weight: bold;
-//   color: #9B9B9B;
-// }
-
-
 .bar1 {
   background: $red;
-  width: 200px;
-  height: 10px;
+  width: 260px;
+  height: 8px;
 }
 
-
-.footer {
-  border-top: 1px solid #DDDDDD;
-  max-width: 1540px;
-  margin-right: auto;
-  margin-left: auto;
-  margin-bottom: 60px;
-
-  * {
-    float: right;
-  }
-
+.bar {
+  border-color: $red;
 }
 
-
-
-// h3 {
-//   margin: 0;
-//   font-size: 50px;
-//   font-weight: 100;
-//   color: rgba(0,0,0, 0.8)
-// }
-
-// p {
-//   font-family: "PT Serif", georgia, serif;
-//   font-size: 18px;
-// }
-
-ul {
-  // list-style: none;
+.logo:hover {
+  cursor: pointer;
 }
 
-.content {
-  @include container(1540px);
-  @include desktop {
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-  margin-bottom: 60px;
-}
-
-.big-nav {
-  @include container(1540px);
-  position: relative;
-  z-index: 1;
-  // height: 50vh;
-  @include desktop {
-    height: 85px;
-  }
-  
-  @include retina {
-    @include display-flex;
-    // @include align-items(center);
-    @include justify-content(center);  
-  }
-  
-  img {
-    width: 700px;
-    padding-top: 20px;
-    // padding-top: calc(50vh - 118px);
-    @include desktop {
-      width: 400px;
-      padding-top: 20px;
-      padding-left: 20px;
-    }
-    
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  ul {
-    margin: 0;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin-right: 30px;
-    font-size: 16px;
-    @include retina {
-      display: none;
-    }
-  }
-
-
-}
-
-.hidden {
-  // display: none !important;
-  opacity: 0;
-  z-index: -1 !important;
-}
-
-.sticky-nav {
-  @include ease(opacity, 0.15s);
-  border-bottom: 1px solid #DDDDDD;
-  width: 100%;
-  height: 60px;
-  background-color: rgba(255,255,255,0.94);
-  position: fixed;
-  top: 0;
-  z-index: 2;
-  @include display-flex;
-  @include align-items(center);
-
-  // display: none;
-  @include retina {
-    display: none;
-  }
-  @include tablet {
-    display: none;
-  }
-  @include phone {
-    display: none;
-  }
-
-  .image-container {
-    width: 200px;
-  }
-  
-  img {
-    margin-left: 2em;
-    width: 100%;
-    
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  ul {
-    position: absolute;
-    right: 0;
-    @include display-flex;
+.disabled {
+  opacity: .5;
+  &:hover {
+    cursor: not-allowed;
   }
 }
 
-.menu {
-  position: fixed !important;
-  top: 0px;
-  right: 15px;
-  @include desktop {
+.write {
+  &:hover {
+    cursor: cell;
+  }
+}
+
+.sticky {
+  background-color: rgba(255,255,255, 0.95);
+  border-color: #d0d1d5;
+}
+
+@media screen and (max-width: 48em) {
+  .sticky {
     display: none !important;
   }
 }
-
-.story-button {
-  float: right;
-}
-

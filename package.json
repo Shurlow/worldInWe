@@ -7,7 +7,8 @@
     "start-prod": "NODE_ENV=production node ./bin/www",
     "build": "NODE_ENV=development gulp",
     "build-prod": "NODE_ENV=production gulp build-prod",
-    "deploy": "bin/deploy"
+    "deploy": "bin/deploy",
+    "test-data": "node testData.js"
   },
   "build": {
     "source": "./client",

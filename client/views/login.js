@@ -9,7 +9,6 @@ import LeadImage from '../components/LeadImage.jsx'
 import Paper from 'material-ui/lib/paper';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import colors from 'material-ui/lib/styles/colors';
-import myTheme from '../uiStyle.js';
 import { loginUser, signUpUser } from '../actions'
 import { connect } from 'react-redux'
 
@@ -25,8 +24,6 @@ const textstyle = {
   // color: colors.grey400
 }
 
-// console.log(TextField.getStyle())
-// @ThemeDecorator(ThemeManager.getMuiTheme(myTheme))
 class Login extends React.Component {
 
   constructor(props) {
@@ -36,13 +33,6 @@ class Login extends React.Component {
       email: '',
       password: '',
       errorText: ''
-    };
-  }
-
-
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getMuiTheme(myTheme),
     };
   }
 

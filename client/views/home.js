@@ -15,7 +15,8 @@ export default class Home extends React.Component {
         {this.props.children || <StoryBoard/>}
         <footer className="pv4 pv6-l ph3 ph5-m ph6-l mid-gray">
           <small className="f6 db tc">© 2016 <b className="ttu">World In Me</b>., All Rights Reserved</small>
-          <div className="tc mt3">
+          <a href="http://scotthurlow.com/" target="_blank" title="Who" className="f6 tc mt2 db ph2 link mid-gray dim">site designed by Scott Hurlow</a>
+          <div className="tc mt2">
             <a href="#" title="About" className="f6 dib ph2 link mid-gray dim">About Us</a>
             <a href="mailto:worldinmemn@gmail.com" title="Contact" className="f6 dib ph2 link mid-gray dim">Contact</a>
           </div>

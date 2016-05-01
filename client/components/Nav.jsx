@@ -35,7 +35,7 @@ class Nav extends React.Component {
     var top = window.pageYOffset
     // var isSticky = this.state.showStickyNav
 
-    if (top >= 160) {
+    if (top >= 280) {
       this.setState({
         showStickyNav: true
       })
@@ -50,7 +50,6 @@ class Nav extends React.Component {
     browserHistory.push('/about')
   }
   navigateToNew() {
-    this.props.deselectStory()
     browserHistory.push('/new')
   }
 
@@ -76,16 +75,7 @@ class Nav extends React.Component {
       padding: '0px',
     };
 
-    return (
-        <nav className="pa4 pa6-l tc big-nav">
-          <img className="mw5 mw6-l center" src="/res/logo.svg" onClick={() => {browserHistory.push('/')}}></img>
-          <div className="tc pv3">
-            <a className="link dim gray f6 f5-ns dib mr3" href="#" title="Home" onClick={this.navigateToAbout}>About</a>
-            <a className="link dim gray f6 f5-ns dib mr3" href="#" title="Store">Store</a>
-            <a className="link dim gray f6 f5-ns dib" href="#" title="Contact">Signup</a>
-          </div>
-        </nav>
-      )
+    return null
  }
 
   makeLoginButton() {
@@ -105,9 +95,44 @@ class Nav extends React.Component {
   }
 
   render() {
+    const {showStickyNav} = this.state
+    const navStyle = classnames({
+      'pa4': true,
+      'pa6-l': !showStickyNav,
+      'tc': !showStickyNav,
+    })
+    const stickyStyle = classnames({
+      'w-100': true,
+      'fixed': true,
+      // 'bb': true,
+      'dn-ns': !showStickyNav,
+      'sticky': true
+    })
+    
     return (
       <div>
-        {this.makeNav()}
+        <nav className={stickyStyle}>
+          <div className="mw8 center">
+           <div className="w-50 fl pa2 pl3">
+              <img className="mw5 logo" src="/res/logo.svg" onClick={() => {browserHistory.push('/')}}></img>
+            </div>
+            <div className="w-50 h-100 fl pa3">
+              <div className="h-100 pv3 fr">
+                <a className="link tracked dim gray f6 f5-ns dib mr3" href="#" title="About" onClick={this.navigateToAbout}>ABOUT</a>
+                <a className="link tracked gray f6 f5-ns dib mr3 disabled" href="#" title="WRITE">WRITE</a>
+                <a className="link gray f6 f5-ns dib disabled" href="#" title="Login">LOGIN</a>
+              </div>
+            </div> 
+          </div>
+        </nav>
+        <nav className="pa4 pa6-l tc center mw6">
+          <img className="mw5 mw6-l center logo" src="/res/logo.svg" onClick={() => {browserHistory.push('/')}}></img>
+          <div className="tc pv3">
+            <a className="link tracked dim gray f6 f5-ns dib mr3" href="#" title="About" onClick={this.navigateToAbout}>ABOUT</a>
+            <a className="link tracked gray f6 f5-ns dib mr3 disabled" href="#"title="WRITE">WRITE</a>
+            <a className="link tracked gray f6 f5-ns dib disabled" href="#" title="Login">LOGIN</a>
+          </div>
+        </nav>
       </div>
     )
   }

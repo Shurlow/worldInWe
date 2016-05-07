@@ -33,10 +33,7 @@ class StoryBoard extends React.Component {
   }
 
 	makeStoryItem(item) {
-    console.log(item, typeof(item.content))
     let firstline = this.getFirstLine(item.content)
-    // console.log('item:', item)
-    // return <h1>Story: {item.title}</h1>
 		return(
 			<StoryBoardItem key={item.id} firstline={firstline} {...item}/>
 		)

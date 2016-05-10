@@ -48,7 +48,7 @@ class StoryBoard extends React.Component {
     // console.log('SB props:', this.props)
 
     return (
-    	<div className="content">
+    	<div>
         <LeadImage img={this.props.leadImageSrc} withLink={true}/>
 	    	<div className="storyboard">
 					{this.props.storiesArray.map(this.makeStoryItem.bind(this))}

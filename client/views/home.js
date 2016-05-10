@@ -10,7 +10,7 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <div className="app">
+      <div>
         <Nav/>
         {this.props.children || <StoryBoard/>}
         <footer className="pv4 pv6-l ph3 ph5-m ph6-l mid-gray">

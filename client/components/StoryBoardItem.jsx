@@ -23,7 +23,7 @@ export default class StoryBoardItem extends React.Component {
         <article
           className="bg-white center mw8 mv4 item dt-ns"
           onClick={this.navigateToStory.bind(this)}>
-          <div className="ma4 w-50-ns pa4-ns mb0 dtc-ns v-mid-ns">
+          <div className="pa4 w-50-ns mb0 dtc-ns v-mid-ns">
             <img
               src={imgsrc}
               className="w-100"

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 import classnames from 'classnames'
-import LeadImage from './LeadImage'
+// import LeadImage from './LeadImage'
 
 class ImageUploader extends React.Component {
 
@@ -31,11 +31,23 @@ class ImageUploader extends React.Component {
     reader.readAsDataURL(file);
   }
 
+  imgError() {
+    console.log('img error')
+    this.imgref.src = "res/uploadimg.png"
+  }
+// <object className="img-object" data={this.props.src} type="image/jpg"></object>
   render() {
     return (
       <div className='image-uploader'>
-        <div className='image' onClick={this.triggerUpload.bind(this)}>
-          <object className="img-object" data={this.props.src} type="image/jpg"></object>
+        <div className='image mw6 center mb3 bg-gray' onClick={this.triggerUpload.bind(this)}>
+          <img
+            className='w-100'
+            src={this.props.src}
+            alt=''
+            onError={this.imgError.bind(this)}
+            ref={(c) => this.imgref = c}
+          >
+          </img>
         </div>
         <input
           type="file"
@@ -51,6 +63,7 @@ class ImageUploader extends React.Component {
 
 ImageUploader.propTypes = {
   pushImageUpload: React.PropTypes.func.isRequired,
+  src: React.PropTypes.string.isRequired
 }
 
 export default ImageUploader

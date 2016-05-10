@@ -1,28 +1,19 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
-// import auth from '../auth.js'
-// import FacebookButton from "./FacebookButton.jsx"
-import TextField from 'material-ui/lib/text-field';
-import RaisedButton from 'material-ui/lib/raised-button';
-import FlatButton from 'material-ui/lib/flat-button';
-import LeadImage from '../components/LeadImage.jsx'
-import Paper from 'material-ui/lib/paper';
-import ThemeManager from 'material-ui/lib/styles/theme-manager';
-import colors from 'material-ui/lib/styles/colors';
-import { loginUser, signUpUser } from '../actions'
+import { loginUser } from '../actions'
 import { connect } from 'react-redux'
 
-const pstyle = {
-  backgroundColor: "rgba(255,255,255,0.8)"
-}
+// const pstyle = {
+//   backgroundColor: "rgba(255,255,255,0.8)"
+// }
 
-const bstyle = {
-  margin: '1em 0 0 0',
-}
+// const bstyle = {
+//   margin: '1em 0 0 0',
+// }
 
-const textstyle = {
-  // color: colors.grey400
-}
+// const textstyle = {
+//   // color: colors.grey400
+// }
 
 class Login extends React.Component {
 
@@ -30,16 +21,16 @@ class Login extends React.Component {
     super(props);
     const redirectRoute = this.props.location.query.next || '/';
     this.state = {
-      email: '',
+      username: '',
       password: '',
       errorText: ''
     };
   }
 
-  emailChange(e) {
+  usernameChange(e) {
     const input = e.target.value
     this.setState({
-      email: input,
+      username: input,
       errorText: ''
     })
   }
@@ -51,50 +42,33 @@ class Login extends React.Component {
   }
 
   login() {
-    // console.log('logging in:', this.state)
-    if (this.validateEmail(this.state.email)) {
-      this.props.loginUser(this.state.email, this.state.password, this.props.location.query.next);
-    } else {
-      this.setState({
-        errorText: "Email input is invalid!"
-      })
-    }
+    console.log('logging in:', this.state)
+    this.props.loginUser(this.state.username, this.state.password, this.props.location.query.next);
+
+    // if (this.validateEmail(this.state.email)) {
+    // } else {
+    //   this.setState({
+    //     errorText: "Email input is invalid!"
+    //   })
+    // }
   }
 
-  navToSignUp() {
-    browserHistory.push('signup')
-  }
+  // navToSignUp() {
+  //   browserHistory.push('signup')
+  // }
 
-  validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  }
+  // validateEmail(email) {
+  //   var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //   return re.test(email);
+  // }
 
   render() {
     return (
-      <div className="content">
-        <LeadImage img={'/res/greenkid.jpeg'}>
-          <div className="login">
-            <Paper zDepth={2} style={pstyle} className="card">
-              <h2>Login</h2>
-              <TextField 
-                hintText="email"
-                errorText={this.state.errorText}
-                hintStyle={textstyle}
-                style={textstyle}
-                onChange={this.emailChange.bind(this)}
-              />
-              <TextField
-                hintText="password"
-                type="password"
-                style={textstyle}
-                onChange={this.passwordChange.bind(this)}
-              />
-              <RaisedButton label="Login" primary={true} style={bstyle} onMouseDown={this.login.bind(this)}/>
-              <FlatButton label="Sign Up" style={bstyle} onMouseDown={this.navToSignUp.bind(this)}/>
-            </Paper>
-          </div>
-        </LeadImage>
+      <div className="mw5 pa4 center bg-white active_shadow">
+        <h2 className="f3 mt0">Admin</h2>
+        <input className="custom-input mv2 pa1" placeholder="username" onChange={this.usernameChange.bind(this)}/>
+        <input className="custom-input mv2 pa1" placeholder="password" onChange={this.passwordChange.bind(this)}/>
+        <button className="custom-button pa2 mt2" onClick={this.login.bind(this)}>login</button>
       </div>
     )
   }

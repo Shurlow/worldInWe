@@ -1,7 +1,5 @@
 import React from 'react'
 import {Editor, EditorState, RichUtils, convertToRaw, convertFromRaw, ContentState} from 'draft-js';
-// import backdraft from 'backdraft-js';
-import RaisedButton from 'material-ui/lib/raised-button';
 import backdraft from 'backdraft-js';
 
 class CustomEditor extends React.Component {
@@ -13,19 +11,23 @@ class CustomEditor extends React.Component {
       // console.log(props.backup, 'blocks:', blocks, 'content', restoredContent)
       this.state = {
         titleState: EditorState.createWithContent(ContentState.createFromText(props.title)),
-        editorState: EditorState.createWithContent(restoredContent)
+        authorState: EditorState.createEmpty(),
+        bodyState: EditorState.createWithContent(restoredContent)
       }; 
     } else {
       this.state = {
         titleState: EditorState.createEmpty(),
-        editorState: EditorState.createEmpty()
+        authorState: EditorState.createEmpty(),
+        bodyState: EditorState.createEmpty()
       };
     }
 
-    this.focus = () => this.refs.editor.focus();
+    this.focusBody = () => this.refs.body.focus();
     this.focusTitle = () => this.refs.title.focus();
-    this.onChange = (editorState) => this.setState({editorState});
-    this.onChangeTitle = (titleState) => this.setState({titleState});
+    this.focusAuthor = () => this.refs.author.focus();
+    this.onBodyChange = (bodyState) => this.setState({bodyState});
+    this.onTitleChange = (titleState) => this.setState({titleState});
+    this.onAuthorChange = (authorState) => this.setState({authorState});
 
     this.handleKeyCommand = (command) => this._handleKeyCommand(command);
     this.toggleBlockType = (type) => this._toggleBlockType(type);
@@ -33,10 +35,10 @@ class CustomEditor extends React.Component {
   }
 
   _handleKeyCommand(command) {
-    const {editorState} = this.state;
-    const newState = RichUtils.handleKeyCommand(editorState, command);
+    const {bodyState} = this.state;
+    const newState = RichUtils.handleKeyCommand(bodyState, command);
     if (newState) {
-      this.onChange(newState);
+      this.onBodyChange(newState);
       return true;
     }
     return false;
@@ -46,25 +48,25 @@ class CustomEditor extends React.Component {
     const {titleState} = this.state;
     const newState = RichUtils.handleKeyCommand(titleState, command);
     if (newState) {
-      this.onChange(newState);
+      this.onTitleChange(newState);
       return true;
     }
     return false;
   }
 
   _toggleBlockType(blockType) {
-    this.onChange(
+    this.onBodyChange(
       RichUtils.toggleBlockType(
-        this.state.editorState,
+        this.state.bodyState,
         blockType
       )
     );
   }
 
   _toggleInlineStyle(inlineStyle) {
-    this.onChange(
+    this.onBodyChange(
       RichUtils.toggleInlineStyle(
-        this.state.editorState,
+        this.state.bodyState,
         inlineStyle
       )
     );
@@ -76,63 +78,85 @@ class CustomEditor extends React.Component {
       'ITALIC': ['<em>', '</em>'],
       'UNDERLINE': ['<u>', '</u>']
     };
-    const contentState = this.state.editorState.getCurrentContent()
-    const title = this.state.titleState.getCurrentContent().getPlainText()
+    const contentState = this.state.bodyState.getCurrentContent()
     const raw = convertToRaw(contentState)
-    const img_url = "https://s3-us-west-2.amazonaws.com/worldinme-full/" + this.props.id + ".jpg"
-    this.props.pushStoryUpload(title, img_url, backdraft(raw, markup), raw)
+    // console.log('CS:', contentState, 'raw',raw)
+
+    const storyObj = {
+      id: this.props.id,
+      title: this.state.titleState.getCurrentContent().getPlainText(),
+      author: this.state.authorState.getCurrentContent().getPlainText(),
+      content: backdraft(raw, markup),
+      img: "https://s3-us-west-2.amazonaws.com/worldinme-full/" + this.props.id + ".jpg",
+      backup: raw
+
+    }
+    if (storyObj.title !== '' && storyObj.author !== '' && storyObj.content[0] !== '') {
+      console.log(storyObj)
+      this.props.pushStoryUpload(storyObj)
+    }
   }
 
   render() {
-    const {editorState, titleState} = this.state;
+    // const {editorState, titleState} = this.state;
 
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
-    let className = 'RichEditor-editor';
-    var contentState = editorState.getCurrentContent();
-    if (!contentState.hasText()) {
-      if (contentState.getBlockMap().first().getType() !== 'unstyled') {
-        className += ' RichEditor-hidePlaceholder';
-      }
-    }
+    let editorClass = "mv3 bt bw1";
+    // var contentState = editorState.getCurrentContent();
+    // if (!contentState.hasText()) {
+    //   if (contentState.getBlockMap().first().getType() !== 'unstyled') {
+    //     className += ' RichEditor-hidePlaceholder';
+    //   }
+    // }
 
     return (
       <div>
-        <RaisedButton className="story-button" label="Save" onClick={this.uploadContent.bind(this)}/>
         <div className="RichEditor-root">
-
           <BlockStyleControls
-            editorState={editorState}
+            editorState={this.state.bodyState}
             onToggle={this.toggleBlockType}
           />
           <InlineStyleControls
-            editorState={editorState}
+            editorState={this.state.bodyState}
             onToggle={this.toggleInlineStyle}
           />
-          <div className={className}>
-            <div onClick={this.focusTitle} className="RichEditor-editor-title">
+          <div className={editorClass}>
+            <div onClick={this.focusTitle} className="f2 mb1 mt3">
               <Editor
-                blockStyleFn={getBlockStyle}
                 customStyleMap={styleMap}
-                editorState={titleState}
-                onChange={this.onChangeTitle}
+                editorState={this.state.titleState}
+                onChange={this.onTitleChange}
                 placeholder="Title"
                 ref="title"
                 spellCheck={true}
               />
             </div>
-            <div onClick={this.focus} className="RichEditor-editor-body">
+            <div onClick={this.focusAuthor} className="f3 mb3 gray">
               <Editor
-                blockStyleFn={getBlockStyle}
                 customStyleMap={styleMap}
-                editorState={editorState}
-                handleKeyCommand={this.handleKeyCommand}
-                onChange={this.onChange}
-                placeholder="Tell a story..."
-                ref="editor"
+                editorState={this.state.authorState}
+                onChange={this.onAuthorChange}
+                placeholder="Author"
+                ref="author"
                 spellCheck={true}
               />
             </div>
+            <div onClick={this.focusBody} className="RichEditor-editor-body">
+              <Editor
+                blockStyleFn={getBlockStyle}
+                customStyleMap={styleMap}
+                editorState={this.state.bodyState}
+                handleKeyCommand={this.handleKeyCommand}
+                onChange={this.onBodyChange}
+                placeholder="Tell a story..."
+                ref="body"
+                spellCheck={true}
+              />
+            </div>
+          </div>
+          <div className="pv3">
+            <button className="custom-button pa2 fr" onClick={this.uploadContent.bind(this)}>Save</button>
           </div>
         </div>
       </div>
@@ -167,13 +191,8 @@ class StyleButton extends React.Component {
   }
 
   render() {
-    let className = 'RichEditor-styleButton';
-    if (this.props.active) {
-      className += ' RichEditor-activeButton';
-    }
-
     return (
-      <span className={className} onMouseDown={this.onToggle}>
+      <span className="pa2" onMouseDown={this.onToggle}>
         {this.props.label}
       </span>
     );
@@ -184,9 +203,9 @@ const BLOCK_TYPES = [
   {label: 'H1', style: 'header-one'},
   {label: 'H2', style: 'header-two'},
   {label: 'Blockquote', style: 'blockquote'},
-  {label: 'UL', style: 'unordered-list-item'},
-  {label: 'OL', style: 'ordered-list-item'},
-  {label: 'Code Block', style: 'code-block'},
+  // {label: 'UL', style: 'unordered-list-item'},
+  // {label: 'OL', style: 'ordered-list-item'},
+  // {label: 'Code Block', style: 'code-block'},
 ];
 
 const BlockStyleControls = (props) => {
@@ -238,6 +257,7 @@ const InlineStyleControls = (props) => {
 
 Editor.propTypes = {
   pushStoryUpload: React.PropTypes.func.isRequired,
+  id: React.PropTypes.string
 }
 
 export default CustomEditor

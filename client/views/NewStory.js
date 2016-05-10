@@ -1,54 +1,55 @@
 import React from 'react'
 import ImageUploader from '../components/ImageUploader.jsx'
-// import Story from '../views/Story'
 import classnames from 'classnames'
 import { uploadStory, uploadImage } from "../actions"
 import CustomEditor from '../components/Editor'
+import {guid} from '../util.js'
 import {connect} from "react-redux"
 
 class NewStory extends React.Component {
 
   constructor(props) {
     super(props)
-    console.log('Proops!', props)
   }
 
   pushImageUpload(imgData) {
-    this.props.uploadImage(this.props.new_story_id, imgData)
+    this.props.uploadImage(this.props.id, imgData)
   }
 
-  pushStoryUpload(title, imgUrl, content, rawState) {
-    this.props.uploadStory(this.props.new_story_id, this.props.auth_id, title, imgUrl, content, rawState)
+  saveStory(storyObj) {
+    this.props.uploadStory(storyObj)
+  }
+
+  fingImageSrc() {
+    if (this.props.imageSuccess) {
+      return "https://s3-us-west-2.amazonaws.com/worldinme-full/" + this.props.id + ".jpg?t=" + new Date().getTime()
+    } else {
+      return 'res/uploadimg.png'
+    }
   }
 
   render() {
     return (
-      <div className="">
-        <header>Hiya</header>
+      <div>
+        <ImageUploader src={this.fingImageSrc()}pushImageUpload={this.pushImageUpload.bind(this)}/>
+        <div className="mw6 center bg-white active_shadow pa4">
+          <CustomEditor id={this.props.id} pushStoryUpload={this.saveStory.bind(this)}/>
+        </div>
       </div>
     )
   }
 }
 
-function guid() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-  return s4();
-}
-
-NewStory.defaultProps = {
-  new_story_id: guid()
-}
-
 // export default NewStory
 
+NewStory.defaultProps = {
+  id: guid()
+}
+
 const mapStateToProps = (state) => ({
-  img: state.data.selectedStory.img,
   isFetching: state.data.isFetching,
-  auth_id: state.auth.id
+  username: state.auth.username,
+  imageSuccess: state.data.imageSuccess
 });
 
 export default connect(mapStateToProps, {

@@ -36,8 +36,7 @@ export function wrapAuth(Component) {
   const mapStateToProps = (state) => ({
     token: state.auth.token,
     id: state.auth.id,
-    isAuthenticated: state.auth.isAuthenticated,
-    auth_id: state.data.selectedStory.auth_id
+    isAuthenticated: state.auth.isAuthenticated
   });
 
   return connect(mapStateToProps)(AuthenticatedComponent);

@@ -125,7 +125,7 @@ class Nav extends React.Component {
             </div> 
           </div>
         </nav>
-        <nav className="pa4 pa6-l tc center mw6">
+        <nav className="pa4 pa5-l tc center mw6">
           <img className="mw5 mw6-l center logo" src="/res/logo.svg" onClick={() => {browserHistory.push('/')}}></img>
           <div className="tc pv3">
             <a className="link tracked dim gray f6 f5-ns dib mr3" href="#" title="About" onClick={this.navigateToAbout}>ABOUT</a>

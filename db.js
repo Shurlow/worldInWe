@@ -165,10 +165,10 @@ exports.createUser = function(userObj, cb) {
 
 
 
-exports.getUser = function(email, cb) {
+exports.getUser = function(username, cb) {
   withConnection(function(conn) {
     r.table('user')
-      .getAll(email, {index: "email"})
+      .getAll(username, {index: "username"})
       .run(conn, function(err, cursor) {
         if (err) return cb(err, null)
         else {

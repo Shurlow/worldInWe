@@ -1,6 +1,6 @@
-@import '../../node_modules/tachyons/css/tachyons.css';
 @import 'compass/css3';
 @import 'global.scss';
+@import 'editor.scss';
 
 body {
   background-color: #fafafa;
@@ -53,5 +53,32 @@ body {
 @media screen and (max-width: 48em) {
   .sticky {
     display: none !important;
+  }
+}
+
+.tag_text {
+  font-size: 0.75em;
+}
+
+.active_shadow {
+  @include medium-shadow();
+}
+
+.custom-input {
+  outline: none;
+}
+
+.custom-button {
+  background-color: $red;
+  width: 80px;
+  outline: none;
+  border: none;
+  color: white;
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    background-color: white;
+    color: $red;
   }
 }

@@ -30,24 +30,34 @@ class Story extends React.Component {
     return `${month} / ${day} / ${year} - ${hours}:${mins} ${suffix}`
   }
 
+  makeContentBlock(block) {
+    return (
+      <div
+        className="lh-copy measure mb3"
+        dangerouslySetInnerHTML={{__html: block}}>
+      </div>
+    )
+  }
+
   // openEditor() {
   //   browserHistory.push('/edit/' + this.props.id)
   // }
 
   render() {
-
     return (
       <div className="mw-100 mw8-l center">
-        <img src={this.props.img} className="w-100 center"></img>
+        <div className="tc">
+          <img src={this.props.img} className="mw-100 dib"></img>
+        </div>
 
-        <article className="cf ph4 ph0-l h-100 pv5">
+        <article className="cf pa4 pt5-ns ph0-l h-100">
           <header className="fn fl-ns w-50-ns pr4-ns mb5">
             <h1 className="f2 lh-title fw9 mb3 mt0 pt3 bt bw2">{this.props.title}</h1>
-            <h2 className="f3 mid-gray lh-title">{this.props.author_name}</h2>
+            <h2 className="f3 mid-gray lh-title">{this.props.author}</h2>
             <time className="f6 ttu tracked gray">{this.makeReadableDate(this.props.date)}</time>
           </header>
           <div className="fn fl-ns w-50-ns h-100">
-            <div className="f4 lh-copy measure mt0-ns pb7" dangerouslySetInnerHTML={{__html: this.props.content}}></div>
+            {this.props.content.map(this.makeContentBlock)}
           </div>
         </article>
       </div>
@@ -57,8 +67,8 @@ class Story extends React.Component {
 }
 
 Story.defaultProps = {
-  content: "",
-  author_name: "Anonymous",
+  content: [""],
+  author: "anonymous",
   img: "/res/placeholder.png",
   date: Date.now()
 }
@@ -71,7 +81,7 @@ function mapStateToProps(state, ownProps) {
     title: story.title,
     content: story.content,
     img: story.img,
-    author_name: story.name,
+    author: story.author,
     date: story.date
   }
 }

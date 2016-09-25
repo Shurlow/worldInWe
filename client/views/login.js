@@ -19,12 +19,19 @@ class Login extends React.Component {
 
   constructor(props) {
     super(props);
-    const redirectRoute = this.props.location.query.next || '/';
+    // const redirectRoute = this.props.location.query.next || '/';
     this.state = {
       username: '',
       password: '',
       errorText: ''
     };
+  }
+
+  componentWillMount() {
+    const redirectRoute = this.props.location.query.next || '/';
+    if(this.props.isAuthenticated) {
+      browserHistory.push(redirectRoute)
+    }
   }
 
   usernameChange(e) {
@@ -68,14 +75,14 @@ class Login extends React.Component {
         <h2 className="f3 mt0">Admin</h2>
         <input className="custom-input mv2 pa1" placeholder="username" onChange={this.usernameChange.bind(this)}/>
         <input className="custom-input mv2 pa1" placeholder="password" onChange={this.passwordChange.bind(this)}/>
-        <button className="custom-button pa2 mt2" onClick={this.login.bind(this)}>login</button>
+        <button className="custom-button pa2 mt2" onClick={this.login.bind(this)}>Login</button>
+        <button className="custom-button pa2 mt2" onClick={() => { browserHistory.push('/signup') }}>Sign Up</button>
       </div>
     )
   }
 
 }
 
-Login.childContextTypes = {muiTheme: React.PropTypes.object};
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated

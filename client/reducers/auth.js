@@ -15,9 +15,9 @@ const initialState = {
     isAuthenticating: false,
     statusText: null,
     token: null,
-    name: null,
+    username: null,
     email: null,
-    id: null,
+    userId: null,
     error: false
 };
 export default createReducer(initialState, {
@@ -27,19 +27,19 @@ export default createReducer(initialState, {
       error: false
     })
   },
-  // [SIGNUP_USER_SUCCESS]: (state, payload) => {
-  //   return Object.assign({}, state, {
-  //     'isAuthenticating': false,
-  //     'isAuthenticated': true,
-  //     'token': payload.token,
-  //     'user': {
-  //       'id': payload.user.email,
-  //       'name': payload.user.name
-  //     },
-  //     'statusText': 'You have been successfully signed up.'
-  //   });
-  // },
-  [SIGNUP_USER_FAILURE]: (state, payload) => {
+  [SIGNUP_SUCCESS]: (state, payload) => {
+    return Object.assign({}, state, {
+      'isAuthenticating': false,
+      'isAuthenticated': true,
+      'token': payload.token,
+      'userId': payload.user.id,
+      'email': payload.user.email,
+      'username': payload.user.username
+      },
+      'statusText': 'You have been successfully signed up.'
+    });
+  },
+  [SIGNUP_FAILURE]: (state, payload) => {
     return Object.assign({}, state, {
       'isAuthenticating': false,
       'isAuthenticated': false,

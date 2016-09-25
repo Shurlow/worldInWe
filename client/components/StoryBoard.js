@@ -1,11 +1,10 @@
 import React from 'react'
 import request from 'superagent'
 import classnames from 'classnames'
-import StoryBoardItem from './StoryBoardItem.jsx'
+import StoryBoardItem from './StoryBoardItem'
 import LeadImage from './LeadImage.jsx'
 import { loadStories } from '../actions'
 import { connect } from 'react-redux'
-// import ImageBlurLoader from 'react-imageblurloader';
 
 class StoryBoard extends React.Component {
 
@@ -34,9 +33,7 @@ class StoryBoard extends React.Component {
 
 	makeStoryItem(item) {
     let firstline = this.getFirstLine(item.content)
-		return(
-			<StoryBoardItem key={item.id} firstline={firstline} {...item}/>
-		)
+		return <StoryBoardItem key={item.id} firstline={firstline} {...item}/>
 	}
 
   render() {

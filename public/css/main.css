@@ -1,3 +1,10 @@
+@import url(../../node_modules/tachyons/css/tachyons.min.css);
+@import url(../../node_modules/tachyons/css/tachyons.min.css);
+.story {
+  max-width: 32rem;
+  background-color: darkgreen;
+}
+
 .image {
   min-height: 230px;
 }
@@ -23,14 +30,19 @@ input[type='file'] {
 }
 
 body {
-  background-color: #fafafa;
+  background-color: black;
+  color: white;
 }
 
-.item {
+.content {
+  margin-top: 2em;
+}
+
+.hoverfade {
   opacity: 1;
   transition: all .15s ease-out;
 }
-.item:hover {
+.hoverfade:hover {
   cursor: pointer;
   opacity: .9;
   transition: all .15s ease-out;
@@ -68,9 +80,11 @@ body {
   cursor: cell;
 }
 
-.sticky {
-  background-color: rgba(255, 255, 255, 0.95);
-  border-color: #d0d1d5;
+.nav {
+  z-index: 1;
+  top: 0;
+  color: white;
+  background-color: black;
 }
 
 @media screen and (max-width: 48em) {

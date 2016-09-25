@@ -39,7 +39,7 @@ class ImageUploader extends React.Component {
   render() {
     return (
       <div className='image-uploader'>
-        <div className='image mw6 center mb3 bg-gray' onClick={this.triggerUpload.bind(this)}>
+        <div className='image center mb3 bg-gray' onClick={this.triggerUpload.bind(this)}>
           <img
             className='w-100'
             src={this.props.src}

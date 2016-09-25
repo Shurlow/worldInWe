@@ -1,7 +1,7 @@
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var gulp = require('gulp');
-var compass = require('gulp-compass');
+// var compass = require('gulp-compass');
 var gutil = require('gulp-util');
 var browserify = require('browserify');
 var reactify = require('reactify');
@@ -13,7 +13,15 @@ var uglify = require("gulp-uglify");
 var streamify = require("gulp-streamify");
 var duration = require('gulp-duration')
 var rename = require("gulp-rename");
-
+//sass
+var sass = require('gulp-sass')
+var neat = require('node-neat').includePaths
+var bourbon = require('node-bourbon').includePaths
+var merge = require('merge2')
+var concat = require('gulp-concat');
+var minifyCSS = require('gulp-clean-css');
+var autoprefixer = require('gulp-autoprefixer');
+//
 var scriptsDir = './client';
 var buildDir = './public/js';
 console.log(process.env.NODE_ENV)
@@ -61,18 +69,41 @@ function buildScript(file, watch) {
   return rebundle();
 }
 
+// function styles() {
+//   var opt = {
+//     config_file: './styles/config.rb',
+//     css: './public/css',
+//     sass: 'styles/sass'
+//   }
+//   var preprocess = function() {
+//     gutil.log('Compiling Sass');
+//     return gulp.src('styles/sass/main.scss')
+//       .pipe(compass(opt).on('error', handleErrors))
+//       .pipe(gulp.dest('public/css/'))
+//       .pipe(notify({title: 'Css Compiling Done.', message:'lookin stylish today scott'}))
+//   }
+//   return preprocess()
+// }
 function styles() {
-  var opt = {
-    config_file: './styles/config.rb',
-    css: './public/css',
-    sass: 'styles/sass'
-  }
   var preprocess = function() {
-    gutil.log('Compiling Sass');
-    return gulp.src('styles/sass/main.scss')
-      .pipe(compass(opt).on('error', handleErrors))
-      .pipe(gulp.dest('public/css/'))
-      .pipe(notify({title: 'Css Compiling Done.', message:'lookin stylish today scott'}))
+    console.log('style...')
+    return merge(
+      gulp.src('styles/sass/*.css'),
+      gulp.src('styles/sass/*.scss')
+        .pipe(sass({
+          outputStyle: 'compressed',
+          includePaths: neat.includePaths
+        }).on('error', handleErrors))
+    )
+    .pipe(concat('style.min.css'))
+    .pipe(autoprefixer({
+      browsers: ['last 2 versions'],
+      cascade: false
+    }))
+    .pipe(minifyCSS())
+    .pipe(gulp.dest('public/css'))
+    .pipe(notify({title: 'CSS Done', message:'css compilation completed.'}))
+    console.log('donezo')
   }
   return preprocess()
 }

@@ -25,8 +25,8 @@ export default class LeadImage extends React.Component {
 
   render() {
     return (
-      <div className='leadimage mw8 mb4 center'>
-        <img className='mw-100 mw8-l' src={this.props.img}></img>
+      <div className='w-100 center'>
+        <img className='mw-100' src={this.props.img}></img>
         <span className="tag_text gray mr2 mr0-l fr">photography by <a className="link gray dim" href="http://www.themunamalik.com/">Muna Malik</a></span>
       </div>
     )

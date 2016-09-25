@@ -3,10 +3,10 @@ import ImageUploader from '../components/ImageUploader.jsx'
 import classnames from 'classnames'
 import { uploadStory, uploadImage } from "../actions"
 import CustomEditor from '../components/Editor'
-import {guid} from '../util.js'
+import { guid } from '../util.js'
 import {connect} from "react-redux"
 
-class NewStory extends React.Component {
+class Create extends React.Component {
 
   constructor(props) {
     super(props)
@@ -30,7 +30,7 @@ class NewStory extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='content'>
         <ImageUploader src={this.fingImageSrc()}pushImageUpload={this.pushImageUpload.bind(this)}/>
         <div className="mw6 center bg-white active_shadow pa4">
           <CustomEditor id={this.props.id} pushStoryUpload={this.saveStory.bind(this)}/>
@@ -40,9 +40,9 @@ class NewStory extends React.Component {
   }
 }
 
-// export default NewStory
+// export default Create
 
-NewStory.defaultProps = {
+Create.defaultProps = {
   id: guid()
 }
 
@@ -55,4 +55,4 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   uploadStory,
   uploadImage
-})(NewStory)
+})(Create)

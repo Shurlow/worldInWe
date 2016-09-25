@@ -23,28 +23,28 @@ router.post('/login', function(req, res) {
   })
 });
 
-// router.post('/createUser', function(req, res, next) {
-//   var user = req.body
-//   console.log('Adding new user:', user.name)
-//   db.createUser(user, function(err, success) {
-//     if (success) {
-//       console.log('success!')
-//       var token = jwt.sign({ name: user.name, id: user.id }, 'supersecret!')
-//       res.status(200).json({'token': token})
-//     } else {
-//       console.log('Create user error:', err)
-//       return res.status(403).send('Error creating user.')
-//     }
+router.post('/createUser', function(req, res, next) {
+  var user = req.body
+  console.log('Adding new user:', user)
+  db.createUser(user, function(err, success) {
+    if (success) {
+      console.log('success!')
+      var token = jwt.sign({ username: user.username, id: user.id }, 'supersecret!')
+      res.status(200).json({'token': token})
+    } else {
+      console.log('Create user error:', err)
+      return res.status(403).send('Error creating user.')
+    }
 
-//     // console.log('From DB:', user, err)
-//     // if (err) return res.send("Sign Up Error!")
-//     // else if (user) {
-//     //   console.log('Good User:', user)
-//     //   delete user.password
-//     //   res.json(user)
-//     // }
-//   })
-// });
+    // console.log('From DB:', user, err)
+    // if (err) return res.send("Sign Up Error!")
+    // else if (user) {
+    //   console.log('Good User:', user)
+    //   delete user.password
+    //   res.json(user)
+    // }
+  })
+});
 
 // router.get('/user', expressJWT({secret: 'supersecret!'}), function(req, res, next) {
 //   console.log('Getting users...')

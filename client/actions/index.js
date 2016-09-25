@@ -72,6 +72,9 @@ export function loadStory(id) {
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+export const SIGNUP_REQUEST = 'SIGNUP_REQUEST'
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
+export const SIGNUP_FAILURE = 'SIGNUP_FAILURE'
 
 export function loginUser(username, password, redirect='/') {
   return (dispatch, getState) => {
@@ -81,6 +84,33 @@ export function loginUser(username, password, redirect='/') {
           browserHistory.push(redirect)
         }
       })
+  }
+}
+
+export function signUpUser(userObject, redirect='/') {
+  return (dispatch, getState) => {
+    return dispatch(createUser(userObject))
+      .then(function(res) {
+        if (!res.error) {
+          browserHistory.push(redirect)
+        }
+      })
+  }
+}
+
+function createUser(userObject) {
+  console.log('create:', userObject)
+  return {
+    [CALL_API]: {
+      endpoint: "/auth/createUser",
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userObject),
+      types: [SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE]
+    }
   }
 }
 

@@ -4,21 +4,14 @@ import { connect } from 'react-redux'
 import { logoutUser, deselectStory } from "../actions"
 import classnames from 'classnames'
 import { browserHistory } from 'react-router'
-import FlatButton from 'material-ui/lib/flat-button';
-import LeftNav from 'material-ui/lib/left-nav';
-import AppBar from 'material-ui/lib/app-bar';
-import MoreIcon from 'material-ui/lib/svg-icons/navigation/more-horiz';
-import MenuItem from 'material-ui/lib/menus/menu-item';
-import IconButton from 'material-ui/lib/icon-button';
-// import RaisedButton from 'material-ui/lib/raised-button';
 
 class Nav extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      showStickyNav: false,
-      open: false
+      showNav: true,
+      scroll: 0
     }
     this.handleScroll = this.handleScroll.bind(this)
   }
@@ -32,107 +25,69 @@ class Nav extends React.Component {
   }
 
   handleScroll(e) {
-    var top = window.pageYOffset
-    // var isSticky = this.state.showStickyNav
-
-    if (top >= 280) {
+    var newScroll = window.pageYOffset
+    if (newScroll > 200 && newScroll < this.state.scroll) {
       this.setState({
-        showStickyNav: true
+        showNav: false,
+        scroll: newScroll
       })
     } else {
       this.setState({
-        showStickyNav: false
+        showNav: true,
+        scroll: newScroll
       })
     }
   }
 
-  navigateToAbout() {
-    browserHistory.push('/about')
-  }
-  navigateToNew() {
-    browserHistory.push('/new')
-  }
-
-  handleToggle() {
-    this.setState({
-      open: !this.state.open
-    });
-  }
-
-  makeNav(sticky) {
-    var navStyle;
-    if (sticky) {
-      navStyle = classnames({
-        'hidden': !this.state.showStickyNav,
-        'sticky-nav': true
-      })
-    } else {
-      navStyle = "big-nav"
-    }
-    const iconStyle = {
-      width: '100px',
-      height: '100px',
-      padding: '0px',
-    };
-
-    return null
+  makeNav(style) {
+    return (
+      <nav className={style}>
+         <div className="nav-left">
+            <img src="/res/logo.svg" onClick={() => {browserHistory.push('/')}}></img>
+          </div>
+          <div className='nav-right'>
+            <a className='nav-link' href="#" title="Topic" onClick={() => {browserHistory.push('/topic')}}>rumee</a>
+            <a className='nav-link' href="#" title="About" onClick={() => {browserHistory.push('/about')}}>about</a>
+            <a className='nav-link' href="#" title="Explore" onClick={() => {browserHistory.push('/explore')}}>explore</a>
+            {this.makeLoginButton()}
+          </div> 
+      </nav>
+    )
  }
 
   makeLoginButton() {
     if (this.props.isAuthenticated) {
       return (
-        <FlatButton label={this.props.username} onClick={this.logout.bind(this)}/>
+        <a className='nav-link' href="#" title="Login"
+          onClick={() => {browserHistory.push('/login')}}>
+          {this.props.username}
+        </a>
       )
     } else {
       return (
-        <FlatButton label="LOGIN" onClick={() => {browserHistory.push('/login')}}/>
+        <a className='nav-link' href="#" title="Login"
+          onClick={() => {browserHistory.push('/login')}}>
+          login
+        </a>
       )
     }
   }
 
-  logout() {
-    this.props.logoutUser()
-  }
+  // logout() {
+  //   this.props.logoutUser()
+  // }
 
   render() {
-    const {showStickyNav} = this.state
-    const navStyle = classnames({
-      'pa4': true,
-      'pa6-l': !showStickyNav,
-      'tc': !showStickyNav,
-    })
+    console.log(this.props)
+    const { showNav } = this.state
     const stickyStyle = classnames({
-      'w-100': true,
-      'fixed': true,
-      // 'bb': true,
-      'dn-ns': !showStickyNav,
-      'sticky': true
+      'dn fixed': showNav
     })
     
     return (
       <div>
-        <nav className={stickyStyle}>
-          <div className="mw8 center">
-           <div className="w-50 fl pa2 pl3">
-              <img className="mw5 logo" src="/res/logo.svg" onClick={() => {browserHistory.push('/')}}></img>
-            </div>
-            <div className="w-50 h-100 fl pa3">
-              <div className="h-100 pv3 fr">
-                <a className="link tracked dim gray f6 f5-ns dib mr3" href="#" title="About" onClick={this.navigateToAbout}>ABOUT</a>
-                <a className="link tracked gray f6 f5-ns dib mr3 disabled" href="#" title="WRITE">WRITE</a>
-                <a className="link gray f6 f5-ns dib disabled" href="#" title="Login">LOGIN</a>
-              </div>
-            </div> 
-          </div>
-        </nav>
-        <nav className="pa4 pa5-l tc center mw6">
-          <img className="mw5 mw6-l center logo" src="/res/logo.svg" onClick={() => {browserHistory.push('/')}}></img>
-          <div className="tc pv3">
-            <a className="link tracked dim gray f6 f5-ns dib mr3" href="#" title="About" onClick={this.navigateToAbout}>ABOUT</a>
-            <a className="link tracked gray f6 f5-ns dib mr3 disabled" href="#"title="WRITE">WRITE</a>
-            <a className="link tracked gray f6 f5-ns dib disabled" href="#" title="Login">LOGIN</a>
-          </div>
-        </nav>
+        {this.makeNav('')}
+        {this.makeNav(stickyStyle)}
       </div>
     )
   }
@@ -140,7 +95,7 @@ class Nav extends React.Component {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-  username: state.auth.name
+  username: state.auth.username
 });
 
 export default connect(mapStateToProps, {

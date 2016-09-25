@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 // import {pushState} from 'redux-router';
 import { browserHistory } from 'react-router'
 

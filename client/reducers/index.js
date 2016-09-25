@@ -23,9 +23,10 @@ function result(state = { stories: [] }, action) {
   return state
 }
 
-function auth(state = { isAuthenticated: false}, action) {
-  if (action.type === ActionTypes.LOGIN_SUCCESS) {
+function auth(state = { isAuthenticated: false, user: null}, action) {
+  if (action.type === ActionTypes.LOGIN_SUCCESS || action.type === ActionTypes.SIGNUP_SUCCESS) {
     // localStorage.setItem('token', token);
+    console.log('auth', action.payload)
     var user = jwtDecode(action.payload.token)
     return merge({}, state, {isAuthenticated: true, username: user.username})
   }

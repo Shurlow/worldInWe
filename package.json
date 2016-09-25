@@ -31,6 +31,7 @@
     "backdraft-js": "0.0.1",
     "blacklist": "^1.1.2",
     "body-parser": "~1.13.1",
+    "bourbon": "^4.2.7",
     "browserify": "^13.0.0",
     "chance": "^0.8.0",
     "cookie-parser": "~1.3.5",
@@ -62,12 +63,15 @@
     "redux-thunk": "^1.0.3",
     "rethinkdb": "^2.1.1",
     "serve-favicon": "~2.3.0",
+    "tachyons-sass": "^4.5.2",
     "vinyl-buffer": "^1.0.0"
   },
   "devDependencies": {
     "gulp-compass": "^2.1.0",
     "gulp-notify": "^2.2.0",
     "humps": "^1.1.0",
+    "node-bourbon": "^4.2.8",
+    "node-neat": "^1.7.2",
     "normalizr": "^2.0.1",
     "tachyons": "^4.0.0-beta.22",
     "vinyl-source-stream": "^1.1.0",

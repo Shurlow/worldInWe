@@ -2,14 +2,15 @@ import React from 'react'
 // import { browserHistory } from 'react-router'
 // import auth from '../auth.js'
 // import FacebookButton from "./FacebookButton.jsx"
-import TextField from 'material-ui/lib/text-field';
-import RaisedButton from 'material-ui/lib/raised-button';
-// import FlatButton from 'material-ui/lib/flat-button';
-import LeadImage from '../components/LeadImage.jsx'
-import Paper from 'material-ui/lib/paper';
-import ThemeManager from 'material-ui/lib/styles/theme-manager';
-import colors from 'material-ui/lib/styles/colors';
-import myTheme from '../uiStyle.js';
+// import TextField from 'material-ui/lib/text-field';
+// import RaisedButton from 'material-ui/lib/raised-button';
+// // import FlatButton from 'material-ui/lib/flat-button';
+// import LeadImage from '../components/LeadImage.jsx'
+// import Paper from 'material-ui/lib/paper';
+// import ThemeManager from 'material-ui/lib/styles/theme-manager';
+// import colors from 'material-ui/lib/styles/colors';
+// import myTheme from '../uiStyle.js';
+import { guid } from '../util'
 import { signUpUser } from '../actions'
 import { connect } from 'react-redux'
 import classnames from 'classnames'
@@ -33,17 +34,10 @@ class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
       email: '',
+      username: '',
       password: '',
-      redirectTo: '/',
-      emailError: '',
-    };
-  }
-
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getMuiTheme(myTheme),
+      error: '',
     };
   }
 
@@ -51,7 +45,14 @@ class SignUp extends React.Component {
     const input = e.target.value
     this.setState({
       email: input,
-      emailError: ''
+      error: ''
+    })
+  }
+
+  usernameChange(e) {
+    const input = e.target.value
+    this.setState({
+      username: input
     })
   }
 
@@ -61,20 +62,22 @@ class SignUp extends React.Component {
     })
   }
 
-  nameChange(e) {
-    this.setState({
-      name: e.target.value
-    })
-  }
-
   signUp() {
 
     // console.log('Signing up:', this.state)
+    const { username, password, email } = this.state
+    const userObject = {
+      id: guid(),
+      username: username,
+      email: email,
+      password: password
+    }
+    console.log('send off', userObject)
     if (this.validateEmail(this.state.email)) {
-      this.props.signUpUser(this.state.name, this.state.email, this.state.password, this.state.redirectTo);      
+      this.props.signUpUser(userObject, '/');      
     } else {
       this.setState({
-        emailError: "Email input is invalid!"
+        error: "Email input is invalid!"
       })
     }
 
@@ -86,51 +89,64 @@ class SignUp extends React.Component {
   }
 
   render() {
-    console.log(this.props.location)
-    const bcolor = this.props.error ? "white" : "#CF3934"
-    const tcolor = this.props.error ? "black" : "white"
-    console.log('HI', this.props.error, bclass)
     return (
-      <div className="content">
-        <LeadImage img={'/res/greenkid.jpeg'} withLink={false}>
-          <div className="login">
-            <Paper zDepth={2} style={pstyle} className="card">
-              <h2>Sign Up</h2>
-              <TextField
-                hintText="name"
-                style={textstyle}
-                onChange={this.nameChange.bind(this)}
-              />
-              <TextField 
-                hintText="email"
-                errorText={this.state.emailError}
-                hintStyle={textstyle}
-                style={textstyle}
-                onChange={this.emailChange.bind(this)}
-              />
-              <TextField 
-                hintText="password"
-                type="password"
-                style={textstyle}
-                onChange={this.passwordChange.bind(this)}
-              />
-              <RaisedButton
-                label="Sign Up"
-                backgroundColor={bclass}
-                onMouseDown={this.signUp.bind(this)}
-                disabled={this.props.isAuthenticating}
-              />
-              {this.props.error ? <span>Email is already taken</span> : ''}
-            </Paper>
-          </div>
-        </LeadImage>
+      <div className='content'>
+        <h2>Sign Up!</h2>
+        <div className='textcard'>
+          <p>Sign up to post stories. {this.state.error} </p>
+          <input className="custom-input mv2 pa1" placeholder="email" onChange={this.emailChange.bind(this)}/>
+          <input className="custom-input mv2 pa1" placeholder="username" onChange={this.usernameChange.bind(this)}/>
+          <input className="custom-input mv2 pa1" placeholder="password" onChange={this.passwordChange.bind(this)}/>
+          <button className="custom-button pa2 mt2" onClick={this.signUp.bind(this)}>Sign Up</button>
+        </div>
       </div>
     )
   }
 
-}
+  // render() {
+  //   console.log(this.props.location)
+  //   const bcolor = this.props.error ? "white" : "#CF3934"
+  //   const tcolor = this.props.error ? "black" : "white"
+  //   console.log('HI', this.props.error, bclass)
+  //   return (
+  //     <div className="content">
+  //       <LeadImage img={'/res/greenkid.jpeg'} withLink={false}>
+  //         <div className="login">
+  //           <Paper zDepth={2} style={pstyle} className="card">
+  //             <h2>Sign Up</h2>
+  //             <TextField
+  //               hintText="name"
+  //               style={textstyle}
+  //               onChange={this.nameChange.bind(this)}
+  //             />
+  //             <TextField 
+  //               hintText="email"
+  //               errorText={this.state.emailError}
+  //               hintStyle={textstyle}
+  //               style={textstyle}
+  //               onChange={this.emailChange.bind(this)}
+  //             />
+  //             <TextField 
+  //               hintText="password"
+  //               type="password"
+  //               style={textstyle}
+  //               onChange={this.passwordChange.bind(this)}
+  //             />
+  //             <RaisedButton
+  //               label="Sign Up"
+  //               backgroundColor={bclass}
+  //               onMouseDown={this.signUp.bind(this)}
+  //               disabled={this.props.isAuthenticating}
+  //             />
+  //             {this.props.error ? <span>Email is already taken</span> : ''}
+  //           </Paper>
+  //         </div>
+  //       </LeadImage>
+  //     </div>
+  //   )
+  // }
 
-SignUp.childContextTypes = {muiTheme: React.PropTypes.object};
+}
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,

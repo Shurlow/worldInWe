@@ -12,7 +12,7 @@ import LoadStory from './LoadStory'
 import Story from '../components/Story'
 import Create from '../views/Create'
 import Explore from '../views/Explore'
-// import Logout from '../components/Logout'
+import Logout from '../views/Logout'
 import { wrapAuth } from './wrapAuth.js';
 import { wrapUserAuth } from './wrapUserAuth.js';
 
@@ -28,6 +28,7 @@ export default class Root extends React.Component {
             <Route path="stories/:id" component={LoadStory(Story)}/>
             <Route path="explore" component={Explore}/>
             <Route path="login" component={Login}/>
+            <Route path="logout" component={Logout}/>
             <Route path="signup" component={SignUp}/>
             <Route path="create" component={wrapAuth(Create)}/>
           </Route>

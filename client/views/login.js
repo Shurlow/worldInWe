@@ -23,7 +23,8 @@ class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
-      errorText: ''
+      errorText: '',
+      admin: false
     };
   }
 
@@ -48,11 +49,17 @@ class Login extends React.Component {
     })
   }
 
-  login() {
-    console.log('logging in:', this.state)
-    this.props.loginUser(this.state.username, this.state.password, this.props.location.query.next);
+  adminCheck(e) {
+    this.setState({
+      admin: !this.state.admin
+    })
+  }
 
-    // if (this.validateEmail(this.state.email)) {
+  login() {
+    const { username, password, admin } = this.state
+    this.props.loginUser(username, password, admin, this.props.location.query.next);
+
+    // if (this.validateEmail(email)) {
     // } else {
     //   this.setState({
     //     errorText: "Email input is invalid!"
@@ -71,13 +78,19 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="mw5 pa4 center bg-white active_shadow">
-        <h2 className="f3 mt0">Admin</h2>
-        <input className="custom-input mv2 pa1" placeholder="username" onChange={this.usernameChange.bind(this)}/>
-        <input className="custom-input mv2 pa1" placeholder="password" onChange={this.passwordChange.bind(this)}/>
-        <button className="custom-button pa2 mt2" onClick={this.login.bind(this)}>Login</button>
-        <button className="custom-button pa2 mt2" onClick={() => { browserHistory.push('/signup') }}>Sign Up</button>
-      </div>
+      <article className='login'>
+        <div className='card'>
+          <h2>Login</h2>
+          <input placeholder="username" onChange={this.usernameChange.bind(this)}/>
+          <input placeholder="password" onChange={this.passwordChange.bind(this)}/>
+          <label>
+            Admin Account:
+            <input type='checkbox' checked={this.state.admin} onChange={this.adminCheck.bind(this)}></input>
+          </label>
+          <button onClick={this.login.bind(this)}>Login</button>
+          <button className='secondary' onClick={() => { browserHistory.push('/signup') }}>Sign Up</button>
+        </div>
+      </article>
     )
   }
 

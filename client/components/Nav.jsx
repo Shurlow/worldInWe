@@ -46,9 +46,10 @@ class Nav extends React.Component {
             <img src="/res/logo.svg" onClick={() => {browserHistory.push('/')}}></img>
           </div>
           <div className='nav-right'>
-            <a className='nav-link' href="#" title="Topic" onClick={() => {browserHistory.push('/topic')}}>rumee</a>
-            <a className='nav-link' href="#" title="About" onClick={() => {browserHistory.push('/about')}}>about</a>
+            <a className='nav-link' href="#" title="Topic" onClick={() => {browserHistory.push('/')}}>rumee</a>
             <a className='nav-link' href="#" title="Explore" onClick={() => {browserHistory.push('/explore')}}>explore</a>
+            <a className='nav-link' href="#" title="About" onClick={() => {browserHistory.push('/about')}}>about</a>
+            <a className='nav-link' href="#" title="Create" onClick={() => {browserHistory.push('/create')}}>create</a>
             {this.makeLoginButton()}
           </div> 
       </nav>
@@ -59,7 +60,7 @@ class Nav extends React.Component {
     if (this.props.isAuthenticated) {
       return (
         <a className='nav-link' href="#" title="Login"
-          onClick={() => {browserHistory.push('/login')}}>
+          onClick={() => {browserHistory.push('/logout')}}>
           {this.props.username}
         </a>
       )

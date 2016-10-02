@@ -20,7 +20,7 @@ class Create extends React.Component {
     this.props.uploadStory(storyObj)
   }
 
-  fingImageSrc() {
+  addImage() {
     if (this.props.imageSuccess) {
       return "https://s3-us-west-2.amazonaws.com/worldinme-full/" + this.props.id + ".jpg?t=" + new Date().getTime()
     } else {
@@ -28,10 +28,17 @@ class Create extends React.Component {
     }
   }
 
+  addVideo() {
+    
+  }
+// <ImageUploader src={this.fingImageSrc()}pushImageUpload={this.pushImageUpload.bind(this)}/>
   render() {
     return (
       <div className='content'>
-        <ImageUploader src={this.fingImageSrc()}pushImageUpload={this.pushImageUpload.bind(this)}/>
+        <div>
+          <button className='' onClick={this.addImage.bind(this)}>Add Image</button>
+          <button className='' onClick={this.addVideo.bind(this)}>Add Video</button>
+        </div>
         <div className="mw6 center bg-white active_shadow pa4">
           <CustomEditor id={this.props.id} pushStoryUpload={this.saveStory.bind(this)}/>
         </div>

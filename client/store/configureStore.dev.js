@@ -5,6 +5,7 @@ import createLogger from 'redux-logger'
 import rootReducer from '../reducers'
 import { browserHistory } from 'react-router'
 import { routerMiddleware, push } from 'react-router-redux'
+// import { autoRehydrate } from 'redux-persist'
 
 const middleware = [ routerMiddleware(browserHistory), thunk, apiMiddleware, createLogger() ]
 

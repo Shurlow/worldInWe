@@ -23,12 +23,20 @@ function result(state = { stories: [] }, action) {
   return state
 }
 
-function auth(state = { isAuthenticated: false, user: null}, action) {
+const token = localStorage.getItem('id_token')
+
+function auth(state = {
+  isAuthenticated: token ? true : false,
+  username: token ? jwtDecode(token).username : null
+}, action) {
   if (action.type === ActionTypes.LOGIN_SUCCESS || action.type === ActionTypes.SIGNUP_SUCCESS) {
     // localStorage.setItem('token', token);
     console.log('auth', action.payload)
     var user = jwtDecode(action.payload.token)
     return merge({}, state, {isAuthenticated: true, username: user.username})
+  }
+  if (action.type === ActionTypes.LOGOUT_USER) {
+    return merge({}, state, {isAuthenticated: false, username: null})
   }
   return state
 }

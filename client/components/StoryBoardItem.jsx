@@ -24,14 +24,14 @@ export default class StoryBoardItem extends React.Component {
     const imgthumb = "https://s3-us-west-2.amazonaws.com/worldinme-thumbs/" + id + ".jpg"
 
     return (
-      <div onClick={() => {browserHistory.push(`stories/${id}`)}}>
-        <Image
-          src={ imgsrc }
-          preview={ imgthumb }
-          width={ '100vw' }
-          height={ '' }
-        />
-      </div>
+      <article
+        style={{backgroundImage: `url(${imgsrc})`}}
+        onClick={() => {browserHistory.push(`stories/${id}`)}}>
+        <div className='caption'>
+          <p>Documentary about Faith and Leadership in 4 minutes</p>
+          <h1>{this.props.title}</h1>
+        </div>
+      </article>
     )
  }  
 

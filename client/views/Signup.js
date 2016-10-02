@@ -1,34 +1,10 @@
 import React from 'react'
 // import { browserHistory } from 'react-router'
-// import auth from '../auth.js'
-// import FacebookButton from "./FacebookButton.jsx"
-// import TextField from 'material-ui/lib/text-field';
-// import RaisedButton from 'material-ui/lib/raised-button';
-// // import FlatButton from 'material-ui/lib/flat-button';
-// import LeadImage from '../components/LeadImage.jsx'
-// import Paper from 'material-ui/lib/paper';
-// import ThemeManager from 'material-ui/lib/styles/theme-manager';
-// import colors from 'material-ui/lib/styles/colors';
-// import myTheme from '../uiStyle.js';
 import { guid } from '../util'
 import { signUpUser } from '../actions'
 import { connect } from 'react-redux'
 import classnames from 'classnames'
 
-const pstyle = {
-  backgroundColor: "rgba(255,255,255,0.8)"
-}
-
-const textstyle = {
-  // color: colors.grey400
-}
-
-    // const bstyle = {
-    //   margin: '1em 0 0 0'
-    // }
-
-// console.log(TextField.getStyle())
-// @ThemeDecorator(ThemeManager.getMuiTheme(myTheme))
 class SignUp extends React.Component {
 
   constructor(props) {
@@ -90,61 +66,18 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <div className='content'>
-        <h2>Sign Up!</h2>
-        <div className='textcard'>
+      <article className='login'>
+        <div className='card'>
+          <h2>Sign Up!</h2>
           <p>Sign up to post stories. {this.state.error} </p>
-          <input className="custom-input mv2 pa1" placeholder="email" onChange={this.emailChange.bind(this)}/>
-          <input className="custom-input mv2 pa1" placeholder="username" onChange={this.usernameChange.bind(this)}/>
-          <input className="custom-input mv2 pa1" placeholder="password" onChange={this.passwordChange.bind(this)}/>
-          <button className="custom-button pa2 mt2" onClick={this.signUp.bind(this)}>Sign Up</button>
+          <input placeholder="email" onChange={this.emailChange.bind(this)}/>
+          <input placeholder="username" onChange={this.usernameChange.bind(this)}/>
+          <input placeholder="password" onChange={this.passwordChange.bind(this)}/>
+          <button onClick={this.signUp.bind(this)}>Sign Up</button>
         </div>
-      </div>
+      </article>
     )
   }
-
-  // render() {
-  //   console.log(this.props.location)
-  //   const bcolor = this.props.error ? "white" : "#CF3934"
-  //   const tcolor = this.props.error ? "black" : "white"
-  //   console.log('HI', this.props.error, bclass)
-  //   return (
-  //     <div className="content">
-  //       <LeadImage img={'/res/greenkid.jpeg'} withLink={false}>
-  //         <div className="login">
-  //           <Paper zDepth={2} style={pstyle} className="card">
-  //             <h2>Sign Up</h2>
-  //             <TextField
-  //               hintText="name"
-  //               style={textstyle}
-  //               onChange={this.nameChange.bind(this)}
-  //             />
-  //             <TextField 
-  //               hintText="email"
-  //               errorText={this.state.emailError}
-  //               hintStyle={textstyle}
-  //               style={textstyle}
-  //               onChange={this.emailChange.bind(this)}
-  //             />
-  //             <TextField 
-  //               hintText="password"
-  //               type="password"
-  //               style={textstyle}
-  //               onChange={this.passwordChange.bind(this)}
-  //             />
-  //             <RaisedButton
-  //               label="Sign Up"
-  //               backgroundColor={bclass}
-  //               onMouseDown={this.signUp.bind(this)}
-  //               disabled={this.props.isAuthenticating}
-  //             />
-  //             {this.props.error ? <span>Email is already taken</span> : ''}
-  //           </Paper>
-  //         </div>
-  //       </LeadImage>
-  //     </div>
-  //   )
-  // }
 
 }
 

@@ -72,17 +72,32 @@ export function loadStory(id) {
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+export const LOGOUT_USER = 'LOGOUT_USER'
 export const SIGNUP_REQUEST = 'SIGNUP_REQUEST'
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE'
 
-export function loginUser(username, password, redirect='/') {
+export function loginUser(username, password, isAdmin, redirect='/') {
   return (dispatch, getState) => {
-    return dispatch(fetchUser(username, password))
+    return dispatch(fetchUser(username, password, isAdmin))
       .then(function(res) {
-        if (!res.error) {
+        if (res.error) {
+          browserHistory.push('error')
+        } else {
+          // console.log('login success', res.body, res.payload)
+          window.localStorage.setItem('id_token', res.payload.token)
           browserHistory.push(redirect)
         }
+      })
+  }
+}
+
+export function logoutUser() {
+  window.localStorage.removeItem('id_token')
+  return (dispatch, getState) => {
+    return dispatch({ type: LOGOUT_USER})
+      .then( res => {
+        browserHistory.push('/')
       })
   }
 }
@@ -114,7 +129,7 @@ function createUser(userObject) {
   }
 }
 
-function fetchUser(username, password) {
+function fetchUser(username, password, isAdmin) {
   return {
     [CALL_API]: {
       endpoint: "/auth/login",
@@ -125,7 +140,8 @@ function fetchUser(username, password) {
       },
       body: JSON.stringify({
         username: username,
-        password: password
+        password: password,
+        isAdmin: isAdmin
       }),
       types: [LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE]
     }

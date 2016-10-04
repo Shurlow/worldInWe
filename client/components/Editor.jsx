@@ -96,13 +96,19 @@ class CustomEditor extends React.Component {
       this.props.pushStoryUpload(storyObj)
     }
   }
-
+          // <BlockStyleControls
+          //   editorState={this.state.bodyState}
+          //   onToggle={this.toggleBlockType}
+          // />
+          // <InlineStyleControls
+          //   editorState={this.state.bodyState}
+          //   onToggle={this.toggleInlineStyle}
+          // />
   render() {
-    // const {editorState, titleState} = this.state;
+    const { titleState, authorState, bodyState } = this.state;
 
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
-    let editorClass = "mv3 bt bw1";
     // var contentState = editorState.getCurrentContent();
     // if (!contentState.hasText()) {
     //   if (contentState.getBlockMap().first().getType() !== 'unstyled') {
@@ -111,37 +117,31 @@ class CustomEditor extends React.Component {
     // }
 
     return (
-      <div>
-        <div className="RichEditor-root">
-          <BlockStyleControls
-            editorState={this.state.bodyState}
-            onToggle={this.toggleBlockType}
-          />
-          <InlineStyleControls
-            editorState={this.state.bodyState}
-            onToggle={this.toggleInlineStyle}
-          />
-          <div className={editorClass}>
-            <div onClick={this.focusTitle} className="f2 mb1 mt3">
+      <article>
+        <header className="story-header">
+          <div onClick={this.focusTitle} className="title">
+            <Editor
+              customStyleMap={styleMap}
+              editorState={titleState}
+              onChange={this.onTitleChange}
+              placeholder="Title"
+              ref="title"
+            />
+          </div>
+          <div onClick={this.focusAuthor} className="name">
+            <h3> Produced By
               <Editor
                 customStyleMap={styleMap}
-                editorState={this.state.titleState}
-                onChange={this.onTitleChange}
-                placeholder="Title"
-                ref="title"
-                spellCheck={true}
-              />
-            </div>
-            <div onClick={this.focusAuthor} className="f3 mb3 gray">
-              <Editor
-                customStyleMap={styleMap}
-                editorState={this.state.authorState}
+                editorState={authorState}
                 onChange={this.onAuthorChange}
                 placeholder="Author"
                 ref="author"
-                spellCheck={true}
               />
-            </div>
+            </h3>
+          </div>
+          <h3>directed <span className='name'>{this.props.author}</span></h3>
+        </header>
+          <div className='story-text'>
             <div onClick={this.focusBody} className="RichEditor-editor-body">
               <Editor
                 blockStyleFn={getBlockStyle}
@@ -154,12 +154,8 @@ class CustomEditor extends React.Component {
                 spellCheck={true}
               />
             </div>
-          </div>
-          <div className="pv3">
-            <button className="custom-button pa2 fr" onClick={this.uploadContent.bind(this)}>Save</button>
-          </div>
         </div>
-      </div>
+      </article>
     );
   }
 }

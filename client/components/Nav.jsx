@@ -79,7 +79,6 @@ class Nav extends React.Component {
   // }
 
   render() {
-    console.log(this.props)
     const { showNav } = this.state
     const stickyStyle = classnames({
       'dn fixed': showNav

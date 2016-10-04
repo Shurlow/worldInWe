@@ -1,3 +1,2 @@
-#! /bin/bash
-
+#! bin/bash
 rethinkdb restore --force dumps/world_backup

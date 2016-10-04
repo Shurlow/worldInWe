@@ -77,7 +77,6 @@ Story.defaultProps = {
   author: "anonymous",
   title: "No title",
   img: "/res/placeholder.png",
-  date: Date.now()
 }
 
 Story.propTypes = {

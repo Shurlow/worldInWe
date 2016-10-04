@@ -203,9 +203,10 @@ exports.disconnect = function() {
 //Handles generic db response
 exports.handleError = function(error, cursor) {
   if (error) {
-    console.log('DB ERROR:', error)
+    console.error('DB ERROR:', error)
+    // throw error
   } else {
-    console.log('story posted successfully.')
+    // console.log('story posted successfully.')
   }
 }
 
@@ -226,20 +227,20 @@ exports.handleError = function(error, cursor) {
 //   }
 // }
 
-function withConnection(cb){
+exports.withConnection = function(cb){
   if(!connection){
     console.log('  -- connecting... --')
-    r.connect( {host: 'localhost', port: 28015, db: 'WorldInMe'}, function(err, conn) {
+    r.connect( {host: 'localhost', port: 28015, db: 'WorldInWe'}, function(err, conn) {
       if (err) {
-        console.log(err)
+        console.error(err)
       }
       else {
-        console.log('  -- done. --')
-        connection = conn
-        cb(connection)
+        cb(conn)
       }
     })
   } else {
     cb(connection)
   }
 }
+
+// exports.withConnection = withConnection();

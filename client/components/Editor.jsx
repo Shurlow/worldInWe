@@ -11,14 +11,14 @@ class CustomEditor extends React.Component {
       // console.log(props.backup, 'blocks:', blocks, 'content', restoredContent)
       this.state = {
         titleState: EditorState.createWithContent(ContentState.createFromText(props.title)),
-        authorState: EditorState.createEmpty(),
-        bodyState: EditorState.createWithContent(restoredContent)
+        authorState: '',
+        bodyState: ''
       }; 
     } else {
       this.state = {
         titleState: EditorState.createEmpty(),
-        authorState: EditorState.createEmpty(),
-        bodyState: EditorState.createEmpty()
+        authorState: '',
+        bodyState: ''
       };
     }
 
@@ -26,14 +26,12 @@ class CustomEditor extends React.Component {
     this.focusTitle = () => this.refs.title.focus();
     this.focusAuthor = () => this.refs.author.focus();
     this.onBodyChange = (bodyState) => this.setState({bodyState});
-    this.onTitleChange = (titleState) => this.setState({titleState});
-    this.onAuthorChange = (authorState) => this.setState({authorState});
-
+    this.onTitleChange = (e) => this.setState({titleState: e.target.value});
+    this.onAuthorChange = (e) => this.setState({authorState: e.target.value});
     this.handleKeyCommand = (command) => this._handleKeyCommand(command);
     this.toggleBlockType = (type) => this._toggleBlockType(type);
     this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
-  }
-
+}
   _handleKeyCommand(command) {
     const {bodyState} = this.state;
     const newState = RichUtils.handleKeyCommand(bodyState, command);
@@ -120,23 +118,11 @@ class CustomEditor extends React.Component {
       <article>
         <header className="story-header">
           <div onClick={this.focusTitle} className="title">
-            <Editor
-              customStyleMap={styleMap}
-              editorState={titleState}
-              onChange={this.onTitleChange}
-              placeholder="Title"
-              ref="title"
-            />
+            <input placeholder="title" onChange={this.onTitleChange.bind(this)}/>
           </div>
           <div onClick={this.focusAuthor} className="name">
             <h3> Produced By
-              <Editor
-                customStyleMap={styleMap}
-                editorState={authorState}
-                onChange={this.onAuthorChange}
-                placeholder="Author"
-                ref="author"
-              />
+              <input placeholder="author" onChange={this.onAuthorChange.bind(this)}/>
             </h3>
           </div>
           <h3>directed <span className='name'>{this.props.author}</span></h3>

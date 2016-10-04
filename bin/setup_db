@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+
+var r = require('rethinkdb');
+var db = require('../db.js')
+
+// create db instance
+db.withConnection(function(conn) {
+  r.dbCreate('WorldInWe').run(conn, db.handleError)
+})
+
+//add tables for user and story
+db.withConnection(function(conn) {
+  r.do(
+    r.tableCreate('user'),
+    r.tableCreate('story')
+  ).run(conn, db.handleError)
+})
+
+console.log('-- done --')

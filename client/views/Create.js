@@ -33,7 +33,7 @@ class Create extends React.Component {
   }
 // <ImageUploader src={this.fingImageSrc()}pushImageUpload={this.pushImageUpload.bind(this)}/>
   render() {
-    const { content, title, author, img } = this.props
+    const { content, title, author, img, bgimg } = this.props
     return (
       <div className='story'>
         <div className="story-image">
@@ -41,7 +41,7 @@ class Create extends React.Component {
           <button className='' onClick={this.addImage.bind(this)}>Add Image</button>
           <button className='' onClick={this.addVideo.bind(this)}>Add Video</button>
         </div>
-        <div className='story-content'>
+        <div className='story-content' style={{backgroundImage: `url(${bgimg})`}}>
           <CustomEditor id={this.props.id} pushStoryUpload={this.saveStory.bind(this)}/>
         </div>
       </div>
@@ -56,6 +56,7 @@ Create.defaultProps = {
   author: "anonymous",
   title: "No title",
   img: "/res/placeholder.png",
+  bgimg: "img/adventure.jpeg",
   id: guid()
 }
 

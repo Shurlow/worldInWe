@@ -11,6 +11,12 @@
     margin-top: 0;
   }
 
+  span {
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
   input {
     padding: 0.5em;
     @include vertical-margin(0.4em);

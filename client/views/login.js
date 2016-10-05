@@ -57,7 +57,10 @@ class Login extends React.Component {
 
   login() {
     const { username, password, admin } = this.state
-    this.props.loginUser(username, password, admin, this.props.location.query.next);
+    const redirect = this.props.location.query.next
+    this.props.loginUser(username, password, admin, redirect, (err, res) => {
+      if (err) { this.setState({errorText: 'Username and/or password do not match'}) }
+    });
 
     // if (this.validateEmail(email)) {
     // } else {
@@ -81,6 +84,7 @@ class Login extends React.Component {
       <article className='login'>
         <div className='card'>
           <h2>Login</h2>
+          <span>{this.state.errorText}</span>
           <input placeholder="username" onChange={this.usernameChange.bind(this)}/>
           <input placeholder="password" onChange={this.passwordChange.bind(this)}/>
           <label>

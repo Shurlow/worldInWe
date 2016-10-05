@@ -26,7 +26,7 @@
   // @include span-columns(9);
   width: 100%;
   display: inline-block;
-  @include background-image(url("../img/adventure.jpeg"));
+  // @include background-image(url("../img/adventure.jpeg"));
 
   article {
     @extend .bg-white-80;

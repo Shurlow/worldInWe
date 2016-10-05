@@ -77,12 +77,14 @@ export const SIGNUP_REQUEST = 'SIGNUP_REQUEST'
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE'
 
-export function loginUser(username, password, isAdmin, redirect='/') {
+export function loginUser(username, password, isAdmin, redirect='/', cb) {
   return (dispatch, getState) => {
     return dispatch(fetchUser(username, password, isAdmin))
       .then(function(res) {
         if (res.error) {
-          browserHistory.push('error')
+          // browserHistory.push('error')
+          console.log(res, res.error)
+          cb(res.error, null)
         } else {
           // console.log('login success', res.body, res.payload)
           window.localStorage.setItem('id_token', res.payload.token)
@@ -107,6 +109,7 @@ export function signUpUser(userObject, redirect='/') {
     return dispatch(createUser(userObject))
       .then(function(res) {
         if (!res.error) {
+          window.localStorage.setItem('id_token', res.payload.token)
           browserHistory.push(redirect)
         }
       })

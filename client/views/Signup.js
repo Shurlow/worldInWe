@@ -66,7 +66,8 @@ class SignUp extends React.Component {
       <article className='login'>
         <div className='card'>
           <h2>Sign Up!</h2>
-          <p>Sign up to post stories. {this.state.error} </p>
+          <span>Sign up to post stories.</span>
+          <span>{this.state.error}</span>
           <input placeholder="email" onChange={this.emailChange.bind(this)}/>
           <input placeholder="username" onChange={this.usernameChange.bind(this)}/>
           <input placeholder="password" onChange={this.passwordChange.bind(this)}/>

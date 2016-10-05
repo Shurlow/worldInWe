@@ -2,7 +2,6 @@ var fs = require('fs')
 var gm = require('gm').subClass({imageMagick: true});
 
 module.exports = function(imageBuffer, id, callback) {
-  console.log('Processing image...')
 
   // gm(imageBuffer)
   //   .toBuffer(function(err, buffer) {
@@ -16,7 +15,7 @@ module.exports = function(imageBuffer, id, callback) {
 
   cropThumb(imageBuffer, id)
   uploadImage(imageBuffer, id, 'worldinme-full', function(err, res) {
-    if (err) return callback(err)
+    if (err) return callback(err, null)
     return callback(null, res)
   })
   // cropBlur(imageBuffer, id)

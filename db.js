@@ -206,7 +206,7 @@ exports.handleError = function(error, cursor) {
     console.error('DB ERROR:', error)
     // throw error
   } else {
-    // console.log('story posted successfully.')
+    // console.log('database done')
   }
 }
 
@@ -227,7 +227,7 @@ exports.handleError = function(error, cursor) {
 //   }
 // }
 
-exports.withConnection = function(cb){
+function withConnection(cb) {
   if(!connection){
     console.log('  -- connecting... --')
     r.connect( {host: 'localhost', port: 28015, db: 'WorldInWe'}, function(err, conn) {
@@ -243,4 +243,4 @@ exports.withConnection = function(cb){
   }
 }
 
-// exports.withConnection = withConnection();
+exports.exportConnection = withConnection;

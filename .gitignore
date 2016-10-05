@@ -4,6 +4,7 @@ public/js/bundle.min.js
 public/js/App.jsx
 public/.DS_Store
 etc/
+dumps/
 testImages
 node_modules/
 rethinkdb_data

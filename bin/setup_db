@@ -4,16 +4,27 @@ var r = require('rethinkdb');
 var db = require('../db.js')
 
 // create db instance
-db.withConnection(function(conn) {
+db.exportConnection(function(conn) {
   r.dbCreate('WorldInWe').run(conn, db.handleError)
 })
 
 //add tables for user and story
-db.withConnection(function(conn) {
+db.exportConnection(function(conn) {
+  //make both tables
   r.do(
-    r.tableCreate('user'),
-    r.tableCreate('story')
-  ).run(conn, db.handleError)
+    r.tableCreate('story'),
+    r.tableCreate('user')
+  ).run(conn, function(err, res) {
+    if (err) { throw err }
+    else {
+      //If tables made successful add secondary index
+      r.table('user')
+        .indexCreate('email')
+        .run(conn, function(err, res) {
+          if (err) { throw err }
+          console.log('-- DONE --')
+          process.exit()
+        })
+    }
+  })
 })
-
-console.log('-- done --')

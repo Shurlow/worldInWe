@@ -39,8 +39,6 @@ class SignUp extends React.Component {
   }
 
   signUp() {
-
-    // console.log('Signing up:', this.state)
     const { username, password, email } = this.state
     const userObject = {
       id: guid(),
@@ -48,7 +46,6 @@ class SignUp extends React.Component {
       email: email,
       password: password
     }
-    console.log('send off', userObject)
     if (this.validateEmail(this.state.email)) {
       this.props.signUpUser(userObject, '/');      
     } else {

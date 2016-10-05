@@ -1,0 +1,76 @@
+#!/usr/bin/env node
+
+var r = require('rethinkdb');
+var db = require('../db.js')
+var fs = require('fs')
+var Chance = require('chance');
+var chance = new Chance();
+var processImage = require('..//processImage.js')
+
+function main() {
+  //create user and upload story
+  makeUser(function(user) {
+    console.log('user created:', user.id)
+    makeStory(user.id, function(done) {
+      console.log('DONE')
+      process.exit()
+    })
+  })
+}
+// start script with main func
+main()
+
+function makeUser(cb) {
+  var user = {
+    id: guid(),
+    username: chance.first(),
+    email: chance.email(),
+    password: chance.word()
+  }
+  db.createUser(user, function(err, res) {
+    if (err) { throw err }
+    else { return cb(user) }
+  })
+}
+
+function makeStory(user_id, cb) {
+  //make story object
+  var story_id = guid()
+  var story = {
+    id: story_id,
+    title: chance.sentence({words: chance.integer({min: 2, max: 10})}),
+    author: user_id,
+    content: chance.paragraph(),
+    img: "https://s3-us-west-2.amazonaws.com/worldinme-full/" + story_id + ".jpg",
+  }
+  //upload image then story
+  uploadRandomImage(story_id, function(err, res) {
+    db.postStory(story, function(err, res) {
+      if (err) { throw err }
+      console.log('story posted:', story_id)
+      cb(null, true)
+    })
+  })
+}
+
+function uploadRandomImage(user_id, cb) {
+  var pickImg = chance.integer({ min: 1, max: 11 })
+  var imgUrl = "testimg/" + pickImg + ".jpg"
+  fs.readFile(imgUrl, function(err, data) {
+    if (err) return console.log(err);
+    processImage(data, user_id, function(err, res) {
+      if (err) { throw err }
+      console.log('image uploaded')
+      cb(null, true)
+    })
+  })
+}
+
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4();
+}

@@ -1,49 +1,14 @@
 import React from 'react'
-import Link from 'react-router'
-// import Editor from '/Editor.jsx'
-// import ImageUploader from './ImageUploader'
-// import { loadStory } from "../actions"
-// import { connect } from 'react-redux'
-// import { browserHistory } from 'react-router'
+import Response from './Response'
 
 export default class Story extends React.Component {
 
-  // constructor(props) {
-  //   super(props)
-  // }
-
   componentWillMount() {
-    // this.props.loadStory(this.props.params.id)
     window.scrollTo(0,0)
   }
 
-  // makeReadableDate(utc) {
-  //   const d = new Date(this.props.date)
-  //   const day = d.getDate()
-  //   const month = d.getMonth() + 1
-  //   const year = d.getFullYear()
-  //   const hours = ((d.getHours() + 11) % 12 + 1);
-  //   const suffix = (d.getHours() >= 12)? 'pm' : 'am';
-  //   const mins = d.getMinutes()
-  //   return `${month} / ${day} / ${year} - ${hours}:${mins} ${suffix}`
-  // }
-
-  // makeContentBlock(block) {
-  //   return (
-  //     <div
-  //       className="lh-copy measure mb3"
-  //       dangerouslySetInnerHTML={{__html: block}}>
-  //     </div>
-  //   )
-  // }
-
-  // openEditor() {
-  //   browserHistory.push('/edit/' + this.props.id)
-  // }
-
   render() {
-    const { content, title, author, img } = this.props
-
+    const { id, content, title, author, img, responses, isAuthenticated, username } = this.props
     return (
       <div className='story'>
         <div className="story-image">
@@ -56,7 +21,7 @@ export default class Story extends React.Component {
               <h3>produced by <span className='name'>{this.props.author}</span></h3>
               <h3>directed <span className='name'>{this.props.author}</span></h3>
             </header>
-            <div className="story-text">
+            <div className="story-text firstletter">
               {content}
             </div>
             <div className="story-sidebar">
@@ -64,12 +29,16 @@ export default class Story extends React.Component {
               <p>twitter</p>
               <p>dingo</p>
             </div>
+            <Response
+              responses={responses}
+              isAuthenticated={isAuthenticated}
+              username={username}
+              story_id={id}/>
           </article>
         </div>
       </div>
     )
   }
-
 }
 
 Story.defaultProps = {
@@ -80,8 +49,9 @@ Story.defaultProps = {
 }
 
 Story.propTypes = {
-  content: React.PropTypes.array.isRequired,
+  content: React.PropTypes.string.isRequired,
   title: React.PropTypes.string.isRequired,
   author: React.PropTypes.string.isRequired,
-  img: React.PropTypes.string.isRequired
+  img: React.PropTypes.string.isRequired,
+  responses: React.PropTypes.array
 }

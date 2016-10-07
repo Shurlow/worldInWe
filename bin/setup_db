@@ -13,14 +13,16 @@ db.exportConnection(function(conn) {
   //make both tables
   r.do(
     r.tableCreate('story'),
-    r.tableCreate('user')
+    r.tableCreate('user'),
+    r.tableCreate('response')
   ).run(conn, function(err, res) {
     if (err) { throw err }
     else {
       //if tables made successful add secondary index
       r.do(
         r.table('user').indexCreate('email'),
-        r.table('user').indexCreate('username')
+        r.table('user').indexCreate('username'),
+        r.table('response').indexCreate('story_id')
       ).run(conn, function(err, res) {
         if (err) { throw err }
         console.log('-- DONE --')

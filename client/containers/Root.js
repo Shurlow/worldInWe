@@ -25,7 +25,7 @@ export default class Root extends React.Component {
         <Router history={history}>
           <Route path="/" component={Home}>
             <Route path="about" component={About}/>
-            <Route path="stories/:id" component={LoadStory(Story)}/>
+            <Route path="story/:id" component={LoadStory(Story)}/>
             <Route path="explore" component={Explore}/>
             <Route path="login" component={Login}/>
             <Route path="logout" component={Logout}/>

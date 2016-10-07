@@ -10,21 +10,21 @@ class CustomEditor extends React.Component {
       var restoredContent = ContentState.createFromBlockArray(blocks)
       // console.log(props.backup, 'blocks:', blocks, 'content', restoredContent)
       this.state = {
-        titleState: EditorState.createWithContent(ContentState.createFromText(props.title)),
+        titleState: '',
         authorState: '',
-        bodyState: ''
+        bodyState: EditorState.createWithContent(restoredContent)
       }; 
     } else {
       this.state = {
-        titleState: EditorState.createEmpty(),
+        titleState: '',
         authorState: '',
-        bodyState: ''
+        bodyState: EditorState.createEmpty()
       };
     }
 
     this.focusBody = () => this.refs.body.focus();
-    this.focusTitle = () => this.refs.title.focus();
-    this.focusAuthor = () => this.refs.author.focus();
+    // this.focusTitle = () => this.refs.title.focus();
+    // this.focusAuthor = () => this.refs.author.focus();
     this.onBodyChange = (bodyState) => this.setState({bodyState});
     this.onTitleChange = (e) => this.setState({titleState: e.target.value});
     this.onAuthorChange = (e) => this.setState({authorState: e.target.value});
@@ -121,21 +121,21 @@ class CustomEditor extends React.Component {
             <input placeholder="title" onChange={this.onTitleChange.bind(this)}/>
           </div>
           <div onClick={this.focusAuthor} className="name">
-            <h3> Produced By
+            <h3> Produced by
               <input placeholder="author" onChange={this.onAuthorChange.bind(this)}/>
             </h3>
           </div>
-          <h3>directed <span className='name'>{this.props.author}</span></h3>
+          <h3>Directed by <span className='name'>{this.props.author}</span></h3>
         </header>
-          <div className='story-text'>
+          <div className='story-text editor'>
             <div onClick={this.focusBody} className="RichEditor-editor-body">
               <Editor
                 blockStyleFn={getBlockStyle}
                 customStyleMap={styleMap}
-                editorState={this.state.bodyState}
+                editorState={bodyState}
                 handleKeyCommand={this.handleKeyCommand}
                 onChange={this.onBodyChange}
-                placeholder="Tell a story..."
+                placeholder="Tell your story..."
                 ref="body"
                 spellCheck={true}
               />
@@ -237,9 +237,9 @@ const InlineStyleControls = (props) => {
   );
 };
 
-Editor.propTypes = {
+CustomEditor.propTypes = {
   pushStoryUpload: React.PropTypes.func.isRequired,
-  id: React.PropTypes.string
+  id: React.PropTypes.string.isRequired
 }
 
 export default CustomEditor

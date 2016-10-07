@@ -1,27 +1,30 @@
 import React from 'react';
 import {connect} from 'react-redux';
-// import {pushState} from 'redux-router';
 import { browserHistory } from 'react-router'
-import { loadStory } from "../actions"
+import { loadStories } from "../actions/stories"
+import { loadResponses } from "../actions/responses"
 
 export default function LoadStory(Component) {
   class LoadedStory extends React.Component {
 
     componentWillMount() {
-      this.checkStory()
-    }
-
-    checkStory() {
-      if (!this.props.content) {
-        console.log('no story')
-        this.props.loadStory(this.props.params.id)
+      if (this.props.story === undefined) {
+        this.props.loadStories()
+      }
+      if (this.props.responses === null) {
+        this.props.loadResponses(this.props.params.id)
       }
     }
 
     render () {
       return (
         <div>
-          <Component {...this.props}/>
+          <Component
+            responses={this.props.responses}
+            isAuthenticated={this.props.isAuthenticated}
+            username={this.props.username}
+            {...this.props.story}
+          />
         </div>
       )
     }
@@ -29,10 +32,16 @@ export default function LoadStory(Component) {
 
   const mapStateToProps = (state, ownProps) => {
     const id = ownProps.params.id
-    return state.data.stories[id] || {}
+    return {
+      story: state.stories.data[id],
+      responses: state.responses.data,
+      isAuthenticated: state.auth.isAuthenticated,
+      username: state.auth.username
+    }
   }
 
   return connect(mapStateToProps, {
-    loadStory
+    loadStories,
+    loadResponses
   })(LoadedStory);
 }

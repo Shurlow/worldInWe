@@ -3,7 +3,7 @@ import request from 'superagent'
 import classnames from 'classnames'
 import StoryBoardItem from './StoryBoardItem'
 import LeadImage from './LeadImage.jsx'
-import { loadStories } from '../actions'
+import { loadStories } from '../actions/stories'
 import { connect } from 'react-redux'
 
 class StoryBoard extends React.Component {
@@ -13,47 +13,24 @@ class StoryBoard extends React.Component {
 	}
 
 	componentWillMount() {
-    this.props.loadStories('all')
+    this.props.loadStories()
 	}
 
-	preloader() {
-    return <img className="image" src="/img/testbigimg.png" />;
-  }
-
-  getFirstLine(contentArray) {
-    var newStr;
-    if (contentArray) {
-      var text = contentArray.toString()
-      newStr = text.slice(0,50)  
-    } else {
-      newStr = ' '
-    }
-    return newStr
-  }
-
-	makeStoryItem(item) {
-    let firstline = this.getFirstLine(item.content)
-		return <StoryBoardItem key={item.id} firstline={firstline} {...item}/>
+	makeStoryItem(id) {
+    const data = this.props.data[id]
+		return <StoryBoardItem key={id} {...data}/>
 	}
 
   render() {
-
-  	const imageStyle = {
-  		image: true
-  	}
-
-    // console.log('SB props:', this.props)
-
     return (
     	<div>
         <LeadImage img={this.props.leadImageSrc} withLink={true}/>
 	    	<div className="storyboard">
-					{this.props.storiesArray.map(this.makeStoryItem.bind(this))}
+					{this.props.ids.map(this.makeStoryItem.bind(this))}
 		    </div>
 		  </div>
     )
   }
-
 }
 
 StoryBoard.defaultProps = {
@@ -66,13 +43,9 @@ function pickRandomImage() {
 }
 
 function mapStateToProps(state, ownProps) {
-  const stories = state.data.stories
-  const ids = state.result.stories
-  const idArray = ids || { stories: [] }
-  const storiesArray = idArray.map(id => stories[id])
-
   return {
-    storiesArray
+    data: state.stories.data,
+    ids: state.stories.ids
   }
 }
 

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router'
 import { connect } from 'react-redux'
-import { logoutUser, deselectStory } from "../actions"
 import classnames from 'classnames'
 import { browserHistory } from 'react-router'
 
@@ -74,10 +73,6 @@ class Nav extends React.Component {
     }
   }
 
-  // logout() {
-  //   this.props.logoutUser()
-  // }
-
   render() {
     const { showNav } = this.state
     const stickyStyle = classnames({
@@ -98,7 +93,4 @@ const mapStateToProps = (state) => ({
   username: state.auth.username
 });
 
-export default connect(mapStateToProps, {
-  logoutUser,
-  deselectStory
-})(Nav)
+export default connect(mapStateToProps)(Nav)

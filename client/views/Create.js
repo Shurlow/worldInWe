@@ -16,9 +16,9 @@ class Create extends React.Component {
     this.props.uploadImage(this.props.id, imgData)
   }
 
-  saveStory(storyObj) {
-    this.props.uploadStory(storyObj)
-  }
+  // saveStory(storyObj) {
+  //   this.props.uploadStory(storyObj)
+  // }
 
   addImage() {
     if (this.props.imageSuccess) {
@@ -33,7 +33,7 @@ class Create extends React.Component {
   }
 // <ImageUploader src={this.fingImageSrc()}pushImageUpload={this.pushImageUpload.bind(this)}/>
   render() {
-    const { content, title, author, img, bgimg } = this.props
+    const { id, content, title, author, img, bgimg } = this.props
     return (
       <div className='story'>
         <div className="story-image">
@@ -42,7 +42,7 @@ class Create extends React.Component {
           <button className='' onClick={this.addVideo.bind(this)}>Add Video</button>
         </div>
         <div className='story-content' style={{backgroundImage: `url(${bgimg})`}}>
-          <CustomEditor id={this.props.id} pushStoryUpload={this.saveStory.bind(this)}/>
+          <CustomEditor id={id} pushStoryUpload={this.props.uploadStory}/>
         </div>
       </div>
     )

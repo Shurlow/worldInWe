@@ -1,5 +1,6 @@
 @import "bourbon/bourbon";
 @import "neat/neat";
+@import "global.scss";
 @import "../../node_modules/tachyons-sass/tachyons.scss";
 
 .story {
@@ -47,7 +48,7 @@
   justify-content: center;
   flex-direction: column;
   
-  background-color: yellow;
+  background-color: $yellow;
   .title { font-weight: bold }
   h3 {
     font-weight: normal;
@@ -61,11 +62,11 @@
 .story-text {
   @extend .pa3, .bg-white;
   @include span-columns(9);
+}
 
-  &::first-letter {
-    font-size: 2em;
-    font-weight: bold;
-  }
+.firstletter::first-letter {
+  font-size: 2em;
+  font-weight: bold;
 }
 
 .story-sidebar {

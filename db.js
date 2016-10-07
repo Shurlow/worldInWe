@@ -20,35 +20,6 @@ exports.postStory = function(story, cb) {
   })
 }
 
-exports.getStories = function(cb) {
-  withConnection(function(conn) {
-    r.table('story').run(conn)
-      .then(function(cursor) {
-        return cursor.toArray()
-      }).then(function(array) {
-        cb(null, array)
-      }).error(function(err) {
-        console.log('Error getting stories:', err)
-        cb(err, null)
-      })
-  })
-}
-
-exports.getFeatured = function(cb) {
-  withConnection(function(conn) {
-    r.table('story')
-      .hasFields('video')
-      .run(conn).then(function(cursor) {
-        return cursor.toArray()
-      }).then(function(array) {
-        cb(array)
-      }).error(function(err) {
-        console.log('Error getting stories:', err)
-        cb(null)
-      })
-  })
-}
-
 exports.getStory = function(id, cb) {
   withConnection(function(conn) {
     r.table('story').get(id)
@@ -74,6 +45,69 @@ exports.deleteStory = function(id, cb) {
   })
 }
 
+exports.getResponses = function(story_id, cb) {
+  withConnection(function(conn) {
+    r.table('response')
+      .getAll(story_id, {index: 'story_id'})
+      .run(conn)
+      .then(function(cursor) {
+        console.log('cursor', cursor)
+        return cursor.toArray()
+      }).then(function(array) {
+        console.log('array', array)
+        cb(null, array)
+      }).error(function(err) {
+        console.log('Error getting responses:', err)
+        cb(err, null)
+      })
+  })
+}
+
+exports.postResponse = function(story_id, response, cb) {
+  withConnection(function(conn) {
+    r.table('response')
+      .insert(response)
+      .run(conn, function(err, res) {
+        if (err) { cb(err, null) }
+        else if (res.error) {
+          cb(res.error, null)
+        } else {
+          cb(null, res)
+        }
+      })
+  })
+}
+
+exports.getStories = function(cb) {
+  withConnection(function(conn) {
+    r.table('story').run(conn)
+      .then(function(cursor) {
+        return cursor.toArray()
+      }).then(function(array) {
+        cb(null, array)
+      }).error(function(err) {
+        console.log('Error getting stories:', err)
+        cb(err, null)
+      })
+  })
+}
+
+// exports.getFeatured = function(cb) {
+//   withConnection(function(conn) {
+//     r.table('story')
+//       .hasFields('video')
+//       .run(conn).then(function(cursor) {
+//         return cursor.toArray()
+//       }).then(function(array) {
+//         cb(array)
+//       }).error(function(err) {
+//         console.log('Error getting stories:', err)
+//         cb(null)
+//       })
+//   })
+// }
+
+
 exports.getUsers = function(cb) {
   withConnection(function(conn) {
     r.table('user')
@@ -88,27 +122,27 @@ exports.getUsers = function(cb) {
 }
 
 //quick search to if email is free. => { true, false } 
-function isEmailAvailible(email, cb) {
-  withConnection(function(conn) {
-    r.table('user')
-      .get('email')
-      .contains()
-      .getAll(email, {index: "email"})
-      .run(conn, function(err, cursor) {
-        if (err) return false
-        else {
-          console.log(cursor)
-          return true
-          // cursor.toArray().then(function(data) {
-          //   if (data.length < 1) cb(true)
-          //   else {
-          //     console.log('email IS used')
-          //     cb(false)
-          //   }
-          // }).error(console.log)
-        }
-      })
-  })
+// function isEmailAvailible(email, cb) {
+//   withConnection(function(conn) {
+//     r.table('user')
+//       .get('email')
+//       .contains()
+//       .getAll(email, {index: "email"})
+//       .run(conn, function(err, cursor) {
+//         if (err) return false
+//         else {
+//           console.log(cursor)
+//           return true
+//           // cursor.toArray().then(function(data) {
+//           //   if (data.length < 1) cb(true)
+//           //   else {
+//           //     console.log('email IS used')
+//           //     cb(false)
+//           //   }
+//           // }).error(console.log)
+//         }
+//       })
+//   })
     
     // if (err) {
     //   console.log('email is used error', err)
@@ -122,7 +156,7 @@ function isEmailAvailible(email, cb) {
     //     cb(false)
     //   }
     // }
-}
+// }
 
 exports.createUser = function(userObj, cb) {
   withConnection(function(conn) {

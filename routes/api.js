@@ -8,18 +8,10 @@ router.get('/', function(req, res, next) {
 			console.error(err)
 			res.status(500).send('Error adding story object')
 		} else {
-			// console.log("Sent stories.", data)
 			res.status(200).json({stories: data})
-			// res.send('Story submitted.')
 		}
 	})
 });
-
-// router.get('/featured', function(req, res, next) {
-// 	db.getFeatured(function(data) {
-// 		res.json(data);
-// 	})
-// });
 
 router.get('/:story_id', function(req, res) {
 	var id = req.params.story_id
@@ -33,7 +25,6 @@ router.get('/:story_id', function(req, res) {
 	    });
 		}
 		if (data) {
-			// console.log(data)
 			return res.json({stories: data})
 		}
 		else {
@@ -41,6 +32,18 @@ router.get('/:story_id', function(req, res) {
 	      message: 'Story not found: ' + id,
 	      error: err
 	    });
+		}
+	})
+});
+
+router.get('/responses/:story_id', function(req, res, next) {
+	console.log('getting responses')
+	db.getResponses(req.params.story_id, function(err, data) {
+		if (err) {
+			res.status(500).send('Error getting responses for story')
+		} else {
+			console.log(data)
+			res.json(data)
 		}
 	})
 });

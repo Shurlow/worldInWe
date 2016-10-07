@@ -11,9 +11,11 @@ function main() {
   //create user and upload story
   makeUser(function(user) {
     console.log('user created:', user.id)
-    makeStory(user.id, function(done) {
-      console.log('DONE')
-      process.exit()
+    makeStory(user.id, function(story_id) {
+      makeResponse(user, story_id, function(done) {
+        console.log('DONE')
+        process.exit()
+      })
     })
   })
 }
@@ -41,6 +43,7 @@ function makeStory(user_id, cb) {
     title: chance.sentence({words: chance.integer({min: 2, max: 10})}),
     author: user_id,
     content: chance.paragraph(),
+    topic: 'rumee',
     img: "https://s3-us-west-2.amazonaws.com/worldinme-full/" + story_id + ".jpg",
   }
   //upload image then story
@@ -48,8 +51,21 @@ function makeStory(user_id, cb) {
     db.postStory(story, function(err, res) {
       if (err) { throw err }
       console.log('story posted:', story_id)
-      cb(null, true)
+      cb(story_id)
     })
+  })
+}
+
+function makeResponse(user, story_id, cb) {
+  var response = {
+    story_id: story_id,
+    title: chance.sentence({words: chance.integer({min: 2, max: 10})}),
+    author: user.id,
+    content: chance.paragraph(),
+  }
+  db.postResponse(story_id, response, function(err, res) {
+    if (err) { throw err }
+    else { return cb(true) }
   })
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
-import { logoutUser } from '../actions'
+import { logoutUser } from '../actions/auth'
 import { connect } from 'react-redux'
 
 class Logout extends React.Component {

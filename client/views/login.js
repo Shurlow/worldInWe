@@ -1,19 +1,7 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
-import { loginUser } from '../actions'
+import { loginUser } from '../actions/auth'
 import { connect } from 'react-redux'
-
-// const pstyle = {
-//   backgroundColor: "rgba(255,255,255,0.8)"
-// }
-
-// const bstyle = {
-//   margin: '1em 0 0 0',
-// }
-
-// const textstyle = {
-//   // color: colors.grey400
-// }
 
 class Login extends React.Component {
 
@@ -57,8 +45,9 @@ class Login extends React.Component {
 
   login() {
     const { username, password, admin } = this.state
+    const userObject = { username: username, password: password, admin: admin }
     const redirect = this.props.location.query.next
-    this.props.loginUser(username, password, admin, redirect, (err, res) => {
+    this.props.loginUser(null, userObject, redirect, (err, res) => {
       if (err) { this.setState({errorText: 'Username and/or password do not match'}) }
     });
 

@@ -1,7 +1,7 @@
 import React from 'react'
 // import { browserHistory } from 'react-router'
 import { guid } from '../util'
-import { signUpUser } from '../actions'
+import { signUpUser } from '../actions/auth'
 import { connect } from 'react-redux'
 import classnames from 'classnames'
 

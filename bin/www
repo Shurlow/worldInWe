@@ -8,10 +8,13 @@ var app = require('../app');
 var debug = require('debug')('worldInMe:server');
 var http = require('http');
 
+// process.env['NODE_ENV'] = process.argv[1];
+
+
 /**
  * Get port from environment and store in Express.
  */
-
+var mode = process.env['NODE_ENV'];
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
@@ -26,6 +29,7 @@ var server = http.createServer(app);
  */
 
 server.listen(port);
+console.log(' --- Running on port', port, "---", 'mode:', mode)
 server.on('error', onError);
 server.on('listening', onListening);
 

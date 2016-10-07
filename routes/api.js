@@ -3,21 +3,19 @@ var router = express.Router();
 var db = require('../db.js');
 
 router.get('/', function(req, res, next) {
-	db.getStories(function(data) {
-		res.json(data);
-	})
-});
-
-router.get('/featured', function(req, res, next) {
-	db.getFeatured(function(data) {
-		res.json(data);
+	db.getStories(function(err, data) {
+		if (err) {
+			console.error(err)
+			res.status(500).send('Error adding story object')
+		} else {
+			res.status(200).json({stories: data})
+		}
 	})
 });
 
 router.get('/:story_id', function(req, res) {
 	var id = req.params.story_id
 	db.getStory(id, function(err, data) {
-
 		//TODO: abstract error handling
 		if (err) {
 			res.status(500);
@@ -26,7 +24,9 @@ router.get('/:story_id', function(req, res) {
 	      error: err
 	    });
 		}
-		if (data) return res.json(data);
+		if (data) {
+			return res.json({stories: data})
+		}
 		else {
 			res.status(404).json({
 	      message: 'Story not found: ' + id,
@@ -36,14 +36,28 @@ router.get('/:story_id', function(req, res) {
 	})
 });
 
+router.get('/responses/:story_id', function(req, res, next) {
+	console.log('getting responses')
+	db.getResponses(req.params.story_id, function(err, data) {
+		if (err) {
+			res.status(500).send('Error getting responses for story')
+		} else {
+			console.log(data)
+			res.json(data)
+		}
+	})
+});
+
 // Post new story
-router.post('/', function(req, res) {
-	console.log('Posting New Story')	
+// req.body = { id, title, content, author... }
+router.post('/story', function(req, res) {
+	// console.log('Posting New Story', req.body)
 	db.postStory(req.body, function(err, data) {
+		console.log('Post:', err, data)
 		if (err) {
 			res.status(500).send('Error adding story object')
 		} else {
-			res.send('Story submitted.')
+			res.status(200).send('Story submitted.')
 		}
 	})
 });
@@ -80,10 +94,10 @@ router.post('/update/:story_id', function(req, res) {
 });
 
 //Update indevidual story
-router.post('/delete/:story_id', function(req, res) {
+router.delete('/:story_id', function(req, res) {
 	console.log('deleting')
 	var id = req.params.story_id
-	db.updateStory(id, req.body, function(err, data) {
+	db.deleteStory(id, function(err, data) {
 		if (err) {
 			res.status(500).send('Error deleting story object')
 		} else {

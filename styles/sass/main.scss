@@ -1,0 +1,175 @@
+@import "bourbon/bourbon";
+@import "neat/neat";
+@import "../../node_modules/tachyons-sass/tachyons.scss";
+@import "global.scss";
+
+* {
+  border-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  color: white;
+}
+
+h1 {
+  font-size: 4rem;
+  color: $yellow;
+}
+
+h2 {
+  font-size: 1.4rem;
+  padding: 1rem;
+  display: inline-block;
+  color: black;
+  font-weight: bold;
+  background-color: $yellow;
+  text-transform: uppercase;
+  // margin: 0;
+  @include vertical-margin(1em);
+}
+
+h3 {
+  font-size: 1.2rem;
+  // padding: 1rem;
+  color: black;
+  @include vertical-margin(0.5rem);
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  @include vertical-margin(0.5rem);
+}
+
+button {
+  background: white;
+  color: black;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.secondary {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+}
+
+.bg-image {
+  @include background-image(url("../img/adventure.jpeg"));
+}
+
+.content {
+  margin-top: 2em;
+  @include outer-container(90%);
+  height: 100%;
+  background-color: rgba(255,255,255,0.5)
+}
+
+.hoverfade {
+  opacity: 1;
+  transition: all .15s ease-out;
+  &:hover {
+    cursor: pointer;
+    opacity: .9;
+    transition: all .15s ease-out;
+  }
+}
+
+.logo:hover {
+  cursor: pointer;
+}
+
+.disabled {
+  opacity: .5;
+  &:hover {
+    cursor: not-allowed;
+  }
+}
+
+.write {
+  &:hover {
+    cursor: cell;
+  }
+}
+
+
+// Nav style
+nav {
+  z-index: 1;
+  top: 0;
+  color: white;
+  background-color: black;
+  padding: 0.5em;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 60px;
+  // @include outer-container;
+}
+
+.nav-left, .nav-right {
+  height: 100%;
+  // display: flex;
+  // align-items: center;
+}
+.nav-left {
+  @include span-columns(2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img:hover {
+    cursor: pointer;
+  }
+}
+.nav-right {
+  @include span-columns(4);
+  @include shift(6);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.nav-link {
+  @extend .dim;
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 1em;
+}
+
+
+.explore {
+  width: 100%;
+  height: 80vh;
+  // display: inline-block;
+  @extend .bg-image;
+
+  h2 {
+    margin-top: 0;
+    padding-left: 3em;
+    padding-right: 3em;
+  }
+}
+
+.textcard {
+  padding: 2em;
+  background-color: white;
+  color: black;
+  @include span-columns(4);
+  // @include omega();
+}
+
+.center-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 0;
+}

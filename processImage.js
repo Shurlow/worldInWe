@@ -2,7 +2,6 @@ var fs = require('fs')
 var gm = require('gm').subClass({imageMagick: true});
 
 module.exports = function(imageBuffer, id, callback) {
-  console.log('Processing image...')
 
   // gm(imageBuffer)
   //   .toBuffer(function(err, buffer) {
@@ -14,25 +13,26 @@ module.exports = function(imageBuffer, id, callback) {
   //     })
   //   })
 
-
-  uploadImage(imageBuffer, id, 'world-in-me', function(err, res) {
-    if (err) return callback(err)
-    callback(null, "S3:" + res)
-  })
-
   cropThumb(imageBuffer, id)
+  uploadImage(imageBuffer, id, 'worldinme-full', function(err, res) {
+    if (err) return callback(err, null)
+    return callback(null, res)
+  })
+  // cropBlur(imageBuffer, id)
+}
 
-
-  // blur preview
-  // gm(imageBuffer)
-  //   .resize(20, 20)
-  //   .quality(70)
-  //   .noise('laplacian')
-  //   .toBuffer(function (err, buffer) {
-  //     if (err) return console.log(err);
-  //     uploadImage("preview", buffer)
-  //   })
-
+function cropBlur(imageBuffer, id) {
+  console.log('making blur')
+  gm(imageBuffer)
+  .resize(20, 20)
+  .quality(70)
+  .noise('laplacian')
+  .toBuffer(function (err, buffer) {
+    if (err) return console.log(err);
+    uploadImage(buffer, id, 'worldinme-previews', function(error, res){
+      if (err) console.error(error)
+    })
+  })
 }
 
 function cropThumb(imageBuffer, id) {
@@ -45,11 +45,11 @@ function cropThumb(imageBuffer, id) {
       h = value.height
     })
     .gravity('Center')
-    .crop(650, 280)
-    .extent(650, 280)
+    .crop(650, 450)
+    .extent(650, 450)
     .toBuffer(function(err, buffer){
       if (err) console.error(err)
-      uploadImage(buffer, id, 'world-in-me-thumbs', function(error, res){
+      uploadImage(buffer, id, 'worldinme-thumbs', function(error, res){
         if (err) console.error(error)
       })
     })

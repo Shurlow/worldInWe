@@ -1,62 +1,96 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router'
-var classnames = require('classnames')
-// var $ = require('jquery');
-// <Link to="/home"><h1>World In Me</h1></Link>
-var Nav = React.createClass({
+import { connect } from 'react-redux'
+import classnames from 'classnames'
+import { browserHistory } from 'react-router'
 
-  getInitialState: function() {
-    return { clicked: false }
-  },
+class Nav extends React.Component {
 
-  handleClick: function(e) {
-    console.log('click')
-    this.setState({
-      clicked: !this.state.clicked
-    })
-  },
+  constructor(props) {
+    super(props)
+    this.state = {
+      showNav: true,
+      scroll: 0
+    }
+    this.handleScroll = this.handleScroll.bind(this)
+  }
 
-  toggleLogin: function(isLoggedIn) {
-    if (isLoggedIn) {
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll(e) {
+    var newScroll = window.pageYOffset
+    if (newScroll > 200 && newScroll < this.state.scroll) {
+      this.setState({
+        showNav: false,
+        scroll: newScroll
+      })
+    } else {
+      this.setState({
+        showNav: true,
+        scroll: newScroll
+      })
+    }
+  }
+
+  makeNav(style) {
+    return (
+      <nav className={style}>
+         <div className="nav-left">
+            <img src="/res/logo.svg" onClick={() => {browserHistory.push('/')}}></img>
+          </div>
+          <div className='nav-right'>
+            <a className='nav-link' href="#" title="Topic" onClick={() => {browserHistory.push('/')}}>rumee</a>
+            <a className='nav-link' href="#" title="Explore" onClick={() => {browserHistory.push('/explore')}}>explore</a>
+            <a className='nav-link' href="#" title="About" onClick={() => {browserHistory.push('/about')}}>about</a>
+            <a className='nav-link' href="#" title="Create" onClick={() => {browserHistory.push('/create')}}>create</a>
+            {this.makeLoginButton()}
+          </div> 
+      </nav>
+    )
+ }
+
+  makeLoginButton() {
+    if (this.props.isAuthenticated) {
       return (
-        <Link to='/logout' activeClassName="link-active">LOGOUT</Link>
+        <a className='nav-link' href="#" title="Login"
+          onClick={() => {browserHistory.push('/logout')}}>
+          {this.props.username}
+        </a>
       )
     } else {
       return (
-        <Link to='/login' activeClassName="link-active">LOGIN</Link>
+        <a className='nav-link' href="#" title="Login"
+          onClick={() => {browserHistory.push('/login')}}>
+          login
+        </a>
       )
     }
-  },
-
-  render: function() {
-    var btnClass = classnames({
-      'downclick': this.state.clicked,
-    });
-    return (
-      <nav>
-        <Link to='/stories' activeClassName="link-active">
-          <img className="logo" src="/res/logo.svg"></img>
-        </Link>
-        
-        <ul>
-          {this.toggleLogin(this.props.loggedIn)}
-          <Link to='/post' activeClassName="link-active">NEW</Link>
-          <Link to='/about' activeClassName="link-active">ABOUT</Link>          
-        </ul>
-      </nav>
-    )
   }
 
-})
+  render() {
+    const { showNav } = this.state
+    const stickyStyle = classnames({
+      'dn fixed': showNav
+    })
+    
+    return (
+      <div>
+        {this.makeNav('')}
+        {this.makeNav(stickyStyle)}
+      </div>
+    )
+  }
+}
 
-module.exports = Nav
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  username: state.auth.username
+});
 
-// <Link to='/home'><img className="logo left" src="/img/check.png"></img></Link>
-//         <Link to='/post'><img className="logo right" src="/img/edit.png"></img></Link>
-// <ul>
-//           {this.toggleLogin(this.props.loggedIn)}
-//           <Link to='/post' activeClassName="link-active">new</Link>
-//           <Link to='/stories' activeClassName="link-active">stories</Link>
-//           <Link to='/about' activeClassName="link-active">about</Link>          
-//         </ul>
-// <img src="/img/Logo.svg" onClick={this.handleClick} className={btnClass}></img>
+export default connect(mapStateToProps)(Nav)

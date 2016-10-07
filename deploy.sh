@@ -1,1 +1,0 @@
-rsync -rv ./ scott@Umami:~/worldInMe --exclude-from 'excludes.txt'

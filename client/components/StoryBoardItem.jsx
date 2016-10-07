@@ -1,48 +1,36 @@
-var React = require('react')
-var classnames = require('classnames')
-// var imagesLoaded = require('imagesloaded')
-
-var storybox = classnames({'storybox': true})
-var textClass = classnames({'text': true})
-// import ImageBlurLoader from '../../../react-imageblurloader/src/ImageBlurLoader.js'
-import ImageLoader from 'react-imageloader';
-// import Image from './Image.jsx'
-import { Router, Route, Link, RouteHandler } from 'react-router'
+import React from 'react'
+import { browserHistory } from 'react-router'
+import Image from './Image';
 
 export default class StoryBoardItem extends React.Component {
 
-  constructor(props) {
-    super(props)
+  navigateToStory() {
+    browserHistory.push('stories/' + this.props.id)
   }
 
-  preloader() {
-    return <img className="preview" src="/img/placeholder.png" />;
-  }
-
-  load(e) {
-    // console.log(e)
+  imgError() {
+    this._image.src = '/res/placeholder.png'
   }
 
   render() {
+    const id = this.props.id
+    const imgsrc = "https://s3-us-west-2.amazonaws.com/worldinme-full/" + id + ".jpg"
+    const imgthumb = "https://s3-us-west-2.amazonaws.com/worldinme-thumbs/" + id + ".jpg"
 
     return (
-      <li>
-        <Link to={'/stories/' + this.props.id}>
-          <ImageLoader
-            src={"https://s3-us-west-2.amazonaws.com/world-in-me-thumbs/" + this.props.id + ".jpg"}
-            wrapper={React.DOM.div}
-            preloader={this.preloader}
-            onLoad={this.load}
-            className="storythumb">
-            Image load failed!
-          </ImageLoader>
-          <div className="textover">
-            <h3>{this.props.title}</h3>
-            <h4>{this.props.author_name}</h4>
-            <div className="bar2"/>
-          </div>
-        </Link>
-      </li>
+      <article
+        style={{backgroundImage: `url(${imgsrc})`}}
+        onClick={() => {browserHistory.push(`story/${id}`)}}>
+        <div className='caption'>
+          <p>Documentary about Faith and Leadership in 4 minutes</p>
+          <h1>{this.props.title}</h1>
+        </div>
+      </article>
     )
-  }
+ }
+}
+
+StoryBoardItem.defaultProps = {
+  title: "No Title Found for This Story",
+  firstline: "Here is a sample first line of a story that starts like this..."
 }

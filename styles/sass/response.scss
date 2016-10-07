@@ -1,0 +1,31 @@
+@import 'editor.scss';
+@import "neat/neat";
+
+.story-responses {
+  display: inline-block;
+  margin-top: 2em;
+
+  .textcard {
+    @extend .story-header;
+    background-color: white;
+    text-transform: none;
+  }
+}
+
+.response {
+  display: inline-block;
+  background-color: white;
+  width: 100%;
+  @include vertical-margin(1em);
+  padding: 1em;
+}
+
+.response-left {
+  float: left;
+  @include span-columns(3);
+}
+
+.response-right {
+  @include span-columns(9);
+  @include omega();
+}

@@ -1,9 +1,7 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
-import { loginUser } from '../actions/auth'
-import { connect } from 'react-redux'
 
-class Login extends React.Component {
+export default class Login extends React.Component {
 
   constructor(props) {
     super(props);
@@ -50,23 +48,7 @@ class Login extends React.Component {
     this.props.loginUser(null, userObject, redirect, (err, res) => {
       if (err) { this.setState({errorText: 'Username and/or password do not match'}) }
     });
-
-    // if (this.validateEmail(email)) {
-    // } else {
-    //   this.setState({
-    //     errorText: "Email input is invalid!"
-    //   })
-    // }
   }
-
-  // navToSignUp() {
-  //   browserHistory.push('signup')
-  // }
-
-  // validateEmail(email) {
-  //   var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  //   return re.test(email);
-  // }
 
   render() {
     return (
@@ -88,14 +70,3 @@ class Login extends React.Component {
   }
 
 }
-
-
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated
-});
-
-export default connect(mapStateToProps, {
-  loginUser
-})(Login)
-
-

@@ -1,11 +1,8 @@
 import React from 'react'
 // import { browserHistory } from 'react-router'
 import { guid } from '../util'
-import { signUpUser } from '../actions/auth'
-import { connect } from 'react-redux'
-import classnames from 'classnames'
 
-class SignUp extends React.Component {
+export default class SignUp extends React.Component {
 
   constructor(props) {
     super(props);
@@ -53,7 +50,6 @@ class SignUp extends React.Component {
         error: "Email input is invalid!"
       })
     }
-
   }
 
   validateEmail(email) {
@@ -78,15 +74,3 @@ class SignUp extends React.Component {
   }
 
 }
-
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  isAuthenticating: state.auth.isAuthenticating,
-  error: state.auth.error
-});
-
-export default connect(mapStateToProps, {
-  signUpUser
-})(SignUp)
-
-

@@ -1,10 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { browserHistory } from 'react-router'
-import { loadStories } from "../actions/stories"
-import { loadResponses } from "../actions/responses"
+import { loadStories } from "../state/actions/stories"
+import { uploadStory, uploadImage } from '../state/actions/image'
+import { loadResponses } from "../state/actions/responses"
 
-export default function LoadStory(Component) {
+export default function wrapStory(Component) {
   class LoadedStory extends React.Component {
 
     componentWillMount() {
@@ -42,6 +43,8 @@ export default function LoadStory(Component) {
 
   return connect(mapStateToProps, {
     loadStories,
-    loadResponses
+    loadResponses,
+    uploadStory,
+    uploadImage
   })(LoadedStory);
 }

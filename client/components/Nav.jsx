@@ -1,10 +1,8 @@
 import React from 'react'
-import { Link, Redirect } from 'react-router'
-import { connect } from 'react-redux'
 import classnames from 'classnames'
 import { browserHistory } from 'react-router'
 
-class Nav extends React.Component {
+export default class Nav extends React.Component {
 
   constructor(props) {
     super(props)
@@ -87,10 +85,3 @@ class Nav extends React.Component {
     )
   }
 }
-
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  username: state.auth.username
-});
-
-export default connect(mapStateToProps)(Nav)

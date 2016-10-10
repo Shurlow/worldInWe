@@ -5,7 +5,7 @@ var db = require('../db.js');
 router.get('/', function(req, res, next) {
 	db.getStories(function(err, data) {
 		if (err) {
-			console.error(err)
+			// console.error(err)
 			res.status(500).send('Error adding story object')
 		} else {
 			res.status(200).json({stories: data})
@@ -42,7 +42,7 @@ router.get('/responses/:story_id', function(req, res, next) {
 		if (err) {
 			res.status(500).send('Error getting responses for story')
 		} else {
-			console.log(data)
+			// console.log(data)
 			res.json(data)
 		}
 	})

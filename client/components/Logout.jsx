@@ -1,9 +1,7 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
-import { logoutUser } from '../actions/auth'
-import { connect } from 'react-redux'
 
-class Logout extends React.Component {
+export default class Logout extends React.Component {
 
   componentWillMount() {
     const redirectRoute = this.props.location.query.next || '/';
@@ -27,15 +25,4 @@ class Logout extends React.Component {
       </article>
     )
   }
-
 }
-
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated
-});
-
-export default connect(mapStateToProps, {
-  logoutUser
-})(Logout)
-
-

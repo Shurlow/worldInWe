@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router'
-import { loginUser, logoutUser, signUpUser } from "../state/actions/auth"
+import { loadStories } from '../state/actions/stories'
 
-export default function wrapAuth(Component) {
+export default function wrapStories(Component) {
   class WrappedComponent extends React.Component {
     render() {
       return <Component {...this.props}/>
@@ -11,12 +11,10 @@ export default function wrapAuth(Component) {
   }
 
   const mapStateToProps = (state) => ({
-    isAuthenticated: state.auth.isAuthenticated,
-    username: state.auth.username
+    data: state.stories.data,
+    ids: state.stories.ids
   })
   return connect(mapStateToProps, {
-    loginUser,
-    logoutUser,
-    signUpUser
+    loadStories
   })(WrappedComponent)
 }

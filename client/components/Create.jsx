@@ -1,12 +1,9 @@
 import React from 'react'
-import ImageUploader from '../components/ImageUploader.jsx'
-import classnames from 'classnames'
-import { uploadStory, uploadImage } from "../actions"
-import CustomEditor from '../components/Editor'
+// import ImageUploader from '../components/ImageUploader.jsx'
+import CustomEditor from './Editor'
 import { guid } from '../util.js'
-import {connect} from "react-redux"
 
-class Create extends React.Component {
+export default class Create extends React.Component {
 
   constructor(props) {
     super(props)
@@ -59,14 +56,3 @@ Create.defaultProps = {
   bgimg: "img/adventure.jpeg",
   id: guid()
 }
-
-const mapStateToProps = (state) => ({
-  isFetching: state.data.isFetching,
-  username: state.auth.username,
-  imageSuccess: state.data.imageSuccess
-});
-
-export default connect(mapStateToProps, {
-  uploadStory,
-  uploadImage
-})(Create)

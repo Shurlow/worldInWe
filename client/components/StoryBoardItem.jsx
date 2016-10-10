@@ -1,6 +1,5 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
-import Image from './Image';
 
 export default class StoryBoardItem extends React.Component {
 

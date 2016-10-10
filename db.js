@@ -51,10 +51,8 @@ exports.getResponses = function(story_id, cb) {
       .getAll(story_id, {index: 'story_id'})
       .run(conn)
       .then(function(cursor) {
-        console.log('cursor', cursor)
         return cursor.toArray()
       }).then(function(array) {
-        console.log('array', array)
         cb(null, array)
       }).error(function(err) {
         console.log('Error getting responses:', err)

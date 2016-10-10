@@ -14,7 +14,7 @@ db.exportConnection(function(conn) {
   r.do(
     r.tableCreate('story'),
     r.tableCreate('user'),
-    r.tableCreate('response')
+    r.tableCreate('response', {primaryKey: 'date'})
   ).run(conn, function(err, res) {
     if (err) { throw err }
     else {

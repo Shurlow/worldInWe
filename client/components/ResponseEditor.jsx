@@ -12,17 +12,30 @@ export default class ResponseEditor extends React.Component {
     this.onBodyChange = (bodyState) => this.setState({bodyState});
   }
 
+  uploadNewResponse() {
+    const { story_id, username, uploadResponse } = this.props
+    let responseObj = {
+      title: 'No title yet',
+      author: username,
+      story_id: story_id,
+      date: Date.now(),
+      content: this.state.bodyState.getCurrentContent().getPlainText()
+    }
+    uploadResponse(story_id, responseObj)
+  }
+
   render() {
+    const isUploading = this.props.isUploading
     return (
       <div className='response'>
         <div className='response-left'>
           <p>Title goes here</p>
-          <p>{response.username}</p>
+          <p>{this.props.username}</p>
         </div>
         <div className='response-right'>
           <div onClick={this.focusBody} className="RichEditor-editor-body">
             <Editor
-              editorState={this.state.bodyState}
+              editorState={ isUploading ? EditorState.createEmpty() : this.state.bodyState}
               onChange={this.onBodyChange}
               placeholder="Tell your story..."
               ref="body"
@@ -30,11 +43,13 @@ export default class ResponseEditor extends React.Component {
             />
           </div>
         </div>
+        <button onClick={this.uploadNewResponse.bind(this)}>Submit</button>
       </div>
     );
   }
 }
 
 ResponseEditor.propTypes = {
-  story_id: React.PropTypes.string.isRequired
+  story_id: React.PropTypes.string.isRequired,
+  uploadResponse: React.PropTypes.func.isRequired
 }

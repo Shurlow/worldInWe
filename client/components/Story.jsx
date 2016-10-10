@@ -1,5 +1,6 @@
 import React from 'react'
-import Response from './Response'
+import Responses from './Responses'
+import wrapResponses from '../containers/wrapResponses'
 
 export default class Story extends React.Component {
 
@@ -8,7 +9,8 @@ export default class Story extends React.Component {
   }
 
   render() {
-    const { id, content, title, author, img, responses, isAuthenticated, username } = this.props
+    let ResponsesWrap = wrapResponses(Responses)
+    const { id, user_id, content, title, author, img, isAuthenticated, username } = this.props
     return (
       <div className='story'>
         <div className="story-image">
@@ -29,11 +31,12 @@ export default class Story extends React.Component {
               <p>twitter</p>
               <p>dingo</p>
             </div>
-            <Response
-              responses={responses}
+            <ResponsesWrap
               isAuthenticated={isAuthenticated}
               username={username}
-              story_id={id}/>
+              user_id={user_id}
+              story_id={id}
+            />
           </article>
         </div>
       </div>
@@ -42,7 +45,7 @@ export default class Story extends React.Component {
 }
 
 Story.defaultProps = {
-  content: [""],
+  content: "",
   author: "anonymous",
   title: "No title",
   img: "/res/placeholder.png",
@@ -52,6 +55,5 @@ Story.propTypes = {
   content: React.PropTypes.string.isRequired,
   title: React.PropTypes.string.isRequired,
   author: React.PropTypes.string.isRequired,
-  img: React.PropTypes.string.isRequired,
-  responses: React.PropTypes.array
+  img: React.PropTypes.string.isRequired
 }

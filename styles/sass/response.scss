@@ -1,5 +1,6 @@
 @import 'editor.scss';
-@import "neat/neat";
+@import 'neat/neat';
+@import 'global.scss';
 
 .story-responses {
   display: inline-block;
@@ -13,11 +14,20 @@
 }
 
 .response {
+  position: relative;
   display: inline-block;
   background-color: white;
   width: 100%;
   @include vertical-margin(1em);
   padding: 1em;
+
+  button {
+    position: absolute;
+    right: 1em;
+    bottom: 1em;
+    outline: 1px solid $yellow;
+  }
+
 }
 
 .response-left {

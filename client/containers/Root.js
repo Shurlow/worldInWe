@@ -29,7 +29,7 @@ export default class Root extends React.Component {
             <Route path="story/:id" component={wrapStory(Story)}/>
             <Route path="explore" component={Explore}/>
             <Route path="login" component={wrapAuth(Login)}/>
-            <Route path="logout" component={Logout}/>
+            <Route path="logout" component={wrapAuth(Logout)}/>
             <Route path="signup" component={SignUp}/>
             <Route path="create" component={wrapAuth(Create)}/>
           </Route>

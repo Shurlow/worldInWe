@@ -46,7 +46,18 @@ router.get('/responses/:story_id', function(req, res, next) {
 			res.json(data)
 		}
 	})
-});
+})
+
+router.post('/responses/:story_id', function(req, res) {
+	console.log('posting response', req.body)
+	db.postResponse(req.params.story_id, req.body, function(err, data) {
+		if (err) {
+			res.status(500).send('Error posting response for story.')
+		} else {
+			res.status(200).send('Response submitted.')
+		}
+	})
+})
 
 // Post new story
 // req.body = { id, title, content, author... }

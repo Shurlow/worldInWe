@@ -16,7 +16,6 @@ const history = syncHistoryWithStore(browserHistory, store)
 
 let token = localStorage.getItem('id_token');
 if (token !== null) {
-  console.log('token?', token)
   store.dispatch(loginUser(token));
 }
 store.dispatch(loadStories())

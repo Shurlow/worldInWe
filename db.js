@@ -49,6 +49,7 @@ exports.getResponses = function(story_id, cb) {
   withConnection(function(conn) {
     r.table('response')
       .getAll(story_id, {index: 'story_id'})
+      .orderBy('date')
       .run(conn)
       .then(function(cursor) {
         return cursor.toArray()

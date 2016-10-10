@@ -4,6 +4,7 @@ import { createReducer } from '../util.js';
 const initialState = {
   data: null,
   isFetching: false,
+  isUploading: false,
   isError: false
 }
 
@@ -24,6 +25,23 @@ export default createReducer(initialState, {
     return Object.assign({}, state, {
       isError: true,
       isFetching: false
+    })
+  },
+  [ActionTypes.UPLOAD_RESPONSE_REQUEST]: (state, payload) => {
+    return Object.assign({}, state, {
+      isUploading: true,
+      isError: false
+    })
+  },
+  [ActionTypes.UPLOAD_RESPONSE_SUCCESS]: (state, payload) => {
+    return Object.assign({}, state, {
+      isUploading: false
+    })
+  },
+  [ActionTypes.UPLOAD_RESPONSE_FAILURE]: (state, payload) => {
+    return Object.assign({}, state, {
+      isError: true,
+      isUploading: false
     })
   }
 })

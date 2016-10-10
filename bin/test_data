@@ -61,6 +61,7 @@ function makeResponse(user, story_id, cb) {
     story_id: story_id,
     title: chance.sentence({words: chance.integer({min: 2, max: 10})}),
     author: user.id,
+    date: Date.now(),
     content: chance.paragraph(),
   }
   db.postResponse(story_id, response, function(err, res) {

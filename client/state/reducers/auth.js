@@ -45,7 +45,7 @@ export default createReducer(initialState, {
     return Object.assign({}, state, {
       isAuthenticating: false,
       isAuthenticated: true,
-      userId: payload.id,
+      id: payload.id,
       username: payload.username
     });
   },

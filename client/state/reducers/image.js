@@ -2,9 +2,12 @@ import * as ActionTypes from '../actions/image'
 import { createReducer } from '../util.js';
 
 const initialState = {
-  img: null,
+  src: null,
+  url: null,
+  bgsrc: null,
   isFetching: false,
-  isError: false
+  isError: false,
+  errorMessage: null
 }
 
 export default createReducer(initialState, { 
@@ -15,19 +18,29 @@ export default createReducer(initialState, {
     })
   },
   [ActionTypes.UPLOAD_IMAGE_SUCCESS]: (state, payload) => {
-    const updatedSelection = Object.assign(state.selectedStory, {
-      img: payload
-    })
-    // console.log('OLD:', state.selectedStory, "NEW:", updatedSelection)
     return Object.assign({}, state, {
-      'isFetching': false,
-      'selectedStory': updatedSelection
+      isFetching: false,
+      isError: false,
+      errorMessage: null,
+      url: payload.url,
+      src: payload.src
     })
   },
   [ActionTypes.UPLOAD_IMAGE_FAILURE]: (state, payload) => {
     return Object.assign({}, state, {
       isFetching: false,
-      isError: true
+      isError: true,
+      errorMessage: payload.statusText,
+      src: null
+    })
+  },
+  [ActionTypes.RESET_IMAGE]: (state, payload) => {
+    return Object.assign({}, state, {
+      isFetching: false,
+      isError: true,
+      errorMessage: null,
+      src: null,
+      url: null
     })
   }
 })

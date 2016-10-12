@@ -1,6 +1,7 @@
 @import "bourbon/bourbon";
 @import "neat/neat";
 @import "../../node_modules/tachyons-sass/tachyons.scss";
+@import '../../node_modules/react-select/dist/react-select.css';
 @import "global.scss";
 
 * {
@@ -13,12 +14,12 @@ body {
 }
 
 h1 {
-  font-size: 4rem;
+  font-size: 6rem;
   color: $yellow;
 }
 
 h2 {
-  font-size: 1.4rem;
+  font-size: 2rem;
   padding: 1rem;
   display: inline-block;
   color: black;
@@ -30,7 +31,7 @@ h2 {
 }
 
 h3 {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   // padding: 1rem;
   color: black;
   @include vertical-margin(0.5rem);

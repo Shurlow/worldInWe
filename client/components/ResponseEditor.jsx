@@ -1,5 +1,7 @@
 import React from 'react'
 import { Editor, EditorState } from 'draft-js';
+import { guid } from '../util'
+import moment from 'moment'
 
 export default class ResponseEditor extends React.Component {
   
@@ -13,12 +15,13 @@ export default class ResponseEditor extends React.Component {
   }
 
   uploadNewResponse() {
-    const { story_id, username, uploadResponse } = this.props
+    const { user_id, story_id, username, uploadResponse } = this.props
     let responseObj = {
+      id: guid(),
       title: 'No title yet',
       author: username,
+      author_id: user_id,
       story_id: story_id,
-      date: Date.now(),
       content: this.state.bodyState.getCurrentContent().getPlainText()
     }
     uploadResponse(story_id, responseObj)

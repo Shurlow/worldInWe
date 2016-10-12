@@ -9,32 +9,73 @@
   @include outer-container;
 }
 
+// .editor{
+
+// }
+
+.image-upload {
+  position: relative;
+  input {
+    display: none;
+  }
+  div {
+    position: relative;
+    &:hover {
+      cursor: pointer;
+      &:after {
+        visibility: visible;
+      }
+    }
+  }
+  div:after {
+    content: "";
+    visibility: hidden;
+    background-color: rgba(0,0,0,0.2);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  h3 {
+    position: absolute;
+    bottom: 1em;
+  }
+}
+
 .story-image {
   border: 1px solid white;
-  @include span-columns(8);
-  @include shift(2);
+  @include span-columns(10);
+  @include shift(1);
   display: flex;
   align-items: center;
   justify-content: center;
-  img {
-    &:hover {
-      cursor: pointer;
-    }
-  }
 }
 
 .story-content {
   // @include span-columns(9);
   width: 100%;
   display: inline-block;
+  @include outer-container;
   // @include background-image(url("../img/adventure.jpeg"));
 
   article {
+    position: relative;
     @extend .bg-white-80;
     padding-bottom: 6em;
-    @include span-columns(8);
-    @include shift(2);
+    @include span-columns(10);
+    @include shift(1);
   }
+
+  .edit {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    background-color: $red;
+    color: white;
+    padding: 0.5em
+  }
+
 }
 
 .story-header {
@@ -60,8 +101,11 @@
 
 }
 .story-text {
-  @extend .pa3, .bg-white;
-  @include span-columns(9);
+  // @extend .pa3, .bg-white;
+  line-height: 1.5;
+  @include whitebox;
+  // max-width: 30em;
+  @include span-columns(8);
 }
 
 .firstletter::first-letter {
@@ -70,8 +114,56 @@
 }
 
 .story-sidebar {
-  @extend .pa3, .bg-white;
-  @include span-columns(3);
+  @include span-columns(4);
+  @include omega();
+}
+
+.social-buttons {
+  @include whitebox;
+  margin-bottom: 1.5em;
+}
+
+.tags {
+  text-align: center;
+  @include whitebox;
+  h3 {
+    margin-top: 0;
+  }
+  h4 {
+    text-transform: uppercase;
+    margin: 0.5em;
+  }
+  .form {
+    .Select-placeholder {
+      color: $blue;
+      &p::first-letter {
+        text-transform: uppercase;
+      }
+    }
+  }
+  .theme1, .theme2 {
+    .Select-placeholder {
+      color: $green;
+    }
+  }
+  .length {
+    .Select-placeholder {
+      color: $purple;
+    }
+  }
+  .location {
+    .Select-placeholder {
+      color: $red;
+    }
+  }
+
+}
+
+.error-text {
+  padding: 0.5em;
+  width: 100%;
+  color: $red;
+  float: left;
 }
 
 .public-DraftEditorPlaceholder-root {

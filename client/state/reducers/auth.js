@@ -8,7 +8,8 @@ const initialState = {
   isAuthenticated: token ? true : false,
   isError: false,
   username: token ? jwtDecode(token).username : null,
-  id: null
+  id: null,
+  token: null
 }
 
 export default createReducer(initialState, {
@@ -25,6 +26,7 @@ export default createReducer(initialState, {
       isAuthenticated: true,
       id: user.id,
       username: user.username,
+      token: payload.token
     });
   },
   [ActionTypes.LOGOUT_USER]: (state, payload) => {
@@ -37,7 +39,7 @@ export default createReducer(initialState, {
   },
   [ActionTypes.SIGNUP_REQUEST]: (state, payload) => {
     return Object.assign({}, state, {
-      'isAuthenticating': true,
+      isAuthenticating: true,
       isError: false
     })
   },

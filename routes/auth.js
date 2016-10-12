@@ -2,7 +2,7 @@ var express = require('express');
 // var passport = require('passport');
 var router = express.Router();
 var db = require('../db')
-var expressJWT = require('express-jwt');
+// var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken')
 
 router.post('/login', function(req, res) {

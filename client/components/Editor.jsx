@@ -1,6 +1,7 @@
 import React from 'react'
 import {Editor, EditorState, RichUtils, convertToRaw, convertFromRaw, ContentState} from 'draft-js';
 import backdraft from 'backdraft-js';
+import TagSelect from './TagSelect'
 
 class CustomEditor extends React.Component {
   constructor(props) {
@@ -12,13 +13,17 @@ class CustomEditor extends React.Component {
       this.state = {
         titleState: '',
         authorState: '',
-        bodyState: EditorState.createWithContent(restoredContent)
+        bodyState: EditorState.createWithContent(restoredContent),
+        tags: null,
+        error: null
       }; 
     } else {
       this.state = {
-        titleState: '',
-        authorState: '',
-        bodyState: EditorState.createEmpty()
+        titleState: null,
+        authorState: null,
+        bodyState: EditorState.createEmpty(),
+        tags: null,
+        error: null
       };
     }
 
@@ -70,6 +75,24 @@ class CustomEditor extends React.Component {
     );
   }
 
+  hasRequiredField(storyObj) {
+    for (var key in storyObj) {
+      if (storyObj[key] == null) {
+        this.setState({
+          error: `You're story is missing something: ${key}`
+        })
+        return false
+      }
+    }
+    return true
+  }
+
+  updateTags(tag, value) {
+    this.setState({
+      tags: Object.assign({}, this.state.tags, {[tag]: value})
+    })
+  }
+
   uploadContent() {
     const markup = {
       'BOLD': ['<strong>', '</strong>'],
@@ -78,22 +101,24 @@ class CustomEditor extends React.Component {
     };
     const contentState = this.state.bodyState.getCurrentContent()
     const raw = convertToRaw(contentState)
-    // console.log('CS:', contentState, 'raw',raw)
+    console.log('CS:', contentState, 'raw',raw)
 
     const storyObj = {
       id: this.props.id,
-      title: this.state.titleState.getCurrentContent().getPlainText(),
-      author: this.state.authorState.getCurrentContent().getPlainText(),
+      title: this.state.titleState,
+      author: this.state.authorState,
+      author_id: this.props.user_id,
       content: backdraft(raw, markup),
-      img: "https://s3-us-west-2.amazonaws.com/worldinme-full/" + this.props.id + ".jpg",
+      img: this.props.url,
+      tags: this.state.tags,
       backup: raw
-
     }
-    if (storyObj.title !== '' && storyObj.author !== '' && storyObj.content[0] !== '') {
-      console.log(storyObj)
-      this.props.pushStoryUpload(storyObj)
+    
+    if (this.hasRequiredField(storyObj)) {
+      this.props.uploadStory(storyObj)
     }
   }
+
           // <BlockStyleControls
           //   editorState={this.state.bodyState}
           //   onToggle={this.toggleBlockType}
@@ -104,7 +129,6 @@ class CustomEditor extends React.Component {
           // />
   render() {
     const { titleState, authorState, bodyState } = this.state;
-
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
     // var contentState = editorState.getCurrentContent();
@@ -127,20 +151,25 @@ class CustomEditor extends React.Component {
           </div>
           <h3>Directed by <span className='name'>{this.props.author}</span></h3>
         </header>
-          <div className='story-text editor'>
-            <div onClick={this.focusBody} className="RichEditor-editor-body">
-              <Editor
-                blockStyleFn={getBlockStyle}
-                customStyleMap={styleMap}
-                editorState={bodyState}
-                handleKeyCommand={this.handleKeyCommand}
-                onChange={this.onBodyChange}
-                placeholder="Tell your story..."
-                ref="body"
-                spellCheck={true}
-              />
-            </div>
+        <span className='error-text'>{this.state.error}</span>
+        <div className='story-text editor'>
+          <div onClick={this.focusBody} className="RichEditor-editor-body">
+            <Editor
+              blockStyleFn={getBlockStyle}
+              customStyleMap={styleMap}
+              editorState={bodyState}
+              handleKeyCommand={this.handleKeyCommand}
+              onChange={this.onBodyChange}
+              placeholder="Tell your story..."
+              ref="body"
+              spellCheck={true}
+            />
+          </div>
         </div>
+        <div className='story-sidebar'>
+          <TagSelect updateTags={this.updateTags.bind(this)} />
+        </div>
+        <button onClick={this.uploadContent.bind(this)}>Save</button>
       </article>
     );
   }
@@ -238,7 +267,7 @@ const InlineStyleControls = (props) => {
 };
 
 CustomEditor.propTypes = {
-  pushStoryUpload: React.PropTypes.func.isRequired,
+  uploadStory: React.PropTypes.func.isRequired,
   id: React.PropTypes.string.isRequired
 }
 

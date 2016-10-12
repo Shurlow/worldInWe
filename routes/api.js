@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../db.js');
+var jwt = require('jsonwebtoken')
 
 router.get('/', function(req, res, next) {
 	db.getStories(function(err, data) {
@@ -37,7 +38,6 @@ router.get('/:story_id', function(req, res) {
 });
 
 router.get('/responses/:story_id', function(req, res, next) {
-	console.log('getting responses')
 	db.getResponses(req.params.story_id, function(err, data) {
 		if (err) {
 			res.status(500).send('Error getting responses for story')
@@ -59,10 +59,21 @@ router.post('/responses/:story_id', function(req, res) {
 	})
 })
 
+router.delete('/responses/delete/:response_id', function(req, res) {
+	var response_id = req.params.response_id
+	var decoded = jwt.verify(req.body.token, 'supersecret!')
+	db.deleteResponse(response_id, decoded.id, function(err, data) {
+		if (err) {
+			res.status(500).send('Error deleting response for story.')
+		} else {
+			res.status(200).send('Response deleted.')
+		}
+	})
+})
+
 // Post new story
 // req.body = { id, title, content, author... }
 router.post('/story', function(req, res) {
-	// console.log('Posting New Story', req.body)
 	db.postStory(req.body, function(err, data) {
 		console.log('Post:', err, data)
 		if (err) {
@@ -78,14 +89,15 @@ router.post('/story', function(req, res) {
 var processImage = require('../processImage.js')
 
 router.post('/image/:id', function(req, res) {
+	var id = req.params.id
 	var buf = new Buffer(req.body.img.replace(/^data:image\/\w+;base64,/, ""),'base64')
-  processImage(buf, req.params.id, function(err, response) {
+  processImage(buf, id, function(err, response) {
     if (err) {
-      console.log(err)
+      console.error(err)
       res.status(500).send("There was an error uploading your image.")
     } else {
-    	console.log('image upload good.', response)
-      res.status(200).send(response.ETag)
+			var imgstring = `https://s3-us-west-2.amazonaws.com/worldinme-full/${id}.jpg`
+			res.status(200).json({ url: imgstring })
     }
   })
 })
@@ -98,8 +110,7 @@ router.post('/update/:story_id', function(req, res) {
 		if (err) {
 			res.status(500).send('Error updating story object')
 		} else {
-			console.log('update successfull', data)
-			res.status(200).send('All good')
+			res.status(200).send('update successfull')
 		}
 	})
 });

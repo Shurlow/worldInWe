@@ -5,13 +5,13 @@ var db = require('../db.js')
 var fs = require('fs')
 var Chance = require('chance');
 var chance = new Chance();
-var processImage = require('..//processImage.js')
+var processImage = require('../processImage.js')
 
 function main() {
   //create user and upload story
   makeUser(function(user) {
     console.log('user created:', user.id)
-    makeStory(user.id, function(story_id) {
+    makeStory(user, function(story_id) {
       makeResponse(user, story_id, function(done) {
         console.log('DONE')
         process.exit()
@@ -35,13 +35,14 @@ function makeUser(cb) {
   })
 }
 
-function makeStory(user_id, cb) {
+function makeStory(user, cb) {
   //make story object
   var story_id = guid()
   var story = {
     id: story_id,
     title: chance.sentence({words: chance.integer({min: 2, max: 10})}),
-    author: user_id,
+    author: user.username,
+    author_id: user.id,
     content: chance.paragraph(),
     topic: 'rumee',
     img: "https://s3-us-west-2.amazonaws.com/worldinme-full/" + story_id + ".jpg",
@@ -58,10 +59,12 @@ function makeStory(user_id, cb) {
 
 function makeResponse(user, story_id, cb) {
   var response = {
+    id: guid(),
     story_id: story_id,
     title: chance.sentence({words: chance.integer({min: 2, max: 10})}),
-    author: user.id,
-    date: Date.now(),
+    author: user.username,
+    author_id: user.id,
+    date: r.now(),
     content: chance.paragraph(),
   }
   db.postResponse(story_id, response, function(err, res) {

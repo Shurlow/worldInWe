@@ -15,6 +15,12 @@ $grey: #9FB1BC;
   margin: $v 0 $v 0;
 }
 
+@mixin whitebox {
+  background-color: white;
+  color: black;
+  padding: 1em;
+}
+
 @mixin light-shadow {
   @include box-shadow(0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24))
 }

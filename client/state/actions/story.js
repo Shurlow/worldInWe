@@ -17,30 +17,30 @@ export const STORY_FAILURE = 'STORY_FAILURE'
 //   }
 // }
 
-function fetchStory(id) {
-  return {
-    [CALL_API]: {
-      endpoint: "/api/" + id,
-      method: "GET",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      types: [STORY_REQUEST, STORY_SUCCESS, STORY_FAILURE]
-    }
-  }
-}
+// function fetchStory(id) {
+//   return {
+//     [CALL_API]: {
+//       endpoint: "/api/" + id,
+//       method: "GET",
+//       headers: {
+//         "Accept": "application/json",
+//         "Content-Type": "application/json",
+//       },
+//       types: [STORY_REQUEST, STORY_SUCCESS, STORY_FAILURE]
+//     }
+//   }
+// }
 
-export function loadStory(id) {
-  return (dispatch, getState) => {
-    const story = getState().stories.stories[id]
-    console.log(getState())
-    if (story) {
-      return null
-    }
-    return dispatch(loadStories())
-  }
-}
+// export function loadStory(id) {
+//   return (dispatch, getState) => {
+//     const story = getState().stories.stories[id]
+//     console.log(getState())
+//     if (story) {
+//       return null
+//     }
+//     return dispatch(loadStories())
+//   }
+// }
 
 export const UPLOAD_STORY_REQUEST = 'UPLOAD_STORY_REQUEST'
 export const UPLOAD_STORY_SUCCESS = 'UPLOAD_STORY_SUCCESS'

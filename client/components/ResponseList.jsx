@@ -1,26 +1,13 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
 import ResponseEditor from './ResponseEditor'
+import Response from './Response'
 
-export default class Responses extends React.Component {
-
-  makeResponse(response) {
-    return (
-      <div key={response.id} className='response'>
-        <div className='response-left'>
-          <p>{response.title}</p>
-          <p>{response.author}</p>
-          <p>{new Date(response.date).toString()}</p>
-        </div>
-        <div className='response-right'>
-          <p>{response.content}</p>
-        </div>
-      </div>
-    )
-  }
+export default class ResponseList extends React.Component {
 
   showEditor() {
-    if (this.props.isAuthenticated) {
+    const { isAuthenticated, story_id } = this.props
+    if (isAuthenticated) {
       return <ResponseEditor {...this.props}/>
     } else {
       return (
@@ -34,22 +21,30 @@ export default class Responses extends React.Component {
     }
   }
 
+  makeResponse(response) {
+    return (
+      <Response
+        token={this.props.token}
+        deleteResponse={this.props.deleteResponse}
+        user_id={this.props.user_id}
+        {...response}
+      />
+    )
+  }
+
   render() {
     const { responses, isFetching } = this.props
-    // if (responses) {
-      // responses.reverse()
-    // }
     return (
       <div className='story-responses'>
         <h3 className='story-header'>Respond</h3>
         <p className='textcard'> New to the program? blah blah blah</p>
         {this.showEditor()}
-        { responses !== null ? responses.map(this.makeResponse) : null }
+        {responses.map(this.makeResponse.bind(this))}
       </div>
     )
   }
 }
 
-Responses.propTypes = {
+ResponseList.propTypes = {
   responses: React.PropTypes.array
 }

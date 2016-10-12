@@ -91,8 +91,8 @@ function styles() {
       gulp.src('styles/sass/*.css'),
       gulp.src('styles/sass/*.scss')
         .pipe(sass({
-          outputStyle: 'expanded',
-          // outputStyle: 'compressed',
+          // outputStyle: 'expanded',
+          outputStyle: 'compressed',
           includePaths: neat.includePaths
         }).on('error', handleErrors))
     )

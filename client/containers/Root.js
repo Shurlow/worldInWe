@@ -15,7 +15,8 @@ import Logout from '../components/Logout'
 // import authContainer from './authContainer'
 import wrapAuth from './wrapAuth'
 import wrapStory from './wrapStory'
-import { wrapUserAuth } from './wrapUserAuth.js'
+import wrapCreate from './wrapCreate'
+import requireUserAuth from './requireUserAuth'
 
 export default class Root extends React.Component {
 
@@ -30,8 +31,9 @@ export default class Root extends React.Component {
             <Route path="explore" component={Explore}/>
             <Route path="login" component={wrapAuth(Login)}/>
             <Route path="logout" component={wrapAuth(Logout)}/>
-            <Route path="signup" component={SignUp}/>
-            <Route path="create" component={wrapAuth(Create)}/>
+            <Route path="signup" component={wrapAuth(SignUp)}/>
+            <Route path="create" component={wrapCreate(Create)}/>
+            <Route path="edit/:id" component={requireUserAuth(Story)}/>
           </Route>
         </Router>
       </Provider>
@@ -42,7 +44,7 @@ export default class Root extends React.Component {
 // <Route path="logout" component={Logout}/>
 // <Route path="signup" component={SignUp}/>
 // <Route path="new" component={wrapAuth(NewStory)}/>
-// <Route path="edit/:id" component={wrapUserAuth(EditStory)}/>
+
 
 Root.propTypes = {
   store: React.PropTypes.object.isRequired

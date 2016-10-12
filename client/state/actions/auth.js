@@ -17,8 +17,7 @@ export function loginUser(token, userObject, redirect='/', cb) {
       return dispatch({
         type: LOGIN_SUCCESS,
         payload: {
-          id: user.id,
-          username: user.username
+          token: token
         }
       })
     }

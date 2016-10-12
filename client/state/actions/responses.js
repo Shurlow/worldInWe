@@ -34,7 +34,7 @@ export function loadResponses(story_id) {
 
 export function uploadResponse(story_id, responseObj) {
   return (dispatch, getState) => {
-    return dispatch(fetchUploadResponse(story_id, responseObj))
+    return dispatch(uploadResponseRequest(story_id, responseObj))
       .then(function(res) {
         console.log('fetch post done')
         if (!res.error) {
@@ -47,7 +47,7 @@ export function uploadResponse(story_id, responseObj) {
   }
 }
 
-export function fetchUploadResponse(story_id, responseObj) {
+export function uploadResponseRequest(story_id, responseObj) {
   return {
     [CALL_API]: {
       endpoint: `/api/responses/${story_id}`,
@@ -57,6 +57,33 @@ export function fetchUploadResponse(story_id, responseObj) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(responseObj),
+      types: [UPLOAD_RESPONSE_REQUEST, UPLOAD_RESPONSE_SUCCESS, UPLOAD_RESPONSE_FAILURE]
+    }
+  }
+}
+
+export function deleteResponse(response_id, token, story_id) {
+  return (dispatch, getState) => {
+    return dispatch(deleteResponseRequest(response_id, token))
+      .then(function(res) {
+        console.log('delete done')
+        if (!res.error) {
+          dispatch(loadResponses(story_id))
+        }
+      })
+  }
+}
+
+export function deleteResponseRequest(response_id, token) {
+  return {
+    [CALL_API]: {
+      endpoint: `/api/responses/delete/${response_id}`,
+      method: "DELETE",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({token: token}),
       types: [UPLOAD_RESPONSE_REQUEST, UPLOAD_RESPONSE_SUCCESS, UPLOAD_RESPONSE_FAILURE]
     }
   }

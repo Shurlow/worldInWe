@@ -63,6 +63,7 @@ exports.getResponses = function(story_id, cb) {
 }
 
 exports.postResponse = function(story_id, response, cb) {
+  response.date = r.now()
   withConnection(function(conn) {
     r.table('response')
       .insert(response)
@@ -74,6 +75,17 @@ exports.postResponse = function(story_id, response, cb) {
           cb(null, res)
         }
       })
+  })
+}
+
+exports.deleteResponse = function(response_id, user_id, cb) {
+  const response = r.table('response').get(response_id)
+  withConnection(function(conn) {
+    r.branch(
+      response('author_id').eq(user_id),
+      response.delete(),
+      r.error('Username does not match response')
+    ).run(conn, cb)
   })
 }
 
@@ -262,7 +274,7 @@ exports.handleError = function(error, cursor) {
 
 function withConnection(cb) {
   if(!connection){
-    console.log('  -- connecting... --')
+    // console.log('  -- connecting... --')
     r.connect( {host: 'localhost', port: 28015, db: 'WorldInWe'}, function(err, conn) {
       if (err) {
         console.error(err)

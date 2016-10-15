@@ -11,18 +11,23 @@ class CustomEditor extends React.Component {
       var restoredContent = ContentState.createFromBlockArray(blocks)
       // console.log(props.backup, 'blocks:', blocks, 'content', restoredContent)
       this.state = {
-        titleState: '',
-        authorState: '',
-        bodyState: EditorState.createWithContent(restoredContent),
-        tags: null,
+        title: '',
+        author: '',
+        body: EditorState.createWithContent(restoredContent),
+        form: null,
+        theme1: null,
+        theme2: null,
+        location: null,
         error: null
       }; 
     } else {
       this.state = {
-        titleState: null,
-        authorState: null,
-        bodyState: EditorState.createEmpty(),
-        tags: null,
+        title: null,
+        author: null,
+        body: EditorState.createEmpty(),
+        theme1: null,
+        theme2: null,
+        location: null,
         error: null
       };
     }
@@ -30,16 +35,16 @@ class CustomEditor extends React.Component {
     this.focusBody = () => this.refs.body.focus();
     // this.focusTitle = () => this.refs.title.focus();
     // this.focusAuthor = () => this.refs.author.focus();
-    this.onBodyChange = (bodyState) => this.setState({bodyState});
-    this.onTitleChange = (e) => this.setState({titleState: e.target.value});
-    this.onAuthorChange = (e) => this.setState({authorState: e.target.value});
+    this.onBodyChange = (body) => this.setState({body});
+    this.onTitleChange = (e) => this.setState({title: e.target.value});
+    this.onAuthorChange = (e) => this.setState({author: e.target.value});
     this.handleKeyCommand = (command) => this._handleKeyCommand(command);
     this.toggleBlockType = (type) => this._toggleBlockType(type);
     this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
 }
   _handleKeyCommand(command) {
-    const {bodyState} = this.state;
-    const newState = RichUtils.handleKeyCommand(bodyState, command);
+    const {body} = this.state;
+    const newState = RichUtils.handleKeyCommand(body, command);
     if (newState) {
       this.onBodyChange(newState);
       return true;
@@ -47,15 +52,15 @@ class CustomEditor extends React.Component {
     return false;
   }
 
-  _handleKeyTitleCommand(command) {
-    const {titleState} = this.state;
-    const newState = RichUtils.handleKeyCommand(titleState, command);
-    if (newState) {
-      this.onTitleChange(newState);
-      return true;
-    }
-    return false;
-  }
+  // _handleKeyTitleCommand(command) {
+  //   const {titleState} = this.state;
+  //   const newState = RichUtils.handleKeyCommand(titleState, command);
+  //   if (newState) {
+  //     this.onTitleChange(newState);
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   _toggleBlockType(blockType) {
     this.onBodyChange(
@@ -75,21 +80,37 @@ class CustomEditor extends React.Component {
     );
   }
 
-  hasRequiredField(storyObj) {
+  hasRequiredFields(storyObj) {
     for (var key in storyObj) {
       if (storyObj[key] == null) {
-        this.setState({
-          error: `You're story is missing something: ${key}`
-        })
+        this.setState({error: `You're story is missing something: ${key}`})
         return false
       }
+    }
+    for (var t in storyObj.tags) {
+      if (storyObj.tags[t] == null) {
+        this.setState({error: `You're story is missing something: ${t}`})
+        return false
+      }
+    }
+    if (storyObj.content == '') {
+      this.setState({error: `You're story is missing something: content`})
+      return false
     }
     return true
   }
 
+  countWords(content) {
+    let count = 0
+    content.forEach( line => {
+      count += line.split(' ').length
+    })
+    return count
+  }
+
   updateTags(tag, value) {
     this.setState({
-      tags: Object.assign({}, this.state.tags, {[tag]: value})
+      [tag]: value
     })
   }
 
@@ -99,22 +120,28 @@ class CustomEditor extends React.Component {
       'ITALIC': ['<em>', '</em>'],
       'UNDERLINE': ['<u>', '</u>']
     };
-    const contentState = this.state.bodyState.getCurrentContent()
+    const contentState = this.state.body.getCurrentContent()
     const raw = convertToRaw(contentState)
-    console.log('CS:', contentState, 'raw',raw)
+    const content = backdraft(raw, markup)
 
     const storyObj = {
       id: this.props.id,
-      title: this.state.titleState,
-      author: this.state.authorState,
+      title: this.state.title,
+      author: this.state.author,
       author_id: this.props.user_id,
-      content: backdraft(raw, markup),
+      content: content,
       img: this.props.url,
-      tags: this.state.tags,
+      tags: {
+        form: this.state.form,
+        theme: [this.state.theme1, this.state.theme2],
+        location: this.state.location,
+        length: this.countWords(content) + ' words'
+      },
       backup: raw
     }
     
-    if (this.hasRequiredField(storyObj)) {
+    if (this.hasRequiredFields(storyObj)) {
+      console.log('upload!')
       this.props.uploadStory(storyObj)
     }
   }
@@ -128,7 +155,7 @@ class CustomEditor extends React.Component {
           //   onToggle={this.toggleInlineStyle}
           // />
   render() {
-    const { titleState, authorState, bodyState } = this.state;
+    const { title, author, body } = this.state;
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
     // var contentState = editorState.getCurrentContent();
@@ -157,7 +184,7 @@ class CustomEditor extends React.Component {
             <Editor
               blockStyleFn={getBlockStyle}
               customStyleMap={styleMap}
-              editorState={bodyState}
+              editorState={body}
               handleKeyCommand={this.handleKeyCommand}
               onChange={this.onBodyChange}
               placeholder="Tell your story..."

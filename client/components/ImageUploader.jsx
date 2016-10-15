@@ -28,13 +28,13 @@ export default class ImageUploader extends React.Component {
   }
 
   handleImageError() {
-    console.log('img error')
-    this.imgref.src = "res/uploadimg.png"
+    // console.log('img error')
+    // this.imgref.src = "res/uploadimg.png"
   }
 
   render() {
     const { src, url, imgError, isFetching, errorMessage } = this.props
-    const imagesrc = isFetching ? 'img/loader.gif' : ( src || 'res/uploadimg.png')
+    const imagesrc = isFetching ? '/img/loader.gif' : ( src || '/res/uploadimg.png')
     return (
       <div className='story-image image-upload'>
         <div onClick={this.triggerUpload.bind(this)}>
@@ -59,7 +59,7 @@ export default class ImageUploader extends React.Component {
 }
 
 ImageUploader.defaultProps = {
-  src: 'res/uploadimg.png'
+  src: '/res/uploadimg.png'
 }
 
 ImageUploader.propTypes = {

@@ -23,13 +23,22 @@ router.post('/login', function(req, res) {
   })
 });
 
-router.post('/createUser', function(req, res, next) {
+router.post('/create', function(req, res, next) {
   var user = req.body
   console.log('Adding new user:', user)
+  if (user.accessCode === 'secret') {
+    console.log("there is a match!")
+    delete user['accessCode']
+    user.privileges = 'admin'
+  } else {
+    console.log('no match')
+    delete user['accessCode']
+    user.privileges = 'read_only'
+  }
   db.createUser(user, function(err, success) {
     if (success) {
       console.log('success!')
-      var token = jwt.sign({ username: user.username, id: user.id }, 'supersecret!')
+      var token = jwt.sign({ username: user.username, id: user.id, privileges: user.privileges }, 'supersecret!')
       res.status(200).json({'token': token})
     } else {
       console.log('Create user error:', err)

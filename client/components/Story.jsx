@@ -12,7 +12,6 @@ export default class Story extends React.Component {
   }
 
   showEditButton() {
-    console.log('show edit?', this.props.author_id, this.props.user_id)
     const {id, author_id, user_id } = this.props
     if (author_id === user_id) {
       return (
@@ -35,19 +34,19 @@ export default class Story extends React.Component {
         <div className="story-image">
           <img src={img}></img>
         </div>
-        <div className='story-content'>
-          <article>
+        <div className='story-content' style={{backgroundImage: "url('/img/adventure.jpeg')"}}>
+          <article >
             <header className="story-header">
-              <h3 className='title'>{title}</h3>
-              <h3>produced by <span className='name'>{author}</span></h3>
-              <h3>directed <span className='name'>{author}</span></h3>
+              <h4 className='title'>{title}</h4>
+              <h4>produced by <span className='name'>{author}</span></h4>
+              <h4>directed <span className='name'>{author}</span></h4>
             </header>
             <div className="story-text firstletter">
               {content}
             </div>
             <div className='story-sidebar'>
               <SocialButtons title={title}/>
-              <Tags {...tags}/>
+              <Tags tags={tags}/>
             </div>
             <WrappedResponseList
               isAuthenticated={isAuthenticated}

@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router'
 import { loadStories } from "../state/actions/stories"
-import { uploadStory, uploadImage } from '../state/actions/image'
 import ErrorPage from '../components/ErrorPage'
 
 export default function wrapStory(Component) {
@@ -48,8 +47,6 @@ export default function wrapStory(Component) {
   }
 
   return connect(mapStateToProps, {
-    loadStories,
-    uploadStory,
-    uploadImage
+    loadStories
   })(LoadedStory);
 }

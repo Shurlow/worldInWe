@@ -74,6 +74,7 @@ router.delete('/responses/delete/:response_id', function(req, res) {
 // Post new story
 // req.body = { id, title, content, author... }
 router.post('/story', function(req, res) {
+	console.log(req.body)
 	db.postStory(req.body, function(err, data) {
 		console.log('Post:', err, data)
 		if (err) {

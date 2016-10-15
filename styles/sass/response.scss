@@ -1,15 +1,30 @@
-@import 'editor.scss';
+@import 'story.scss';
 @import 'neat/neat';
 @import 'global.scss';
 
 .story-responses {
   display: inline-block;
   margin-top: 2em;
+  width: 100%;
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 1em; 
+    background-color: $yellow;
+    text-align: center;
+    padding: 1em;
+    @include span-columns(5);
+    @include shift(3.5);
+  }
 
   .textcard {
-    @extend .story-header;
-    background-color: white;
-    text-transform: none;
+    // @extend .story-header;
+    margin-bottom: 1em;
+    padding: 1em;
+    @include span-columns(5);
+    @include shift(3.5);
+    // background-color: white;
+    // text-transform: none;
   }
 }
 
@@ -18,8 +33,21 @@
   display: inline-block;
   background-color: white;
   width: 100%;
-  @include vertical-margin(1em);
+  // @include vertical-margin(1em);
+  margin-bottom: 1em;
   padding: 1em;
+
+  h4 {
+    margin-top: 1em;
+    font-weight: normal;
+    &.top {
+      margin-top: 0;
+      padding-top: 1em; 
+      border-width: 0.2rem;
+      border-top-style: solid;
+      font-weight: bold;
+    }
+  }
 
   button {
     position: absolute;

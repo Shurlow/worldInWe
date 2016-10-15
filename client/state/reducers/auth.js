@@ -6,10 +6,11 @@ const token = localStorage.getItem('id_token')
 const initialState = {
   isAuthenticating: false,
   isAuthenticated: token ? true : false,
-  isError: false,
   username: token ? jwtDecode(token).username : null,
+  privileges: 'read_only',
   id: null,
-  token: null
+  token: null,
+  isError: false
 }
 
 export default createReducer(initialState, {
@@ -26,7 +27,15 @@ export default createReducer(initialState, {
       isAuthenticated: true,
       id: user.id,
       username: user.username,
+      privileges: user.privileges,
       token: payload.token
+    });
+  },
+    [ActionTypes.LOGIN_FAILURE]: (state, payload) => {
+    return Object.assign({}, state, {
+      isAuthenticating: false,
+      isAuthenticated: false,
+      isError: true
     });
   },
   [ActionTypes.LOGOUT_USER]: (state, payload) => {
@@ -37,39 +46,26 @@ export default createReducer(initialState, {
       username: null,
     });
   },
-  [ActionTypes.SIGNUP_REQUEST]: (state, payload) => {
-    return Object.assign({}, state, {
-      isAuthenticating: true,
-      isError: false
-    })
-  },
-  [ActionTypes.SIGNUP_SUCCESS]: (state, payload) => {
-    return Object.assign({}, state, {
-      isAuthenticating: false,
-      isAuthenticated: true,
-      id: payload.id,
-      username: payload.username
-    });
-  },
-  [ActionTypes.SIGNUP_FAILURE]: (state, payload) => {
-    return Object.assign({}, state, {
-      isAuthenticating: false,
-      isAuthenticated: false,
-      isError: true
-    });
-  }
+  // [ActionTypes.SIGNUP_REQUEST]: (state, payload) => {
+  //   return Object.assign({}, state, {
+  //     isAuthenticating: true,
+  //     isError: false
+  //   })
+  // },
+  // [ActionTypes.SIGNUP_SUCCESS]: (state, payload) => {
+  //   console.log('signup done right', payload)
+  //   return Object.assign({}, state, {
+  //     isAuthenticating: false,
+  //     isAuthenticated: true,
+  //     id: payload.id,
+  //     username: payload.username
+  //   });
+  // },
+  // [ActionTypes.SIGNUP_FAILURE]: (state, payload) => {
+  //   return Object.assign({}, state, {
+  //     isAuthenticating: false,
+  //     isAuthenticated: false,
+  //     isError: true
+  //   });
+  // }
 })
-
-// export default function auth(initialState, action) {
-//   if (action.type === ActionTypes.LOGIN_SUCCESS || action.type === ActionTypes.SIGNUP_SUCCESS) {
-//     // localStorage.setItem('token', token);
-//     console.log('auth', action.payload)
-//     var user = jwtDecode(action.payload.token)
-//     return merge({}, state, {isAuthenticated: true, username: user.username})
-//   }
-//   if (action.type === ActionTypes.LOGOUT_USER) {
-//     localStorage
-//     return merge({}, state, {isAuthenticated: false, username: null})
-//   }
-//   return state
-// }

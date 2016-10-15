@@ -38,13 +38,20 @@ function makeUser(cb) {
 function makeStory(user, cb) {
   //make story object
   var story_id = guid()
+  var paragraph = chance.paragraph()
   var story = {
     id: story_id,
     title: chance.sentence({words: chance.integer({min: 2, max: 10})}),
     author: user.username,
     author_id: user.id,
-    content: chance.paragraph(),
+    content: paragraph,
     topic: 'rumee',
+    tags: {
+      form: chance.pickone(forms),
+      theme: [chance.pickone(themes), chance.pickone(themes)],
+      length: paragraph.split(' ').length + ' words',
+      location: chance.pickone(themes)
+    },
     img: "https://s3-us-west-2.amazonaws.com/worldinme-full/" + story_id + ".jpg",
   }
   //upload image then story
@@ -94,3 +101,9 @@ function guid() {
   }
   return s4();
 }
+
+const themes = ['body', 'climate', 'displacement', 'faith', 'food',
+  'identity', 'leadership', 'love', 'mothers']
+const forms = ['documentary', 'flash-fiction', 'flash non-fiction',
+  'narrative', 'photo essay', 'poem', 'sponsored', 'visual poem']
+const locations = ['kenya', 'minnesota']

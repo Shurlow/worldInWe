@@ -46,7 +46,10 @@ function buildScript(file, watch) {
     transform:  [babelify, looseEnvify, reactify]
   };
   
-  // watchify() if watch requested, otherwise run browserify() once 
+  // watchify() if watch requested, otherwise run browserify() once
+  if (watch) {
+    console.log('watching')
+  }
   var bundler = watch ? watchify(browserify(props)) : browserify(props);
   
   function rebundle() {
@@ -54,7 +57,7 @@ function buildScript(file, watch) {
     return stream
       .on('error', handleErrors)
       .pipe(source(file))
-      .pipe(duration('Bundle done'))
+      // .pipe(duration('Bundle done'))
       .pipe(gulp.dest(buildDir))
       .pipe(notify({title: 'Bundle Complete', message:'good job buddy'}))
   }
@@ -142,9 +145,7 @@ gulp.task('watch-styles', function() {
 });
 
 gulp.task('build', function() {
-  return buildScript('bundle.js', false);
-});
-
-gulp.task('default', ['watch-styles'], function() {
   return buildScript('bundle.js', true);
 });
+
+gulp.task('default', ['build', 'watch-styles']);

@@ -18,9 +18,9 @@ export default class Response extends React.Component {
     return (
       <div key={id} className='response'>
         <div className='response-left'>
-          <p>{title}</p>
-          <p>{author}</p>
-          <p>{d}</p>
+          <h4 className='top'>{title}</h4>
+          <h4>{author}</h4>
+          <h4>{d}</h4>
         </div>
         <div className='response-right'>
           <p>{content}</p>

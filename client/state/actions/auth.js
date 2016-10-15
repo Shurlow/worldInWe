@@ -21,7 +21,7 @@ export function loginUser(token, userObject, redirect='/', cb) {
         }
       })
     }
-    return dispatch(fetchUser(userObject))
+    return dispatch(fetchUser('login', userObject))
       .then(function(res) {
         if (res.error) {
           console.log(res.error)
@@ -47,7 +47,7 @@ export function logoutUser() {
 
 export function signUpUser(userObject, redirect='/') {
   return (dispatch, getState) => {
-    return dispatch(createUser(userObject))
+    return dispatch(fetchUser('create', userObject))
       .then(function(res) {
         if (!res.error) {
           window.localStorage.setItem('id_token', res.payload.token)
@@ -57,26 +57,26 @@ export function signUpUser(userObject, redirect='/') {
   }
 }
 
-function createUser(userObject) {
-  console.log('create:', userObject)
-  return {
-    [CALL_API]: {
-      endpoint: "/auth/createUser",
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userObject),
-      types: [SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE]
-    }
-  }
-}
+// function createUser(userObject) {
+//   console.log('create:', userObject)
+//   return {
+//     [CALL_API]: {
+//       endpoint: "/auth/createUser",
+//       method: "POST",
+//       headers: {
+//         "Accept": "application/json",
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(userObject),
+//       types: [SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE]
+//     }
+//   }
+// }
 
-function fetchUser(userObject) {
+function fetchUser(endpoint, userObject) {
   return {
     [CALL_API]: {
-      endpoint: "/auth/login",
+      endpoint: `/auth/${endpoint}`,
       method: "POST",
       headers: {
         "Accept": "application/json",

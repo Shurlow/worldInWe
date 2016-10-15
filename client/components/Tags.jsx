@@ -1,33 +1,30 @@
 import React from 'react'
 
-export default class SocialButtons extends React.Component {
+export default class Tags extends React.Component {
+
+  makeTag(name, tag) {
+    return (
+      <div>
+        <h4>{name}</h4>
+        <span className={name}>{tag}</span>
+      </div>
+    )
+  }
 
   render() {
-    const { form, about, length, location } = this.props
+    const { tags } = this.props
     return (
       <div className="tags">
-        <h4>Tags</h4>
-        <div>
-          <p>form</p>
-          <span>{form}</span>
-          
-          <p>about</p>
-          <span>{about}</span>
-          
-          <p>length</p>
-          <span>{length}</span>
-          
-          <p>location</p>
-          <span>{location}</span>
-        </div>
+        <h3>Tags</h3>
+        {this.makeTag('form', tags.form)}
+        {this.makeTag('theme', tags.theme[0] + ' & ' + tags.theme[1])}
+        {this.makeTag('length', tags.length)}
+        {this.makeTag('location', tags.location)}
       </div>
     )
   }
 }
 
-SocialButtons.propTypes = {
-  form: React.PropTypes.string.isRequired,
-  about: React.PropTypes.string.isRequired,
-  length: React.PropTypes.string.isRequired,
-  location: React.PropTypes.string.isRequired,
+Tags.propTypes = {
+  tags: React.PropTypes.object.isRequired
 }

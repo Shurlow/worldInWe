@@ -17,8 +17,6 @@ export default function requireUserAuth(Component) {
 
     render () {
       console.log('requireUserAuth', this.props)
-      // const { user_id, isAuthenticated } = this.props
-      // const author_id = this.props.params.id
       return (
         <div>
           {this.userIsAuthor()

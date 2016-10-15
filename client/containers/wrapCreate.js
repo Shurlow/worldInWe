@@ -19,6 +19,7 @@ export default function wrapCreate(Component) {
     imgError: state.image.isError,
     errorMessage: state.image.errorMessage
   })
+  
   return connect(mapStateToProps, {
     uploadImage,
     uploadStory,

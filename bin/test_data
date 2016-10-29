@@ -52,7 +52,7 @@ function makeStory(user, cb) {
       length: paragraph.split(' ').length + ' words',
       location: chance.pickone(themes)
     },
-    img: "https://s3-us-west-2.amazonaws.com/worldinme-full/" + story_id + ".jpg",
+    img: "https://s3.amazonaws.com/wiw-full/" + story_id + ".jpg",
   }
   //upload image then story
   uploadRandomImage(story_id, function(err, res) {

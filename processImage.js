@@ -13,8 +13,8 @@ module.exports = function(imageBuffer, id, callback) {
   //     })
   //   })
 
-  cropThumb(imageBuffer, id)
-  uploadImage(imageBuffer, id, 'worldinme-full', function(err, res) {
+  // cropThumb(imageBuffer, id)
+  uploadImage(imageBuffer, id, 'wiw-full', function(err, res) {
     if (err) return callback(err, null)
     return callback(null, res)
   })

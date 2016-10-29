@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router'
 import ResponseList from './ResponseList'
 import wrapResponses from '../containers/wrapResponses'
 import SocialButtons from './SocialButtons'
+import Carousel from './Carousel'
 import Tags from './Tags'
 
 export default class Story extends React.Component {
@@ -25,15 +26,15 @@ export default class Story extends React.Component {
       return null
     }
   }
-
+        // <div className="story-image">
+        //   <img src={img}></img>
+        // </div>
   render() {
     let WrappedResponseList = wrapResponses(ResponseList)
     const { id, token, tags, user_id, content, title, author, img, isAuthenticated, username } = this.props
     return (
       <div className='story'>
-        <div className="story-image">
-          <img src={img}></img>
-        </div>
+        <Carousel img={img} />
         <div className='story-content' style={{backgroundImage: "url('/img/adventure.jpeg')"}}>
           <article >
             <header className="story-header">

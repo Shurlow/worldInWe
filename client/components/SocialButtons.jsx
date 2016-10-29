@@ -7,10 +7,14 @@ export default class SocialButtons extends React.Component {
     let title = this.props.title
     return (
       <div className="social-buttons">
-        <h4>Share This Story</h4>
+        <h3>Share This Story</h3>
         <div>
-          <a href={`http://www.facebook.com/share.php?u=${url}&title=${title}`}>Facebook</a>
-          <a href={`http://twitter.com/intent/tweet?status=${title}+${url}`}>Twitter</a>
+          <a target="_blank" href={`http://www.facebook.com/share.php?u=${url}&title=${title}`}>
+            <img src='/res/fblogo.png' />
+          </a>
+          <a target="_blank" href={`http://twitter.com/intent/tweet?status=${title}+${url}`}>
+            <img src='/res/twitterlogo.png' style={{marginLeft: '1em'}}/>
+          </a>
         </div>
       </div>
     )

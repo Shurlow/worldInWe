@@ -40,7 +40,7 @@ export default class Nav extends React.Component {
     return (
       <nav className={style}>
          <div className="nav-left">
-            <img src="/res/logo.svg" onClick={() => {browserHistory.push('/')}}></img>
+            <img src="/res/logo-white.svg" onClick={() => {browserHistory.push('/')}}></img>
           </div>
           <div className='nav-right'>
             <a className='nav-link' href="#" title="Topic" onClick={() => {browserHistory.push('/')}}>rumee</a>

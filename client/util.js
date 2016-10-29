@@ -23,3 +23,8 @@ export function guid() {
   return s4();
 }
 
+export function randomBgImg() {
+  var id = Math.floor(Math.random() * 6 + 1)
+  console.log('rand id:', id)
+  return `https://s3.amazonaws.com/wiw-background/${id}.jpg`
+}

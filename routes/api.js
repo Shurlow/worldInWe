@@ -97,7 +97,9 @@ router.post('/image/:id', function(req, res) {
       console.error(err)
       res.status(500).send("There was an error uploading your image.")
     } else {
-			var imgstring = `https://s3-us-west-2.amazonaws.com/worldinme-full/${id}.jpg`
+    	console.log(response)
+
+			var imgstring = `https://s3.amazonaws.com/wiw-full/${id}.jpg`
 			res.status(200).json({ url: imgstring })
     }
   })

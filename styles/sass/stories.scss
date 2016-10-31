@@ -1,0 +1,30 @@
+@import "neat/neat";
+@import "global.scss";
+
+.stories {
+
+  h4 {
+    padding: 0.5em;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    color: white;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.15);
+    &:hover {
+      color: $red;
+    }
+  }
+}
+
+.stories-link {
+  @include span-columns(3);
+  @include omega(4n);
+  margin-bottom: 1.5em;
+  &:hover {
+    img {
+      @extend .dim;
+    }
+  }
+  // display: inline-block;
+  position: relative;
+}

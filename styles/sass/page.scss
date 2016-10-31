@@ -41,7 +41,7 @@ header {
 
 .large-card {
   @extend .card;
-  @include span-columns(8)
+  @include span-columns(8);
   &.center {
     @include shift(2)
   }
@@ -57,7 +57,7 @@ header {
 
 .third-card {
   @extend .card;
-  @include span-columns(4, collapse);
+  @include span-columns(4, block-collapse);
   // @include pad();
   // @include reset-display;
   // @include omega();

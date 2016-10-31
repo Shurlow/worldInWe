@@ -6,6 +6,8 @@ import Home from '../components/Home'
 import About from '../components/About'
 import Story from '../components/Story'
 import Explore from '../components/Explore'
+import Stories from '../components/Stories'
+import StoriesList from '../components/StoriesList'
 import Login from '../components/Login'
 import Logout from '../components/Logout'
 import SignUp from '../components/SignUp'
@@ -32,6 +34,11 @@ export default class Root extends React.Component {
             <Route path="about" component={About}/>
             <Route path="story/:id" component={wrapStory(Story)}/>
             <Route path="explore" component={Explore}/>
+            <Route path="stories" component={Stories}>
+              <Route path="theme/:tag" component={StoriesList}/>
+              <Route path="form/:tag" component={StoriesList}/>
+              <Route path="location/:tag" component={StoriesList}/>
+            </Route>
             <Route path="login" component={wrapAuth(Login)}/>
             <Route path="logout" component={wrapAuth(Logout)}/>
             <Route path="signup" component={wrapAuth(SignUp)}/>

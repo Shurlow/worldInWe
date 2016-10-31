@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 import { randomBgImg } from '../util'
 
 export default class ExploreView extends React.Component {
@@ -8,7 +9,13 @@ export default class ExploreView extends React.Component {
       <div className='third-card v-list'>
         <h3>{type}</h3>
         <ul>
-        { items.map( t => { return <li>{t}</li> }) }
+        {items.map( t => {
+          return (
+            <Link to={`stories?type=${type}&tag=${t}`}>
+              <li>{t}</li> 
+            </Link>
+          )
+        })}
         </ul>
       </div>
     )

@@ -1,0 +1,28 @@
+@import 'neat/neat';
+@import 'global.scss';
+
+.explore {
+  text-transform: uppercase;
+  // @include fill-parent();
+  // @include row(table);
+}
+
+.v-list {
+  text-align: center;
+
+  li {
+    color: $blue;
+    @include vertical-margin(0.5em);
+    &:hover {
+      @extend .dim;
+      cursor: pointer;
+    }
+  }
+}
+
+.fillwhite {
+  background: white;
+  display: inline-block;
+  width: 100%;
+  padding: 1em;
+}

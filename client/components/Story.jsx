@@ -5,6 +5,7 @@ import wrapResponses from '../containers/wrapResponses'
 import SocialButtons from './SocialButtons'
 import Carousel from './Carousel'
 import Tags from './Tags'
+import { randomBgImg } from '../util'
 
 export default class Story extends React.Component {
 
@@ -26,25 +27,23 @@ export default class Story extends React.Component {
       return null
     }
   }
-        // <div className="story-image">
-        //   <img src={img}></img>
-        // </div>
+
   render() {
     let WrappedResponseList = wrapResponses(ResponseList)
     const { id, token, tags, user_id, content, title, author, img, isAuthenticated, username } = this.props
     return (
-      <div className='story'>
+      <div className='page'>
         <Carousel img={img} />
-        <div className='story-content' style={{backgroundImage: "url('/img/adventure.jpeg')"}}>
-          <article >
-            <header className="story-header">
-              <h4 className='title'>{title}</h4>
-              <h4>produced by <span className='name'>{author}</span></h4>
-              <h4>directed <span className='name'>{author}</span></h4>
+        <div className='content' style={{backgroundImage: `url(${randomBgImg()})`}}>
+          <article>
+            <header className="center">
+              <h3 className='title'>{title}</h3>
+              <h3>produced by <span className='name'>{author}</span></h3>
+              <h3>directed <span className='name'>{author}</span></h3>
             </header>
-            <div className="story-text firstletter">
+            <p className="firstletter large-card">
               {content}
-            </div>
+            </p>
             <div className='story-sidebar'>
               <SocialButtons title={title}/>
               <Tags tags={tags}/>

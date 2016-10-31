@@ -4,27 +4,13 @@
 
 .story-responses {
   display: inline-block;
-  margin-top: 2em;
-  width: 100%;
-
-  h3 {
-    margin-top: 0;
-    margin-bottom: 1em; 
-    background-color: $yellow;
-    text-align: center;
-    padding: 1em;
-    @include span-columns(5);
-    @include shift(3.5);
+  header {
+    margin-bottom: 1em;
   }
 
-  .textcard {
-    // @extend .story-header;
-    margin-bottom: 1em;
+  .small-card {
     padding: 1em;
-    @include span-columns(5);
-    @include shift(3.5);
-    // background-color: white;
-    // text-transform: none;
+    margin-bottom: 1em; 
   }
 }
 
@@ -33,7 +19,6 @@
   display: inline-block;
   background-color: white;
   width: 100%;
-  // @include vertical-margin(1em);
   margin-bottom: 1em;
   padding: 1em;
 

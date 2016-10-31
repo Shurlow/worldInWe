@@ -30,14 +30,11 @@ h2 {
   font-weight: bold;
   background-color: $yellow;
   text-transform: uppercase;
-  // margin: 0;
-  // @include vertical-margin(1em);
 }
 
 h3 {
   font-size: 1.2rem;
-  // padding: 1rem;
-  // color: black;
+  display: inline-block;
   @include vertical-margin(0.5rem);
   font-weight: bold;
   text-transform: uppercase;
@@ -74,17 +71,6 @@ button {
   color: white;
 }
 
-.bg-image {
-  @include background-image(url("../img/adventure.jpeg"));
-}
-
-// .content {
-//   margin-top: 2em;
-//   @include outer-container(90%);
-//   height: 100%;
-//   background-color: rgba(255,255,255,0.5)
-// }
-
 .hoverfade {
   opacity: 1;
   transition: all .15s ease-out;
@@ -113,77 +99,21 @@ button {
 }
 
 
-// Nav style
-nav {
-  z-index: 1;
-  top: 0;
-  color: white;
-  background-color: black;
-  padding: 0.5em;
-  max-width: 1200px;
-  margin: 0 auto;
-  height: 100px;
-  // @include outer-container;
-  img {
-    height: 95%;
-  }
-}
+// .explore {
+//   width: 100%;
+//   height: 80vh;
 
-.nav-left, .nav-right {
-  height: 100%;
-  // display: flex;
-  // align-items: center;
-}
-.nav-left {
-  @include span-columns(2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  img:hover {
-    cursor: pointer;
-  }
-}
-.nav-right {
-  @include span-columns(4);
-  @include shift(6);
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.nav-link {
-  @extend .dim;
-  color: white;
-  text-decoration: none;
-  text-transform: uppercase;
-  padding: 1em;
-}
+//   h2 {
+//     margin-top: 0;
+//     padding-left: 3em;
+//     padding-right: 3em;
+//   }
+// }
 
 
-.explore {
-  width: 100%;
-  height: 80vh;
-  // display: inline-block;
-  @extend .bg-image;
-
-  h2 {
-    margin-top: 0;
-    padding-left: 3em;
-    padding-right: 3em;
-  }
-}
-
-.textcard {
-  padding: 2em;
-  background-color: white;
-  color: black;
-  @include span-columns(4);
-  // @include omega();
-}
-
-.center-wrap {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 0;
-}
+// .center-wrap {
+//   width: 100%;
+//   display: flex;
+//   justify-content: center;
+//   margin-top: 0;
+// }

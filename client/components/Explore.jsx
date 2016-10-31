@@ -1,10 +1,11 @@
 import React from 'react'
+import { randomBgImg } from '../util'
 
 export default class ExploreView extends React.Component {
 
   makeList(type, items) {
     return (
-      <div className='textcard'>
+      <div className='third-card v-list'>
         <h3>{type}</h3>
         <ul>
         { items.map( t => { return <li>{t}</li> }) }
@@ -15,22 +16,23 @@ export default class ExploreView extends React.Component {
 
   render() {
     const { content, title, author, img } = this.props
-
     return (
-      <div className='explore'>
-        <div className='content'>
-          <div className='center-wrap'>
-            <h2>categories</h2>
-          </div>
-          
-          {this.makeList('form', this.props.forms)}
-          {this.makeList('theme', this.props.themes)}
-          {this.makeList('location', this.props.locations)}
+      <div className='page explore'>
+        <div className='content' style={{backgroundImage: `url(${randomBgImg()})`}}>
+          <article>
+            <header className='center'>
+              <h3>categories</h3>
+            </header>
+            <div className='fillwhite'>
+              {this.makeList('form', this.props.forms)}
+              {this.makeList('theme', this.props.themes)}
+              {this.makeList('location', this.props.locations)}
+            </div>
+          </article>
         </div>
       </div>
     )
   }
-
 }
 
 const themes = ['body', 'climate', 'displacement', 'faith', 'food',
@@ -44,10 +46,3 @@ ExploreView.defaultProps = {
   themes: themes,
   locations: locations
 }
-
-// Story.propTypes = {
-//   content: React.PropTypes.array.isRequired,
-//   title: React.PropTypes.string.isRequired,
-//   author: React.PropTypes.string.isRequired,
-//   img: React.PropTypes.string.isRequired
-// }

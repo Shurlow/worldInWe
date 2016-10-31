@@ -35,9 +35,9 @@ export default class ResponseList extends React.Component {
   render() {
     const { responses, isFetching } = this.props
     return (
-      <div className='story-responses'>
-        <h3>Respond</h3>
-        <div className='textcard'>
+      <div className='story-responses space-top'>
+        <header className="center"><h3>Respond</h3></header>
+        <div className='small-card center'>
           <h4>New to the program?</h4>
           <ol>
             <li>In less than 25 words, write what your legacy in your community will be.</li>

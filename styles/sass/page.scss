@@ -9,7 +9,6 @@
 
 .content {
   position: relative;
-  position: relative;
   width: 100%;
   display: inline-block;
   @include outer-container;
@@ -21,26 +20,47 @@
     @include span-columns(10);
     @include shift(1);
   }
-
 }
 
-.header {
+header {
+  @extend .small-card;
   text-transform: uppercase;
   margin-bottom: 2em;
   padding: 0.5em 1em 0.5em 1em;
-  @include span-columns(5);
-  @include shift(3.5);
   text-align: center;
-  background-color: $yellow;
+  background-color: $yellow !important;
 }
 
 .card {
   display: inline-block;
   @include whitebox;
-  @include span-columns(8);
   p {
     display: inline-block;
   }
+}
+
+.large-card {
+  @extend .card;
+  @include span-columns(8)
+  &.center {
+    @include shift(2)
+  }
+}
+
+.small-card {
+  @extend .card;
+  @include span-columns(5)
+  &.center {
+    @include shift(3.5)
+  }
+}
+
+.third-card {
+  @extend .card;
+  @include span-columns(4, collapse);
+  // @include pad();
+  // @include reset-display;
+  // @include omega();
 }
 
 .right {
@@ -50,12 +70,19 @@
   }
 }
 
-.card-small {
-  @include whitebox;
-  // @include span-columns(4);
+.full {
+  width: 100%;
 }
 
-.card-large {
-  @include whitebox;
-  @include span-columns(8);
+.measure {
+  max-width: 40em;
+  display: inline-block;
+}
+
+.space-top {
+  margin-top: 2em;
+}
+
+.space-bottom {
+  margin-bottom: 2em;
 }

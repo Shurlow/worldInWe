@@ -3,9 +3,9 @@ import { browserHistory } from 'react-router'
 import { loadStories } from './stories'
 // import { Schema, arrayOf, normalize } from 'normalizr';
 
-export const STORY_REQUEST = 'STORY_REQUEST'
-export const STORY_SUCCESS = 'STORY_SUCCESS'
-export const STORY_FAILURE = 'STORY_FAILURE'
+// export const STORY_REQUEST = 'STORY_REQUEST'
+// export const STORY_SUCCESS = 'STORY_SUCCESS'
+// export const STORY_FAILURE = 'STORY_FAILURE'
 
 // const normalizeSuccessStory = {
 //   type: STORY_SUCCESS,

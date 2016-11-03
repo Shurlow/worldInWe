@@ -8,19 +8,33 @@ var chance = new Chance();
 var processImage = require('../processImage.js')
 
 function main() {
-  //create user and upload story
+  makeTopic('rumee')
+  runRoutines(1)
+}
+// start script with main func
+main()
+
+//run N routines.
+//n -> # of routines
+//i -> # of routines completed
+function runRoutines(n, i) {
+  var i = arguments[1] || 1
+  var m = n - 1
+  console.log(`__ STARTING ROUTINE ${i} __`)
   makeUser(function(user) {
-    console.log('user created:', user.id)
+    console.log(' - user created:', user.id)
     makeStory(user, function(story_id) {
-      makeResponse(user, story_id, function(done) {
-        console.log('DONE')
-        process.exit()
+      uploadRandomImage(story_id, function(err, res) {
+        if (err) console.error(err)
+        makeResponse(user, story_id, function(done) {
+          console.log(` - routine #${i} done`, "\u2713")
+          if (m > 0) runRoutines(m, i + 1)
+          else return db.closeConnection()
+        })
       })
     })
   })
 }
-// start script with main func
-main()
 
 function makeUser(cb) {
   var user = {
@@ -35,8 +49,20 @@ function makeUser(cb) {
   })
 }
 
+function makeTopic(title) {
+  var topicObj = {
+    id: title,
+    description: 'This is description text for a topic.',
+    active: true,
+    img: "https://s3.amazonaws.com/wiw-full/" + title + ".jpg"
+  }
+  db.createTopic(topicObj, function(err, res) {
+    if (err) return console.error(err)
+    else return console.log(' - made topic')
+  })
+}
+
 function makeStory(user, cb) {
-  //make story object
   var story_id = guid()
   var paragraph = chance.paragraph()
   var story = {
@@ -54,13 +80,10 @@ function makeStory(user, cb) {
     },
     img: "https://s3.amazonaws.com/wiw-full/" + story_id + ".jpg",
   }
-  //upload image then story
-  uploadRandomImage(story_id, function(err, res) {
-    db.postStory(story, function(err, res) {
-      if (err) { throw err }
-      console.log('story posted:', story_id)
-      cb(story_id)
-    })
+  db.postStory(story, function(err, res) {
+    if (err) { console.error(err) }
+    console.log(' - story posted:', story_id)
+    cb(story_id)
   })
 }
 
@@ -75,8 +98,12 @@ function makeResponse(user, story_id, cb) {
     content: chance.paragraph(),
   }
   db.postResponse(story_id, response, function(err, res) {
-    if (err) { throw err }
-    else { return cb(true) }
+    if (err) {
+      console.error(err)
+      return cb(false)
+    }
+    console.log(' - response posted')
+    cb(true)
   })
 }
 
@@ -86,8 +113,8 @@ function uploadRandomImage(user_id, cb) {
   fs.readFile(imgUrl, function(err, data) {
     if (err) return console.log(err);
     processImage(data, user_id, function(err, res) {
-      if (err) { throw err }
-      console.log('image uploaded')
+      if (err) { return cb(err) }
+      console.log(' - image uploaded')
       cb(null, true)
     })
   })

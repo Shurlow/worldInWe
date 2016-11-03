@@ -1,6 +1,6 @@
 import React from 'react'
 import Nav from './Nav'
-import StoryBoard from '../containers/StoryBoard'
+import StoryBoard from './StoryBoard'
 import wrapAuth from '../containers/wrapAuth'
 import wrapStories from '../containers/wrapStories'
 

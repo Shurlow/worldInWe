@@ -4,7 +4,10 @@ var db = require('../db.js')
 
 // create db instance
 db.exportConnection(function(conn) {
-  r.dbCreate('WorldInWe').run(conn, db.handleError)
+  r.dbCreate('WorldInWe').run(conn, function(err) {
+    if (err) throw err
+    else db.closeConnection()
+  })
 })
 
 //add tables for user and story
@@ -13,6 +16,7 @@ db.exportConnection(function(conn) {
   r.do(
     r.tableCreate('story'),
     r.tableCreate('user'),
+    r.tableCreate('topic'),
     r.tableCreate('response')
   ).run(conn, function(err, res) {
     if (err) { throw err }
@@ -21,6 +25,7 @@ db.exportConnection(function(conn) {
       r.do(
         r.table('user').indexCreate('email'),
         r.table('user').indexCreate('username'),
+        r.table('topic').indexCreate('active'),
         r.table('response').indexCreate('story_id')
       ).run(conn, function(err, res) {
         if (err) { throw err }

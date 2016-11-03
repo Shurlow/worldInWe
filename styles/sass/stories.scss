@@ -4,7 +4,7 @@
 .stories {
 
   h4 {
-    padding: 0.5em;
+    padding: 1em;
     display: block;
     position: absolute;
     bottom: 0;
@@ -17,9 +17,14 @@
 }
 
 .stories-link {
+  height: 157px;
+  background: $blue;
   @include span-columns(3);
   @include omega(4n);
   margin-bottom: 1.5em;
+  img {
+
+  }
   &:hover {
     img {
       @extend .dim;

@@ -131,7 +131,15 @@ router.delete('/:story_id', function(req, res) {
 	})
 });
 
-
+router.get('/topic/active', function(req, res) {
+	db.getActiveTopic(function(err, data) {
+		if (err) {
+			res.status(500).send('Error getting active topic')
+		} else {
+			res.status(200).json(data)
+		}
+	})
+})
 
 
 module.exports = router;

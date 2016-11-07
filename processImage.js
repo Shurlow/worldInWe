@@ -14,7 +14,6 @@ module.exports = function(imageBuffer, id, callback) {
 }
 
 function cropImageSave(imageBuffer, w, h, id, bucketName, cb) {
-  var out = fs.createWriteStream('output.jpg')
   gm(imageBuffer)
     .in('-filter', 'Triangle')
     .in('-define', 'filter:support=2')
@@ -33,7 +32,6 @@ function cropImageSave(imageBuffer, w, h, id, bucketName, cb) {
     .in('-interlace', 'none')
     .in('-colorspace', 'sRGB')
     .in('-strip')
-
     .toBuffer(function(err, image){
       if (err) return cb(err)
       uploadImage(image, id, bucketName, function(err) {
@@ -41,11 +39,6 @@ function cropImageSave(imageBuffer, w, h, id, bucketName, cb) {
         cb(null)
       })
     })
-
-    // .toBuffer(function(err, buf) {
-    //   console.log(err, buf)
-    //   fs.writeFileSync('outimg.jpg', buf)
-    // })
 }
 
 

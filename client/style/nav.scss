@@ -1,0 +1,49 @@
+@import "neat/neat";
+@import "global.scss";
+
+// Nav style
+nav {
+  z-index: 1;
+  top: 0;
+  color: white;
+  background-color: black;
+  padding: 0.5em;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100px;
+  // @include outer-container;
+  img {
+    height: 95%;
+  }
+}
+
+.nav-left, .nav-right {
+  height: 100%;
+  // display: flex;
+  // align-items: center;
+}
+.nav-left {
+  @include span-columns(2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img:hover {
+    cursor: pointer;
+  }
+}
+.nav-right {
+  @include span-columns(4);
+  @include shift(6);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.nav-link {
+  @extend .dim;
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 1em;
+}
+

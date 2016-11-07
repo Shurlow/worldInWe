@@ -1,18 +1,19 @@
+//gulp tools
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var gulp = require('gulp');
-// var compass = require('gulp-compass');
 var gutil = require('gulp-util');
 var browserify = require('browserify');
+var notify = require('gulp-notify');
+var uglify = require('gulp-uglify');
+var streamify = require('gulp-streamify');
+var duration = require('gulp-duration')
+var rename = require('gulp-rename');
+//transforms
 var reactify = require('reactify');
 var watchify = require('watchify');
-var babelify = require("babelify");
-var looseEnvify = require("loose-envify");
-var notify = require("gulp-notify");
-var uglify = require("gulp-uglify");
-var streamify = require("gulp-streamify");
-var duration = require('gulp-duration')
-var rename = require("gulp-rename");
+var babelify = require('babelify');
+var looseEnvify = require('loose-envify');
 //sass
 var sass = require('gulp-sass')
 var neat = require('node-neat').includePaths
@@ -21,7 +22,7 @@ var merge = require('merge2')
 var concat = require('gulp-concat');
 var minifyCSS = require('gulp-clean-css');
 var autoprefixer = require('gulp-autoprefixer');
-//
+
 var scriptsDir = './client';
 var buildDir = './public/js';
 console.log(process.env.NODE_ENV)
@@ -38,12 +39,12 @@ function handleErrors() {
 function buildScript(file, watch) {
 
   var props = {
-    entries: [scriptsDir + '/main.js'],
+    entries: [scriptsDir + '/main.jsx'],
     extensions: ['.js', '.jsx'],
     debug : true,
     cache: {},
     packageCache: {},
-    transform:  [babelify, looseEnvify, reactify]
+    transform:  [babelify, reactify]
   };
   
   // watchify() if watch requested, otherwise run browserify() once
@@ -145,7 +146,7 @@ gulp.task('watch-styles', function() {
 });
 
 gulp.task('build', function() {
-  return buildScript('bundle.js', true);
+  return buildScript('bundle.js', false);
 });
 
 gulp.task('default', ['build', 'watch-styles']);

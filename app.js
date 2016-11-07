@@ -5,21 +5,22 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-// var passport = require('passport')
-
-//Eneble JSX transpiling for server side react
-// require("node-jsx").install();
-require('babel-core/register')
-
 var app = express();
+
+//for bundle hot reloading
+var webpack = require('webpack');
+var config = require('./webpack.config');
+var compiler = webpack(config);
+app.use(require('webpack-dev-middleware')(compiler, {
+  publicPath: config.output.publicPath
+}));
+app.use(require('webpack-hot-middleware')(compiler));
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 // app.use(favicon(path.join(__dirname, 'public', 'res', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json({ limit: '5mb' }));
-// app.use(bodyParser.raw({limit: '5mb'}));
-// app.use(bodyParser.urlencoded({ limit: '5mb' }));
-
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());

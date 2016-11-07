@@ -1,0 +1,38 @@
+@import "neat/neat";
+@import "global.scss";
+@import "page.scss";
+
+.story {
+  @extend .page;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+.name {
+  color: $blue;
+}
+
+.firstletter::first-letter {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.story-sidebar {
+  @include span-columns(4);
+  @include omega();
+}
+
+.social-buttons {
+  @include whitebox;
+  margin-bottom: 1.5em;
+  text-align: center;
+  padding: 1em;
+  h3 {
+    margin-top: 0;
+  }
+  img {
+    width: 50px;
+  }
+}

@@ -1,0 +1,40 @@
+@import "global.scss";
+
+@mixin colorSelect($color) {
+  color: $color;
+  .Select-placeholder {
+    color: $color;
+  }
+}
+
+.tags {
+  text-align: center;
+  @include whitebox;
+  padding: 1em;
+  h3 {
+    margin-top: 0;
+  }
+  h4 {
+    text-transform: uppercase;
+    font-weight: normal;
+    margin: 0.5em;
+  }
+  span {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+}
+
+.form {
+  @include colorSelect($blue);
+}
+.theme, .theme1, .theme2{
+  @include colorSelect($green);
+}
+.length {
+  @include colorSelect($purple);
+}
+.location {
+  @include colorSelect($red);
+}

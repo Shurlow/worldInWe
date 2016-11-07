@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 var r = require('rethinkdb');
 var db = require('../db.js')
 var fs = require('fs')
@@ -8,10 +7,8 @@ var chance = new Chance();
 var processImage = require('../processImage.js')
 
 function main() {
-  makeTopic('rumee')
   runRoutines(1)
 }
-// start script with main func
 main()
 
 //run N routines.
@@ -21,15 +18,18 @@ function runRoutines(n, i) {
   var i = arguments[1] || 1
   var m = n - 1
   console.log(`__ STARTING ROUTINE ${i} __`)
-  makeUser(function(user) {
-    console.log(' - user created:', user.id)
-    makeStory(user, function(story_id) {
-      uploadRandomImage(story_id, function(err, res) {
-        if (err) console.error(err)
-        makeResponse(user, story_id, function(done) {
-          console.log(` - routine #${i} done`, "\u2713")
-          if (m > 0) runRoutines(m, i + 1)
-          else return db.closeConnection()
+  makeTopic('rumee', function(err, res) {
+    if (err) return console.error(err)
+    makeUser(function(user) {
+      console.log(' - user created:', user.id)
+      makeStory(user, function(story_id) {
+        uploadImage(story_id, null, function(err, res) {
+          if (err) console.error(err)
+          makeResponse(user, story_id, function(done) {
+            console.log(` - routine #${i} done`, "\u2713")
+            if (m > 0) runRoutines(m, i + 1)
+            else return db.closeConnection()
+          })
         })
       })
     })
@@ -49,7 +49,7 @@ function makeUser(cb) {
   })
 }
 
-function makeTopic(title) {
+function makeTopic(title, cb) {
   var topicObj = {
     id: title,
     description: 'This is description text for a topic.',
@@ -57,8 +57,12 @@ function makeTopic(title) {
     img: "https://s3.amazonaws.com/wiw-full/" + title + ".jpg"
   }
   db.createTopic(topicObj, function(err, res) {
-    if (err) return console.error(err)
-    else return console.log(' - made topic')
+    if (err) return cb(err)
+    uploadImage(title, 'testimg/rumee.jpg', function(err, res) {
+      if (err) return cb(err)
+      console.log(` - topic: ${title} created`)
+      return cb(null, true)
+    })
   })
 }
 
@@ -107,14 +111,14 @@ function makeResponse(user, story_id, cb) {
   })
 }
 
-function uploadRandomImage(user_id, cb) {
-  var pickImg = chance.integer({ min: 1, max: 11 })
-  var imgUrl = "testimg/" + pickImg + ".jpg"
-  fs.readFile(imgUrl, function(err, data) {
+//read image and upload to S3.
+//picks random image if no 'file' is supplied
+function uploadImage(user_id, file, cb) {
+  var imgurl = file ? file : `testimg/${chance.integer({ min: 1, max: 11 })}.jpg`
+  fs.readFile(imgurl, function(err, data) {
     if (err) return console.log(err);
     processImage(data, user_id, function(err, res) {
       if (err) { return cb(err) }
-      console.log(' - image uploaded')
       cb(null, true)
     })
   })

@@ -31,9 +31,10 @@ export default class Stories extends React.Component {
 
   makeStoryCard(story) {
     const { id, title, img } = story
+    console.log(img)
     return (
       <Link to={`story/${id}`} className='stories-link'>
-        <img src={img}/>
+        <img src={`https://s3.amazonaws.com/wiw-thumb/${id}.jpg`}/>
         <h4>{title}</h4>
       </Link>
     )

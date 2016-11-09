@@ -2,6 +2,7 @@ import React from 'react'
 import {Editor, EditorState, RichUtils, convertToRaw, convertFromRaw, ContentState} from 'draft-js';
 import backdraft from 'backdraft-js';
 import TagSelect from './TagSelect'
+import ArticleWithBg from './ArticleWithBg'
 
 class CustomEditor extends React.Component {
   constructor(props) {
@@ -166,7 +167,7 @@ class CustomEditor extends React.Component {
     // }
 
     return (
-      <article>
+      <ArticleWithBg>
         <header className="story-header">
           <div onClick={this.focusTitle} className="title">
             <input placeholder="title" onChange={this.onTitleChange.bind(this)}/>
@@ -179,7 +180,7 @@ class CustomEditor extends React.Component {
           <h3>Directed by <span className='name'>{this.props.author}</span></h3>
         </header>
         <span className='error-text'>{this.state.error}</span>
-        <div className='story-text editor'>
+        <div className='large-card editor'>
           <div onClick={this.focusBody} className="RichEditor-editor-body">
             <Editor
               blockStyleFn={getBlockStyle}
@@ -197,7 +198,7 @@ class CustomEditor extends React.Component {
           <TagSelect updateTags={this.updateTags.bind(this)} />
         </div>
         <button onClick={this.uploadContent.bind(this)}>Save</button>
-      </article>
+      </ArticleWithBg>
     );
   }
 }

@@ -12,9 +12,9 @@ export default class CreateStory extends React.Component {
   render() {
     console.log('Create Story', this.props)
     return (
-      <div className='story editor'>
+      <div className='page editor'>
         <ImageUploader {...this.props}/>
-        <div className='story-content' style={{backgroundImage: `url(${this.props.bgimg})`}}>
+        <div className='content' style={{backgroundImage: `url(${this.props.bgimg})`}}>
           <CustomEditor {...this.props}/>
         </div>
       </div>

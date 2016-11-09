@@ -4,6 +4,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   devtool: 'eval',
+  debug: true,
   entry: [
     './client/main'
   ],
@@ -30,7 +31,7 @@ module.exports = {
     },
     {
       test: /\.scss$/,
-      loader: ExtractTextPlugin.extract('style', 'css?minimize!sass')
+      loader: ExtractTextPlugin.extract('style', 'css?minimize!autoprefixer!sass')
     }]
   }
 };

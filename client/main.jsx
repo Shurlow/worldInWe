@@ -8,7 +8,6 @@ import { loginUser } from './state/actions/auth'
 import { loadStories } from './state/actions/stories'
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin()
-// import { persistStore } from 'redux-persist'
 
 const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)

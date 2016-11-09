@@ -3,6 +3,9 @@
 @import "global.scss";
 // @import "../../node_modules/tachyons-sass/tachyons.scss";
 
+.editor {
+  padding: 1em;
+}
 
 .image-upload {
   position: relative;
@@ -46,7 +49,7 @@
 }
 
 .error-text {
-  padding: 0.5em;
+  // padding: 0.5em;
   width: 100%;
   color: $red;
   float: left;

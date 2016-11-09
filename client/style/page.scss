@@ -70,6 +70,11 @@ header {
   }
 }
 
+.center {
+  display: flex;
+  flex-direction: column;
+}
+
 .full {
   width: 100%;
 }

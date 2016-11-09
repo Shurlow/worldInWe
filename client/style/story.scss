@@ -19,6 +19,12 @@
   font-weight: bold;
 }
 
+.lead-image {
+  @include span-columns(10);
+  @include shift(1);
+  img { width: 100%; }
+}
+
 .story-sidebar {
   @include span-columns(4);
   @include omega();

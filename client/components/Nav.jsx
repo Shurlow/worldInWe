@@ -1,13 +1,14 @@
 import React from 'react'
 import classnames from 'classnames'
 import { browserHistory } from 'react-router'
+import { Link } from 'react-router'
 
 export default class Nav extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      showNav: true,
+      showStickyNav: false,
       scroll: 0
     }
     this.handleScroll = this.handleScroll.bind(this)
@@ -25,12 +26,12 @@ export default class Nav extends React.Component {
     var newScroll = window.pageYOffset
     if (newScroll > 200 && newScroll < this.state.scroll) {
       this.setState({
-        showNav: false,
+        showStickyNav: true,
         scroll: newScroll
       })
     } else {
       this.setState({
-        showNav: true,
+        showStickyNav: false,
         scroll: newScroll
       })
     }
@@ -40,13 +41,13 @@ export default class Nav extends React.Component {
     return (
       <nav className={style}>
          <div className="nav-left">
-            <img src="/res/logo-white.svg" onClick={() => {browserHistory.push('/')}}></img>
+            <img src="/res/logo-dark.svg" onClick={() => {browserHistory.push('/')}}></img>
           </div>
           <div className='nav-right'>
-            <a className='nav-link' href="#" title="Topic" onClick={() => {browserHistory.push('/')}}>rumee</a>
-            <a className='nav-link' href="#" title="Explore" onClick={() => {browserHistory.push('/explore')}}>explore</a>
-            <a className='nav-link' href="#" title="About" onClick={() => {browserHistory.push('/about')}}>about</a>
-            <a className='nav-link' href="#" title="Create" onClick={() => {browserHistory.push('/create')}}>create</a>
+            <Link className='nav-link' to='/rummee' activeClassName='active'>rumee</Link>
+            <Link className='nav-link' to='/explore' activeClassName='active'>explore</Link>
+            <Link className='nav-link' to='/about' activeClassName='active'>about</Link>
+            <Link className='nav-link' to='/create' activeClassName='active'>create</Link>
             {this.makeLoginButton()}
           </div> 
       </nav>
@@ -72,9 +73,10 @@ export default class Nav extends React.Component {
   }
 
   render() {
-    const { showNav } = this.state
+    const { showStickyNav } = this.state
     const stickyStyle = classnames({
-      'dn fixed': showNav
+      'nav-sticky': true,
+      'hide': !showStickyNav
     })
     
     return (

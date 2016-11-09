@@ -1,5 +1,9 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
+import classnames from 'classnames'
+import { Link } from 'react-router'
+import { randomBgImg } from '../util'
+const pickedImg = randomBgImg()
 
 export default class Login extends React.Component {
 
@@ -41,7 +45,8 @@ export default class Login extends React.Component {
     })
   }
 
-  login() {
+  login(e) {
+    e.preventDefault()
     const { username, password, admin } = this.state
     const userObject = { username: username, password: password, admin: admin }
     const redirect = this.props.location.query.next
@@ -51,21 +56,28 @@ export default class Login extends React.Component {
   }
 
   render() {
+    const { admin, errorText } = this.state
     return (
-      <article className='login'>
-        <div className='card'>
-          <h2>Login</h2>
-          <span>{this.state.errorText}</span>
-          <input placeholder="username" onChange={this.usernameChange.bind(this)}/>
-          <input placeholder="password" onChange={this.passwordChange.bind(this)}/>
-          <label>
-            Admin Account:
-            <input type='checkbox' checked={this.state.admin} onChange={this.adminCheck.bind(this)}></input>
-          </label>
-          <button onClick={this.login.bind(this)}>Login</button>
-          <button className='secondary' onClick={() => { browserHistory.push('/signup') }}>Sign Up</button>
+      <div className='page login'>
+        <div className='content' style={{backgroundImage: `url(${pickedImg})`}}>
+          <article>
+            <form action='' className='small-card center' onSubmit={this.login.bind(this)}>
+              <h2>Login</h2>
+              {errorText ? <span className='message error'>{errorText}</span> : null}
+              <input placeholder="username" onChange={this.usernameChange.bind(this)}/>
+              <input placeholder="password" onChange={this.passwordChange.bind(this)}/>
+              <label>
+                Admin Account: 
+                <input type='checkbox' checked={admin} onChange={this.adminCheck.bind(this)}></input>
+              </label>
+              <div className='button-group'>
+                <button className='primary' type='submit'>Login</button>
+                <Link to='/signup' className='button secondary'>sign up</Link>
+              </div>
+            </form>
+          </article>
         </div>
-      </article>
+      </div>
     )
   }
 

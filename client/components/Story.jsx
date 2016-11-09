@@ -3,7 +3,6 @@ import { browserHistory } from 'react-router'
 import ResponseList from './ResponseList'
 import wrapResponses from '../containers/wrapResponses'
 import SocialButtons from './SocialButtons'
-import Carousel from './Carousel'
 import Tags from './Tags'
 import { randomBgImg } from '../util'
 
@@ -33,7 +32,9 @@ export default class Story extends React.Component {
     const { id, token, tags, user_id, content, title, author, img, isAuthenticated, username } = this.props
     return (
       <div className='page'>
-        <Carousel img={img} />
+        <div className='lead-image'>
+          <img src={img} />
+        </div>
         <div className='content' style={{backgroundImage: `url(${randomBgImg()})`}}>
           <article>
             <header className="center">

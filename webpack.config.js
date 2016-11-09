@@ -1,23 +1,20 @@
 var path = require('path');
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'cheap-module-eval-source-map',
   entry: [
     'webpack-hot-middleware/client',
-    // 'webpack/hot/only-dev-server',
     './client/main'
   ],
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'js/bundle.js',
-    publicPath: '/public/'
+    publicPath: '/'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new ExtractTextPlugin('css/style.css')
+    new webpack.NoErrorsPlugin()
   ],
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -30,7 +27,7 @@ module.exports = {
     },
     {
       test: /\.scss$/,
-      loader: ExtractTextPlugin.extract('style', 'css!sass')
+      loader: 'style!css?sourceMap!autoprefixer!sass?sourceMap'
     }]
   }
 };

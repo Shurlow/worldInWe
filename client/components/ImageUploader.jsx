@@ -34,7 +34,7 @@ export default class ImageUploader extends React.Component {
 
   render() {
     const { src, url, imgError, isFetching, errorMessage } = this.props
-    const imagesrc = isFetching ? '/res/loader.gif' : ( src || '/res/uploadimg.png')
+    const imagesrc = isFetching ? '/res/loader.gif' : ( url || '/res/uploadimg.png')
     return (
       <div className='lead-image image-upload'>
         <div onClick={this.triggerUpload.bind(this)}>

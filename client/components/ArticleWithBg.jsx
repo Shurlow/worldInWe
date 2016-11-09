@@ -4,9 +4,10 @@ var bg = randomBgImg()
 
 export default class ArticleWithBg extends React.Component {
   render() {
+    console.log('article', this.props)
     return (
       <div className='content' style={{backgroundImage: `url(${bg})`}}>
-        <article>
+        <article className={this.props.className}>
           {this.props.children}
         </article>
       </div>

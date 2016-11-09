@@ -42,6 +42,7 @@ const imageSuccess = (img_data) => {
   return {
     type: UPLOAD_IMAGE_SUCCESS,
     payload: (action, state, res) => {
+      console.log('catch img success', action, state, res)
       return getJSON(res).then( (json) => {
         return { src: img_data, url: json.url }
       })

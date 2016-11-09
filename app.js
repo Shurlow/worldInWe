@@ -7,14 +7,17 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
 
-//for bundle hot reloading
-var webpack = require('webpack');
-var config = require('./webpack.config');
-var compiler = webpack(config);
-app.use(require('webpack-dev-middleware')(compiler, {
-  publicPath: config.output.publicPath
-}));
-app.use(require('webpack-hot-middleware')(compiler));
+//for bundle hot reloading in dev
+if (app.get('env') === 'development') {
+  var webpack = require('webpack');
+  var config = require('./webpack.config');
+  var compiler = webpack(config);
+  app.use(require('webpack-dev-middleware')(compiler, {
+    publicPath: config.output.publicPath
+  }));
+  app.use(require('webpack-hot-middleware')(compiler));
+}
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');

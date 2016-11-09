@@ -89,10 +89,12 @@ class CustomEditor extends React.Component {
       }
     }
     for (var t in storyObj.tags) {
-      if (storyObj.tags[t] == null) {
+      let tagValue = storyObj.tags[t]
+      console.log('check tags', t, tagValue)
+      if (tagValue == null) {
         this.setState({error: `You're story is missing something: ${t}`})
         return false
-      }
+      } else if (tagValue[0] == null || tagValue[1] == null) return false
     }
     if (storyObj.content == '') {
       this.setState({error: `You're story is missing something: content`})
@@ -156,7 +158,7 @@ class CustomEditor extends React.Component {
           //   onToggle={this.toggleInlineStyle}
           // />
   render() {
-    const { title, author, body } = this.state;
+    const { title, author, body, error } = this.state;
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
     // var contentState = editorState.getCurrentContent();
@@ -167,8 +169,8 @@ class CustomEditor extends React.Component {
     // }
 
     return (
-      <ArticleWithBg>
-        <header className="story-header">
+      <ArticleWithBg className='editor'>
+        <header className="center">
           <div onClick={this.focusTitle} className="title">
             <input placeholder="title" onChange={this.onTitleChange.bind(this)}/>
           </div>
@@ -179,8 +181,8 @@ class CustomEditor extends React.Component {
           </div>
           <h3>Directed by <span className='name'>{this.props.author}</span></h3>
         </header>
-        <span className='error-text'>{this.state.error}</span>
-        <div className='large-card editor'>
+        {error ? <span className='card error message'>{error}</span> : null}
+        <div className='large-card body'>
           <div onClick={this.focusBody} className="RichEditor-editor-body">
             <Editor
               blockStyleFn={getBlockStyle}
@@ -197,7 +199,7 @@ class CustomEditor extends React.Component {
         <div className='story-sidebar'>
           <TagSelect updateTags={this.updateTags.bind(this)} />
         </div>
-        <button onClick={this.uploadContent.bind(this)}>Save</button>
+        <button className='primary save' onClick={this.uploadContent.bind(this)}>Save</button>
       </ArticleWithBg>
     );
   }

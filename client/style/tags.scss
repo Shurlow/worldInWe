@@ -3,7 +3,7 @@
 @mixin colorSelect($color) {
   color: $color;
   .Select-placeholder {
-    color: $color;
+    color: $color !important;
   }
 }
 

@@ -1,10 +1,19 @@
 @import "bourbon/bourbon";
 @import "neat/neat";
 @import "global.scss";
-// @import "../../node_modules/tachyons-sass/tachyons.scss";
 
 .editor {
-  padding: 1em;
+  position: relative;
+  .body {
+    line-height: 1.5;
+    padding: 1em;
+  }
+  .message {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    padding: 0.5em;
+  }
 }
 
 .image-upload {
@@ -48,12 +57,18 @@
   }
 }
 
-.error-text {
-  // padding: 0.5em;
-  width: 100%;
-  color: $red;
-  float: left;
+.save {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
+
+// .error-text {
+//   // padding: 0.5em;
+//   width: 100%;
+//   color: $red;
+//   float: left;
+// }
 
 .public-DraftEditorPlaceholder-root {
     color: #9197a3;

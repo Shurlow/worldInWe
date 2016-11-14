@@ -6,6 +6,8 @@ export const UPLOAD_IMAGE_SUCCESS = 'UPLOAD_IMAGE_SUCCESS'
 export const UPLOAD_IMAGE_FAILURE = 'UPLOAD_IMAGE_FAILURE'
 export const RESET_IMAGE = 'RESET_IMAGE'
 
+export const SAVE_VID_SUCCESS = 'SAVE_VID_SUCCESS'
+
 // export function uploadImage(id, img_data) {
 //   return (dispatch, state) => {
 //     return dispatch(uploadImageReq(id, img_data))
@@ -17,6 +19,14 @@ export const RESET_IMAGE = 'RESET_IMAGE'
 //   }
 // }
 
+export function saveVidUrl(url) {
+  const embedUrl = url.replace('watch?v=', 'embed/')
+  return {
+    type: SAVE_VID_SUCCESS,
+    payload: embedUrl
+  }
+}
+
 export function uploadImage(id, img_data) {
   return {
     [CALL_API]: {
@@ -27,7 +37,7 @@ export function uploadImage(id, img_data) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({img: img_data}),
-      types: [UPLOAD_IMAGE_REQUEST, imageSuccess(img_data), UPLOAD_IMAGE_FAILURE]
+      types: [UPLOAD_IMAGE_REQUEST, UPLOAD_IMAGE_SUCCESS, UPLOAD_IMAGE_FAILURE]
     }
   }
 }
@@ -38,14 +48,14 @@ export function resetImage() {
   }
 }
 
-const imageSuccess = (img_data) => {
-  return {
-    type: UPLOAD_IMAGE_SUCCESS,
-    payload: (action, state, res) => {
-      console.log('catch img success', action, state, res)
-      return getJSON(res).then( (json) => {
-        return { src: img_data, url: json.url }
-      })
-    }
-  }
-}
+// const imageSuccess = (img_data) => {
+//   return {
+//     type: UPLOAD_IMAGE_SUCCESS,
+//     payload: (action, state, res) => {
+//       console.log('catch img success', action, state, res)
+//       return getJSON(res).then( (json) => {
+//         return { src: img_data, url: json.url }
+//       })
+//     }
+//   }
+// }

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Editor, EditorState } from 'draft-js';
 import { guid } from '../util'
-import moment from 'moment'
 
 export default class ResponseEditor extends React.Component {
   

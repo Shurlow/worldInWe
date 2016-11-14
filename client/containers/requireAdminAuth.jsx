@@ -8,7 +8,6 @@ export default function requireAdminAuth(Component) {
 
     render () {
       const { isAuthenticated, privileges } = this.props
-      console.log('requiring admin', privileges)
       return (
         <div>
           { privileges === 'admin'

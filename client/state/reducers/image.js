@@ -4,6 +4,7 @@ import { createReducer } from '../util.js';
 const initialState = {
   src: null,
   url: null,
+  vid: null,
   bgsrc: null,
   isFetching: false,
   isError: false,
@@ -14,16 +15,17 @@ export default createReducer(initialState, {
   [ActionTypes.UPLOAD_IMAGE_REQUEST]: (state, payload) => {
     return Object.assign({}, state, {
       isFetching: true,
-      isError: false
+      isError: false,
+      src: payload
     })
   },
   [ActionTypes.UPLOAD_IMAGE_SUCCESS]: (state, payload) => {
+    console.log('img success reducer', payload)
     return Object.assign({}, state, {
       isFetching: false,
       isError: false,
       errorMessage: null,
-      url: payload.url,
-      src: payload.src
+      url: payload.url
     })
   },
   [ActionTypes.UPLOAD_IMAGE_FAILURE]: (state, payload) => {
@@ -42,5 +44,13 @@ export default createReducer(initialState, {
       src: null,
       url: null
     })
-  }
+  },
+  [ActionTypes.SAVE_VID_SUCCESS]: (state, payload) => {
+    return Object.assign({}, state, {
+      isFetching: false,
+      isError: false,
+      errorMessage: null,
+      vid: payload
+    })
+  },
 })

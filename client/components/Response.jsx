@@ -1,5 +1,5 @@
 import React from 'react'
-import moment from 'moment'
+// import moment from 'moment'
 
 export default class Response extends React.Component {
   
@@ -14,13 +14,13 @@ export default class Response extends React.Component {
 
   render() {
     const { id, title, author, content, date } = this.props
-    let d = moment.parseZone(date).local().format("MMM / D / YY")
+    // let d = moment.parseZone(date).local().format("MMM / D / YY")
     return (
       <div key={id} className='response'>
         <div className='response-left'>
           <h4 className='top'>{title}</h4>
           <h4>{author}</h4>
-          <h4>{d}</h4>
+          <h4>{'date'}</h4>
         </div>
         <div className='response-right'>
           <p>{content}</p>

@@ -1,6 +1,6 @@
 import { CALL_API, getJSON } from 'redux-api-middleware'
 import { browserHistory } from 'react-router'
-import { loadStories } from './stories'
+import { resetImage } from './image'
 // import { Schema, arrayOf, normalize } from 'normalizr';
 
 // export const STORY_REQUEST = 'STORY_REQUEST'
@@ -51,6 +51,7 @@ export function uploadStory(storyObj) {
     return dispatch(uploadStoryReq(storyObj))
       .then(function(res) {
         if (!res.error) {
+          dispatch(resetImage())
           browserHistory.push('/')
         }
       })
@@ -71,3 +72,10 @@ function uploadStoryReq(storyObj) {
     }
   }
 }
+
+// function uploadSuccess() {
+//   return {
+//     type: UPLOAD_STORY_SUCCESS,
+
+//   }
+// }

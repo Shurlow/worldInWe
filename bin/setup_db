@@ -1,17 +1,16 @@
 #!/usr/bin/env node
 var r = require('rethinkdb');
-var db = require('../db.js')
 
 // create db instance
-db.exportConnection(function(conn) {
+r.connect(function(err, conn) {
   r.dbCreate('WorldInWe').run(conn, function(err) {
     if (err) throw err
-    else db.closeConnection()
+    conn.close()
   })
 })
 
-//add tables for user and story
-db.exportConnection(function(conn) {
+// add tables for user and story
+r.connect( {host: 'localhost', port: 28015, db: 'WorldInWe'}, function(err, conn) {
   //make both tables
   r.do(
     r.tableCreate('story'),
@@ -30,7 +29,7 @@ db.exportConnection(function(conn) {
       ).run(conn, function(err, res) {
         if (err) { throw err }
         console.log('-- DONE --')
-        process.exit()
+        conn.close()
       })
     }
   })

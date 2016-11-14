@@ -80,7 +80,7 @@ function makeStory(user, cb) {
       form: chance.pickone(forms),
       theme: [chance.pickone(themes), chance.pickone(themes)],
       length: paragraph.split(' ').length + ' words',
-      location: chance.pickone(themes)
+      location: chance.pickone(locations)
     },
     img: "https://s3.amazonaws.com/wiw-full/" + story_id + ".jpg",
   }

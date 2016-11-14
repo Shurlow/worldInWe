@@ -99,7 +99,7 @@ router.post('/image/:id', function(req, res) {
     } else {
     	console.log(response)
 
-			var imgstring = `https://s3.amazonaws.com/wiw-full/${id}.jpg`
+			var imgstring = `https://s3.amazonaws.com/wiw-full/${id}.jpg?${new Date().getTime()}`
 			res.status(200).json({ url: imgstring })
     }
   })

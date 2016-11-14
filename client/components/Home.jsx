@@ -5,6 +5,13 @@ import wrapAuth from '../containers/wrapAuth'
 import wrapStories from '../containers/wrapStories'
 
 export default class Home extends React.Component {
+  
+  // componentDidMount() {
+  //   let token = localStorage.getItem('id_token');
+  //   console.log(token)
+    
+  // }
+
   render() {
     let NavWrap = wrapAuth(Nav)
     let StoryBoardWrap = wrapStories(StoryBoard)

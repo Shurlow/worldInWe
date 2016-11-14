@@ -1,8 +1,14 @@
 import * as ActionTypes from '../actions/auth'
-import { createReducer } from '../util.js';
+import { createReducer, withLS } from '../util.js';
 import jwtDecode from 'jwt-decode'
 
-const token = localStorage.getItem('id_token')
+let token;
+if (withLS) {
+  token = localStorage.getItem('id_token')  
+} else {
+  token = ''
+}
+
 const initialState = {
   isAuthenticating: false,
   isAuthenticated: token ? true : false,

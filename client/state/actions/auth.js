@@ -1,6 +1,7 @@
 import { CALL_API, getJSON } from 'redux-api-middleware'
 import { browserHistory } from 'react-router'
 import jwtDecode from 'jwt-decode'
+import root from 'window-or-global'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -28,7 +29,7 @@ export function loginUser(token, userObject, redirect='/', cb) {
           cb(res.error, null)
         } else {
           console.log('login success')
-          window.localStorage.setItem('id_token', res.payload.token)
+          root.localStorage.setItem('id_token', res.payload.token)
           browserHistory.push(redirect)
         }
       })
@@ -39,7 +40,7 @@ export function logoutUser() {
   return (dispatch, getState) => {
     return dispatch({ type: LOGOUT_USER})
       .then( res => {
-        window.localStorage.removeItem('id_token')
+        root.localStorage.removeItem('id_token')
         browserHistory.push('/')
       })
   }
@@ -50,7 +51,7 @@ export function signUpUser(userObject, redirect='/') {
     return dispatch(fetchUser('create', userObject))
       .then(function(res) {
         if (!res.error) {
-          window.localStorage.setItem('id_token', res.payload.token)
+          root.localStorage.setItem('id_token', res.payload.token)
           browserHistory.push(redirect)
         }
       })

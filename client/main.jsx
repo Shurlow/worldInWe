@@ -6,6 +6,7 @@ import Root from './containers/Root'
 import configureStore from './state/store/configureStore'
 import { loginUser } from './state/actions/auth'
 import { loadStories } from './state/actions/stories'
+// import root from 'window-or-global'
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin()
 
@@ -19,7 +20,6 @@ if (token !== null) {
 store.dispatch(loadStories())
 
 require('./style/main.scss');
-
 ReactDOM.render(
   <Root store={store} history={history}/>,
   document.getElementById('mount')

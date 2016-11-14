@@ -84,6 +84,7 @@ input {
   min-width: 90px;
   color: black;
   border: none;
+  border-radius: 3px;
   // line-height: 50px;
   text-transform: uppercase;
   display: inline-block;
@@ -105,14 +106,12 @@ button {
 
 .secondary {
   background: transparent;
-  // border: 1px solid white;
   color: $darkblue;
   box-shadow: inset 0px 0px 0px 2px $darkblue;
-  // color: black;
-  // &:hover {
-  //   box-shadow: inset 0px 0px 0px 1px $blue;
-  //   color: $blue;
-  // }
+}
+
+.small {
+  min-width: 40px;
 }
 
 .button-group {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router'
-import { uploadImage, resetImage } from "../state/actions/image"
+import { uploadImage, resetImage, saveVidUrl } from "../state/actions/image"
 import { uploadStory } from "../state/actions/story"
 
 export default function wrapCreate(Component) {
@@ -14,7 +14,8 @@ export default function wrapCreate(Component) {
   const mapStateToProps = (state) => ({
     user_id: state.auth.id,
     src: state.image.src,
-    url: state.image.url,
+    imgurl: state.image.url,
+    vidurl: state.image.vid,
     isFetching: state.image.isFetching,
     imgError: state.image.isError,
     errorMessage: state.image.errorMessage
@@ -23,6 +24,7 @@ export default function wrapCreate(Component) {
   return connect(mapStateToProps, {
     uploadImage,
     uploadStory,
-    resetImage
+    resetImage,
+    saveVidUrl
   })(WrappedComponent)
 }

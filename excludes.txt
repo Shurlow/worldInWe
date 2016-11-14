@@ -4,9 +4,9 @@ node_modules
 .sass-cache
 public/js/bundle.js
 public/img
+rethinkdb_data
 etc
 client
 dumps
-testimg
 fonts
 styles

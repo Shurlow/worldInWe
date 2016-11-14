@@ -25,6 +25,10 @@ export function guid() {
 
 export function randomBgImg() {
   var id = Math.floor(Math.random() * 6 + 1)
-  console.log('rand id:', id)
   return `https://s3.amazonaws.com/wiw-background/${id}.jpg`
+}
+
+export function withLS(cb) {
+  if (typeof Storage !== "undefined") { return true }
+  return false
 }

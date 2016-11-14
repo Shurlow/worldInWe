@@ -19,6 +19,7 @@ class CustomEditor extends React.Component {
         theme1: null,
         theme2: null,
         location: null,
+        video: null,
         error: null
       }; 
     } else {
@@ -29,6 +30,7 @@ class CustomEditor extends React.Component {
         theme1: null,
         theme2: null,
         location: null,
+        video: null,
         error: null
       };
     }
@@ -41,6 +43,7 @@ class CustomEditor extends React.Component {
     this.onAuthorChange = (e) => this.setState({author: e.target.value});
     this.handleKeyCommand = (command) => this._handleKeyCommand(command);
     this.toggleBlockType = (type) => this._toggleBlockType(type);
+    this.onVideoChange = (v) => this.setState({video: v})
     this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
 }
   _handleKeyCommand(command) {
@@ -81,20 +84,27 @@ class CustomEditor extends React.Component {
     );
   }
 
+//TODO: refactor for more readability/clarity
   hasRequiredFields(storyObj) {
     for (var key in storyObj) {
+      const visual = (key === 'img') || (key === 'vid')
       if (storyObj[key] == null) {
-        this.setState({error: `You're story is missing something: ${key}`})
-        return false
+        if (!visual) {
+          this.setState({error: `You're story is missing something: ${key}`})
+          return false
+        }
       }
     }
     for (var t in storyObj.tags) {
       let tagValue = storyObj.tags[t]
-      console.log('check tags', t, tagValue)
       if (tagValue == null) {
         this.setState({error: `You're story is missing something: ${t}`})
         return false
       } else if (tagValue[0] == null || tagValue[1] == null) return false
+    }
+    if ((storyObj.img == null) && (storyObj.vid == null)) {
+      this.setState({error: "You're story must have either an image or a video"})
+      return false
     }
     if (storyObj.content == '') {
       this.setState({error: `You're story is missing something: content`})
@@ -133,7 +143,8 @@ class CustomEditor extends React.Component {
       author: this.state.author,
       author_id: this.props.user_id,
       content: content,
-      img: this.props.url,
+      img: this.props.imgurl,
+      vid: this.props.vidurl,
       tags: {
         form: this.state.form,
         theme: [this.state.theme1, this.state.theme2],
@@ -199,6 +210,7 @@ class CustomEditor extends React.Component {
         <div className='story-sidebar'>
           <TagSelect updateTags={this.updateTags.bind(this)} />
         </div>
+        <button className='primary save' onClick={this.uploadContent.bind(this)}>Save</button>
         <button className='primary save' onClick={this.uploadContent.bind(this)}>Save</button>
       </ArticleWithBg>
     );

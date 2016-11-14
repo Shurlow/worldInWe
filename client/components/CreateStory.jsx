@@ -10,7 +10,6 @@ export default class CreateStory extends React.Component {
   }
 
   render() {
-    console.log('Create Story', this.props)
     return (
       <div className='page'>
         <ImageUploader {...this.props}/>
@@ -26,7 +25,7 @@ CreateStory.defaultProps = {
   content: [""],
   author: "anonymous",
   title: "No title",
-  img: "/res/placeholder.png",
-  bgimg: "/img/adventure.jpeg",
+  // img: "/res/placeholder.png",
+  // bgimg: "/img/adventure.jpeg",
   id: guid()
 }

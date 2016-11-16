@@ -2,6 +2,7 @@ import React from 'react'
 import ErrorPage from '../components/ErrorPage'
 import { Link } from 'react-router'
 import request from 'superagent'
+import ImageLoader from 'react-imageloader'
 
 export default class Stories extends React.Component {
 
@@ -34,7 +35,10 @@ export default class Stories extends React.Component {
     console.log(img)
     return (
       <Link to={`story/${id}`} className='stories-link'>
-        <img src={`https://s3.amazonaws.com/wiw-thumb/${id}.jpg`}/>
+        <ImageLoader
+          src={`https://s3.amazonaws.com/wiw-thumb/${id}.jpg`}
+          preloader={()=> <img className='' src='/res/loader.gif'/>}
+        />
         <h4>{title}</h4>
       </Link>
     )

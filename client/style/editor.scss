@@ -1,7 +1,7 @@
 @import "bourbon/bourbon";
 @import "neat/neat";
 @import "global.scss";
-@import "intrinsic.scss";
+// @import "intrinsic.scss";
 
 .editor {
   position: relative;
@@ -18,27 +18,23 @@
 }
 
 .image-upload {
-  // position: relative;
   .hide-input {
     position: absolute;
     display: none;
   }
 
   .lead-image {
-    min-height: 400px;
-    background: white;
-    text-align: center;
+    position: relative;
+    min-height: 500px;
+    // text-align: center;
     &:hover {
       cursor: pointer;
-      // @extend .dim;
     }  
   }
 
   figure {
     width: 50%;
     padding: 12em;
-    // display: flex;
-    // justify-content: center;
     margin: 0;
     float: left;
     transition: background 0.15s ease-in;
@@ -71,12 +67,25 @@
   }
 }
 
-.dark {
-  background: black !important;
+.center-content {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.light {
+  background: white !important;
+}
+
+.corner-button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: white !important;
 }
 
 .loader {
-  background-image: url("/res/loader.gif");
+  // background-image: url("/res/loader.gif");
   width: 120px !important;
   margin: 6em;
 }
@@ -87,18 +96,10 @@
   }
   
   button {
-    // height: 40px;
     margin-top: 0.5em;
     padding: 0.5em;
   }
 }
-
-// img[src$=".gif"] {
-//   background: red;
-//   background-image: url("/res/loader.gif");
-//   width: 120px !important;
-//   margin: 6em;
-// }
 
 .story-content {
   .edit {
@@ -111,18 +112,16 @@
   }
 }
 
+.ctrl-bar {
+  @extend .card;
+  position: absolute;
+}
+
 .save {
   position: absolute;
   right: 0;
   top: 0;
 }
-
-// .error-text {
-//   // padding: 0.5em;
-//   width: 100%;
-//   color: $red;
-//   float: left;
-// }
 
 .public-DraftEditorPlaceholder-root {
     color: #9197a3;

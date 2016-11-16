@@ -54,7 +54,7 @@ function makeTopic(title, cb) {
     id: title,
     description: 'This is description text for a topic.',
     active: true,
-    img: "https://s3.amazonaws.com/wiw-full/" + title + ".jpg"
+    image: "https://s3.amazonaws.com/wiw-full/" + title + ".jpg"
   }
   db.createTopic(topicObj, function(err, res) {
     if (err) return cb(err)
@@ -82,7 +82,7 @@ function makeStory(user, cb) {
       length: paragraph.split(' ').length + ' words',
       location: chance.pickone(locations)
     },
-    img: "https://s3.amazonaws.com/wiw-full/" + story_id + ".jpg",
+    image: "https://s3.amazonaws.com/wiw-full/" + story_id + ".jpg",
   }
   db.postStory(story, function(err, res) {
     if (err) { console.error(err) }

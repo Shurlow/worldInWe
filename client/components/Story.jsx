@@ -29,11 +29,11 @@ export default class Story extends React.Component {
 
   render() {
     let WrappedResponseList = wrapResponses(ResponseList)
-    const { id, token, tags, user_id, content, title, author, img, isAuthenticated, username } = this.props
+    const { id, token, tags, user_id, content, title, author, image, isAuthenticated, username } = this.props
     return (
       <div className='page'>
         <div className='lead-image'>
-          <img src={img} />
+          <img src={image} />
         </div>
         <div className='content' style={{backgroundImage: `url(${randomBgImg()})`}}>
           <article>

@@ -22,12 +22,12 @@ export default class StoryBoard extends React.Component {
 	}
 
   render() {
-    const { id, description, img } = this.props.topic
+    const { id, description, image } = this.props.topic
     // console.log(id, description)
     return (
     	<div>
         <article
-          style={{backgroundImage: `url(${img})`}}>
+          style={{backgroundImage: `url(${image})`}}>
           <div className='caption'>
             <h1>{id}</h1>
           </div>

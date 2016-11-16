@@ -12,10 +12,10 @@ export default class StoryBoardItem extends React.Component {
   }
 
   render() {
-    const { id, tags, title, img } = this.props
+    const { id, tags, title, image } = this.props
     return (
       <article
-        style={{backgroundImage: `url(${img})`}}
+        style={{backgroundImage: `url(${image})`}}
         onClick={() => {browserHistory.push(`story/${id}`)}}>
         <div className='caption'>
           <h3>

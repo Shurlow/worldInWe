@@ -5,7 +5,8 @@ public/js/App.jsx
 public/.DS_Store
 etc/
 dumps/
-testImages
+testImage.js
+testimg
 node_modules/
 rethinkdb_data
 npm-debug.log

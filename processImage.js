@@ -4,7 +4,7 @@ var gm = require('gm').subClass({imageMagick: true});
 module.exports = function(imageBuffer, id, callback) {
   console.log(' - cropping & saving image')
   //crop full & thumbnail sizes & save to S3
-  cropImageSave(imageBuffer, 1024, 569, id, 'wiw-full', function(err) {
+  cropImageSave(imageBuffer, 1920, 1080, id, 'wiw-full', function(err) {
     if (err) return callback(err)
     cropImageSave(imageBuffer, 200, 200, id, 'wiw-thumb', function(err) {
       if (err) return callback(err)
@@ -17,9 +17,9 @@ function cropImageSave(imageBuffer, w, h, id, bucketName, cb) {
   gm(imageBuffer)
     .in('-filter', 'Triangle')
     .in('-define', 'filter:support=2')
-    .in('-thumbnail', `${w}`)
+    .in('-thumbnail', `${w}x${h}^`)
     .in('-gravity', 'center')
-    .in('-crop', `${w}x${h}`)
+    .in('-extent', `${w}x${h}`)
     .in('-unsharp', '0.25x0.25+8+0.065')
     .in('-dither', 'None')
     .in('-posterize', 136)

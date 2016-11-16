@@ -1,8 +1,6 @@
 import React from 'react'
 import ImageLoader from 'react-imageloader'
-// import ReactDom from 'react-dom'
 import classnames from 'classnames'
-// import LeadImage from './LeadImage'
 
 export default class ImageUploader extends React.Component {
 
@@ -30,8 +28,9 @@ export default class ImageUploader extends React.Component {
 
   triggerVid() {
     const url = this.state.vidurl
+    const embedUrl = url.replace('watch?v=', 'embed/')
     if (url != null) {
-      this.props.saveVidUrl(url)
+      this.props.updateNewStory({video: embedUrl})
     }
   }
 
@@ -87,7 +86,7 @@ export default class ImageUploader extends React.Component {
         <input
           placeholder='youtube url'
           type='text'
-          value={this.state.vidurl}
+          value={this.props.vidurl}
           onChange={this.changeVidUrl}
           onClick={(e) => e.stopPropagation()}
         />
@@ -117,34 +116,37 @@ export default class ImageUploader extends React.Component {
     )
   }
 
-  renderView(isFetching, imgurl, vidurl) {
+  renderView(isFetching, image, video) {
     if (isFetching) {
       return <img className='loader' src='/res/loader.gif'/>
-    } else if (imgurl != null) {
+    } else if (image != null && video != null) {
+      return this.renderVideoPreview(video)
+    } else if (image != null) {
       return (
         <ImageLoader
-          src={imgurl}
+          src={image}
           preloader={()=> <img className='loader' src='/res/loader.gif'/>}
           imgProps={{onClick: () => this.triggerImg()}}
         />
       )
-    } else if (vidurl != null) {
-      return this.renderVideoPreview(vidurl)
+    } else if (video != null) {
+      return this.renderVideoPreview(video)
     } else {
       return this.renderUploadButtons.bind(this).call()
     }
   }
 
   render() {
-    const { src, imgurl, vidurl, imgError, isFetching, errorMessage } = this.props
+    const { image, video, isFetching, } = this.props
     const bgstyle = classnames({
-      dark: imgurl || vidurl || isFetching,
+      light: !image && !video && !isFetching,
+      'center-content': image || isFetching,
       'lead-image': true
     })
     return (
       <div className='image-upload'>
         <div className={bgstyle}>
-          {this.renderView(isFetching, imgurl, vidurl)}
+          {this.renderView(isFetching, image, video)}
         </div>
         <input
           type="file"
@@ -158,7 +160,14 @@ export default class ImageUploader extends React.Component {
     )
   }
 }
-
+          // { (vidurl && imgurl == null)
+          //   ? <button
+          //       className='corner-button secondary'
+          //       onClick={this.triggerImg}
+          //     >Upload Image
+          //     </button>
+          //   : null
+          // }
 // ImageUploader.defaultProps = {
 //   src: '/res/uploadimg.png'
 // }

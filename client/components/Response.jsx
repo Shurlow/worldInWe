@@ -1,20 +1,26 @@
 import React from 'react'
+import classnames from 'classnames'
 // import moment from 'moment'
 
 export default class Response extends React.Component {
   
-  showDelete() {
-    const { id, user_id, author_id, story_id, deleteResponse, token } = this.props
-    if (author_id === user_id) {
-      return <button onClick={() => deleteResponse(id, token, story_id)}>delete</button>
+  renderDelete(showDelete) {
+    const { id, token, story_id, deleteResponse } = this.props
+    if (showDelete) {
+      return <button className='secondary' onClick={() => deleteResponse(id, token, story_id)}>delete</button>
     } else {
       return null
     }
   }
 
   render() {
-    const { id, title, author, content, date } = this.props
+    const { id, title, author, author_id, user_id, content, date } = this.props
+    let showDelete = (author_id === user_id)
     // let d = moment.parseZone(date).local().format("MMM / D / YY")
+    const rightStyles = classnames({
+      'response-right': true,
+      'with-button': showDelete
+    })
     return (
       <div key={id} className='response'>
         <div className='response-left'>
@@ -22,10 +28,10 @@ export default class Response extends React.Component {
           <h4>{author}</h4>
           <h4>{'date'}</h4>
         </div>
-        <div className='response-right'>
-          <p>{content}</p>
+        <div className={rightStyles}>
+          <span>{content}</span>
         </div>
-        {this.showDelete()}
+        {this.renderDelete(showDelete)}
       </div>
     )
   }

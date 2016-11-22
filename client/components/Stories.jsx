@@ -37,7 +37,7 @@ export default class Stories extends React.Component {
       <Link to={`story/${id}`} className='stories-link'>
         <ImageLoader
           src={`https://s3.amazonaws.com/wiw-thumb/${id}.jpg`}
-          preloader={()=> <img className='' src='/res/loader.gif'/>}
+          preloader={()=> <img className='loader' src='/res/loader.gif'/>}
         />
         <h4>{title}</h4>
       </Link>

@@ -7,17 +7,21 @@ export default class ResponseEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bodyState: EditorState.createEmpty()
+      bodyState: EditorState.createEmpty(),
+      title: null
     }
     this.focusBody = () => this.refs.body.focus();
     this.onBodyChange = (bodyState) => this.setState({bodyState});
+    this.onTitleChange = (e) => this.setState({ title: e.target.value });
   }
+
+
 
   uploadNewResponse() {
     const { user_id, story_id, username, uploadResponse } = this.props
     let responseObj = {
       id: guid(),
-      title: 'No title yet',
+      title: this.state.title,
       author: username,
       author_id: user_id,
       story_id: story_id,
@@ -27,14 +31,16 @@ export default class ResponseEditor extends React.Component {
   }
 
   render() {
-    const isUploading = this.props.isUploading
+    // const isUploading = this.props.isUploading
+    const { username, isUploading, isError} = this.props
+    console.log('repsonse is', isError)
     return (
       <div className='response'>
         <div className='response-left'>
-          <p>Title goes here</p>
-          <p>{this.props.username}</p>
+          <input placeholder='title' className='top' onChange={this.onTitleChange}></input>          
+          <h4>{username}</h4>
         </div>
-        <div className='response-right'>
+        <div className='response-right with-button'>
           <div onClick={this.focusBody} className="RichEditor-editor-body">
             <Editor
               editorState={ isUploading ? EditorState.createEmpty() : this.state.bodyState}
@@ -45,7 +51,8 @@ export default class ResponseEditor extends React.Component {
             />
           </div>
         </div>
-        <button onClick={this.uploadNewResponse.bind(this)}>Submit</button>
+        {isError ? <p className='error'>{isError}</p> : null}
+        <button className='primary' onClick={this.uploadNewResponse.bind(this)}>Submit</button>
       </div>
     );
   }

@@ -13,7 +13,8 @@ export default function wrapAuth(Component) {
   const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated,
     username: state.auth.username,
-    token: state.auth.token
+    token: state.auth.token,
+    privileges: state.auth.privileges
   })
   return connect(mapStateToProps, {
     loginUser,

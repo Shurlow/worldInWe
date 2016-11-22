@@ -47,28 +47,28 @@ export default class Nav extends React.Component {
             <Link className='nav-link' to='/rummee' activeClassName='active'>rumee</Link>
             <Link className='nav-link' to='/explore' activeClassName='active'>explore</Link>
             <Link className='nav-link' to='/about' activeClassName='active'>about</Link>
-            <Link className='nav-link' to='/create' activeClassName='active'>create</Link>
+            {this.makeCreateButton()}
             {this.makeLoginButton()}
           </div> 
       </nav>
     )
- }
+  }
+
+  makeCreateButton() {
+    if (this.props.privileges === 'admin') {
+      return <Link className='nav-link' to='/create' activeClassName='active'>create</Link>
+    }
+  }
 
   makeLoginButton() {
     if (this.props.isAuthenticated) {
       return (
-        <a className='nav-link' href="#" title="Login"
-          onClick={() => {browserHistory.push('/logout')}}>
+        <Link className='nav-link' to='/logout' activeClassName='active'>
           {this.props.username}
-        </a>
+        </Link>
       )
     } else {
-      return (
-        <a className='nav-link' href="#" title="Login"
-          onClick={() => {browserHistory.push('/login')}}>
-          login
-        </a>
-      )
+      return <Link className='nav-link' to='/login' activeClassName='active'>login</Link>
     }
   }
 

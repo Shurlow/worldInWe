@@ -25,7 +25,8 @@ export default function wrapResponses(Component) {
   const mapStateToProps = (state) => ({
     responses: state.responses.data,
     isFetching: state.responses.isFetching,
-    isUploading: state.responses.isUploading
+    isUploading: state.responses.isUploading,
+    isError: state.responses.isError
   })
   return connect(mapStateToProps, {
     loadResponses,

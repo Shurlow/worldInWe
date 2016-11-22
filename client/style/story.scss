@@ -22,7 +22,10 @@
 .lead-image {
   @include span-columns(10);
   @include shift(1);
-  img { width: 100%; }
+  min-height: 500px;
+  img {
+    width: 100%;
+  }
 }
 
 .story-sidebar {

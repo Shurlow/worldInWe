@@ -28,20 +28,32 @@
   h4 {
     margin-top: 1em;
     font-weight: normal;
-    &.top {
-      margin-top: 0;
-      padding-top: 1em; 
-      border-width: 0.2rem;
-      border-top-style: solid;
-      font-weight: bold;
-    }
+  }
+
+  span {
+    line-height: 1.5;
+  }
+
+  .top {
+    margin-top: 0;
+    padding-top: 1em; 
+    border-width: 0.2rem;
+    border-top-style: solid;
+    font-weight: bold;
   }
 
   button {
     position: absolute;
     right: 1em;
     bottom: 1em;
-    outline: 1px solid $yellow;
+  }
+
+  .error {
+    position: absolute;
+    bottom: 1em;
+    line-height: 12px;
+    right: 120px;
+    padding: 0;
   }
 
 }
@@ -49,9 +61,20 @@
 .response-left {
   float: left;
   @include span-columns(3);
+  input {
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    padding: 0;
+  }
 }
 
 .response-right {
   @include span-columns(9);
   @include omega();
+  // margin-bottom: 3em;
+}
+
+.response-right.with-button {
+  padding-bottom: 3.5em;
 }

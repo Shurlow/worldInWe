@@ -4,6 +4,7 @@ import ResponseList from './ResponseList'
 import wrapResponses from '../containers/wrapResponses'
 import SocialButtons from './SocialButtons'
 import Tags from './Tags'
+import ImageLoader from 'react-imageloader'
 import { randomBgImg } from '../util'
 
 export default class Story extends React.Component {
@@ -29,12 +30,17 @@ export default class Story extends React.Component {
 
   render() {
     let WrappedResponseList = wrapResponses(ResponseList)
-    const { id, token, tags, user_id, content, title, author, image, isAuthenticated, username } = this.props
+    const { id, token, tags, user_id, content, title, author, image, video, isAuthenticated, username } = this.props
+    console.log('Has vid?', video)
     return (
       <div className='page'>
-        <div className='lead-image'>
-          <img src={image} />
-        </div>
+        <ImageLoader
+          src={image}
+          preloader={()=> <img className='loader' src='/res/loader.gif'/>}
+          wrapper={React.DOM.div}
+          imgProps={{className: 'source'}}
+          className='lead-image'
+        />
         <div className='content' style={{backgroundImage: `url(${randomBgImg()})`}}>
           <article>
             <header className="center">

@@ -25,7 +25,6 @@
 
   .lead-image {
     position: relative;
-    min-height: 500px;
     // text-align: center;
     &:hover {
       cursor: pointer;
@@ -65,6 +64,10 @@
     position: absolute;
     bottom: 1em;
   }
+  // &.loader {
+  //   width: 120px !important;
+  //   margin: 6em;
+  // }
 }
 
 .center-content {
@@ -82,12 +85,6 @@
   bottom: 0;
   right: 0;
   background: white !important;
-}
-
-.loader {
-  // background-image: url("/res/loader.gif");
-  width: 120px !important;
-  margin: 6em;
 }
 
 .video-input {

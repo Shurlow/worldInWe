@@ -23,7 +23,7 @@ export default createReducer(initialState, {
   },
   [ActionTypes.RESPONSES_FAILURE]: (state, payload) => {
     return Object.assign({}, state, {
-      isError: true,
+      isError: payload,
       isFetching: false
     })
   },
@@ -43,5 +43,8 @@ export default createReducer(initialState, {
       isError: true,
       isUploading: false
     })
+  },
+  [ActionTypes.UPDATE_NEW_RESPONSE]: (state, payload) => {
+    return Object.assign({}, state, payload)
   }
 })

@@ -7,6 +7,7 @@ export const RESPONSES_FAILURE = 'RESPONSES_FAILURE'
 export const UPLOAD_RESPONSE_REQUEST = 'UPLOAD_RESPONSE_REQUEST'
 export const UPLOAD_RESPONSE_SUCCESS = 'UPLOAD_RESPONSE_SUCCESS'
 export const UPLOAD_RESPONSE_FAILURE = 'UPLOAD_RESPONSE_FAILURE'
+export const UPDATE_NEW_RESPONSE = 'UPDATE_NEW_RESPONSE'
 
 //orders responses array by most recent
 const normalizeSuccess = {
@@ -32,20 +33,40 @@ export function loadResponses(story_id) {
   }
 }
 
-export function uploadResponse(story_id, responseObj) {
-  return (dispatch, getState) => {
-    return dispatch(uploadResponseRequest(story_id, responseObj))
-      .then(function(res) {
-        console.log('fetch post done')
-        if (!res.error) {
-          dispatch(loadResponses(story_id))
-          // browserHistory.reload()
-          // location.reload()
-          // browserHistory.push(`/story/${story_id}`)
-        }
-      })
+export function updateNewResponse(obj) {
+  return {
+    type: UPDATE_NEW_RESPONSE,
+    payload: obj
   }
 }
+
+export function uploadResponse(story_id, responseObj) {  
+  return (dispatch, getState) => {
+    hasRequiredFields(responseObj, function(err, msg) {
+      if (err) {return dispatch(updateNewResponse({ isError: msg }))}
+      dispatch(uploadResponseRequest(story_id, responseObj))
+        .then(function(res) {
+          if (res.error) {return dispatch(updateNewResponse({isError: 'Error saving response'}))}
+          dispatch(loadResponses(story_id))
+        })
+    })
+  }
+}
+
+// export function uploadResponse(story_id, responseObj) {
+//   return (dispatch, getState) => {
+//     hasRequiredFields(responseObj, function(err, msg) {
+//       if (err) {return console.log(err)}
+//       else {
+
+//       }
+//       dispatch(uploadResponseRequest(story_id, responseObj))
+//         .then(function(res) {
+//           if (!res.error) dispatch(loadResponses(story_id))
+//         })
+//     })
+//   }
+// }
 
 export function uploadResponseRequest(story_id, responseObj) {
   return {
@@ -66,7 +87,6 @@ export function deleteResponse(response_id, token, story_id) {
   return (dispatch, getState) => {
     return dispatch(deleteResponseRequest(response_id, token))
       .then(function(res) {
-        console.log('delete done')
         if (!res.error) {
           dispatch(loadResponses(story_id))
         }
@@ -87,4 +107,16 @@ export function deleteResponseRequest(response_id, token) {
       types: [UPLOAD_RESPONSE_REQUEST, UPLOAD_RESPONSE_SUCCESS, UPLOAD_RESPONSE_FAILURE]
     }
   }
+}
+
+function hasRequiredFields(responseObj, cb) {
+  const keys = Object.keys(responseObj)
+  const values = Object.values(responseObj) 
+  console.log('checking obj', keys, values)
+  for (var i = 0; i <= values.length - 1; i++) {
+    if (values[i] == null || values[i] === "") {
+      return cb(true, `You're response is missing something: ${keys[i]}`)
+    }
+  }
+  cb(false)
 }

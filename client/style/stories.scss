@@ -17,7 +17,7 @@
 }
 
 .stories-link {
-  // height: 157px;
+  position: relative;
   background: $blue;
   @include span-columns(3);
   @include omega(4n);
@@ -30,6 +30,7 @@
       @extend .dim;
     }
   }
-  // display: inline-block;
-  position: relative;
+  .loader {
+    padding: 4em;
+  }  
 }

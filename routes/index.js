@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var React = require('react')
+// var React = require('react')
 // var ReactDOMServer = require('react-dom/server')
 // var App = React.createFactory(require('../client/main.jsx'))
 

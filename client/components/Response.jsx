@@ -26,7 +26,6 @@ export default class Response extends React.Component {
         <div className='response-left'>
           <h4 className='top'>{title}</h4>
           <h4>{author}</h4>
-          <h4>{'date'}</h4>
         </div>
         <div className={rightStyles}>
           <span>{content}</span>

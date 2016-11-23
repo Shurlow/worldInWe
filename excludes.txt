@@ -3,6 +3,7 @@ README.md
 node_modules
 .sass-cache
 public/js/bundle.js
+public/stats.html
 public/img
 rethinkdb_data
 etc

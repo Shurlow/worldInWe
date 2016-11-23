@@ -4,13 +4,10 @@ var db = require('../db.js');
 var jwt = require('jsonwebtoken')
 
 router.get('/', function(req, res, next) {
-	db.getStories(function(err, data) {
-		if (err) {
-			// console.error(err)
-			res.status(500).send('Error adding story object')
-		} else {
-			res.status(200).json({stories: data})
-		}
+	var q = req.query
+	db.getStories(q.type, q.tag, function(err, data) {
+		if (err) { res.status(500).send('Error getting stories')
+		} else { res.status(200).json({stories: data}) }
 	})
 });
 

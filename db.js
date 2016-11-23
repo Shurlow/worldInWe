@@ -87,9 +87,15 @@ exports.deleteResponse = function(response_id, user_id, cb) {
   })
 }
 
-exports.getStories = function(cb) {
+exports.getStories = function(type, tag, cb) {
   withConnection(function(conn) {
-    r.table('story').run(conn)
+    var cmd;
+    if (type) {
+      cmd = r.table('story').filter({tags: {[type]: tag}})
+    } else {
+      cmd = r.table('story')
+    }]
+    cmd.run(conn)
       .then(function(cursor) {
         return cursor.toArray()
       }).then(function(array) {

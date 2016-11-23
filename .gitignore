@@ -3,6 +3,7 @@ public/js/bundle.js
 public/js/bundle.min.js
 public/js/App.jsx
 public/.DS_Store
+public/stats.html
 etc/
 dumps/
 testImage.js

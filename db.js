@@ -94,7 +94,7 @@ exports.getStories = function(type, tag, cb) {
       cmd = r.table('story').filter({tags: {[type]: tag}})
     } else {
       cmd = r.table('story')
-    }]
+    }
     cmd.run(conn)
       .then(function(cursor) {
         return cursor.toArray()

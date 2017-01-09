@@ -32,6 +32,7 @@ app.use(bodyParser.json({ limit: '5mb' }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
+app.disable('x-powered-by');
 
 app.use('/api', require('./routes/api.js'));
 app.use('/auth', require('./routes/auth.js'));

@@ -11,6 +11,8 @@
   text-align: center;
 
   li {
+    font-family: 'bebas book';
+    font-size: 1.5em;
     color: $blue;
     @include vertical-margin(0.5em);
     &:hover {

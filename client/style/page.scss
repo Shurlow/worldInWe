@@ -7,10 +7,10 @@
   @include outer-container;
 
   .lead-image {
-    min-height: 500px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    // min-height: 500px;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
 
     .loader {
       width: 120px;
@@ -36,7 +36,7 @@
 // .imageloader.source {
 //   opacity: 1;
 //   transition: opacity 0.5s ease-in;
-  
+
 // }
 // .imageloader.loaded.source {
 //   opacity: 1;
@@ -77,7 +77,7 @@ header {
 
 .large-card {
   @extend .card;
-  @include span-columns(8);
+  @include span-columns(9);
   &.center {
     @include shift(2)
   }
@@ -85,9 +85,9 @@ header {
 
 .small-card {
   @extend .card;
-  @include span-columns(5)
+  @include span-columns(6)
   &.center {
-    @include shift(3.5)
+    @include shift(3)
   }
 }
 

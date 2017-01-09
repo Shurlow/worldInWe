@@ -6,7 +6,7 @@ export default class CtrlBar extends React.Component {
     return (
       <div className='ctrl-bar'>
         <h1>test</h1>
-        <button className='primary save' onClick={this.uploadContent.bind(this)}>Save</button>
+        <button className='primary save'>Save</button>
       </div>
     )
   }

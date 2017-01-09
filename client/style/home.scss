@@ -1,3 +1,5 @@
+@import "global.scss";
+
 article {
   width: 100vw;
   height: 100vh;
@@ -13,6 +15,10 @@ article {
   flex-direction: column;
   height: 100%;
   width: 100%;
+  h1:hover {
+    @extend .dim;
+    cursor: pointer;
+  }
   * {
     text-shadow: 2px 2px 10px rgba(0,0,0,0.15);
   }
@@ -20,7 +26,13 @@ article {
 
 .storyboard {
   article {
-    padding: 16em;
+    padding: 2em;
     text-align: center;
+    &:hover {
+      cursor: pointer;
+    }
+    @include desktop {
+      padding: 4em;
+    }
   }
 }

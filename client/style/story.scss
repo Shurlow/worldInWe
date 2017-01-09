@@ -7,8 +7,9 @@
 }
 
 .title {
+  font-family: 'bebas bold';
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: 2em;
 }
 .name {
   color: $blue;
@@ -22,14 +23,14 @@
 .lead-image {
   @include span-columns(10);
   @include shift(1);
-  min-height: 500px;
+  // min-height: 500px;
   img {
     width: 100%;
   }
 }
 
 .story-sidebar {
-  @include span-columns(4);
+  @include span-columns(3);
   @include omega();
 }
 

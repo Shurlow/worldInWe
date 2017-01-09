@@ -1,4 +1,4 @@
-@import 'bourbon/bourbon';
+@import "bourbon/bourbon";
 @import "neat/neat";
 @import "global.scss";
 
@@ -34,6 +34,8 @@ nav {
 }
 
 .nav-link {
+  font-family: 'bebas bold';
+  font-size: 1.25em;
   @extend .dim;
   color: white;
   text-decoration: none;

@@ -45,7 +45,7 @@ function cropImageSave(imageBuffer, w, h, id, bucketName, cb) {
 var aws = require('aws-sdk');
 aws.config.loadFromPath('./aws_config.json');
 var s3 = new aws.S3();
- 
+
 function uploadImage(buf, id, bucket, cb) {
     s3.putObject({
       ACL: "public-read",

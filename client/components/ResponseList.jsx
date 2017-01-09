@@ -38,11 +38,13 @@ export default class ResponseList extends React.Component {
       <div className='story-responses space-top'>
         <header className="center"><h3>Respond</h3></header>
         <div className='small-card center'>
-          <h4>New to the program?</h4>
+          <h3>New to the program?</h3>
           <ol>
             <li>In less than 25 words, write what your legacy in your community will be.</li>
+            <br/>
             <li>A.K. says, "Failure keeps you active." Tell a non-fiction story about how you shared this experience in the pursuit of your goals. What insight did you gain? Who taught it to you?</li>
-            <li>A.k. has a dramatic story of migration that, along with his religion, inspires his ethical code. Write a fictional story about a migrant’s journey to a place they call home. What’s their code? How does their family history inspire it?</li>
+            <br/>
+            <li>A.K. has a dramatic story of migration that, along with his religion, inspires his ethical code. Write a fictional story about a migrant’s journey to a place they call home. What’s their code? How does their family history inspire it?</li>
           </ol>
         </div>
         {this.showEditor()}

@@ -45,8 +45,8 @@ export default class Story extends React.Component {
           <article>
             <header className="center">
               <h3 className='title'>{title}</h3>
-              <h3>produced by <span className='name'>{author}</span></h3>
-              <h3>directed <span className='name'>{author}</span></h3>
+              <h4>produced by <span className='name'>{author}</span></h4>
+              <h4>directed <span className='name'>{author}</span></h4>
             </header>
             <p className="firstletter large-card">
               {content}

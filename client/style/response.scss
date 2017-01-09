@@ -9,7 +9,7 @@
   }
   .small-card {
     padding: 1em;
-    margin-bottom: 1em; 
+    margin-bottom: 1em;
   }
   ol {
     list-style-position: inside;
@@ -32,12 +32,13 @@
   }
 
   span {
+    font-family: 'Unna', serif;
     line-height: 1.5;
   }
 
   .top {
     margin-top: 0;
-    padding-top: 0.5em; 
+    padding-top: 0.5em;
     border-width: 0.2rem;
     border-top-style: solid;
     font-weight: bold;
@@ -62,11 +63,15 @@
 .response-left {
   float: left;
   @include span-columns(3);
-  input {
+  textarea {
+    resize: vertical;
+    max-height: 200px;
     font-weight: bold;
     font-size: 18px;
     border: none;
     padding: 0;
+    width: 100%;
+    text-transform: uppercase;
   }
 }
 

@@ -3,7 +3,7 @@ import classnames from 'classnames'
 // import moment from 'moment'
 
 export default class Response extends React.Component {
-  
+
   renderDelete(showDelete) {
     const { id, token, story_id, deleteResponse } = this.props
     if (showDelete) {
@@ -24,7 +24,7 @@ export default class Response extends React.Component {
     return (
       <div key={id} className='response'>
         <div className='response-left'>
-          <h4 className='top'>{title}</h4>
+          <h3 className='top'>{title}</h3>
           <h4>{author}</h4>
         </div>
         <div className={rightStyles}>

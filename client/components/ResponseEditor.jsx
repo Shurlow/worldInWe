@@ -3,7 +3,7 @@ import { Editor, EditorState } from 'draft-js';
 import { guid } from '../util'
 
 export default class ResponseEditor extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +15,14 @@ export default class ResponseEditor extends React.Component {
     this.onTitleChange = (e) => this.setState({ title: e.target.value });
   }
 
-
+  componentWillReceiveProps() {
+    if (this.props.isError) {
+      this.setState({
+        bodyState: EditorState.createEmpty(),
+        title: ""
+      })
+    }
+  }
 
   uploadNewResponse() {
     const { user_id, story_id, username, uploadResponse } = this.props
@@ -31,13 +38,11 @@ export default class ResponseEditor extends React.Component {
   }
 
   render() {
-    // const isUploading = this.props.isUploading
     const { username, isUploading, isError} = this.props
-    console.log('repsonse is', isError)
     return (
       <div className='response'>
         <div className='response-left'>
-          <input placeholder='title' className='top' onChange={this.onTitleChange}></input>          
+          <textarea placeholder='title' className='top' onChange={this.onTitleChange} value={this.state.title}></textarea>
           <h4>{username}</h4>
         </div>
         <div className='response-right with-button'>

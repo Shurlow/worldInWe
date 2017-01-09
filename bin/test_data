@@ -20,6 +20,7 @@ function runRoutines(n, i) {
   console.log(`__ STARTING ROUTINE ${i} __`)
   makeTopic('rumee', function(err, res) {
     if (err) return console.error(err)
+    console.log('after error')
     makeUser(function(user) {
       console.log(' - user created:', user.id)
       makeStory(user, function(story_id) {
@@ -114,9 +115,10 @@ function makeResponse(user, story_id, cb) {
 //read image and upload to S3.
 //picks random image if no 'file' is supplied
 function uploadImage(user_id, file, cb) {
-  var imgurl = file ? file : `testimg/${chance.integer({ min: 1, max: 11 })}.jpg`
+  var imgurl = file ? file : `testimg/${chance.integer({ min: 1, max: 3 })}.jpg`
   fs.readFile(imgurl, function(err, data) {
     if (err) return console.log(err);
+    console.log('AFTER S3 ERROR!!!')
     processImage(data, user_id, function(err, res) {
       if (err) { return cb(err) }
       cb(null, true)

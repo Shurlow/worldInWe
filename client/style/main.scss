@@ -14,6 +14,34 @@
 @import "story.scss";
 @import "tags.scss";
 
+@font-face {
+  font-family: 'crazy';
+  src: url('./fonts/CrazyThoughts.otf') format("opentype");
+}
+
+@font-face {
+    font-family: "bebas";
+    src: local("Bebas Neue"), local(BebasNeue), url('./fonts/BebasNeue Regular.otf');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "bebas bold";
+    src: local("Bebas Neue"), local(BebasNeue), url('./fonts/BebasNeue Bold.otf');
+    font-weight: 600;
+}
+
+@font-face {
+  font-family: 'bebas book';
+  src: url('fonts/BebasNeue Book.otf') format("opentype");
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'bebas light';
+  src: url('fonts/BebasNeue Light.otf') format("opentype");
+  font-weight: 100;
+}
 
 * {
   border-sizing: border-box;
@@ -30,13 +58,21 @@ body {
 }
 
 h1 {
-  font-size: 4rem;
+  font-family: 'bebas bold', sans-serif;
+  font-weight: 100;
+  font-size: 2.5em;
+  text-transform: uppercase;
   color: $yellow;
+  @include desktop {
+    font-size: 5em;
+  }
 }
 
 h2 {
-  font-size: 1.2rem;
-  padding: 1rem;
+  font-family: 'bebas bold', sans-serif;
+  font-size: 1.75rem;
+  padding: 0.5rem;
+  padding-bottom: 0.25rem;
   margin: 0;
   display: inline-block;
   color: black;
@@ -46,7 +82,8 @@ h2 {
 }
 
 h3 {
-  font-size: 1.2rem;
+  font-family: 'bebas bold', sans-serif;
+  font-size: 1.5rem;
   display: inline-block;
   @include vertical-margin(0.5rem);
   font-weight: bold;
@@ -54,11 +91,15 @@ h3 {
 }
 
 h4 {
+  font-family: 'bebas book', sans-serif;
+  letter-spacing: .1em;
+  font-size: 1.5em;
   margin: 0;
   text-transform: uppercase;
 }
 
 p {
+  font-family: 'Unna', serif;
   margin: 0;
   line-height: 1.5;
   padding: 1em;
@@ -77,6 +118,27 @@ ul {
 input {
   padding: 0.5em;
 }
+
+.fancy {
+  font-family: 'crazy', sans-serif;
+  h1 {
+    font-family: inherit;
+    font-size: 6em;
+    font-weight: normal;
+    @include desktop {
+      font-size: 10em;
+    }
+  }
+}
+
+// $not-small: new-breakpoint(min-width 400px max-width 600px);
+// @mixin media($not-small) {
+//   .fancy {
+//     h1 {
+//       font-size: 1rem;
+//     }
+//   }
+// }
 
 .button {
   background: white;
@@ -167,6 +229,7 @@ button {
   height: 60px;
   text-align: center;
   h4 {
+    font-size: 1em;
     line-height: 60px;
   }
 }

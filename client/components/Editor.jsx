@@ -40,15 +40,15 @@ class CustomEditor extends React.Component {
     return (
       <ArticleWithBg className='editor'>
         <header className="center">
-          <div onClick={this.focusTitle} className="title">
+          <h3 onClick={this.focusTitle} className="title">
             <input placeholder="title" ref='title' onChange={this.onTitleChange.bind(this)}/>
+          </h3>
+          <div onClick={this.focusAuthor}>
+            <h4> Produced by
+              <input placeholder="author" className="name" ref='author' onChange={this.onAuthorChange.bind(this)}/>
+            </h4>
           </div>
-          <div onClick={this.focusAuthor} className="name">
-            <h3> Produced by
-              <input placeholder="author" ref='author' onChange={this.onAuthorChange.bind(this)}/>
-            </h3>
-          </div>
-          <h3>Directed by <span className='name'>{this.props.author}</span></h3>
+          <h4>Directed by <span className='name'>{this.props.author}</span></h4>
         </header>
         <div className='large-card body'>
           <div onClick={this.focusBody} className="RichEditor-editor-body">

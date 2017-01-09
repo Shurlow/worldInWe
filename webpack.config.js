@@ -3,6 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
   // devtool: 'cheap-module-eval-source-map',
+  debug: true,
   devtool: 'source-map',
   entry: [
     'webpack-hot-middleware/client',
@@ -29,6 +30,11 @@ module.exports = {
     {
       test: /\.scss$/,
       loader: 'style!css?sourceMap!autoprefixer!sass?sourceMap'
-    }]
+    },
+    {
+      test: /\.(otf)$/,
+      loader: 'url'
+    }
+    ]
   }
 };

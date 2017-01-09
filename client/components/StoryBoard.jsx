@@ -23,10 +23,10 @@ export default class StoryBoard extends React.Component {
 
   render() {
     const { id, description, image } = this.props.topic
-    // console.log(id, description)
     return (
     	<div>
         <article
+					className='fancy'
           style={{backgroundImage: `url(${image})`}}>
           <div className='caption'>
             <h1>{id}</h1>
@@ -39,12 +39,3 @@ export default class StoryBoard extends React.Component {
     )
   }
 }
-
-// StoryBoard.defaultProps = {
-//   leadImageSrc: pickRandomImage()
-// }
-
-// function pickRandomImage() {
-//   var randomIndex = Math.floor(Math.random() * 8) + 1
-//   return `/res/leadimg/${randomIndex}.jpg`
-// }

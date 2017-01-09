@@ -40,10 +40,10 @@ export function updateNewResponse(obj) {
   }
 }
 
-export function uploadResponse(story_id, responseObj) {  
+export function uploadResponse(story_id, responseObj) {
   return (dispatch, getState) => {
     hasRequiredFields(responseObj, function(err, msg) {
-      if (err) {return dispatch(updateNewResponse({ isError: msg }))}
+      if (err) { return dispatch(updateNewResponse({ isError: msg }))}
       dispatch(uploadResponseRequest(story_id, responseObj))
         .then(function(res) {
           if (res.error) {return dispatch(updateNewResponse({isError: 'Error saving response'}))}
@@ -111,7 +111,7 @@ export function deleteResponseRequest(response_id, token) {
 
 function hasRequiredFields(responseObj, cb) {
   const keys = Object.keys(responseObj)
-  const values = Object.values(responseObj) 
+  const values = Object.values(responseObj)
   console.log('checking obj', keys, values)
   for (var i = 0; i <= values.length - 1; i++) {
     if (values[i] == null || values[i] === "") {

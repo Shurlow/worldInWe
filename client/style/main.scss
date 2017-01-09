@@ -21,13 +21,13 @@
 
 @font-face {
     font-family: "bebas";
-    src: local("Bebas Neue"), local(BebasNeue), url('./fonts/BebasNeue Regular.otf');
+    src: local("Bebas Neue"), local(BebasNeue), url('./fonts/BebasNeue Regular.otf') format("opentype");
     font-weight: 400;
 }
 
 @font-face {
     font-family: "bebas bold";
-    src: local("Bebas Neue"), local(BebasNeue), url('./fonts/BebasNeue Bold.otf');
+    src: local("Bebas Neue"), local(BebasNeue), url('./fonts/BebasNeue Bold.otf') format("opentype");
     font-weight: 600;
 }
 

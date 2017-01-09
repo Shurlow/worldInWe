@@ -5,9 +5,9 @@
   "scripts": {
     "start": "NODE_ENV=development node ./bin/www",
     "start-prod": "NODE_ENV=production node ./bin/www",
-    "build": "NODE_ENV=development gulp",
-    "build-prod": "NODE_ENV=production gulp build-prod",
-    "deploy": "bin/deploy",
+    "build": "webpack",
+    "build-prod": "webpack -p --progress --config webpack.production.config.js",
+    "deploy": "rsync -rv ./ scott@Umami:~/worldInWe --exclude-from 'excludes.txt'",
     "test": "babel-tape-runner client/tests/**/*.js | faucet"
   },
   "browserify": {

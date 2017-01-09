@@ -6,11 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
-// require('node-jsx').install();
-// require('babel-register')({
-//   presets: [ 'es2015', 'react' ],
-//   extensions: ['.js', '.jsx']
-// })
+
+console.log('In App', app.get('env'));
 
 //for bundle hot reloading in dev
 if (app.get('env') === 'development') {

@@ -9,6 +9,7 @@ var debug = require('debug')('worldInMe:server');
 var http = require('http');
 
 // process.env['NODE_ENV'] = process.argv[1];
+// console.log(process.env)
 
 
 /**

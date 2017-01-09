@@ -19,12 +19,13 @@ module.exports = {
     new ExtractTextPlugin('css/style.min.css'),
     new webpack.optimize.DedupePlugin(),
     new LodashModuleReplacementPlugin,
-    new webpack.optimize.UglifyJsPlugin(),
-    new Visualizer({ filename: './stats.html'})
-    // new DashboardPlugin()
-    // new webpack.DefinePlugin({
-    //   'process.env.ENVIRONMENT': '"'+process.env.NODE_ENV+'"'
-    // })
+    new Visualizer({ filename: './stats.html'}),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin()
   ],
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -38,6 +39,10 @@ module.exports = {
     {
       test: /\.scss$/,
       loader: ExtractTextPlugin.extract('style', 'css?minimize!autoprefixer!sass')
+    },
+    {
+      test: /\.(otf)$/,
+      loader: 'url'
     }]
   }
 };

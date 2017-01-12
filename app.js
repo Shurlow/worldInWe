@@ -7,8 +7,6 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
 
-console.log('In App', app.get('env'));
-
 //for bundle hot reloading in dev
 if (app.get('env') === 'development') {
   var webpack = require('webpack');
@@ -59,7 +57,6 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  console.log('Production err handler says:', err)
   res.render('error', {
     message: err.message,
     error: {}

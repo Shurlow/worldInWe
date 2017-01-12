@@ -12,7 +12,7 @@ export default class ResponseList extends React.Component {
     } else {
       return (
         <label className='response'>
-          Login to contribute
+          <h3>Login to contribute</h3>
           <button className='secondary' onClick={() => browserHistory.push(`/login?next=/story/${story_id}`)}>
             Login
           </button>

@@ -3,7 +3,6 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var Visualizer = require('webpack-visualizer-plugin');
 var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-// var DashboardPlugin = require('webpack-dashboard/plugin');
 
 module.exports = {
   // devtool: 'eval',

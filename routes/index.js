@@ -6,25 +6,17 @@ var router = express.Router();
 
 // var htmlStr = ReactDOMServer.renderToString(App({stories: 'hello'}))
 
-var clientSrc = "";
-var mode = process.env.NODE_ENV
-
-if ( mode === 'production') {
-  var clientSrc = "/js/bundle.min.js"
-} else if ( mode === 'development') {
-  var clientSrc = "/js/bundle.js"
-} else {
-  throw "No env mode found!"
-}
+const mode = process.env.NODE_ENV || 'development'
+const clientSrc =  mode === 'production' ? "/js/bundle.min.js" : '/js/bundle.js';
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   // var reactHtml = React.renderToString(App({}));
-	res.render('index', { reactOutput: 'Loading...', file: clientSrc });	
+	res.render('index', { reactOutput: 'Loading...', file: clientSrc });
 });
 
 router.get('/*', function(req, res, next) {
-	res.render('index', { reactOutput: 'Loading...', file: clientSrc });	
+	res.render('index', { reactOutput: 'Loading...', file: clientSrc });
 });
 
 module.exports = router;

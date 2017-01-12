@@ -1,8 +1,6 @@
 var express = require('express');
-// var passport = require('passport');
 var router = express.Router();
 var db = require('../db')
-// var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken')
 
 router.post('/login', function(req, res) {
@@ -25,33 +23,20 @@ router.post('/login', function(req, res) {
 
 router.post('/create', function(req, res, next) {
   var user = req.body
-  console.log('Adding new user:', user)
   if (user.accessCode === 'secret') {
-    console.log("there is a match!")
     delete user['accessCode']
     user.privileges = 'admin'
   } else {
-    console.log('no match')
     delete user['accessCode']
     user.privileges = 'read_only'
   }
   db.createUser(user, function(err, success) {
     if (success) {
-      console.log('success!')
       var token = jwt.sign({ username: user.username, id: user.id, privileges: user.privileges }, 'supersecret!')
       res.status(200).json({'token': token})
     } else {
-      console.log('Create user error:', err)
       return res.status(403).send('Error creating user.')
     }
-
-    // console.log('From DB:', user, err)
-    // if (err) return res.send("Sign Up Error!")
-    // else if (user) {
-    //   console.log('Good User:', user)
-    //   delete user.password
-    //   res.json(user)
-    // }
   })
 });
 

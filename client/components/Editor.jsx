@@ -3,6 +3,7 @@ import {Editor, EditorState, RichUtils, convertToRaw, convertFromRaw, ContentSta
 import backdraft from 'backdraft-js';
 import TagSelect from './TagSelect'
 import ArticleWithBg from './ArticleWithBg'
+import CtrlBar from './CtrlBar'
 
 class CustomEditor extends React.Component {
   constructor(props) {
@@ -44,12 +45,13 @@ class CustomEditor extends React.Component {
             <input placeholder="title" ref='title' onChange={this.onTitleChange.bind(this)}/>
           </h3>
           <div onClick={this.focusAuthor}>
-            <h4> Produced by
+            <h4>Produced by
               <input placeholder="author" className="name" ref='author' onChange={this.onAuthorChange.bind(this)}/>
             </h4>
           </div>
           <h4>Directed by <span className='name'>{this.props.author}</span></h4>
         </header>
+        <CtrlBar {...this.props}/>
         <div className='large-card body'>
           <div onClick={this.focusBody} className="RichEditor-editor-body">
             <Editor

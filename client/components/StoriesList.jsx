@@ -19,6 +19,7 @@ export default class StoriesList extends React.Component {
 
   render() {
     const stories = this.props.stories
+    console.log(this.props);
     return (
       <div>
         { stories ? stories.map(this.makeStoryCard) : null }

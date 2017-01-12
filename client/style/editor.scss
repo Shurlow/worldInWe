@@ -16,9 +16,14 @@
     padding: 0.5em;
   }
 
-  input {
-    padding: 0.1 !important;
+  header {
+    input {
+      padding: 0.25em;
+    }
   }
+  // input {
+  //   padding: 0.1 !important;
+  // }
 }
 
 .image-upload {
@@ -115,13 +120,18 @@
 
 .ctrl-bar {
   @extend .card;
-  position: absolute;
-}
+  @include span-columns(3);
+  @include omega();
 
-.save {
-  position: absolute;
-  right: 0;
-  top: 0;
+  button {
+    width: 100%;
+  }
+
+  p {
+    padding: 1em;
+    font-family: 'bebas book';
+    font-size: 1.25em;
+  }
 }
 
 .public-DraftEditorPlaceholder-root {

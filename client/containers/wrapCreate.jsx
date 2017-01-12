@@ -21,9 +21,9 @@ export default function wrapCreate(Component) {
     image: state.newstory.image,
     video: state.newstory.video,
     isFetching: state.newstory.isFetching,
-    isError: state.newstory.errorMessage
+    isError: state.newstory.isError
   })
-  
+
   return connect(mapStateToProps, {
     updateNewStory,
     uploadImage,

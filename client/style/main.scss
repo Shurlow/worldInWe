@@ -141,14 +141,16 @@ input {
 // }
 
 .button {
+  font-family: 'bebas bold';
+  font-size: 1.25em;
   background: white;
-  padding: 1em;
+  padding: 0.5em;
   min-width: 90px;
   color: black;
   border: none;
   border-radius: 3px;
-  // line-height: 50px;
   text-transform: uppercase;
+  letter-spacing: .1em;
   display: inline-block;
   text-align: center;
   &:hover {

@@ -15,6 +15,7 @@ export default function wrapStories(Component) {
     ids: state.stories.ids,
     topic: state.stories.topic
   })
+
   return connect(mapStateToProps, {
     loadStories,
     loadTopic

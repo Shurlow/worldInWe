@@ -17,7 +17,7 @@ export default class Tags extends React.Component {
       <div className="tags">
         <h3>Tags</h3>
         {this.makeTag('form', tags.form)}
-        {this.makeTag('theme', tags.theme[0] + ' & ' + tags.theme[1])}
+        {this.makeTag('theme', tags.theme1 + ' & ' + tags.theme2)}
         {this.makeTag('length', tags.length)}
         {this.makeTag('location', tags.location)}
       </div>

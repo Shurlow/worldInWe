@@ -5,15 +5,13 @@ exports.postStory = function(story, cb) {
   withConnection(function(conn) {
     r.table('story')
       .insert(story)
-      .run(conn, function(err, res) {
-        if (err) {
-          cb(err, null)
-        }
-        else if (res.errors) {
-          cb(res.errors, null)
-        } else {
-          cb(null, res)
-        }
+      .run(conn)
+      .then((res) => {
+        cb(null, res)
+      })
+      .catch((err) => {
+        console.log(err);
+        cb(err, null)
       })
   })
 }
@@ -90,8 +88,12 @@ exports.deleteResponse = function(response_id, user_id, cb) {
 exports.getStories = function(type, tag, cb) {
   withConnection(function(conn) {
     var cmd;
-    if (type) {
-      cmd = r.table('story').filter({tags: {[type]: tag}})
+    if (type && tag) {
+      cmd = r.table('story').filter((story) => {
+        return story('tags')(type).eq(tag).default(false)
+          .or(story('tags')('theme1').eq(tag).default(false))
+          .or(story('tags')('theme2').eq(tag).default(false))
+      })
     } else {
       cmd = r.table('story')
     }

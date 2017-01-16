@@ -16,14 +16,14 @@ const storySchema = new Schema('stories', {
 const normalizeSuccess = {
   type: STORIES_SUCCESS,
   payload: (action, state, res) => {
-    return getJSON(res).then((json) => normalize(json, { stories: arrayOf(storySchema) }))
+    return getJSON(res).then((json) => normalize(json, arrayOf(storySchema)))
   }
 }
 
 export function loadStories() {
   return {
     [CALL_API]: {
-      endpoint: "/api",
+      endpoint: "/api/stories",
       method: "GET",
       headers: {
         "Accept": "application/json",

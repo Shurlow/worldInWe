@@ -7,7 +7,7 @@ var chance = new Chance();
 var processImage = require('../processImage.js')
 
 function main() {
-  runRoutines(1)
+  runRoutines(process.argv[2] || 1)
 }
 main()
 
@@ -20,7 +20,6 @@ function runRoutines(n, i) {
   console.log(`__ STARTING ROUTINE ${i} __`)
   makeTopic('rumee', function(err, res) {
     if (err) return console.error(err)
-    console.log('after error')
     makeUser(function(user) {
       console.log(' - user created:', user.id)
       makeStory(user, function(story_id) {
@@ -79,7 +78,8 @@ function makeStory(user, cb) {
     topic: 'rumee',
     tags: {
       form: chance.pickone(forms),
-      theme: [chance.pickone(themes), chance.pickone(themes)],
+      theme1: chance.pickone(themes),
+      theme2: chance.pickone(themes),
       length: paragraph.split(' ').length + ' words',
       location: chance.pickone(locations)
     },
@@ -118,7 +118,6 @@ function uploadImage(user_id, file, cb) {
   var imgurl = file ? file : `testimg/${chance.integer({ min: 1, max: 3 })}.jpg`
   fs.readFile(imgurl, function(err, data) {
     if (err) return console.log(err);
-    console.log('AFTER S3 ERROR!!!')
     processImage(data, user_id, function(err, res) {
       if (err) { return cb(err) }
       cb(null, true)

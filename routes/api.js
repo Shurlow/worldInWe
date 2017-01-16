@@ -2,37 +2,9 @@ var express = require('express');
 var router = express.Router();
 var db = require('../db.js');
 var jwt = require('jsonwebtoken')
-
-router.get('/', function(req, res, next) {
-	var q = req.query
-	db.getStories(q.type, q.tag, function(err, data) {
-		if (err) { res.status(500).send('Error getting stories')
-		} else { res.status(200).json({stories: data}) }
-	})
-});
-
-router.get('/:story_id', function(req, res) {
-	var id = req.params.story_id
-	db.getStory(id, function(err, data) {
-		//TODO: abstract error handling
-		if (err) {
-			res.status(500);
-	    res.json({
-	      message: 'Internal server error',
-	      error: err
-	    });
-		}
-		if (data) {
-			return res.json({stories: data})
-		}
-		else {
-			res.status(404).json({
-	      message: 'Story not found: ' + id,
-	      error: err
-	    });
-		}
-	})
-});
+// const ev = require('express-validation');
+// const validations = require('../validations/story');
+router.use(require('./stories.js'))
 
 router.get('/responses/:story_id', function(req, res, next) {
 	db.getResponses(req.params.story_id, function(err, data) {
@@ -70,17 +42,7 @@ router.delete('/responses/delete/:response_id', function(req, res) {
 
 // Post new story
 // req.body = { id, title, content, author... }
-router.post('/story', function(req, res) {
-	console.log(req.body)
-	db.postStory(req.body, function(err, data) {
-		console.log('Post:', err, data)
-		if (err) {
-			res.status(500).send('Error adding story object')
-		} else {
-			res.status(200).send('Story submitted.')
-		}
-	})
-});
+
 
 
 //Image Upload using s3
@@ -101,32 +63,6 @@ router.post('/image/:id', function(req, res) {
     }
   })
 })
-
-//Update indevidual story
-router.post('/update/:story_id', function(req, res) {
-	var id = req.params.story_id
-	console.log('updating', id, req.body)
-	db.updateStory(id, req.body, function(err, data) {
-		if (err) {
-			res.status(500).send('Error updating story object')
-		} else {
-			res.status(200).send('update successfull')
-		}
-	})
-});
-
-//Update indevidual story
-router.delete('/:story_id', function(req, res) {
-	console.log('deleting')
-	var id = req.params.story_id
-	db.deleteStory(id, function(err, data) {
-		if (err) {
-			res.status(500).send('Error deleting story object')
-		} else {
-			res.status(200).send('Story with id:' + id + ' deleted.')
-		}
-	})
-});
 
 router.get('/topic/active', function(req, res) {
 	db.getActiveTopic(function(err, data) {

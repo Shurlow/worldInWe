@@ -20,18 +20,17 @@ export default class Stories extends React.Component {
   fetchStories(type, tag) {
     let self = this
     request
-      .get(`/api?type=${type}&tag=${tag}`)
+      .get(`/api/stories/?type=${type}&tag=${tag}`)
       .set('Accept', 'application/json')
       .end(function(err, res) {
         self.setState({
-          stories: res.body.stories
+          stories: res.body
         })
       })
   }
 
   render() {
     const { type, tag } = this.props.location.query
-    console.log('stories state:', this.state);
     return (
       <div className='page stories'>
         <header className='center'>

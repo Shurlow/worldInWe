@@ -21,9 +21,9 @@ export default class StoryBoardItem extends React.Component {
           <h3>
             <span className='form'>{tags.form}</span>
             <span> about </span>
-            <span className='theme'>{tags.theme[0]}</span>
+            <span className='theme'>{tags.theme1}</span>
             <span> & </span>
-            <span className='theme'>{tags.theme[1]}</span>
+            <span className='theme'>{tags.theme2}</span>
             <span> in </span>
             <span className='length'>{tags.length}</span>
           </h3>

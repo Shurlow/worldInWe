@@ -9,7 +9,7 @@ const initialState = {
   isError: false
 }
 
-export default createReducer(initialState, { 
+export default createReducer(initialState, {
   [ActionTypes.STORIES_REQUEST]: (state, payload) => {
     return Object.assign({}, state, {
       isFetching: true,
@@ -20,7 +20,7 @@ export default createReducer(initialState, {
     return Object.assign({}, state, {
       isFetching: false,
       data: payload.entities.stories,
-      ids: payload.result.stories
+      ids: payload.result
     })
   },
   [ActionTypes.STORIES_FAILURE]: (state, payload) => {

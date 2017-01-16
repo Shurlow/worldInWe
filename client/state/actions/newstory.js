@@ -14,7 +14,7 @@ export const UPDATE_NEW_STORY = 'UPDATE_NEW_STORY'
 export function updateNewStory(obj) {
   return {
     type: UPDATE_NEW_STORY,
-    payload: obj 
+    payload: obj
   }
 }
 
@@ -24,7 +24,7 @@ export function resetNewStory() {
   }
 }
 
-export function uploadStory() {  
+export function uploadStory() {
   return (dispatch, getState) => {
     const state = getState().newstory
     hasRequiredFields(state, function(err, msg) {
@@ -48,7 +48,7 @@ export function uploadStory() {
 function uploadStoryReq(storyObj) {
   return {
     [CALL_API]: {
-      endpoint: "/api/story",
+      endpoint: "/api/stories",
       method: "POST",
       headers: {
         "Accept": "application/json",
@@ -77,7 +77,7 @@ export function uploadImage(id, img_data) {
 
 function hasRequiredFields(storyObj, cb) {
   const keys = Object.keys(storyObj)
-  const values = Object.values(storyObj) 
+  const values = Object.values(storyObj)
   console.log('checking obj', keys, values)
   for (var i = 0; i <= values.length - 1; i++) {
     if (keys[i].match(/^(isError|isFetching|backup|video)$/)) {i++}

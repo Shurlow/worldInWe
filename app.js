@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
 
-//for bundle hot reloading in dev
+// for bundle hot reloading in dev
 if (app.get('env') === 'development') {
   var webpack = require('webpack');
   var config = require('./webpack.config');
@@ -44,23 +44,15 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    console.log('Dev err handler says:', err)
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
+    res.status(err.status || 500).send(err)
   });
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+  console.log(err);
+  res.status(err.status || 500).send(err)
 });
 
 

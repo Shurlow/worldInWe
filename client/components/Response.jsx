@@ -14,7 +14,7 @@ export default class Response extends React.Component {
   }
 
   render() {
-    const { id, title, author, author_id, user_id, content, date } = this.props
+    const { id, title, author, author_id, user_id, content, length, date } = this.props
     let showDelete = (author_id === user_id)
     // let d = moment.parseZone(date).local().format("MMM / D / YY")
     const rightStyles = classnames({
@@ -26,9 +26,10 @@ export default class Response extends React.Component {
         <div className='response-left'>
           <h3 className='top'>{title}</h3>
           <h4>{author}</h4>
+          <h3 className='wc'>{length + ' words'}</h3>  
         </div>
         <div className={rightStyles}>
-          <span>{content}</span>
+          <span className='response-content'>{content}</span>
         </div>
         {this.renderDelete(showDelete)}
       </div>

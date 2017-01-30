@@ -2,6 +2,7 @@ import React from 'react'
 import request from 'superagent'
 import classnames from 'classnames'
 import StoryBoardItem from './StoryBoardItem'
+import { Link, browserHistory } from 'react-router'
 // import { loadStories } from '../state/actions/stories'
 import { connect } from 'react-redux'
 
@@ -29,7 +30,9 @@ export default class StoryBoard extends React.Component {
 					className='fancy'
           style={{backgroundImage: `url(${image})`}}>
           <div className='caption'>
+						<Link to='rumee'>
             <h1>{id}</h1>
+					</Link>
           </div>
         </article>
 	    	<div className="storyboard">

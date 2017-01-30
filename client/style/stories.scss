@@ -2,35 +2,56 @@
 @import "global.scss";
 
 .stories {
+  color: white;
 
   h4 {
-    padding: 1em;
+    font-size: 1em;
+    padding: 0.5em;
     display: block;
     position: absolute;
     bottom: 0;
     color: white;
     text-shadow: 2px 2px 10px rgba(0,0,0,0.15);
+
     &:hover {
       color: $red;
+      img {
+        @extend .dim;
+      }
     }
   }
+  // &:hover {
+  //   color: $red;
+  //   img {
+  //     @extend .dim;
+  //   }
+  // }
 }
 
 .stories-link {
   position: relative;
-  background: $blue;
   @include span-columns(3);
   @include omega(4n);
   margin-bottom: 1.5em;
+  background: $blue;
+
   img {
+    opacity: 0.8;
     width: 100%;
   }
+
   &:hover {
+    // color: $red;
     img {
       @extend .dim;
     }
   }
+
   .loader {
-    padding: 4em;
+    padding: 2em;
   }
+}
+
+span.failed {
+ display: inline-block;
 }

@@ -26,13 +26,15 @@ export default class ResponseEditor extends React.Component {
 
   uploadNewResponse() {
     const { user_id, story_id, username, uploadResponse } = this.props
-    let responseObj = {
+    const content = this.state.bodyState.getCurrentContent().getPlainText()
+    const responseObj = {
       id: guid(),
       title: this.state.title,
       author: username,
       author_id: user_id,
-      story_id: story_id,
-      content: this.state.bodyState.getCurrentContent().getPlainText()
+      story_id,
+      content,
+      length: content.split(' ').length
     }
     uploadResponse(story_id, responseObj)
   }

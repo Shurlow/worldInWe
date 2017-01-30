@@ -32,7 +32,8 @@ export function uploadStory() {
       let {isError, isFetching, form, theme1, theme2, location, ...obj} = state
       obj.tags = {
         form: state.form,
-        theme: [state.theme1, state.theme2],
+        theme1: state.theme1,
+        theme2: state.theme2,
         location: state.location,
         length: countWords(state.content) + ' words'
       }
@@ -78,11 +79,11 @@ export function uploadImage(id, img_data) {
 function hasRequiredFields(storyObj, cb) {
   const keys = Object.keys(storyObj)
   const values = Object.values(storyObj)
-  console.log('checking obj', keys, values)
+  // console.log('checking obj', keys, values)
   for (var i = 0; i <= values.length - 1; i++) {
     if (keys[i].match(/^(isError|isFetching|backup|video)$/)) {i++}
     else if (values[i] == null) {
-      return cb(true, `You're story is missing something: ${keys[i]}`)
+      return cb(true, `You're story is missing something - ${keys[i]}`)
     }
   }
   cb(false)
@@ -90,8 +91,9 @@ function hasRequiredFields(storyObj, cb) {
 
 function countWords(content) {
   let count = 0
-  content.forEach( line => {
-    count += line.split(' ').length
-  })
+  console.log(content);
+  // content.forEach( line => {
+  //   count += line.split(' ').length
+  // })
   return count
 }

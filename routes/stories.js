@@ -16,7 +16,7 @@ router.get('/stories', function(req, res, next) {
 	})
 });
 
-router.post('/stories', ev(validations.story), function(req, res) {
+router.post('/stories', ev(validations.post), function(req, res) {
 	db.postStory(req.body, function(err, data) {
 		console.log('Post:', err, data)
 		if (err) {

@@ -7,7 +7,8 @@
   position: relative;
   .body {
     line-height: 1.5;
-    padding: 1em;
+    // padding-left: 1em;
+    // padding-right: 1em;
   }
   .message {
     position: absolute;
@@ -19,6 +20,7 @@
   header {
     input {
       padding: 0.25em;
+      width: 100%;
     }
   }
   // input {
@@ -66,7 +68,7 @@
   }
 
   iframe {
-    height: 560px;
+    height: 420px;
   }
 
   h3 {
@@ -77,6 +79,10 @@
   //   width: 120px !important;
   //   margin: 6em;
   // }
+}
+
+.nameInput {
+  padding: 0.33em;
 }
 
 .center-content {
@@ -125,6 +131,7 @@
 
   button {
     width: 100%;
+    border-radius: 0;
   }
 
   p {
@@ -133,6 +140,54 @@
     font-size: 1.25em;
   }
 }
+
+.RichEditor-editor .public-DraftEditorPlaceholder-root,
+.RichEditor-editor .public-DraftEditor-content {
+  margin: 0 -15px -15px;
+  padding: 15px;
+}
+
+.RichEditor-root {
+  background: #fff;
+  border: 1px solid #ddd;
+  font-family: 'Georgia', serif;
+  font-size: 14px;
+  padding: 15px;
+}
+
+.RichEditor-editor {
+  border-top: 1px solid #ddd;
+  cursor: text;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.RichEditor-styleButton {
+  color: #999;
+  cursor: pointer;
+  margin-right: 16px;
+  padding: 2px 0;
+  display: inline-block;
+}
+
+.RichEditor-activeButton {
+  color: #5890ff;
+}
+
+.RichEditor-controls {
+  font-family: 'Helvetica', sans-serif;
+  font-size: 14px;
+  margin-bottom: 5px;
+  user-select: none;
+}
+
+// .RichEditor-editor .public-DraftEditor-content {
+//   min-height: 100px;
+// }
+
+// .RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
+//   display: none;
+// }
 
 .public-DraftEditorPlaceholder-root {
     color: #9197a3;

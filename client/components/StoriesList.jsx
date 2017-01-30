@@ -12,17 +12,17 @@ export default class StoriesList extends React.Component {
           src={`https://s3.amazonaws.com/wiw-thumb/${id}.jpg`}
           preloader={()=> <img className='loader' src='/res/loader.gif'/>}
         />
-        <h4>{title}</h4>
+      <h4>{title}</h4>
       </Link>
     )
   }
 
   render() {
     const stories = this.props.stories
-    console.log(this.props);
+    const isStories = (stories && stories.length !== 0)
     return (
-      <div>
-        { stories ? stories.map(this.makeStoryCard) : null }
+      <div className='fillwhite'>
+        { isStories ? stories.map(this.makeStoryCard) : 'No stories found' }
       </div>
     )
   }

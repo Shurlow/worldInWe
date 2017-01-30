@@ -24,7 +24,9 @@ function runRoutines(n, i) {
       console.log(' - user created:', user.id)
       makeStory(user, function(story_id) {
         uploadImage(story_id, null, function(err, res) {
-          if (err) console.error(err)
+          if (err) {
+            console.error('Error @ image')
+          }
           makeResponse(user, story_id, function(done) {
             console.log(` - routine #${i} done`, "\u2713")
             if (m > 0) runRoutines(m, i + 1)
@@ -74,13 +76,13 @@ function makeStory(user, cb) {
     title: chance.sentence({words: chance.integer({min: 2, max: 10})}),
     author: user.username,
     author_id: user.id,
-    content: paragraph,
+    rawText: paragraph,
     topic: 'rumee',
     tags: {
       form: chance.pickone(forms),
       theme1: chance.pickone(themes),
       theme2: chance.pickone(themes),
-      length: paragraph.split(' ').length + ' words',
+      length: paragraph.split(' ').length,
       location: chance.pickone(locations)
     },
     image: "https://s3.amazonaws.com/wiw-full/" + story_id + ".jpg",
@@ -93,6 +95,8 @@ function makeStory(user, cb) {
 }
 
 function makeResponse(user, story_id, cb) {
+  var content = chance.paragraph()
+
   var response = {
     id: guid(),
     story_id: story_id,
@@ -100,7 +104,8 @@ function makeResponse(user, story_id, cb) {
     author: user.username,
     author_id: user.id,
     date: r.now(),
-    content: chance.paragraph(),
+    content: content,
+    length: content.split(' ').length,
   }
   db.postResponse(story_id, response, function(err, res) {
     if (err) {

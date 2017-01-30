@@ -7,7 +7,12 @@ import { browserHistory } from 'react-router'
 import { routerMiddleware, push } from 'react-router-redux'
 // import { autoRehydrate } from 'redux-persist'
 
-const middleware = [ routerMiddleware(browserHistory), thunk, apiMiddleware, createLogger() ]
+const middleware = [
+  routerMiddleware(browserHistory),
+  thunk,
+  apiMiddleware,
+  // createLogger()
+]
 
 export default function configureStore(initialState) {
   const store = createStore(

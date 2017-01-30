@@ -32,11 +32,13 @@ export default class Stories extends React.Component {
   render() {
     const { type, tag } = this.props.location.query
     return (
-      <div className='page stories'>
-        <header className='center'>
-          <h3>{type}: <span className='name'>{tag}</span></h3>
-        </header>
-        <StoriesList stories={this.state.stories}/>
+      <div className='page stories content'>
+        <article>
+          <header className='center'>
+            <h3>{type}: <span className='name'>{tag}</span></h3>
+          </header>
+          <StoriesList stories={this.state.stories}/>
+        </article>
       </div>
     )
   }

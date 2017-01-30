@@ -3,6 +3,7 @@ import { Provider } from 'react-redux'
 import { Router, Route } from 'react-router'
 import Home from '../components/Home'
 import About from '../components/About'
+import Topic from '../components/Topic'
 import Story from '../components/Story'
 import Explore from '../components/Explore'
 import Stories from '../components/Stories'
@@ -26,6 +27,7 @@ export default class Root extends React.Component {
       <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={Home}>
+            <Route path="rumee" component={Topic}/>
             <Route path="about" component={About}/>
             <Route path="story/:id" component={wrapStory(Story)}/>
             <Route path="explore" component={Explore}/>

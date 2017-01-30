@@ -8,6 +8,5 @@ public/img
 rethinkdb_data
 etc
 client
-dumps
 fonts
 styles

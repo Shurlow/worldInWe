@@ -4,7 +4,7 @@
 .page {
   color: black;
   margin-top: 4em;
-  @include outer-container;
+  @include outer-container(900px);
 
   .lead-image {
     // min-height: 500px;
@@ -46,6 +46,7 @@
 .content {
   position: relative;
   width: 100%;
+  max-width: 1000px;
   display: inline-block;
   @include outer-container;
 

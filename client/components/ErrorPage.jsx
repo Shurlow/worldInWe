@@ -9,8 +9,7 @@ export default class ErrorPage extends React.Component {
           <article>
             <div className='small-card center'>
               <h2>Error {this.props.code}</h2>
-              <p>Sorry about that...</p>
-              <p>{this.props.message}</p>
+              <p>{this.props.message || 'Sorry about that...'}</p>
             </div>
           </article>
         </div>

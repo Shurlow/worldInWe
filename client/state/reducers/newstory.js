@@ -5,10 +5,11 @@ const initialState = {
   //Story
   id: null,
   title: null,
-  author: null,
   author_id: null,
-  content: null,
-  // backup: null,
+  producer: null,
+  director: null,
+  backup: null,
+  rawText: null,
   image: null,
   video: null,
   //Tags

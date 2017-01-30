@@ -44,12 +44,12 @@ export default class Nav extends React.Component {
             <img src="/res/logo-dark.svg" onClick={() => {browserHistory.push('/')}}></img>
           </div>
           <div className='nav-right'>
-            <Link className='nav-link' to='/rummee' activeClassName='active'>rumee</Link>
+            <Link className='nav-link' to='/rumee' activeClassName='active'>rumee</Link>
             <Link className='nav-link' to='/explore' activeClassName='active'>explore</Link>
             <Link className='nav-link' to='/about' activeClassName='active'>about</Link>
             {this.makeCreateButton()}
             {this.makeLoginButton()}
-          </div> 
+          </div>
       </nav>
     )
   }
@@ -78,7 +78,7 @@ export default class Nav extends React.Component {
       'nav-sticky': true,
       'hide': !showStickyNav
     })
-    
+
     return (
       <div>
         {this.makeNav('')}

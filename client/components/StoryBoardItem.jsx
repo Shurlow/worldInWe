@@ -25,7 +25,7 @@ export default class StoryBoardItem extends React.Component {
             <span> & </span>
             <span className='theme'>{tags.theme2}</span>
             <span> in </span>
-            <span className='length'>{tags.length}</span>
+            <span className='length'>{tags.length + ' words'}</span>
           </h3>
           <h1>{title}</h1>
         </div>
@@ -36,5 +36,6 @@ export default class StoryBoardItem extends React.Component {
 
 StoryBoardItem.defaultProps = {
   title: "No Title Found for This Story",
-  firstline: "Here is a sample first line of a story that starts like this..."
+  firstline: "Here is a sample first line of a story that starts like this...",
+  tags: {}
 }

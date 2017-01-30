@@ -6,6 +6,7 @@ import SocialButtons from './SocialButtons'
 import Tags from './Tags'
 import ImageLoader from 'react-imageloader'
 import { randomBgImg } from '../util'
+import {Editor, EditorState, RichUtils, convertToRaw, convertFromRaw, ContentState} from 'draft-js';
 
 export default class Story extends React.Component {
 
@@ -30,7 +31,7 @@ export default class Story extends React.Component {
 
   render() {
     let WrappedResponseList = wrapResponses(ResponseList)
-    const { id, token, tags, user_id, content, title, author, image, video, isAuthenticated, username } = this.props
+    const { id, token, tags, user_id, rawText, title, author, image, video, isAuthenticated, username } = this.props
     console.log('Has vid?', video)
     return (
       <div className='page'>
@@ -48,8 +49,7 @@ export default class Story extends React.Component {
               <h4>produced by <span className='name'>{author}</span></h4>
               <h4>directed <span className='name'>{author}</span></h4>
             </header>
-            <p className="firstletter large-card">
-              {content}
+            <p className="firstletter large-card" dangerouslySetInnerHTML={{__html: rawText}}>
             </p>
             <div className='story-sidebar'>
               <SocialButtons title={title}/>
@@ -79,7 +79,8 @@ Story.defaultProps = {
 
 Story.propTypes = {
   id: React.PropTypes.string.isRequired,
-  content: React.PropTypes.string.isRequired,
+  richContent: React.PropTypes.object,
+  rawText: React.PropTypes.string.isRequired,
   title: React.PropTypes.string.isRequired,
   author: React.PropTypes.string.isRequired,
   author_id: React.PropTypes.string.isRequired,

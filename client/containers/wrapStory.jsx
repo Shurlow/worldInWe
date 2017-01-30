@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router'
 import { loadStories } from "../state/actions/stories"
 import ErrorPage from '../components/ErrorPage'
+// import wrapWithTryCatch from 'react-try-catch-render'
 
 export default function wrapStory(Component) {
   class LoadedStory extends React.Component {
@@ -17,18 +18,15 @@ export default function wrapStory(Component) {
       const { isAuthenticated, story, user_id, username, token } = this.props
       return (
         <div>
-          { story == null
-            ? <ErrorPage 
-                code={404}
-                message={`Story: ${this.props.params.id} could not be found.`}
-              />
-            : <Component
+          { story
+            ? <Component
                 isAuthenticated={isAuthenticated}
                 username={username}
                 token={token}
                 user_id={user_id}
                 {...story}
               />
+            : <ErrorPage message='Story could not be found'/>
           }
         </div>
       )

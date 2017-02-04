@@ -96,15 +96,18 @@ export default class ImageUploader extends React.Component {
   }
 
   renderUploadButtons() {
-    const { vidurl, showVidInput } = this.state    
+    const { vidurl, showVidInput } = this.state
     return (
       <div>
-        <div onClick={() => this.triggerImg()}>
-          <figure>
-            <img src={'/res/upimg.svg'}/>
-            <figcaption>upload image</figcaption>
-          </figure>
-        </div>
+        {
+          vidurl
+          ? <div onClick={() => this.triggerImg()}>
+              <figure>
+                <img src={'/res/upimg.svg'}/>
+                <figcaption>upload image</figcaption>
+              </figure>
+            </div>
+        :
         <div onClick={this.toggleVidInput}>
           <figure>
             <img src={'/res/upvid.svg'}/>
@@ -112,7 +115,9 @@ export default class ImageUploader extends React.Component {
             <figcaption>upload video</figcaption>
           </figure>
         </div>
+      }
       </div>
+
     )
   }
 
@@ -136,6 +141,29 @@ export default class ImageUploader extends React.Component {
     }
   }
 
+  renderImageInput() {
+    return (
+      <div onClick={() => this.triggerImg()}>
+        <figure>
+          <img src={'/res/upimg.svg'}/>
+          <figcaption>upload image</figcaption>
+        </figure>
+      </div>
+    )
+  }
+
+  // renderImageInput() {
+  //   return (
+  //     <div onClick={() => this.triggerImg()}>
+  //       <figure>
+  //         <img src={'/res/upvid.svg'}/>
+  //         {showVidInput ? this.renderVideoInput() : null}
+  //         <figcaption>upload video</figcaption>
+  //       </figure>
+  //     </div>
+  //   )
+  // }
+
   render() {
     const { image, video, isFetching, } = this.props
     const bgstyle = classnames({
@@ -146,7 +174,10 @@ export default class ImageUploader extends React.Component {
     return (
       <div className='image-upload'>
         <div className={bgstyle}>
-          {this.renderView(isFetching, image, video)}
+          { this.state.vidurl
+            ? this.renderImageInput()
+            : this.renderImageInput()
+          }
         </div>
         <input
           type="file"
@@ -160,19 +191,3 @@ export default class ImageUploader extends React.Component {
     )
   }
 }
-          // { (vidurl && imgurl == null)
-          //   ? <button
-          //       className='corner-button secondary'
-          //       onClick={this.triggerImg}
-          //     >Upload Image
-          //     </button>
-          //   : null
-          // }
-// ImageUploader.defaultProps = {
-//   src: '/res/uploadimg.png'
-// }
-
-// ImageUploader.propTypes = {
-//   uploadImage: React.PropTypes.func.isRequired,
-//   src: React.PropTypes.string.isRequired
-// }

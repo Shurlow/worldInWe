@@ -55,3 +55,32 @@
 span.failed {
  display: inline-block;
 }
+
+.contributors {
+  @include outer-container;
+  padding: 2em;
+
+  div {
+    @include span-columns(4);
+    @include omega(3n);
+    padding: 1em;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 500px;
+  }
+
+  h4 {
+    text-align: center;
+  }
+
+  span {
+    font-family: 'Unna', serif;
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 0.5em;
+  }
+
+}

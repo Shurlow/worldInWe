@@ -31,7 +31,7 @@ article {
     &:hover {
       cursor: pointer;
     }
-    @include desktop {
+    @include large {
       padding: 4em;
     }
   }

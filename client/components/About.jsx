@@ -6,9 +6,8 @@ export default class About extends React.Component {
 
   makeContribCard(contrib) {
     const { name, role, img } = contrib
-    console.log(name);
     return (
-      <div key={name} className=''>
+      <div key={name}>
         <ImageLoader
           src={`/res/contributors/${img}`}
           preloader={()=> <img className='loader' src='/res/loader.gif'/>}

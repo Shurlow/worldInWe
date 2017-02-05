@@ -2,6 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 import { browserHistory } from 'react-router'
 import { Link } from 'react-router'
+import Sidebar from './Sidebar'
 
 export default class Nav extends React.Component {
 
@@ -38,18 +39,32 @@ export default class Nav extends React.Component {
   }
 
   makeNav(style) {
+    const navContent = (
+      <div>
+        <Link className='nav-link' to='/rumee' activeClassName='active'>rumee</Link>
+        <Link className='nav-link' to='/explore' activeClassName='active'>explore</Link>
+        <Link className='nav-link' to='/about' activeClassName='active'>about</Link>
+        {this.makeCreateButton()}
+        {this.makeLoginButton()}
+      </div>
+    )
+
     return (
       <nav className={style}>
-         <div className="nav-left">
-            <img src="/res/logo-dark.svg" onClick={() => {browserHistory.push('/')}}></img>
+        <div className="nav-left">
+          <img
+            src="/res/logo-dark.svg"
+            onClick={() => {browserHistory.push('/')}}>
+          </img>
+        </div>
+        <div className='nav-right'>
+          <div className='h-nav'>
+            {navContent}
           </div>
-          <div className='nav-right'>
-            <Link className='nav-link' to='/rumee' activeClassName='active'>rumee</Link>
-            <Link className='nav-link' to='/explore' activeClassName='active'>explore</Link>
-            <Link className='nav-link' to='/about' activeClassName='active'>about</Link>
-            {this.makeCreateButton()}
-            {this.makeLoginButton()}
-          </div>
+          <Sidebar>
+            {navContent}
+          </Sidebar>
+        </div>
       </nav>
     )
   }

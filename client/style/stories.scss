@@ -46,10 +46,10 @@
       @extend .dim;
     }
   }
+}
 
-  .loader {
-    padding: 2em;
-  }
+.loader {
+  padding: 2em;
 }
 
 span.failed {
@@ -63,6 +63,17 @@ span.failed {
   div {
     @include span-columns(4);
     @include omega(3n);
+
+    @include medium {
+      @include span-columns(6);
+      // @include omega();
+    }
+
+    @include small {
+      // @include span-columns(4);
+      width: 100%;
+      @include omega(4n);
+    }
     padding: 1em;
   }
 

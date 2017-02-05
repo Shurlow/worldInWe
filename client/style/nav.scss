@@ -28,6 +28,9 @@ nav {
 .nav-right {
   @include span-columns(4);
   @include shift(7);
+  @include small {
+    @include shift(7);
+  }
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -40,7 +43,7 @@ nav {
   color: white;
   text-decoration: none;
   text-transform: uppercase;
-  padding: 1em;
+  padding: 0.25em;
 }
 
 .active {
@@ -57,4 +60,70 @@ nav {
 .hide {
   opacity: 0;
   z-index: -1;
+}
+
+.h-nav {
+  display: none;
+  @include large {
+    display: block;
+  }
+}
+
+.sidebar {
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 240px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.sidebar-wrap {
+  // display: none;
+  @include large {
+    display: none;
+  }
+
+  .nav-link {
+    display: block;
+    margin-bottom: 1em;
+  }
+}
+
+.sidebar-overlay {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: opacity .3s ease-out, visibility .3s ease-out;
+  background-color: rgba(0,0,0,.3);
+}
+
+.sidebar-content {
+  z-index: 2;
+  background: black;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  overflow: hidden;
+  padding: 1em;
+  padding-top: 3em;
+}
+
+.sidebar-enter {
+  transform: translate(100%);
+}
+.sidebar-enter.sidebar-enter-active {
+  transform: translate(0%);
+  transition: transform 300ms ease-in-out;
+}
+.sidebar-leave {
+  transform: translate(0%);
+}
+.sidebar-leave.sidebar-leave-active {
+  transform: translate(100%);
+  transition: transform 300ms ease-in-out;
 }

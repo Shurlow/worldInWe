@@ -1,14 +1,11 @@
 @import "bourbon/bourbon";
 @import "neat/neat";
 @import "global.scss";
-// @import "intrinsic.scss";
 
 .editor {
   position: relative;
   .body {
     line-height: 1.5;
-    // padding-left: 1em;
-    // padding-right: 1em;
   }
   .message {
     position: absolute;
@@ -23,37 +20,62 @@
       width: 100%;
     }
   }
-  // input {
-  //   padding: 0.1 !important;
-  // }
 }
 
 .image-upload {
+
+  @include span-columns(10);
+  @include shift(1);
+  position: relative;
+
   .hide-input {
     position: absolute;
     display: none;
   }
 
   .lead-image {
+    width: 100%;
+    margin: 0;
     position: relative;
-    // text-align: center;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
     &:hover {
       cursor: pointer;
     }
   }
 
+  .side-buttons {
+    position: absolute;
+    width: 120px;
+    bottom: -120px;
+    left: 0;
+    z-index: 1;
+    @include span-columns(3);
+    display: flex;
+    div {
+      width: 50%;
+      height: 120px;
+      padding: 0.25em;
+    }
+
+    .loader {
+      width: 100%;
+    }
+  }
+
   figure {
-    width: 50%;
-    padding: 6em;
+    // width: 120px;
     margin: 0;
-    float: left;
     transition: background 0.15s ease-in;
     &:hover {
       cursor: pointer;
-      background: $grey;
+      // background: $grey;
     }
     &:active {
-      background: $blue;
+      // @include .dim;
     }
     figcaption {
       font-size: 14px;
@@ -64,6 +86,7 @@
     }
     img {
       margin-left: 5px;
+      width: 100%;
     }
   }
 
@@ -110,6 +133,29 @@
   button {
     margin-top: 0.5em;
     padding: 0.5em;
+  }
+}
+
+.completed {
+  h1 {
+    color: $darkest;
+    text-align: center;
+  }
+  figure {
+    display: none;
+  }
+
+  .loader {
+    // width: 50%;
+  }
+
+  &:hover {
+    h1 {
+      display: none;
+    }
+    figure {
+      display: inline-block;
+    }
   }
 }
 

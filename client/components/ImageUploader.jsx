@@ -10,8 +10,10 @@ export default class ImageUploader extends React.Component {
       showVidInput: false,
       vidurl: null
     }
-    this.renderUploadButtons = this.renderUploadButtons.bind(this)
+    // this.renderUploadButtons = this.renderUploadButtons.bind(this)
     this.renderVideoInput = this.renderVideoInput.bind(this)
+    this.renderVideoButton = this.renderVideoButton.bind(this)
+    // this.renderImageButton = this.renderImageButton.bind(this)
     this.triggerImg = this.triggerImg.bind(this)
     this.triggerVid = this.triggerVid.bind(this)
     this.changeVidUrl = this.changeVidUrl.bind(this)
@@ -31,6 +33,9 @@ export default class ImageUploader extends React.Component {
     const embedUrl = url.replace('watch?v=', 'embed/')
     if (url != null) {
       this.props.updateNewStory({video: embedUrl})
+      this.setState({
+        showVidInput: false
+      })
     }
   }
 
@@ -96,73 +101,83 @@ export default class ImageUploader extends React.Component {
   }
 
   renderUploadButtons() {
-    const { vidurl, showVidInput } = this.state
+    const { video, isFetching } = this.props
+    const completed = classnames({
+      completed: video || !isFetching
+    })
+    let buttonState = null
+
+    if (video) {
+      buttonState = <h1>&#x2713;</h1>
+    }
+    if (isFetching) {
+      buttonState = <img className='loader' src='/res/loader.gif'/>
+    }
+
+    const { vidurl } = this.state
     return (
-      <div>
+      <div className='side-buttons'>
+          {this.renderImageButton()}
         {
-          vidurl
-          ? <div onClick={() => this.triggerImg()}>
+          <div className='left' className={completed}>
+            {buttonState}
+            <figure onClick={this.toggleVidInput}>
+              <img src={'/res/upvid.svg'}/>
+              <figcaption>upload video</figcaption>
+            </figure>
+          </div>
+        }
+      </div>
+    )
+  }
+
+  renderImageButton() {
+    const { image, isFetching } = this.props
+
+    const completed = classnames({
+      completed: image || isFetching
+    })
+
+    let buttonState = null
+
+    if (image) {
+      buttonState = <h1>&#x2713;</h1>
+    }
+    if (isFetching) {
+      buttonState = <img className='loader' src='/res/loader.gif'/>
+    }
+
+    return (
+      <div onClick={this.triggerImg} className={completed}>
+        {buttonState}
+          <figure>
+            <img src={'/res/upimg.svg'}/>
+            <figcaption>upload image</figcaption>
+          </figure>
+      </div>
+    )
+  }
+
+  renderVideoButton() {
+    const { image, isFetching } = this.props
+    const completed = classnames({
+      completed: this.props.video || isFetching
+    })
+
+    return (
+      <div className='video-button'>
+        { this.state.showVidInput
+          ? this.renderVideoInput()
+          : <div className={completed}>
               <figure>
-                <img src={'/res/upimg.svg'}/>
-                <figcaption>upload image</figcaption>
+                <img src={'/res/upvid.svg'}/>
+                <figcaption>upload video</figcaption>
               </figure>
             </div>
-        :
-        <div onClick={this.toggleVidInput}>
-          <figure>
-            <img src={'/res/upvid.svg'}/>
-            {showVidInput ? this.renderVideoInput() : null}
-            <figcaption>upload video</figcaption>
-          </figure>
-        </div>
-      }
-      </div>
-
-    )
-  }
-
-  renderView(isFetching, image, video) {
-    if (isFetching) {
-      return <img className='loader' src='/res/loader.gif'/>
-    } else if (image != null && video != null) {
-      return this.renderVideoPreview(video)
-    } else if (image != null) {
-      return (
-        <ImageLoader
-          src={image}
-          preloader={()=> <img className='loader' src='/res/loader.gif'/>}
-          imgProps={{onClick: () => this.triggerImg()}}
-        />
-      )
-    } else if (video != null) {
-      return this.renderVideoPreview(video)
-    } else {
-      return this.renderUploadButtons.bind(this).call()
-    }
-  }
-
-  renderImageInput() {
-    return (
-      <div onClick={() => this.triggerImg()}>
-        <figure>
-          <img src={'/res/upimg.svg'}/>
-          <figcaption>upload image</figcaption>
-        </figure>
+        }
       </div>
     )
   }
-
-  // renderImageInput() {
-  //   return (
-  //     <div onClick={() => this.triggerImg()}>
-  //       <figure>
-  //         <img src={'/res/upvid.svg'}/>
-  //         {showVidInput ? this.renderVideoInput() : null}
-  //         <figcaption>upload video</figcaption>
-  //       </figure>
-  //     </div>
-  //   )
-  // }
 
   render() {
     const { image, video, isFetching, } = this.props
@@ -171,14 +186,16 @@ export default class ImageUploader extends React.Component {
       'center-content': image || isFetching,
       'lead-image': true
     })
+
     return (
       <div className='image-upload'>
-        <div className={bgstyle}>
-          { this.state.vidurl
-            ? this.renderImageInput()
-            : this.renderImageInput()
+        <div className={bgstyle} onClick={this.toggleVidInput}>
+          { video && !this.state.showVidInput
+            ? this.renderVideoPreview(video)
+            : this.renderVideoButton()
           }
         </div>
+        {this.renderUploadButtons()}
         <input
           type="file"
           className='hide-input'

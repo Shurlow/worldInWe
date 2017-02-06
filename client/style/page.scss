@@ -7,11 +7,6 @@
   @include outer-container(900px);
 
   .lead-image {
-    // min-height: 500px;
-    // display: flex;
-    // align-items: center;
-    // justify-content: center;
-
     .loader {
       width: 120px;
     }
@@ -21,27 +16,12 @@
 
 .overlay {
   padding: absolute;
-  // z-index: 3;
   background-color: red;
   width: 100%;
   height: 100%;
   top: 0px;
   left: 0px;
-  // opacity: 1;
 }
-// .loaded.blind {
-//   opacity: 0;
-// }
-
-// .imageloader.source {
-//   opacity: 1;
-//   transition: opacity 0.5s ease-in;
-
-// }
-// .imageloader.loaded.source {
-//   opacity: 1;
-//   // background: transparent;
-// }
 
 .content {
   position: relative;
@@ -89,6 +69,13 @@ header {
   @include span-columns(6)
   &.center {
     @include shift(3)
+  }
+  @include small {
+    @include span-columns(10);
+    &.center {
+      @include shift(1);
+    }
+
   }
 }
 

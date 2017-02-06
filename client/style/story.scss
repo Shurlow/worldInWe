@@ -4,6 +4,10 @@
 
 .story {
   @extend .page;
+
+  h4:first-of-type {
+    margin-bottom: 0.5rem;
+  }
 }
 
 .title {
@@ -11,6 +15,7 @@
   font-weight: bold;
   font-size: 2em;
 }
+
 .name {
   color: $blue;
 }

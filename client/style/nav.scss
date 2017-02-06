@@ -26,11 +26,11 @@ nav {
   }
 }
 .nav-right {
-  @include span-columns(4);
-  @include shift(7);
-  @include small {
-    @include shift(7);
-  }
+  @include span-columns(6);
+  @include shift(5);
+  // @include small {
+    // @include shift(7);
+  // }
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -118,12 +118,12 @@ nav {
 }
 .sidebar-enter.sidebar-enter-active {
   transform: translate(0%);
-  transition: transform 300ms ease-in-out;
+  transition: transform 200ms ease-in-out;
 }
 .sidebar-leave {
   transform: translate(0%);
 }
 .sidebar-leave.sidebar-leave-active {
   transform: translate(100%);
-  transition: transform 300ms ease-in-out;
+  transition: transform 200ms ease-in-out;
 }

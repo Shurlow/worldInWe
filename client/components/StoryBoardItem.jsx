@@ -28,6 +28,7 @@ export default class StoryBoardItem extends React.Component {
             <span className='length'>{tags.length + ' words'}</span>
           </h3>
           <h1>{title}</h1>
+          <img src='/res/viewstory.svg' />
         </div>
       </article>
     )

@@ -78,7 +78,7 @@ export default class Nav extends React.Component {
   makeLoginButton() {
     if (this.props.isAuthenticated) {
       return (
-        <Link className='nav-link' to='/logout' activeClassName='active'>
+        <Link className='name nav-link' to='/logout' activeClassName='active'>
           {this.props.username}
         </Link>
       )

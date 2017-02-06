@@ -21,7 +21,7 @@ export default class Home extends React.Component {
         <NavWrap location={this.props.location}/>
         {this.props.children || <StoryBoardWrap/>}
         <footer className='footer'>
-          <h4>© 2016 tayo consulting group, llc. all rights reserved </h4>
+          <h4>© 2017 tayo consulting group, llc. all rights reserved </h4>
         </footer>
       </div>
     )

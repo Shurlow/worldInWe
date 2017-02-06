@@ -7,7 +7,14 @@ var chance = new Chance();
 var processImage = require('../processImage.js')
 
 function main() {
-  runRoutines(process.argv[2] || 1)
+  if (process.argv[2] === 'topic') {
+    makeTopic('rumee', (err, done) => {
+      if (err) console.error(err);
+      console.log('done');
+    })
+  } else {
+    runRoutines(process.argv[2] || 1)
+  }
 }
 main()
 
@@ -60,7 +67,7 @@ function makeTopic(title, cb) {
   }
   db.createTopic(topicObj, function(err, res) {
     if (err) return cb(err)
-    uploadImage(title, 'testimg/rumee.jpg', function(err, res) {
+    uploadImage(title, 'testimg/bg/6.jpg', function(err, res) {
       if (err) return cb(err)
       console.log(` - topic: ${title} created`)
       return cb(null, true)

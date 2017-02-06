@@ -37,8 +37,8 @@ export default class CustomSidebar extends React.Component {
       <div className='sidebar-wrap'>
         <ReactCSSTransitionGroup
           transitionName="sidebar"
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={300}
+          transitionEnterTimeout={200}
+          transitionLeaveTimeout={200}
         >
           { this.state.isOpen
             ? this.renderSidebar()

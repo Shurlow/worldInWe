@@ -34,7 +34,7 @@ export default class Story extends React.Component {
     const { id, token, tags, user_id, rawText, title, author, image, video, isAuthenticated, username } = this.props
     console.log('Has vid?', video)
     return (
-      <div className='page'>
+      <div className='story'>
         <ImageLoader
           src={image}
           preloader={()=> <img className='loader' src='/res/loader.gif'/>}
@@ -80,7 +80,7 @@ Story.defaultProps = {
 Story.propTypes = {
   id: React.PropTypes.string.isRequired,
   richContent: React.PropTypes.object,
-  rawText: React.PropTypes.string.isRequired,
+  // rawText: React.PropTypes.string.isRequired,
   title: React.PropTypes.string.isRequired,
   author: React.PropTypes.string.isRequired,
   author_id: React.PropTypes.string.isRequired,

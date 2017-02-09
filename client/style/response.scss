@@ -19,6 +19,8 @@
 
 .response {
   position: relative;
+  @extend .small-card;
+  @extend .center;
   display: inline-block;
   background-color: white;
   min-height: 82px;
@@ -27,8 +29,13 @@
   padding: 1em;
 
   h4 {
-    margin-top: 0.5em;
     font-weight: normal;
+    margin-bottom: 1em;
+
+    @include large {
+      margin-bottom: 1em;
+      margin-top: 0.5em;
+    }
   }
 
   .response-content {
@@ -69,13 +76,14 @@
 }
 
 .response-left {
-  float: left;
-  @include span-columns(3);
+  @include span-columns(12);
+  // @include .center;
   textarea {
     resize: vertical;
+    font-family: 'bebas bold';
+    font-size: 1.5rem;
     max-height: 200px;
     font-weight: bold;
-    font-size: 18px;
     border: none;
     padding: 0;
     width: 100%;
@@ -84,8 +92,11 @@
 }
 
 .response-right {
-  @include span-columns(9);
+  @include span-columns(12);
   @include omega();
+  @include large {
+    @include span-columns(9);
+  }
   // margin-bottom: 3em;
 }
 

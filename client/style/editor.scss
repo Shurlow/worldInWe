@@ -44,6 +44,12 @@
     min-height: 400px;
     &:hover {
       cursor: pointer;
+      img {
+        @extend .dim;
+      }
+      .video-button {
+        display: block
+      }
     }
   }
 
@@ -63,6 +69,7 @@
 
     .loader {
       width: 100%;
+      padding: 1em;
     }
   }
 
@@ -72,10 +79,10 @@
     transition: background 0.15s ease-in;
     &:hover {
       cursor: pointer;
-      // background: $grey;
+      @extend .dim;
     }
     &:active {
-      // @include .dim;
+      fill: red;
     }
     figcaption {
       font-size: 14px;
@@ -125,6 +132,15 @@
   background: white !important;
 }
 
+.video-button, .video-input{
+  position: absolute;
+}
+
+.video-button {
+  display: none;
+  color: white;
+}
+
 .video-input {
   * {
     width: 100%;
@@ -141,22 +157,22 @@
     color: $darkest;
     text-align: center;
   }
-  figure {
-    display: none;
-  }
+  // figure {
+  //   display: none;
+  // }
 
-  .loader {
+  // .loader {
     // width: 50%;
-  }
+  // }
 
-  &:hover {
-    h1 {
-      display: none;
-    }
-    figure {
-      display: inline-block;
-    }
-  }
+  // &:hover {
+  //   h1 {
+  //     display: none;
+  //   }
+  //   figure {
+  //     display: inline-block;
+  //   }
+  // }
 }
 
 .story-content {

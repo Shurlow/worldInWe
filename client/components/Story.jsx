@@ -31,8 +31,8 @@ export default class Story extends React.Component {
 
   render() {
     let WrappedResponseList = wrapResponses(ResponseList)
-    const { id, token, tags, user_id, rawText, title, author, image, video, isAuthenticated, username } = this.props
-    console.log('Has vid?', video)
+    const { id, token, tags, user_id, rawText, title, producer, director, image, video, isAuthenticated, username } = this.props
+
     return (
       <div className='story'>
         <ImageLoader
@@ -46,8 +46,8 @@ export default class Story extends React.Component {
           <article>
             <header className="center">
               <h3 className='title'>{title}</h3>
-              <h4>produced by <span className='name'>{author}</span></h4>
-              <h4>directed <span className='name'>{author}</span></h4>
+              <h4>produced by <span className='name'>{producer}</span></h4>
+              <h4>directed by <span className='name'>{director}</span></h4>
             </header>
             <p className="firstletter large-card" dangerouslySetInnerHTML={{__html: rawText}}>
             </p>

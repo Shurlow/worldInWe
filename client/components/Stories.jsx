@@ -1,4 +1,6 @@
 import React from 'react'
+// import { Link } from 'react-router'
+import { browserHistory } from 'react-router'
 import StoriesList from './StoriesList'
 import request from 'superagent'
 
@@ -35,6 +37,7 @@ export default class Stories extends React.Component {
       <div className='page stories content'>
         <article>
           <header className='center'>
+            <button className='back' onClick={browserHistory.goBack}>⬅</button>
             <h3>{type}: <span className='name'>{tag}</span></h3>
           </header>
           <StoriesList stories={this.state.stories}/>

@@ -2,13 +2,14 @@ var fs = require('fs')
 var gm = require('gm').subClass({imageMagick: true});
 
 module.exports = function(imageBuffer, id, callback) {
-  console.log(' - cropping & saving image')
+  console.log(' - cropping & saving image', imageBuffer)
   //crop full & thumbnail sizes & save to S3
   cropImageSave(imageBuffer, 1920, 1080, id, 'wiw-full', function(err) {
+    console.log('Ever done?');
     if (err) {
-      console.log('Err okay!');
-      return callback(null)
+      return callback(err)
     }
+    console.log('Cropping thumb now:');
     cropImageSave(imageBuffer, 200, 200, id, 'wiw-thumb', function(err) {
       if (err) return callback(err)
       callback(null)
@@ -36,6 +37,7 @@ function cropImageSave(imageBuffer, w, h, id, bucketName, cb) {
     .in('-colorspace', 'sRGB')
     .in('-strip')
     .toBuffer(function(err, image){
+      console.log('Image processing done', err);
       if (err) return cb(err)
       uploadImage(image, id, bucketName, function(err) {
         if (err) return cb(err)

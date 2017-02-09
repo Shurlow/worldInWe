@@ -3,7 +3,10 @@
 
 .page {
   color: black;
-  margin-top: 4em;
+  margin-top: 2em;
+  @include large {
+    margin-top: 4em;
+  }
   @include outer-container(900px);
 
   .lead-image {
@@ -42,10 +45,16 @@
 header {
   @extend .small-card;
   text-transform: uppercase;
-  margin-bottom: 2em;
   padding: 0.5em 1em 0.5em 1em;
   text-align: center;
   background-color: $yellow !important;
+
+  margin-bottom: 2em;
+
+  @include small {
+    margin-bottom: 1em;
+  }
+
 }
 
 .card {
@@ -62,6 +71,12 @@ header {
   &.center {
     @include shift(2)
   }
+
+  @include small {
+    @include span-columns(11);
+    @include shift(0.5);
+    // @include omega();
+  }
 }
 
 .small-card {
@@ -71,9 +86,9 @@ header {
     @include shift(3)
   }
   @include small {
-    @include span-columns(10);
+    @include span-columns(11);
     &.center {
-      @include shift(1);
+      @include shift(0.5);
     }
 
   }
@@ -110,6 +125,9 @@ header {
 
 .space-top {
   margin-top: 2em;
+  @include small {
+    margin-top: 1em;
+  }
 }
 
 .space-bottom {

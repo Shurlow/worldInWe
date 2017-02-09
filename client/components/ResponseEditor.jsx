@@ -44,7 +44,7 @@ export default class ResponseEditor extends React.Component {
     return (
       <div className='response'>
         <div className='response-left'>
-          <textarea placeholder='title' className='top' onChange={this.onTitleChange} value={this.state.title || ' '}></textarea>
+          <textarea placeholder='title' className='top' onChange={this.onTitleChange} value={this.state.title}></textarea>
           <h4>{username}</h4>
         </div>
         <div className='response-right with-button'>

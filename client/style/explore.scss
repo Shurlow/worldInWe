@@ -19,6 +19,10 @@
       @extend .dim;
       cursor: pointer;
     }
+    padding: 0.2em;
+    @include large {
+      padding: 0;
+    }
   }
 }
 

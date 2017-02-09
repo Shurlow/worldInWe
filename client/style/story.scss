@@ -37,6 +37,12 @@
 .story-sidebar {
   @include span-columns(3);
   @include omega();
+
+  @include small {
+    @include span-columns(11);
+    @include shift(0.5);
+    margin-top: 1em;
+  }
 }
 
 .social-buttons {

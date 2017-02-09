@@ -5,7 +5,6 @@ export default class SocialButtons extends React.Component {
   render() {
     let url = window.location.href
     let title = this.props.title
-    console.log('URL', url);
     return (
       <div className="social-buttons">
         <h3>Share This Story</h3>

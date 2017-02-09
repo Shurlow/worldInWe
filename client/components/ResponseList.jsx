@@ -24,6 +24,7 @@ export default class ResponseList extends React.Component {
   makeResponse(response) {
     return (
       <Response
+        key={response.id}
         token={this.props.token}
         deleteResponse={this.props.deleteResponse}
         user_id={this.props.user_id}

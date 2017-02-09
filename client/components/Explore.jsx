@@ -11,8 +11,8 @@ export default class ExploreView extends React.Component {
         <ul>
         {items.map( t => {
           return (
-            <Link to={`stories?type=${type}&tag=${t}`}>
-              <li>{t}</li> 
+            <Link key={t} to={`stories?type=${type}&tag=${t}`}>
+              <li>{t}</li>
             </Link>
           )
         })}

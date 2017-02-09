@@ -91,20 +91,18 @@ span.failed {
   padding: 2em;
 
   div {
-    @include span-columns(4);
-    @include omega(3n);
+    width: 100%;
+    padding: 1em;
 
     @include medium {
       @include span-columns(6);
-      // @include omega();
+      @include omega(2n);
     }
 
-    @include small {
-      // @include span-columns(4);
-      width: 100%;
-      @include omega(4n);
+    @include large {
+      @include span-columns(4);
+      @include omega(3n);
     }
-    padding: 1em;
   }
 
   img {

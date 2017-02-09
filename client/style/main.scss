@@ -130,16 +130,7 @@ input {
       font-size: 10em;
     }
   }
-}
-
-// $not-small: new-breakpoint(min-width 400px max-width 600px);
-// @mixin media($not-small) {
-//   .fancy {
-//     h1 {
-//       font-size: 1rem;
-//     }
-//   }
-// }
+} 
 
 .button {
   font-family: 'bebas bold';

@@ -80,7 +80,6 @@ nav {
 }
 
 .sidebar-wrap {
-  // display: none;
   @include large {
     display: none;
   }
@@ -88,6 +87,11 @@ nav {
   .nav-link {
     display: block;
     margin-bottom: 1em;
+  }
+
+  button {
+    color: white;
+    background: black;
   }
 }
 

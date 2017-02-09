@@ -42,7 +42,7 @@ export default class CustomSidebar extends React.Component {
         >
           { this.state.isOpen
             ? this.renderSidebar()
-            : <button onClick={this.toggleSidebar}>X</button>
+            : <button onClick={this.toggleSidebar}>&#9776;</button>
           }
 
         </ReactCSSTransitionGroup>

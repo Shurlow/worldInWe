@@ -35,13 +35,25 @@ export default class Story extends React.Component {
 
     return (
       <div className='story'>
-        <ImageLoader
-          src={image}
-          preloader={()=> <img className='loader' src='/res/loader.gif'/>}
-          wrapper={React.DOM.div}
-          imgProps={{className: 'source'}}
-          className='lead-image'
-        />
+        {video
+          ? <div className='lead-image'>
+              <iframe
+                type="text/html"
+                width="100%"
+                height="100%"
+                src={video}
+                frameBorder="0"
+                allowFullScreen="allowfullscreen"
+              ></iframe>
+            </div>
+          : <ImageLoader
+              src={image}
+              preloader={()=> <img className='loader' src='/res/loader.gif'/>}
+              wrapper={React.DOM.div}
+              imgProps={{className: 'source'}}
+              className='lead-image'
+            />
+        }
         <div className='content' style={{backgroundImage: `url(${randomBgImg()})`}}>
           <article>
             <header className="center">

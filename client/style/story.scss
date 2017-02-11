@@ -28,9 +28,10 @@
 .lead-image {
   @include span-columns(10);
   @include shift(1);
-  // min-height: 500px;
+  height: 420px;
   img {
     width: 100%;
+    height: 100%;
   }
 }
 

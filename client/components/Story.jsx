@@ -36,7 +36,7 @@ export default class Story extends React.Component {
     return (
       <div className='story'>
         {video
-          ? <div className='lead-image'>
+          ? <div className='lead-image video'>
               <iframe
                 type="text/html"
                 width="100%"
